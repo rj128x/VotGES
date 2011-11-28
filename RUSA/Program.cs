@@ -18,7 +18,7 @@ namespace RUSA
 			}
 
 			List<double> napors=new List<double>();
-			for (double napor=13; napor <= 23; napor+=1) {
+			for (double napor=13; napor <= 23; napor+=0.1) {
 				napors.Add(napor);
 			}
 			calc(powers, napors, true, @"d:\RUSA_BY_POWER.html");
@@ -69,7 +69,7 @@ namespace RUSA
 					idealRashod += ideal;
 				}
 				koef = minByX / maxByX;
-				res += String.Format("<tr><td>{0:00.00}</td><td>{1:00.000000}</td><td>{1:00.000000}</td></tr>", x, minByX / idealByX, maxByX / idealByX);
+				res += String.Format("<tr><td>{0:00.00}</td><td>{1:00.000000}</td><td>{2:00.000000}</td></tr>", x, idealByX/minByX, idealByX/maxByX);
 			}
 
 			res = String.Format("<table>{0}</table>", res);
