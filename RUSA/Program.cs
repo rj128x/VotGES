@@ -21,8 +21,8 @@ namespace RUSA
 			for (double napor=13; napor <= 23; napor++) {
 				napors.Add(napor);
 			}
-			calc(powers,napors,true);
-			//calc(napors, powers, false);
+			//calc(powers,napors,true);
+			calc(napors, powers, false);
 		}
 
 		protected static void calc(List<double>X, List<double> Y, bool isFirstPower) {
@@ -61,13 +61,13 @@ namespace RUSA
 					minRashod += min;
 					maxRashod += max;
 				}
-				koef=min / max;
+				koef = minByX / maxByX;
 				koefsByX.Add(x, koef);
 			}
 
 			string res="";
 			foreach (KeyValuePair<double,double> de in koefsByX){
-				res += String.Format("<tr><td>{0}</td><td>{1}</td></tr>", de.Key, de.Value);
+				res += String.Format("<tr><td>{0:00.00}</td><td>{1:00.000000}</td></tr>", de.Key, de.Value);
 			}
 			res = String.Format("<table>{0}</table>", res);
 			System.IO.File.WriteAllText(@"d:\RUSA.html", res);
