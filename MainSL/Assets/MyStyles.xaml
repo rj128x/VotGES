@@ -1,0 +1,165 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation"
+   xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
+  xmlns:conv ="clr-namespace:MainSL.Converters"
+	xmlns:gl="clr-namespace:MainSL"
+	xmlns:prim="clr-namespace:System.Windows.Controls.Primitives;assembly=System.Windows.Controls.Data">
+
+
+	<conv:DateTimeConverter x:Key="dateTimeConverter"/>
+	<conv:ExpiredTimeConverter x:Key="expiredTimeConverter"/>
+	<conv:VisibilityConverter x:Key="visibilityConverter"/>
+	<conv:VisibilityNotConverter x:Key="visibilityNotConverter"/>
+	<conv:LogicNotConverter x:Key="logicNotConverter"/>
+	<conv:HeightConverter x:Key="heightConverter"/>
+	<conv:ForegroundColorConverter x:Key="foregroundColorConverter"/>
+	<conv:BackgroundColorConverter x:Key="backgroundColorConverter"/>
+
+	<Style x:Name="CenterHeaderText" TargetType="prim:DataGridColumnHeader">
+		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+		<Setter Property="VerticalContentAlignment" Value="Stretch"/>
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="VerticalAlignment" Value="Stretch"/>
+		<Setter Property="Background">
+			<Setter.Value>
+				<LinearGradientBrush >
+					<GradientStop Color="Blue"/>
+					<GradientStop Color="DarkBlue"/>
+				</LinearGradientBrush>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
+		<Setter Property="FontSize" Value="11"></Setter>
+		<Setter Property="FontWeight" Value="Bold"></Setter>
+		<Setter Property="Opacity" Value="0.9"></Setter>
+		<Setter Property="Margin" Value="0,0,0,0"/>
+		<Setter Property="Padding" Value="0,0,0,0"/>
+	</Style>
+
+	<sdk:HierarchicalDataTemplate ItemsSource="{Binding ChildObjects}" x:Key="treeTemplate" >
+		<StackPanel>
+			<TextBlock Text="{Binding ObjectName}" FontWeight="Normal" FontFamily="Courier New"/>
+		</StackPanel>
+	</sdk:HierarchicalDataTemplate>
+
+	
+
+
+	
+
+
+	
+	<Style x:Key="Label" TargetType="TextBlock">
+		<Setter Property="FontWeight" Value="Normal"/>
+		<Setter Property="FontStyle" Value="Italic"/>
+		<Setter Property="VerticalAlignment" Value="Center"/>
+		<Setter Property="Foreground" Value="Gray"/>
+	</Style>
+
+	<Style x:Key="Value" TargetType="TextBlock">
+		<Setter Property="FontWeight" Value="ExtraBold"/>
+		<Setter Property="FontStyle" Value="Normal"/>
+		<Setter Property="VerticalAlignment" Value="Center"/>
+		<Setter Property="HorizontalAlignment" Value="Center"/>
+		<Setter Property="Margin" Value="2,2,2,2"/>
+		<Setter Property="FontFamily" Value="Courier New"/>
+		<Setter Property="FontSize" Value="14"/>
+		<Setter Property="TextDecorations" Value="Underline"/>
+	</Style>
+
+	<Style x:Key="ValueText" TargetType="TextBlock">
+		<Setter Property="FontWeight" Value="ExtraBold"/>
+		<Setter Property="FontStyle" Value="Normal"/>
+		<Setter Property="VerticalAlignment" Value="Stretch"/>
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="Margin" Value="2,2,2,2"/>
+		<Setter Property="FontFamily" Value="Courier New"/>
+		<Setter Property="FontSize" Value="12"/>
+		<Setter Property="TextWrapping" Value="Wrap"/>
+		<Setter Property="TextDecorations" Value="Underline"/>
+		<Setter Property="TextAlignment" Value="Center"/>
+	</Style>
+
+	<Style x:Key="LabelPrint" TargetType="TextBlock">
+		<Setter Property="FontWeight" Value="Normal"/>
+		<Setter Property="FontStyle" Value="Italic"/>
+		<Setter Property="VerticalAlignment" Value="Top"/>
+		<Setter Property="Foreground" Value="Black"/>
+		<Setter Property="FontSize" Value="10"/>
+	</Style>
+
+	<Style x:Key="ValuePrintSmall" TargetType="TextBlock">
+		<Setter Property="FontWeight" Value="Normal"/>
+		<Setter Property="FontStyle" Value="Italic"/>
+		<Setter Property="VerticalAlignment" Value="Top"/>
+		<Setter Property="Foreground" Value="Black"/>
+		<Setter Property="FontSize" Value="8"/>
+		<Setter Property="TextWrapping" Value="Wrap"/>
+	</Style>
+
+	<Style x:Key="ValuePrint" TargetType="TextBlock">
+		<Setter Property="FontWeight" Value="ExtraBold"/>
+		<Setter Property="FontStyle" Value="Normal"/>
+		<Setter Property="VerticalAlignment" Value="Top"/>
+		<Setter Property="HorizontalAlignment" Value="Center"/>
+		<Setter Property="Margin" Value="2,2,2,2"/>
+		<Setter Property="FontFamily" Value="Courier New"/>
+		<Setter Property="FontSize" Value="10"/>
+		<Setter Property="TextDecorations" Value="Underline"/>
+	</Style>
+
+	<Style x:Key="ValuePrintText" TargetType="TextBlock">
+		<Setter Property="FontWeight" Value="ExtraBold"/>
+		<Setter Property="FontStyle" Value="Normal"/>
+		<Setter Property="VerticalAlignment" Value="Stretch"/>
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="Margin" Value="2,2,2,2"/>
+		<Setter Property="FontFamily" Value="Courier New"/>
+		<Setter Property="FontSize" Value="10"/>
+		<Setter Property="TextWrapping" Value="Wrap"/>
+		<Setter Property="TextDecorations" Value="Underline"/>
+		<Setter Property="TextAlignment" Value="Center"/>
+	</Style>
+
+	<Style x:Key="borderFilterControl" TargetType="Border">
+		<Setter Property="BorderThickness" Value="2"/>
+		<Setter Property="BorderBrush" Value="LightGray"/>
+		<Setter Property="CornerRadius" Value="5"/>
+	</Style>
+
+	<Style x:Key="borderGripPrint" TargetType="Border">
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="BorderBrush" Value="Black"/>
+		<Setter Property="CornerRadius" Value="0"/>
+		<Setter Property="Margin" Value="0,0,0,0"/>
+		<Setter Property="Padding" Value="0,0,0,0"/>
+	</Style>
+
+	<Style TargetType="Button">
+		<Setter Property="Foreground" Value="Black"></Setter>
+		<Setter Property="Background">
+			<Setter.Value>
+				<LinearGradientBrush >
+					<GradientStop Color="Blue"/>
+					<GradientStop Color="DarkBlue"/>
+				</LinearGradientBrush>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
+		<Setter Property="FontSize" Value="12"></Setter>
+		<Setter Property="FontWeight" Value="Bold"></Setter>
+		<Setter Property="Opacity" Value="0.9"></Setter>
+	</Style>
+
+	
+	
+</ResourceDictionary>
