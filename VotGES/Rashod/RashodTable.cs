@@ -200,8 +200,8 @@ namespace VotGES
 		}
 
 		public static double getStationRashod(double power, double napor, RashodCalcMode mode) {
-			if (napor < 16)
-				mode = RashodCalcMode.min;
+			/*if (napor < 16)
+				mode = RashodCalcMode.min;*/
 			switch (mode) {
 				case RashodCalcMode.avg:
 					return getRashodTable(11).getRashod(power, napor);
