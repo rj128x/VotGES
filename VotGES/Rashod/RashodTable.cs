@@ -142,7 +142,6 @@ namespace VotGES
 
 		protected double getRashod(double power, double napor) {
 			try {
-				Logger.Info(power.ToString()+" "+ napor.ToString());
 				KeyValuePair<double,SortedList<double,double>> naporRashod1=rashodsByNapor.Last(de => de.Key <= napor);
 				KeyValuePair<double,SortedList<double,double>> naporRashod2=rashodsByNapor.First(de => de.Key >= napor);
 				KeyValuePair<double,double>powerRashod11=naporRashod1.Value.Last(de => de.Key <= power);
@@ -159,7 +158,6 @@ namespace VotGES
 				double rashod2=powerRashod21.Value + (powerRashod22.Value - powerRashod21.Value) * powerK;
 				double rashod=rashod1 + (rashod2 - rashod1) * naporK;
 				//Logger.debug(String.Format("Расход мощность: {0} napor: {1} ({2})", power, napor, rashod));
-				Logger.Info(rashod.ToString());
 				return rashod;
 			} catch (Exception e) {
 				Logger.Error(String.Format("Ошибка получения расхода мощность: {0} napor: {1} ({2})",power,napor,e.Message));
@@ -198,7 +196,6 @@ namespace VotGES
 		}
 
 		public static double getRashod(int ga, double power, double napor) {
-			Logger.Info(ga.ToString());
 			return getRashodTable(ga).getRashod(power, napor);
 		}
 

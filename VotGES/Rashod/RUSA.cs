@@ -20,8 +20,9 @@ namespace VotGES.Rashod
 					SortedList<double,int>rashods=new SortedList<double, int>();
 					for (int ga=1; ga <= 10; ga++) {
 						double rashodGA=RashodTable.getRashod(ga, divPower, napor);						
-						while (rashods.Keys.Contains(rashodGA))
-							rashodGA += 10e-20;
+						while (rashods.Keys.Contains(rashodGA)) {
+							rashodGA += 10e-5;
+						}
 						rashods.Add(rashodGA, ga);
 					}
 
@@ -40,7 +41,6 @@ namespace VotGES.Rashod
 						if (maxRashod < fullRashod)
 							maxRashod = fullRashod;
 					}
-
 				}
 				//Logger.Info(String.Format("Получение оптимального расхода для напора {0} и мощности {1} : {2}",napor,power,minRashod));
 				return min ? minRashod : maxRashod;
