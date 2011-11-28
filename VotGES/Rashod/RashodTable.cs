@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using VotGES.Rashod;
 
 namespace VotGES
 {
@@ -140,7 +141,8 @@ namespace VotGES
 		}
 
 		protected double getRashod(double power, double napor) {
-			try {				
+			try {
+				Logger.Info(power.ToString()+" "+ napor.ToString());
 				KeyValuePair<double,SortedList<double,double>> naporRashod1=rashodsByNapor.Last(de => de.Key <= napor);
 				KeyValuePair<double,SortedList<double,double>> naporRashod2=rashodsByNapor.First(de => de.Key >= napor);
 				KeyValuePair<double,double>powerRashod11=naporRashod1.Value.Last(de => de.Key <= power);
@@ -157,6 +159,7 @@ namespace VotGES
 				double rashod2=powerRashod21.Value + (powerRashod22.Value - powerRashod21.Value) * powerK;
 				double rashod=rashod1 + (rashod2 - rashod1) * naporK;
 				//Logger.debug(String.Format("Расход мощность: {0} napor: {1} ({2})", power, napor, rashod));
+				Logger.Info(rashod.ToString());
 				return rashod;
 			} catch (Exception e) {
 				Logger.Error(String.Format("Ошибка получения расхода мощность: {0} napor: {1} ({2})",power,napor,e.Message));
@@ -164,48 +167,7 @@ namespace VotGES
 			}
 		}
 
-		protected static double getOptimRashod(double power, double napor, bool min=true) {
-			try {
-				if (power < 35) 
-					return 0;
-				double minRashod=10e6;
-				double maxRashod=0;
-				for (int count=1; count <= 10; count++) {
-					double divPower=(double) power / (double)count;
-					if ((divPower<35)||(divPower>110))
-						continue;
-					SortedList<double,int>rashods=new SortedList<double,int>();
-					for (int ga=1; ga <= 10; ga++) {
-						double rashodGA=RashodTable.getRashod(ga, divPower, napor);
-						while (rashods.Keys.Contains(rashodGA))
-							rashodGA += 10e-20;
-						rashods.Add(rashodGA,ga);
-					}
-
-					if (min) {
-						double fullRashod=0;
-						for (int i=0; i < count; i++) {
-							fullRashod += rashods.Keys[i];
-						}
-						if (minRashod > fullRashod)
-							minRashod = fullRashod;
-					} else {
-						double fullRashod=0;
-						for (int i=0; i < count; i++) {
-							fullRashod += rashods.Keys[9 - i];
-						}
-						if (maxRashod < fullRashod)
-							maxRashod = fullRashod;
-					}
-					
-				}
-				return min?minRashod:maxRashod;
-			} catch (Exception e) {
-				Logger.Error(String.Format("Ошибка получения оптимпльного расхода мощность: {0} napor: {1} ({2})", power, napor, e.Message));
-				Logger.Error(e.StackTrace);
-				return 0;
-			}
-		}
+		
 
 		protected double getPower(double rashod, double napor) {
 			try {
@@ -236,19 +198,20 @@ namespace VotGES
 		}
 
 		public static double getRashod(int ga, double power, double napor) {
+			Logger.Info(ga.ToString());
 			return getRashodTable(ga).getRashod(power, napor);
 		}
 
-		public static double getStationRashod(double power,double napor, RashodCalcMode mode){
-			if (napor<16)
-				mode=RashodCalcMode.min;
-			switch (mode){
+		public static double getStationRashod(double power, double napor, RashodCalcMode mode) {
+			if (napor < 16)
+				mode = RashodCalcMode.min;
+			switch (mode) {
 				case RashodCalcMode.avg:
-					return getRashodTable(11).getRashod(power,napor);
+					return getRashodTable(11).getRashod(power, napor);
 				case RashodCalcMode.min:
-					return getOptimRashod(power, napor,true);
+					return RUSA.getOptimRashod(power, napor, true);
 				case RashodCalcMode.max:
-					return getOptimRashod(power, napor,false);
+					return RUSA.getOptimRashod(power, napor, false);
 				default:
 					return getRashodTable(12).getRashod(power, napor);
 			}

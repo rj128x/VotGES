@@ -53,12 +53,28 @@
       <DependentUpon>rashods.resx</DependentUpon>
     </Compile>
     <Compile Include="Rashod\RashodTable.cs" />
+    <Compile Include="Rashod\RUSA.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="rashods.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>rashods.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\rashods\1.csv" />
+    <None Include="Data\rashods\10.csv" />
+    <None Include="Data\rashods\2.csv" />
+    <None Include="Data\rashods\3.csv" />
+    <None Include="Data\rashods\4.csv" />
+    <None Include="Data\rashods\5.csv" />
+    <None Include="Data\rashods\6.csv" />
+    <None Include="Data\rashods\7.csv" />
+    <None Include="Data\rashods\8.csv" />
+    <None Include="Data\rashods\9.csv" />
+    <None Include="Data\rashods\avg.csv" />
+    <None Include="Data\rashods\opt.csv" />
+    <None Include="Data\rashods\rashod.xls" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

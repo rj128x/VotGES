@@ -22,8 +22,8 @@ namespace VotGES
 		}		
 
 
-		public static void init(string path, string name) {
-			context = new Logger();
+		public static Logger createFileLogger(string path, string name) {
+			Logger newLogger = new Logger();
 			string fileName=String.Format("{0}/{1}_{2}.txt", path, name, DateTime.Now.ToShortDateString().Replace(":", "_").Replace("/", "_").Replace(".", "_"));
 			PatternLayout layout = new PatternLayout(@"[%d] %-10p %m%n");
 			FileAppender appender=new FileAppender();
@@ -32,7 +32,12 @@ namespace VotGES
 			appender.AppendToFile = true;
 			BasicConfigurator.Configure(appender);
 			appender.ActivateOptions();
-			context.logger = LogManager.GetLogger(name);
+			newLogger.logger = LogManager.GetLogger(name);
+			return newLogger;
+		}
+
+		public static void init(Logger context) {
+			Logger.context = context;
 		}
 
 		protected virtual  string createMessage(string message, LoggerSource source=LoggerSource.server,string user="", string ip="") {
@@ -43,15 +48,15 @@ namespace VotGES
 			}
 		}
 
-		protected void info(string str, LoggerSource source = LoggerSource.server) {
+		protected virtual void info(string str, LoggerSource source = LoggerSource.server) {
 			logger.Info(createMessage(str, source));
 		}
 
-		protected void error(string str, LoggerSource source = LoggerSource.server) {
+		protected virtual void error(string str, LoggerSource source = LoggerSource.server) {
 			logger.Error(createMessage(str, source));
 		}
 
-		protected void debug(string str, LoggerSource source = LoggerSource.server) {
+		protected virtual void debug(string str, LoggerSource source = LoggerSource.server) {
 			logger.Debug(createMessage(str, source));
 		}
 

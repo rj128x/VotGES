@@ -24,7 +24,7 @@ namespace VotGES.Web
 		}
 
 		protected void Application_Start() {
-			Logger.init(Server.MapPath("/logs/"), "orders");
+			Logger.init(Logger.createFileLogger(Server.MapPath("/logs/"), "orders"));
 			Logger.Info("Старт приложения");
 			AreaRegistration.RegisterAllAreas();
 
