@@ -19,5 +19,9 @@ namespace RUSA
 		protected override void error(string str, LoggerSource source = LoggerSource.server) {
 			Console.WriteLine(createMessage(str, source));
 		}
+
+		protected override string createMessage(string message, LoggerSource source = LoggerSource.server, string user = "", string ip = "") {
+			return message;
+		}
 	}
 }

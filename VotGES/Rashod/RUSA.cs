@@ -7,7 +7,7 @@ namespace VotGES.Rashod
 {
 	public static class RUSA
 	{
-		public static double getOptimRashod(double power, double napor, bool min = true) {			
+		public static double getOptimRashod(double power, double napor, bool min = true, List<int> sostav =null) {			
 			try {
 				if (power < 35)
 					return 0;
@@ -27,19 +27,33 @@ namespace VotGES.Rashod
 					}
 
 					if (min) {
-						double fullRashod=0;
+						double fullRashod=0;						
 						for (int i=0; i < count; i++) {
 							fullRashod += rashods.Keys[i];
 						}
-						if (minRashod > fullRashod)
+						if (minRashod > fullRashod) {
+							if (sostav != null)
+								sostav.Clear();
+							for (int i=0; i < count; i++) {
+								if (sostav != null)
+									sostav.Add(rashods.Values[i]);
+							}
 							minRashod = fullRashod;
+						}
 					} else {
 						double fullRashod=0;
 						for (int i=0; i < count; i++) {
 							fullRashod += rashods.Keys[9 - i];
 						}
-						if (maxRashod < fullRashod)
+						if (maxRashod < fullRashod) {
 							maxRashod = fullRashod;
+							if (sostav != null)
+								sostav.Clear();
+							for (int i=0; i < count; i++) {
+								if (sostav != null)
+									sostav.Add(rashods.Values[9-i]);
+							}
+						}
 					}
 				}
 				//Logger.Info(String.Format("Получение оптимального расхода для напора {0} и мощности {1} : {2}",napor,power,minRashod));
@@ -50,6 +64,7 @@ namespace VotGES.Rashod
 				return 0;
 			}
 		}
+
 
 
 		

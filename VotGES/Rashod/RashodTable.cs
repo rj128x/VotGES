@@ -196,7 +196,12 @@ namespace VotGES
 		}
 
 		public static double getRashod(int ga, double power, double napor) {
+			if (power == 0) return 0;
 			return getRashodTable(ga).getRashod(power, napor);
+		}
+
+		public static double KPD(double power, double napor, double rashod) {
+			return 1000 * power / (9.81 * napor) / rashod;
 		}
 
 		public static double getStationRashod(double power, double napor, RashodCalcMode mode) {
