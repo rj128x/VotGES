@@ -18,7 +18,7 @@ namespace RUSA
 			}
 
 			List<double> napors=new List<double>();
-			for (double napor=13; napor <= 23; napor+=0.1) {
+			for (double napor=13; napor <= 23; napor+=1) {
 				napors.Add(napor);
 			}
 			calc(powers, napors, true, @"d:\RUSA_BY_POWER.html");
