@@ -55,6 +55,7 @@
     <Compile Include="Rashod\RashodTable.cs" />
     <Compile Include="Rashod\RUSA.cs" />
     <Compile Include="Rashod\RUSADiffPower.cs" />
+    <Compile Include="Rashod\RUSADiffPowerNapors.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="rashods.resx">
