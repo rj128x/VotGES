@@ -73,7 +73,7 @@ namespace VotGES.Rashod
 			if (sumPower + (nextGACount+1) * 100 < needPower)
 				return;
 			if (gaIndex < availGenerators.Count) {
-				for (int power=0; power <= 100; power+=1) {
+				for (int power=0; power <= 100; power+=10) {
 					if (sumPower + power > needPower)
 						break;
 					if ((sumPower+power + 100 * nextGACount < needPower)|| (power != 0 && power < 35))
