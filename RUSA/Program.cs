@@ -14,12 +14,22 @@ namespace RUSA
 
 
 		static void Main(string[] args) {
-			
+			int powerStart=50;
+			int powerStop=1000;
+			int powerStep=50;
+			Console.WriteLine(String.Join("-", args));
+			try {
+				powerStart=Int32.Parse(args[0]);
+				powerStop=Int32.Parse(args[1]);
+				powerStep=Int32.Parse(args[2]);
+			} catch {
+
+			}
 			Logger.init(new ConsoleLogger());
 			//Console.WriteLine(RashodTable.getStationRashod(349, 13, RashodCalcMode.min));
 
 			List<double>powers=new List<double>();
-			for (double power=50; power <= 1020; power+=50) {
+			for (double power=powerStart; power <= powerStop; power+=powerStep) {
 				powers.Add(power);
 			}
 
