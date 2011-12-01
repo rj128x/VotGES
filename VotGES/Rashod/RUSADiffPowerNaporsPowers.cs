@@ -81,7 +81,7 @@ namespace VotGES.Rashod
 				for (int power=0; power <= 100; power+=5) {
 					if ((power != 0 && power < 35))
 						continue;					
-						if (step == 1000) {
+						if (step == 100000) {
 							Logger.Info(String.Join("~", currentSostav.Values));
 							step = 0;
 						}
