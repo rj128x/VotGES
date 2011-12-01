@@ -5,46 +5,52 @@ using System.Text;
 
 namespace VotGES.Rashod
 {
-	public class RUSADiffPowerNapors
+	public class RUSADiffPowerNaporsPowers
 	{
 		public List<int> availGenerators;
 
 		public SortedList<int,double> currentSostav;
-		public SortedList<double,SortedList<int,double>> minSostav;
-		public SortedList<double,double> minRashod;
+		public SortedList<double,SortedList<double,SortedList<int,double>>> minSostav;
+		public SortedList<double,SortedList<double,double>> minRashod;
 
-		public double needPower;
+		public List<double> needPowers;
 		public List<double> napors;
 		public int step=0;
 
-		public RUSADiffPowerNapors() {
+		public RUSADiffPowerNaporsPowers() {
 			availGenerators=new List<int>();
 			
 		}
 
-		public void getMinRashod(List<int> avail, List<double> napors,double power) {
-			this.needPower = power;
+		public void getMinRashod(List<int> avail, List<double> napors, List<double> powers) {
+			this.needPowers = powers;
 			this.napors = napors;
-			minRashod = new SortedList<double, double>();
-			minSostav = new SortedList<double, SortedList<int, double>>();
+			minRashod = new SortedList<double, SortedList<double, double>>();
+			minSostav = new SortedList<double,SortedList<double,SortedList<int,double>>>();
 			currentSostav = new SortedList<int, double>();
-			foreach (double napor in napors) {
-				minRashod.Add(napor, 10e8);
-				minSostav.Add(napor, new SortedList<int, double>());				
-			}
-			availGenerators = avail;
-			currentSostav.Clear();
-			foreach (double napor in napors) {
-				minSostav[napor].Clear();
-			}
 
-			int index=0;
-			foreach (int ga in avail) {
+			foreach (double power in needPowers) {
+				minRashod.Add(power, new SortedList<double, double>());
+				minSostav.Add(power, new SortedList<double, SortedList<int, double>>());
+
 				foreach (double napor in napors) {
-					minSostav[napor].Add(ga, 0);
+					minRashod[power].Add(napor, 10e8);
+					minSostav[power].Add(napor, new SortedList<int, double>());
+				}
+			}
+			
+			
+			availGenerators = avail;
+						
+
+			foreach (int ga in avail) {
+				foreach (double power in needPowers) {
+					foreach (double napor in napors) {
+						minSostav[power][napor].Add(ga, 0);
+						
+					}					
 				}
 				currentSostav.Add(ga, 0);
-				index++;
 			}
 
 			
@@ -56,8 +62,8 @@ namespace VotGES.Rashod
 
 		public void calc(int gaIndex) {			
 			int gaNumber=availGenerators[gaIndex];
-			int nextGACount=availGenerators.Count - (gaIndex + 1);			
 			double sumPower=0;
+			double newPower;
 			SortedList<double,double> sumRashod=new SortedList<double, double>();
 			foreach (double napor in napors) {
 				sumRashod[napor] = 0;
@@ -71,28 +77,32 @@ namespace VotGES.Rashod
 					sumRashod[napor] += currentSostav[ga] > 0 ? RashodTable.getRashod(ga, currentSostav[ga], napor) : 0;
 				}
 			}
-			if (sumPower + (nextGACount+1) * 100 < needPower)
-				return;
 			if (gaIndex < availGenerators.Count) {
-				for (int power=0; power <= 100; power+=1) {
-					if (sumPower + power > needPower)
-						break;
-					if ((sumPower+power + 100 * nextGACount < needPower)|| (power != 0 && power < 35))
-						continue;
-					
-						if (step == 10000) {
+				for (int power=0; power <= 100; power+=5) {
+					if ((power != 0 && power < 35))
+						continue;					
+						if (step == 1000) {
 							Logger.Info(String.Join("~", currentSostav.Values));
 							step = 0;
 						}
 						step++;
 						currentSostav[gaNumber] = power;
-						if ((sumPower + power == needPower)) {
+						newPower = sumPower + power;
+
+						bool exist=true;
+						try {
+							needPowers.First(p => p == newPower);
+						}catch {
+							exist=false;
+						}
+												
+						if (exist) {
 							foreach (double napor in napors) {
 								gaRashod = RashodTable.getRashod(gaNumber, power, napor);								
-								if (sumRashod[napor] + gaRashod < minRashod[napor]) {
-									minRashod[napor] = sumRashod[napor] + gaRashod;
+								if (sumRashod[napor] + gaRashod < minRashod[newPower][napor]) {
+									minRashod[newPower][napor] = sumRashod[napor] + gaRashod;
 									foreach (int ga in availGenerators) {
-										minSostav[napor][ga] = currentSostav[ga];
+										minSostav[newPower][napor][ga] = currentSostav[ga];
 									}
 								}
 							}						
