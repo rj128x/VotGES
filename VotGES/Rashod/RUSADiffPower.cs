@@ -22,11 +22,11 @@ namespace VotGES.Rashod
 		public double stepPower=1;
 
 		public RUSADiffPower() {
-			availGenerators=new List<int>();
-			
+			availGenerators = new List<int>();
+
 		}
 
-		public double getMinRashod(List<int> avail,double power, double napor) {
+		public double getMinRashod(List<int> avail, double power, double napor) {
 			this.needPower = power;
 			this.napor = napor;
 			minRashod = 10e8;
@@ -47,19 +47,18 @@ namespace VotGES.Rashod
 			return minRashod;
 		}
 
-		public void calc(int gaIndex) {			
+		public void calc(int gaIndex) {
 			int gaNumber=availGenerators[gaIndex];
-			int nextGACount=availGenerators.Count - (gaIndex + 1);			
+			int nextGACount=availGenerators.Count - (gaIndex + 1);
 			double sumPower=0;
 			double rashod=0;
-			double gaRashod;
 
 			for (int i=0; i < gaIndex; i++) {
 				int ga=availGenerators[i];
 				sumPower += currentSostav[ga];
 				rashod += currentSostav[ga] > 0 ? RashodTable.getRashod(ga, currentSostav[ga], napor) : 0;
 			}
-			if (sumPower + (nextGACount+1) * 100 < needPower)
+			if (sumPower + (nextGACount + 1) * 100 < needPower)
 				return;
 			if (gaIndex < availGenerators.Count) {
 
@@ -68,15 +67,17 @@ namespace VotGES.Rashod
 					calc(gaIndex + 1);
 				}
 
-				for (double power=startSostav[gaNumber]; power <= stopSostav[gaNumber]; power += stepPower) {
+				double power=startSostav[gaNumber];
+				while (power <= stopSostav[gaNumber]) {
 					if (sumPower + power > needPower)
 						break;
-					if ((sumPower+power + 100 * nextGACount < needPower))
-						continue;
-					checkSostav(gaNumber, power, napor, rashod, sumPower);					
+					if ((sumPower + power + 100 * nextGACount < needPower))
+						power = needPower - sumPower - 100 * nextGACount;
+					checkSostav(gaNumber, power, napor, rashod, sumPower);
 					if (gaIndex < availGenerators.Count - 1) {
 						calc(gaIndex + 1);
 					}
+					power += stepPower;
 				}
 				currentSostav[gaNumber] = 0;
 			}
@@ -86,16 +87,14 @@ namespace VotGES.Rashod
 			double gaRashod;
 			gaRashod = RashodTable.getRashod(gaNumber, power, napor);
 			currentSostav[gaNumber] = power;
-			if ((sumPower + power == needPower)) {
-				if (rashod + gaRashod < minRashod) {
-					minRashod = rashod + gaRashod;
-					foreach (int ga in availGenerators) {
-						minSostav[ga] = currentSostav[ga];
-					}
+			if ((sumPower + power == needPower) && (rashod + gaRashod < minRashod)) {
+				minRashod = rashod + gaRashod;
+				foreach (int ga in availGenerators) {
+					minSostav[ga] = currentSostav[ga];
 				}
 			}
 		}
 
-		
+
 	}
 }
