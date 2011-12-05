@@ -41,9 +41,12 @@ namespace RUSA
 			}
 
 			List<double> napors=new List<double>();
-			for (double napor=13; napor <= 23; napor+=1) {
+			for (double napor=18; napor <= 18; napor+=1) {
 				napors.Add(napor);
 			}
+
+			double[]naporsMisc=new double[] { 17, 18, 19, 20, 21, 22, 16, 15, 14, 13, 23 };
+			 
 
 			List<double> naporsAll=new List<double>();
 			for (double napor=13; napor <= 23; napor += 0.1) {
@@ -51,7 +54,11 @@ namespace RUSA
 			}
 
 
-			//calcFull(powers, napors, "RUSA_FULL.html");
+			foreach (double napor in naporsMisc) {
+				List<double>np=new List<double>();
+				np.Add(napor);
+				calcFull(powers, np, "RUSA_FULL.html");
+			}
 			//createMaxKPD(napors, "KPD_MAX.html");
 			//createKPD(napors,powersAll, "KPD");
 			
@@ -104,13 +111,23 @@ namespace RUSA
 				rusa.startSostav.Add(ga,sostav[ga]);
 				rusa.stopSostav.Add(ga,sostav[ga]);
 			}
-			avail.Add(keys[count - 2]);
-			avail.Add(keys[count - 1]);
-			rusa.startSostav.Add(keys[count - 2], 35);
-			rusa.startSostav.Add(keys[count - 1], 35);
-			rusa.stopSostav.Add(keys[count - 2], 100);
-			rusa.stopSostav.Add(keys[count - 1], 100);
+			for (int i=1; i <= 2; i++) {
+				avail.Add(keys[count - i]);
+				rusa.startSostav.Add(keys[count - i], 35);
+				rusa.stopSostav.Add(keys[count - i], 100);
+			}
 			rusa.getMinRashod(avail, power, napor);
+			double rashod=rusa.minRashod;
+			int index=3;
+			while (rashod == 10e8) {
+				rusa.startSostav[keys[count - index]] = 35;
+				rusa.stopSostav[keys[count - index]] = 100;
+				Console.Write("==" + index + "==");
+				rusa.getMinRashod(avail, power, napor);				
+				index++;
+				rashod = rusa.minRashod;
+			}
+			
 		}
 
 		public static void createMaxKPD(List<double> napors, string fn) {
@@ -221,9 +238,11 @@ namespace RUSA
 					diff = rusaNew.minRashod;
 
 					Console.WriteLine(String.Format(" d={0:0.00} k={1:0.00} [{2}]", diff, ideal / diff * 100, ArrToStr(rusaNew.minSostav)));
-
+					
 					str = String.Format("<tr><td>{0}</td><td>{1}</td><td>{2:0.00}</td><td>{3:0.00}</td><td>{4:0.00}</td><td>{5:0.0000}</td><td>{6:0.0000}</td><td>{7:0.0000}</td><td>{8}</td><td>{9:0.00}</td><td>{10}</td><td>{11}</td></tr>",
 						napor, power, eq, aleks, diff, ideal / eq * 100, ideal / aleks * 100, ideal / diff * 100, String.Join(" ", sostav), power / sostav.Count, ArrToStr(rusaAl.minSostav), ArrToStr(rusaNew.minSostav));
+															
+
 					System.IO.File.AppendAllText(fn, str);
 				}
 			}
