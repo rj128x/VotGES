@@ -14,7 +14,7 @@ namespace RUSA
 
 
 		static void Main(string[] args) {
-			int powerStart=50;
+			int powerStart=200;
 			int powerStop=1000;
 			int powerStep=50;
 			string fn="logs";
@@ -51,9 +51,11 @@ namespace RUSA
 			}
 
 
-				calcFull(powers, napors, "RUSA_FULL.html");
+			calcFull(powers, napors, "RUSA_FULL.html");
+			
 			
 			//calcFullNew(powers, napors, "RUSA_FULL.html");
+
 			/*calc(powersAll, naporsAll, true, @"d:\RUSA_BY_POWER.html", powers);
 			calc(naporsAll, powersAll, false, @"d:\RUSA_BY_NAPOR.html", napors);*/
 
@@ -69,98 +71,125 @@ namespace RUSA
 
 		}
 
-		protected static void calcFullNew(List<double> powers, List<double> napors,string fn) {
-			List<int> allGa=new List<int>();
-			for (int ga=1; ga <= 10; ga++)
-				allGa.Add(ga);
-			List<int> sostav=new List<int>();
-			double eq=0;
-			double diff=0;
-			double ideal=0;
-			double koef;
-
-			int[] avail= { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-			RUSADiffPowerNaporsPowers rusa=new RUSADiffPowerNaporsPowers();
-			rusa.getMinRashod(avail.ToList(), napors, powers);
-
-			string res=String.Format("<tr><th>h</th><th>p</th><th>eq</th><th>diff</th><th>kpdEq</th><th>kpdDiff</th><th>sostavEq</th><th>pEq</th><th>sostavDiff</th></tr>");
-
-			foreach (double power in powers) {
-				foreach (double napor in napors) {
-					ideal = 1000 * power / (9.81 * napor);
-					Console.Write(String.Format("{0,-3} {1,-3}", napor, power));
-					eq = VotGES.Rashod.RUSA.getOptimRashod(power, napor, true, sostav);
-					Console.Write(String.Format(" e={0:00000.00} k={1:0.00}", eq, ideal / eq));
-					diff = rusa.minRashod[power][napor];
-
-					koef = diff / eq;
-
-					Console.WriteLine(String.Format(" d={0:00000.00} k={1:0.00} ({2}={3})", diff, ideal / diff, String.Join("-", sostav), String.Join("-", rusa.minSostav[power][napor].Values)));
-
-					res += String.Format("<tr><th>{0}</th><th>{1}</th><th>{2}</th><th>{3}</th><th>{4}</th><th>{5}</th><th>{6}</th><th>{7}</th><th>{8}</th></tr>",
-						napor, power, eq, diff, ideal / eq, ideal / diff, String.Join("-", sostav), power / sostav.Count, String.Join("-", rusa.minSostav[power][napor].Values));
+		protected static string ArrToStr(SortedList<int, double> arr) {
+			List<string> arrStr=new List<string>();
+			foreach (KeyValuePair<int,double> de in arr){
+				if (de.Value > 0) {
+					arrStr.Add(String.Format("{0}={1:0}", de.Key, de.Value));
 				}
 			}
-			res = String.Format("<table>{0}</table>", res);
-			System.IO.File.WriteAllText(fn, res);
+			return String.Join(" ", arrStr);
+				
 		}
 
+		protected static string ArrToStr(Dictionary<int, double> arr) {
+			List<string> arrStr=new List<string>();
+			foreach (KeyValuePair<int,double> de in arr) {
+				if (de.Value > 0) {
+					arrStr.Add(String.Format("{0}={1:0}", de.Key, de.Value));
+				}
+			}
+			return String.Join(" ", arrStr);
+
+		}
+
+		protected static void checkAleks(Dictionary<int, double> sostav,double power, double napor, RUSADiffPower rusa) {
+			int count=sostav.Count;
+			int[] keys=sostav.Keys.ToArray();
+			List<int> avail=new List<int>();
+			for (int i=0; i < count-2; i++) {
+				int ga=keys[i];
+				avail.Add(ga);
+				rusa.startSostav.Add(ga,sostav[ga]);
+				rusa.stopSostav.Add(ga,sostav[ga]);
+			}
+			avail.Add(keys[count - 2]);
+			avail.Add(keys[count - 1]);
+			rusa.startSostav.Add(keys[count - 2], 35);
+			rusa.startSostav.Add(keys[count - 1], 35);
+			rusa.stopSostav.Add(keys[count - 2], 100);
+			rusa.stopSostav.Add(keys[count - 1], 100);
+			rusa.getMinRashod(avail, power, napor);
+		}
 
 		protected static void calcFull(List<double> powers, List<double> napors, string fn) {
-			List<int> allGa=new List<int>();
-			for (int ga=1; ga <= 10; ga++)
-				allGa.Add(ga);
 			List<int> sostav=new List<int>();
-			double eqRashod=0;
-			double diffRashod=0;
-			double idealRashod=0;
+
 			double eq=0;
 			double diff=0;
+			double diff10=0;
+			double aleks=0;
 			double ideal=0;
-			double eqByX;
-			double diffByX;
-			double idealByX;
-			double koef;
 
-			string res=String.Format("<tr><th>h</th><th>p</th><th>eq</th><th>diff</th><th>kpdEq</th><th>kpdDiff</th><th>sostavEq</th><th>pEq</th><th>sostavDiff</th></tr>");
+
+			SortedList<double,Dictionary<int,double>> kpdArrs=new SortedList<double,Dictionary<int,double>>();
+			foreach (double napor in napors){
+				kpdArrs.Add(napor,RashodTable.KPDArr(napor));
+			}
+
+			string res=String.Format("<table border='1'><tr><th>h</th><th>p</th><th>eq</th><th>Alekseev</th><th>diff</th><th>kpdEq</th><th>kpdAl</th><th>kpdDiff</th><th>sostavEq</th><th>pEq</th><th>sostavAl</th><th>sostavDiff</th></tr>");
+			System.IO.File.WriteAllText(fn, res);
+			string str="";
 			foreach (double power in powers) {
-				eqByX = 0;
-				diffByX = 0;
-				idealByX = 0;
-
-
-				
+				int[] allGAArr=new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 				foreach (double napor in napors){
 					RUSADiffPower rusa=new RUSADiffPower();
-					
+					RUSADiffPower rusaAl=new RUSADiffPower();
+
 					ideal = 1000 * power / (9.81 * napor);
 					Console.Write(String.Format("{0,-3} {1,-3}", napor, power));
 					eq = VotGES.Rashod.RUSA.getOptimRashod(power, napor, true,sostav);
-					rusa.getMinRashod(sostav, power, napor);
-					Console.Write(String.Format(" e={0:00000.00} k={1:0.00}", eq, ideal / eq));
-					diff = rusa.minRashod;
+					Console.Write(String.Format(" e={0:0.00} k={1:0.00} [{2}]", eq, ideal / eq*100,String.Join("-", sostav)));
 
-					koef = diff / eq;
+					Dictionary<int,double> kpdArr=kpdArrs[napor];
+					double p=0;
+					Dictionary<int,double> sostavAleks=new Dictionary<int, double>();
+					foreach(KeyValuePair<int,double> de in kpdArr){
+						p+=de.Value;
+						sostavAleks.Add(de.Key,de.Value);
+						if (p>=power){
+							break;
+						}
+					}
+					checkAleks(sostavAleks, power, napor,rusaAl);
+					aleks = rusaAl.minRashod;
 
-					Console.WriteLine(String.Format(" d={0:00000.00} k={1:0.00} ({2}={3})", diff, ideal / diff, String.Join("-", sostav), String.Join("-", rusa.minSostav.Values)));
+					Console.Write(String.Format(" al={0:0.00} k={1:0.00} [{2}]", aleks, ideal / aleks * 100, ArrToStr(rusaAl.minSostav)));
 
-					eqByX += eq;
-					diffByX += diff;
-					idealByX += ideal;
+					rusa.stepPower = 10;
+					foreach (int ga in allGAArr) {
+						rusa.startSostav.Add(ga, 30);
+						rusa.stopSostav.Add(ga, 100);
+					}
+					diff10=rusa.getMinRashod(allGAArr.ToList(), power, napor);
+					Console.Write(String.Format(" [{0}]", ArrToStr(rusa.minSostav)));
 
-					eqRashod += eq;
-					diffRashod += diff;
-					idealRashod += ideal;
-					res += String.Format("<tr><th>{0}</th><th>{1}</th><th>{2}</th><th>{3}</th><th>{4}</th><th>{5}</th><th>{6}</th><th>{7}</th><th>{8}</th></tr>",
-						napor, power, eq, diff, ideal / eq, ideal / diff, String.Join("-", sostav), power / sostav.Count, String.Join("-", rusa.minSostav.Values));
+					RUSADiffPower rusaNew=new RUSADiffPower();
+					rusaNew.stepPower = 1;
+					List<int>avail=new List<int>();
+					foreach (int ga in allGAArr) {
+						double min=rusa.minSostav[ga];						
+						if (min > 0) {
+							avail.Add(ga);
+							rusaNew.startSostav.Add(ga, min - 10>=35?min-10:35);
+							rusaNew.stopSostav.Add(ga, min + 10<=100?min+10:100);
+						}
+					}
+					rusaNew.getMinRashod(avail, power, napor);					
+					diff = rusaNew.minRashod;
+
+					Console.WriteLine(String.Format(" d={0:0.00} k={1:0.00} [{2}]", diff, ideal / diff * 100, ArrToStr(rusaNew.minSostav)));
+
+					str = String.Format("<tr><td>{0}</td><td>{1}</td><td>{2:0.00}</td><td>{3:0.00}</td><td>{4:0.00}</td><td>{5:0.0000}</td><td>{6:0.0000}</td><td>{7:0.0000}</td><td>{8}</td><td>{9:0.00}</td><td>{10}</td><td>{11}</td></tr>",
+						napor, power, eq, aleks, diff, ideal / eq * 100, ideal / aleks * 100, ideal / diff * 100, String.Join(" ", sostav), power / sostav.Count, ArrToStr(rusaAl.minSostav), ArrToStr(rusaNew.minSostav));
+					System.IO.File.AppendAllText(fn, str);
 				}
 			}
-			res = String.Format("<table>{0}</table>", res);
-			System.IO.File.WriteAllText(fn, res);
-			
+			System.IO.File.AppendAllText(fn, "</table>");
 		}
 
+		
 
 		protected static void calc(List<double>X, List<double> Y, bool isFirstPower, string fn, List<double> XReport) {
 			double minX=XReport.First();

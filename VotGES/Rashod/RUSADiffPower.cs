@@ -11,10 +11,15 @@ namespace VotGES.Rashod
 
 		public SortedList<int,double> currentSostav= new SortedList<int, double>();
 		public SortedList<int,double> minSostav=new SortedList<int, double>();
+
+		public SortedList<int,double> startSostav=new SortedList<int, double>();
+		public SortedList<int,double> stopSostav=new SortedList<int, double>();
+
 		public double minRashod;
 
 		public double needPower;
 		public double napor;
+		public double stepPower=1;
 
 		public RUSADiffPower() {
 			availGenerators=new List<int>();
@@ -57,29 +62,39 @@ namespace VotGES.Rashod
 			if (sumPower + (nextGACount+1) * 100 < needPower)
 				return;
 			if (gaIndex < availGenerators.Count) {
-				for (int power=0; power <= 100; power+=5) {
+
+				checkSostav(gaNumber, 0, napor, rashod, sumPower);
+				if (gaIndex < availGenerators.Count - 1) {
+					calc(gaIndex + 1);
+				}
+
+				for (double power=startSostav[gaNumber]; power <= stopSostav[gaNumber]; power += stepPower) {
 					if (sumPower + power > needPower)
 						break;
-					if ((sumPower+power + 100 * nextGACount < needPower)|| (power != 0 && power < 35))
+					if ((sumPower+power + 100 * nextGACount < needPower))
 						continue;
-					gaRashod = RashodTable.getRashod(gaNumber, power, napor);
-					currentSostav[gaNumber] = power;					
-					//Logger.Info(String.Join("~", currentSostav.Values));
-					if ((sumPower + power == needPower)) {						
-						if (rashod + gaRashod < minRashod) {
-							minRashod = rashod+gaRashod;
-							foreach (int ga in availGenerators) {
-								minSostav[ga] = currentSostav[ga];
-							}
-						} 
-					}
+					checkSostav(gaNumber, power, napor, rashod, sumPower);					
 					if (gaIndex < availGenerators.Count - 1) {
 						calc(gaIndex + 1);
 					}
 				}
 				currentSostav[gaNumber] = 0;
 			}
-		}	
+		}
+
+		protected void checkSostav(int gaNumber, double power, double napor, double rashod, double sumPower) {
+			double gaRashod;
+			gaRashod = RashodTable.getRashod(gaNumber, power, napor);
+			currentSostav[gaNumber] = power;
+			if ((sumPower + power == needPower)) {
+				if (rashod + gaRashod < minRashod) {
+					minRashod = rashod + gaRashod;
+					foreach (int ga in availGenerators) {
+						minSostav[ga] = currentSostav[ga];
+					}
+				}
+			}
+		}
 
 		
 	}

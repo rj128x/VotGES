@@ -18,7 +18,7 @@ namespace VotGES
 		protected double minPower;
 		protected double maxPower;
 		protected double minNapor;
-		protected double maxNapor;
+		protected double maxNapor;		
 		protected double stepNapor;
 		protected double stepPower;
 
@@ -193,6 +193,37 @@ namespace VotGES
 				Logger.Error(String.Format("Ошибка получения мощности расход: {0} napor: {1} ({2})", rashod, napor, e.Message));
 				return 0;
 			}
+		}
+
+		protected double getMaxKPDPower(double napor) {
+			double maxKPD=-1;
+			double maxKPDPower=-1;
+			double kpd=0;
+			for (double power=minPower; power <= maxPower; power += stepPower) {
+				kpd = KPD(power, napor, getRashod(power, napor));
+				if (kpd > maxKPD) {
+					maxKPD = kpd;
+					maxKPDPower = power;
+				}
+			}
+			return maxKPDPower;
+		}
+
+		public static Dictionary<int,double> KPDArr(double napor) {
+			SortedList<double,int> kpdArr=new SortedList<double,int>();
+			SortedList<int,double> powerArr=new SortedList<int,double>();
+			for (int ga=1;ga<=10;ga++){
+				double maxKPDPower=getRashodTable(ga).getMaxKPDPower(napor);
+				double kpd=KPD(maxKPDPower,napor,getRashodTable(ga).getRashod(maxKPDPower,napor));
+				kpdArr.Add(kpd,ga);
+				powerArr.Add(ga,maxKPDPower);
+			}
+			Dictionary<int,double> result=new Dictionary<int,double>();
+			for (int index=1;index<=10;index++){
+				int ga=kpdArr.Values[10-index];
+				result.Add(ga,powerArr[ga]);
+			}
+			return result;
 		}
 
 		public static double getRashod(int ga, double power, double napor) {

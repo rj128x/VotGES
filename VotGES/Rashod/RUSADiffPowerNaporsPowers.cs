@@ -78,7 +78,7 @@ namespace VotGES.Rashod
 				}
 			}
 			if (gaIndex < availGenerators.Count) {
-				for (int power=0; power <= 100; power+=5) {
+				for (int power=0; power <= 100; power+=10) {
 					if ((power != 0 && power < 35))
 						continue;					
 						if (step == 100000) {
