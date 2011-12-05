@@ -53,7 +53,7 @@ namespace RUSA
 
 			//calcFull(powers, napors, "RUSA_FULL.html");
 			//createMaxKPD(napors, "KPD_MAX.html");
-			createKPD(napors,powersAll, "KPD");
+			//createKPD(napors,powersAll, "KPD");
 			
 			//calcFullNew(powers, napors, "RUSA_FULL.html");
 
