@@ -53,8 +53,13 @@ namespace RUSA
 				naporsAll.Add(napor);
 			}
 
+			int[] avail=new int[]{1,2,3,4,5,6,7,8,9,10};
+			RUSADiffPowerFull rusa=new RUSADiffPowerFull(avail.ToList(),700,18);
+			foreach (double power in powers) {
+				Logger.Info(String.Format("{0}-{1}", power, rusa.getMinRashod(power)));
+			}
 
-			calcFull(powers, naporsMisc.ToList(), "RUSA_FULL");
+			//calcFull(powers, naporsMisc.ToList(), "RUSA_FULL");
 			/*createMaxKPD(napors, "KPD_MAX.html");
 			createMaxKPD1(napors, "KPD_MAX1.html");*/
 			//createKPD(napors,powersAll, "KPD");
@@ -63,15 +68,6 @@ namespace RUSA
 
 			/*calc(powersAll, naporsAll, true, @"d:\RUSA_BY_POWER.html", powers);
 			calc(naporsAll, powersAll, false, @"d:\RUSA_BY_NAPOR.html", napors);*/
-
-			int[] avail= { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-
-			/*RUSADiffPowerNapors rusa=new RUSADiffPowerNapors();
-			rusa.getMinRashod(avail.ToList(),napors,800);*/
-
-
-
-
 
 
 		}
