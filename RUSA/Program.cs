@@ -41,7 +41,7 @@ namespace RUSA
 			}
 
 			List<double> napors=new List<double>();
-			for (double napor=18; napor <= 18; napor += 1) {
+			for (double napor=13; napor <= 23; napor += 1) {
 				napors.Add(napor);
 			}
 
@@ -54,8 +54,8 @@ namespace RUSA
 			}
 
 
-			calcFull(powers, naporsMisc.ToList(), "RUSA_FULL.html");
-			//createMaxKPD(napors, "KPD_MAX.html");
+			//calcFull(powers, naporsMisc.ToList(), "RUSA_FULL");
+			createMaxKPD1(napors, "KPD_MAX1.html");
 			//createKPD(napors,powersAll, "KPD");
 
 			//calcFullNew(powers, napors, "RUSA_FULL.html");
@@ -145,6 +145,20 @@ namespace RUSA
 			System.IO.File.WriteAllText(fn, res);
 		}
 
+		public static void createMaxKPD1(List<double> napors, string fn) {
+			string res="";
+			foreach (double napor in napors) {
+				res += String.Format("<tr><th>{0}</th>", napor);
+				Dictionary<int,double> kpdArr=RashodTable.KPDArr(napor);
+				foreach (KeyValuePair<int,double> de in kpdArr) {
+					res += String.Format("<td>{0}<br>{1:0.00}<br>{2:000.00}</td>", de.Key, de.Value, RashodTable.KPD(de.Value, napor, RashodTable.getRashod(de.Key, de.Value, napor)) * 100);
+				}
+				res += "</tr>";
+			}
+			res = String.Format("<table border='1'>{0}</table>", res);
+			System.IO.File.WriteAllText(fn, res);
+		}
+
 		public static void createKPD(List<double> napors, List<double> powers, string fn) {
 			for (int ga=1; ga <= 10; ga++) {
 				string res="";
@@ -167,6 +181,7 @@ namespace RUSA
 		}
 
 		protected static void calcFull(List<double> powers, List<double> napors, string fn) {
+			fn = fn+"_" + Guid.NewGuid().ToString() + ".html";
 			List<int> sostav=new List<int>();
 
 			double eq=0;
