@@ -14,10 +14,9 @@ namespace RUSA
 
 
 		static void Main(string[] args) {
-			int powerStart=200;
+			int powerStart=50;
 			int powerStop=1000;
-			int powerStep=50;
-			string fn="logs";
+			int powerStep=10;
 			Console.WriteLine(String.Join("-", args));
 			try {
 				powerStart = Int32.Parse(args[0]);
@@ -27,8 +26,6 @@ namespace RUSA
 
 			}
 			Logger.init(new ConsoleLogger());
-			//Logger.init(LoggerFile.createFileLogger(fn,String.Join("_", args),new LoggerFile()));
-			//Console.WriteLine(RashodTable.getStationRashod(349, 13, RashodCalcMode.min));
 
 			List<double>powers=new List<double>();
 			for (double power=powerStart; power <= powerStop; power += powerStep) {
@@ -36,7 +33,7 @@ namespace RUSA
 			}
 
 			List<double>powersAll=new List<double>();
-			for (double power=1; power <= 1020; power++) {
+			for (double power=50; power <= 1000; power++) {
 				powersAll.Add(power);
 			}
 
@@ -58,12 +55,13 @@ namespace RUSA
 			}*/
 
 			//calcFullAleks(powers, napors.ToList(), "RUSA_FULL_ALEKS");
-			calcFull(powers, napors.ToList(), "RUSA_FULL");
+			//calcFull(powers, napors.ToList(), "RUSA_FULL");
+			compareFull(powersAll, napors.ToList(), "RUSA_COMPARE_FULL");
+			
 			/*createMaxKPD(napors, "KPD_MAX.html");
 			createMaxKPD1(napors, "KPD_MAX1.html");*/
 			//createKPD(napors,powersAll, "KPD");
 
-			//calcFullNew(powers, napors, "RUSA_FULL.html");
 
 			/*calc(powersAll, naporsAll, true, @"d:\RUSA_BY_POWER.html", powers);
 			calc(naporsAll, powersAll, false, @"d:\RUSA_BY_NAPOR.html", napors);*/
@@ -274,6 +272,57 @@ namespace RUSA
 					Console.WriteLine();
 					System.IO.File.AppendAllText(fn, str);
 				}
+			}
+			System.IO.File.AppendAllText(fn, "</table>");
+		}
+
+		protected static void compareFull(List<double> powers, List<double> napors, string fn) {
+			fn = fn + "_" + Guid.NewGuid().ToString() + ".html";
+			List<int> sostav=new List<int>();
+
+			double eq=0;
+			double diff=0;
+			double ideal=0;
+			int[] allGAArr=new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+			SortedList<double,RUSADiffPowerFull> rusas=new SortedList<double, RUSADiffPowerFull>();
+			string res=String.Format("<table border='1'><tr><th>p</th>");
+			foreach (double napor in napors) {
+				res += String.Format("<th>{0}m</th>", napor);
+				rusas.Add(napor,new RUSADiffPowerFull(allGAArr.ToList(),napor));
+			}
+			res += "</tr>";
+			
+			System.IO.File.WriteAllText(fn, res);
+			string str="";
+			foreach (double power in powers) {
+				str="";
+				str+=String.Format("<th>{0}</th>",power);
+				foreach (double napor in napors) {
+					RUSADiffPowerFull rusa=rusas[napor];
+					ideal = 1000 * power / (9.81 * napor);
+					Console.Write(String.Format("{0,-3} {1,-3}", napor, power));
+					eq = VotGES.Rashod.RUSA.getOptimRashod(power, napor, true, sostav);
+					Console.Write(String.Format(" e={0:0.00} k={1:0.00} [{2}]", eq, ideal / eq * 100, String.Join("-", sostav)));
+					sostav.Sort();
+					diff = rusa.getMinRashod(power);
+					SortedList<int,double> sostavOpt=rusa.getMinSostav(power);
+
+					double q=0;
+					foreach (KeyValuePair<int,double> de in sostavOpt) {
+						q += RashodTable.getRashod(de.Key, de.Value, napor);
+					}
+					Console.Write("====" + (diff - q) + "=====");
+
+					Console.WriteLine(String.Format(" d={0:0.00} k={1:0.00} [{2}]", diff, ideal / diff * 100, ArrToStr(sostavOpt)));
+
+					//str += String.Format("<td>{0}</td>",(ideal / diff * 100)-(ideal/eq*100));
+					str += String.Format("<td>{0}</td>", eq-diff);
+					
+					Console.WriteLine();					
+				}
+				str += "</tr>";
+				System.IO.File.AppendAllText(fn, str);
 			}
 			System.IO.File.AppendAllText(fn, "</table>");
 		}
