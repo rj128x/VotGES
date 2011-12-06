@@ -53,13 +53,13 @@ namespace RUSA
 				naporsAll.Add(napor);
 			}
 
-			int[] avail=new int[]{1,2,3,4,5,6,7,8,9,10};
-			RUSADiffPowerFull rusa=new RUSADiffPowerFull(avail.ToList(),700,18);
+			/*int[] avail=new int[]{1,2,3,4,5,6,7,8,9,10};
+			RUSADiffPowerFull rusa=new RUSADiffPowerFull(avail.ToList(),18);
 			foreach (double power in powers) {
 				Logger.Info(String.Format("{0}-{1}", power, rusa.getMinRashod(power)));
-			}
+			}*/
 
-			//calcFull(powers, naporsMisc.ToList(), "RUSA_FULL");
+			calcFull(powers, naporsMisc.ToList(), "RUSA_FULL");
 			/*createMaxKPD(napors, "KPD_MAX.html");
 			createMaxKPD1(napors, "KPD_MAX1.html");*/
 			//createKPD(napors,powersAll, "KPD");
@@ -94,7 +94,7 @@ namespace RUSA
 
 		}
 
-		protected static void checkAleks1(Dictionary<int, double> sostav, double power, double napor, RUSADiffPower rusa) {
+		protected static void checkAleks(Dictionary<int, double> sostav, double power, double napor, RUSADiffPower rusa) {
 			int count=sostav.Count;
 			int[] keys=sostav.Keys.ToArray();
 			List<int> avail=new List<int>();
@@ -123,32 +123,6 @@ namespace RUSA
 				rashod = rusa.minRashod;
 			}
 
-		}
-
-		protected static void checkAleks(Dictionary<int, double> sostav, double power, double napor, RUSADiffPower rusa) {
-			int count=sostav.Count;
-			int[] keys=sostav.Keys.ToArray();
-			List<int> avail=new List<int>();
-			double sumPower=0;
-			for (int i=0; i < count - 1; i++) {
-				int ga=keys[i];
-				avail.Add(ga);
-				rusa.startSostav.Add(ga, sostav[ga]);
-				rusa.stopSostav.Add(ga, sostav[ga]);
-				sumPower += sostav[ga];
-			}
-			double diff=(power - sumPower)/(count-1);
-
-			avail.Add(keys[count - 1]);
-			rusa.startSostav.Add(keys[count - 1], 35);
-			rusa.stopSostav.Add(keys[count - 1], 100);
-
-			for (int i=0; i < count - 1; i++) {
-				int ga=keys[i];
-				rusa.startSostav[ga] -= diff;
-				sumPower += sostav[ga]+=diff;
-			}			
-			rusa.getMinRashod(avail, power, napor);
 		}
 
 		public static void createMaxKPD(List<double> napors, string fn) {
@@ -266,8 +240,6 @@ namespace RUSA
 
 			double eq=0;
 			double diff=0;
-			double diff10=0;			
-			double aleks=0;
 			double ideal=0;
 			int[] allGAArr=new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
@@ -281,33 +253,28 @@ namespace RUSA
 			System.IO.File.WriteAllText(fn, res);
 			string str="";
 			foreach (double napor in napors) {
-
+				RUSADiffPowerFull rusa=new RUSADiffPowerFull(allGAArr.ToList(), napor);
 				foreach (double power in powers) {
-					RUSADiffPower rusa=new RUSADiffPower();
-					RUSADiffPower rusaAl=new RUSADiffPower();
 
 					ideal = 1000 * power / (9.81 * napor);
 					Console.Write(String.Format("{0,-3} {1,-3}", napor, power));
 					eq = VotGES.Rashod.RUSA.getOptimRashod(power, napor, true, sostav);
 					Console.Write(String.Format(" e={0:0.00} k={1:0.00} [{2}]", eq, ideal / eq * 100, String.Join("-", sostav)));
 
-					double p=power / sostav.Count;
-					RUSADiffPower rusaNew=new RUSADiffPower();
-					rusaNew.stepPower = 1;
-					List<int>avail=new List<int>();
-					foreach (int ga in sostav) {
-						avail.Add(ga);
-						rusaNew.startSostav.Add(ga, p-5 >= 35 ? p - 5 : 35);
-						rusaNew.stopSostav.Add(ga, p+5 <= 100 ? p + 5 : 100);
+					diff = rusa.getMinRashod(power);
+					SortedList<int,double> sostavOpt=rusa.getMinSostav(power);
+
+					double q=0;
+					foreach (KeyValuePair<int,double> de in sostavOpt) {
+						q += RashodTable.getRashod(de.Key, de.Value, napor);
 					}
-					rusaNew.getMinRashod(avail, power, napor);
-					diff = rusaNew.minRashod;
+					Console.Write("====" + (diff - q) + "=====");
 
-					Console.WriteLine(String.Format(" d={0:0.00} k={1:0.00} [{2}]", diff, ideal / diff * 100, ArrToStr(rusaNew.minSostav)));
-
+					Console.WriteLine(String.Format(" d={0:0.00} k={1:0.00} [{2}]", diff, ideal / diff * 100, ArrToStr(sostavOpt)));
 
 					str = String.Format("<tr><td>{0}</td><td>{1}</td><td>{2:0.00}</td><td>{3:0.00}</td><td>{4:0.0000}</td><td>{5:0.0000}</td><td>{6}</td><td>{7:0.00}</td><td>{8}</td></tr>",
-						napor, power, eq, aleks, diff / eq * 100, diff / aleks * 100, String.Join(" ", sostav), power / sostav.Count, ArrToStr(rusaNew.minSostav));
+						napor, power, eq, diff, ideal / eq * 100, ideal / diff * 100, String.Join(" ", sostav), power / sostav.Count, ArrToStr(sostavOpt));
+					
 
 					Console.WriteLine();
 					System.IO.File.AppendAllText(fn, str);
