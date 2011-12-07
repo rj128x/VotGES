@@ -44,7 +44,7 @@ namespace RUSA
 
 
 			List<double> naporsAll=new List<double>();
-			for (double napor=13; napor <= 23; napor += 0.1) {
+			for (double napor=17; napor <= 22; napor += 0.1) {
 				naporsAll.Add(napor);
 			}
 
@@ -55,8 +55,8 @@ namespace RUSA
 			}*/
 
 			//calcFullAleks(powers, napors.ToList(), "RUSA_FULL_ALEKS");
-			//calcFull(powers, napors.ToList(), "RUSA_FULL");
-			compareFull(powersAll, napors.ToList(), "RUSA_COMPARE_FULL");
+			calcFull(powers, naporsAll, "RUSA_FULL");
+			//compareFull(powersAll, napors.ToList(), "RUSA_COMPARE_FULL");
 			
 			/*createMaxKPD(napors, "KPD_MAX.html");
 			createMaxKPD1(napors, "KPD_MAX1.html");*/
@@ -241,14 +241,18 @@ namespace RUSA
 			foreach (double napor in napors) {
 				kpdArrs.Add(napor, RashodTable.KPDArr(napor));
 			}
+			SortedList<double,RUSADiffPowerFull> rusas=new SortedList<double, RUSADiffPowerFull>();
 
 			string res=String.Format("<table border='1'><tr><th>h</th><th>p</th><th>eq</th><th>Diff</th><th>kpdEq</th><th>kpdDiff</th><th>sostavEq</th><th>pEq</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>");
 			System.IO.File.WriteAllText(fn, res);
 			string str="";
-			foreach (double napor in napors) {
-				RUSADiffPowerFull rusa=new RUSADiffPowerFull(allGAArr.ToList(), napor);
-				foreach (double power in powers) {
-
+			RUSADiffPowerFull rusa;
+			foreach (double power in powers) {				
+				foreach (double napor in napors) {
+					if (!rusas.Keys.Contains(napor)) {
+						rusas.Add(napor, new RUSADiffPowerFull(allGAArr.ToList(), napor));
+					}
+					rusa = rusas[napor];
 					ideal = 1000 * power / (9.81 * napor);
 					Console.Write(String.Format("{0,-3} {1,-3}", napor, power));
 					eq = VotGES.Rashod.RUSA.getOptimRashod(power, napor, true, sostav);
