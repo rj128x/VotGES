@@ -7,13 +7,16 @@ namespace VotGES.Rashod
 {	
 	public class RUSADiffPowerFull
 	{
-		public List<int> availGenerators;
+		protected static SortedList<string, SortedList<double, RUSADiffPowerFull>> cache=new SortedList<string, SortedList<double, RUSADiffPowerFull>>();
 
-		public SortedList<int,double> currentSostav= new SortedList<int, double>();
-		public SortedList<int,double> minSostav=new SortedList<int, double>();
+		static RUSADiffPowerFull() {
+			cache = new SortedList<string, SortedList<double, RUSADiffPowerFull>>();
+		}
 
-		public SortedList<int,double> startSostav=new SortedList<int, double>();
-		public SortedList<int,double> stopSostav=new SortedList<int, double>();
+		protected List<int> availGenerators;
+
+		public static SortedList<int,double> startSostav=new SortedList<int, double>();
+		public static SortedList<int,double> stopSostav=new SortedList<int, double>();
 		public SortedList<int,SortedList<double,double>> minRashodsFull;
 		public SortedList<int,SortedList<double,SortedList<int,double>>> minSostavsFull;
 
@@ -22,21 +25,14 @@ namespace VotGES.Rashod
 		public double napor;
 		public double stepPower=1;
 
-		public RUSADiffPowerFull(List<int> avail,  double napor) {
+		protected RUSADiffPowerFull(List<int> avail,  double napor) {
 			availGenerators = new List<int>();
-			currentSostav = new SortedList<int, double>();
-			minSostav = new SortedList<int, double>();
 			startSostav = new SortedList<int, double>();
 			stopSostav=new SortedList<int, double>();
 
 			this.napor = napor;
 			minRashod = 10e8;
 			availGenerators = avail;
-
-			foreach (int ga in avail) {
-				minSostav.Add(ga, 0);
-				currentSostav.Add(ga, 0);
-			}
 
 			minRashodsFull = new SortedList<int, SortedList<double, double>>();
 			minSostavsFull = new SortedList<int, SortedList<double, SortedList<int, double>>>();
@@ -47,13 +43,14 @@ namespace VotGES.Rashod
 			preCalc(0);
 		}
 
-		public void preCalc(int gaIndex) {			
+		protected void preCalc(int gaIndex) {			
 			int gaNumber=availGenerators[gaIndex];
 			double gaRashod=0;
 			
 			double gaPower=0;
 			double newPower=0;
-			while (gaPower <= 100) {
+			double stop=gaNumber < 3 ? 110 : 100;
+			while (gaPower <= stop) {
 				//Logger.Info(String.Format("{0}={1}={2}",gaIndex,gaNumber,gaPower));
 				if (gaPower > 0 && gaPower < 35) {
 					gaPower += stepPower;
@@ -93,13 +90,25 @@ namespace VotGES.Rashod
 			}
 		}
 
-		public double getMinRashod(double power) {
-			double min=minRashodsFull[0][power];
+		protected static RUSADiffPowerFull getFromCache(List<int> availGenerators, double napor){
+			string str=String.Join("-", availGenerators);
+			if (!cache.Keys.Contains(str)) {
+				cache.Add(str, new SortedList<double, RUSADiffPowerFull>());								
+			}
+			if (!cache[str].Keys.Contains(napor)) {
+				RUSADiffPowerFull rusa=new RUSADiffPowerFull(availGenerators, napor);
+				cache[str].Add(napor, rusa);
+			}
+			return cache[str][napor];
+		}
+
+		public static double getMinRashod(List<int> availGenerators,double napor, double power) {			
+			double min=getFromCache(availGenerators,napor).minRashodsFull[0][power];
 			return min;
 		}
 
-		public SortedList<int,double> getMinSostav(double power) {
-			return minSostavsFull[0][power];
+		public static SortedList<int, double> getMinSostav(List<int> availGenerators, double napor, double power) {
+			return getFromCache(availGenerators,napor).minSostavsFull[0][power];
 		}
 	}
 }

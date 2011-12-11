@@ -38,6 +38,9 @@
 
 			<Border x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
 				<StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
+					<Rectangle x:Name="Divider3" Style="{StaticResource DividerStyle}"/>
+					<HyperlinkButton x:Name="Link3" Style="{StaticResource LinkStyle}" 
+                                     NavigateUri="/GeneratePBRPage" TargetName="ContentFrame" Content="Создать ПБР"/>
 					
 					<Rectangle x:Name="Divider1" Style="{StaticResource DividerStyle}"/>
 					<HyperlinkButton x:Name="Link1" Style="{StaticResource LinkStyle}" 
