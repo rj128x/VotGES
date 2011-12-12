@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Piramida3000Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="Piramida3000ModelStoreContainer">
+          <EntitySet Name="DATA" EntityType="Piramida3000Model.Store.DATA" store:Type="Tables" store:Schema="dbo" store:Name="DATA">
+            <DefiningQuery>SELECT 
+      [DATA].[PARNUMBER] AS [PARNUMBER], 
+      [DATA].[OBJECT] AS [OBJECT], 
+      [DATA].[ITEM] AS [ITEM], 
+      [DATA].[VALUE0] AS [VALUE0], 
+      [DATA].[VALUE1] AS [VALUE1], 
+      [DATA].[OBJTYPE] AS [OBJTYPE], 
+      [DATA].[DATA_DATE] AS [DATA_DATE], 
+      [DATA].[P2KStatus] AS [P2KStatus], 
+      [DATA].[RcvStamp] AS [RcvStamp], 
+      [DATA].[SEASON] AS [SEASON]
+      FROM [dbo].[DATA] AS [DATA]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "Piramida3000.dbo.DATA" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="DATA">
+          <Key>
+            <PropertyRef Name="PARNUMBER" />
+            <PropertyRef Name="OBJECT" />
+            <PropertyRef Name="ITEM" />
+            <PropertyRef Name="SEASON" />
+            <PropertyRef Name="DATA_DATE" />
+            <PropertyRef Name="OBJTYPE" />
+          </Key>
+          <Property Name="PARNUMBER" Type="int" Nullable="false" />
+          <Property Name="OBJECT" Type="int" Nullable="false" />
+          <Property Name="ITEM" Type="int" Nullable="false" />
+          <Property Name="VALUE0" Type="float" />
+          <Property Name="VALUE1" Type="float" />
+          <Property Name="OBJTYPE" Type="smallint" Nullable="false" />
+          <Property Name="DATA_DATE" Type="datetime" Nullable="false" />
+          <Property Name="P2KStatus" Type="float" />
+          <Property Name="RcvStamp" Type="datetime" />
+          <Property Name="SEASON" Type="int" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Piramida3000Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="Piramida3000Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DATA" EntityType="Piramida3000Model.DATA" />
+        </EntityContainer>
+        <EntityType Name="DATA">
+          <Key>
+            <PropertyRef Name="PARNUMBER" />
+            <PropertyRef Name="OBJECT" />
+            <PropertyRef Name="ITEM" />
+            <PropertyRef Name="SEASON" />
+            <PropertyRef Name="DATA_DATE" />
+            <PropertyRef Name="OBJTYPE" />
+          </Key>
+          <Property Name="PARNUMBER" Type="Int32" Nullable="false" />
+          <Property Name="OBJECT" Type="Int32" Nullable="false" />
+          <Property Name="ITEM" Type="Int32" Nullable="false" />
+          <Property Name="VALUE0" Type="Double" />
+          <Property Name="VALUE1" Type="Double" />
+          <Property Name="OBJTYPE" Type="Int16" Nullable="false" />
+          <Property Name="DATA_DATE" Type="DateTime" Nullable="false" />
+          <Property Name="P2KStatus" Type="Double" />
+          <Property Name="RcvStamp" Type="DateTime" />
+          <Property Name="SEASON" Type="Int32" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Piramida3000ModelStoreContainer" CdmEntityContainer="Piramida3000Entities">
+          <EntitySetMapping Name="DATA"><EntityTypeMapping TypeName="Piramida3000Model.DATA"><MappingFragment StoreEntitySet="DATA">
+            <ScalarProperty Name="PARNUMBER" ColumnName="PARNUMBER" />
+            <ScalarProperty Name="OBJECT" ColumnName="OBJECT" />
+            <ScalarProperty Name="ITEM" ColumnName="ITEM" />
+            <ScalarProperty Name="VALUE0" ColumnName="VALUE0" />
+            <ScalarProperty Name="VALUE1" ColumnName="VALUE1" />
+            <ScalarProperty Name="OBJTYPE" ColumnName="OBJTYPE" />
+            <ScalarProperty Name="DATA_DATE" ColumnName="DATA_DATE" />
+            <ScalarProperty Name="P2KStatus" ColumnName="P2KStatus" />
+            <ScalarProperty Name="RcvStamp" ColumnName="RcvStamp" />
+            <ScalarProperty Name="SEASON" ColumnName="SEASON" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Piramida">
+        <EntityTypeShape EntityType="Piramida3000Model.DATA" Width="1.5" PointX="0.75" PointY="0.75" Height="2.9417936197916665" IsExpanded="true" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

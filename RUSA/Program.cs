@@ -48,14 +48,11 @@ namespace RUSA
 				naporsAll.Add(napor);
 			}
 
-			/*int[] avail=new int[]{1,2,3,4,5,6,7,8,9,10};
-			RUSADiffPowerFull rusa=new RUSADiffPowerFull(avail.ToList(),18);
-			foreach (double power in powers) {
-				Logger.Info(String.Format("{0}-{1}", power, rusa.getMinRashod(power)));
-			}*/
 
-			//calcFullAleks(powers, napors.ToList(), "RUSA_FULL_ALEKS");
-			calcFull(powers, naporsAll, "RUSA_FULL");
+			CheckRusa.fn = "CHECK_RUSA.html";
+			CheckRusa.calc();
+
+			//calcFull(powers, naporsAll, "RUSA_FULL");
 			//compareFull(powersAll, napors.ToList(), "RUSA_COMPARE_FULL");
 			
 			/*createMaxKPD(napors, "KPD_MAX.html");
@@ -88,38 +85,7 @@ namespace RUSA
 			}
 			return str;
 		}
-
-
-		protected static void checkAleks(Dictionary<int, double> sostav, double power, double napor, RUSADiffPower rusa) {
-			int count=sostav.Count;
-			int[] keys=sostav.Keys.ToArray();
-			List<int> avail=new List<int>();
-			for (int i=0; i < count - 3; i++) {
-				int ga=keys[i];
-				avail.Add(ga);
-				rusa.startSostav.Add(ga, sostav[ga]);
-				rusa.stopSostav.Add(ga, sostav[ga]);
-			}
-			for (int i=1; i <= 3; i++) {
-				if (count - i >= 0) {
-					avail.Add(keys[count - i]);
-					rusa.startSostav.Add(keys[count - i], 35);
-					rusa.stopSostav.Add(keys[count - i], 100);
-				}
-			}
-			rusa.getMinRashod(avail, power, napor);
-			double rashod=rusa.minRashod;
-			int index=4;
-			while (rashod == 10e8) {
-				rusa.startSostav[keys[count - index]] = 35;
-				rusa.stopSostav[keys[count - index]] = 100;
-				Console.Write("==" + index + "==");
-				rusa.getMinRashod(avail, power, napor);
-				index++;
-				rashod = rusa.minRashod;
-			}
-
-		}
+				
 
 		public static void createMaxKPD(List<double> napors, string fn) {
 			string res="";
@@ -174,60 +140,7 @@ namespace RUSA
 				System.IO.File.WriteAllText(fn + "_" + ga + ".html", res);
 			}
 		}
-
-		protected static void calcFullAleks(List<double> powers, List<double> napors, string fn) {
-			fn = fn+"_" + Guid.NewGuid().ToString() + ".html";
-			List<int> sostav=new List<int>();
-
-			double eq=0;
-			double aleks=0;
-			double ideal=0;
-			int[] allGAArr=new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-
-			SortedList<double,Dictionary<int,double>> kpdArrs=new SortedList<double, Dictionary<int, double>>();
-			foreach (double napor in napors) {
-				kpdArrs.Add(napor, RashodTable.KPDArr(napor));
-			}
-
-			string res=String.Format("<table border='1'><tr><th>h</th><th>p</th><th>eq</th><th>Alekseev</th><th>kpdEq</th><th>kpdAl</th><th>sostavEq</th><th>pEq</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>");
-			System.IO.File.WriteAllText(fn, res);
-			string str="";
-			foreach (double napor in napors) {				
-
-				foreach (double power in powers) {
-					RUSADiffPower rusa=new RUSADiffPower();
-					RUSADiffPower rusaAl=new RUSADiffPower();
-
-					ideal = 1000 * power / (9.81 * napor);
-					Console.Write(String.Format("{0,-3} {1,-3}", napor, power));
-					eq = VotGES.Rashod.RUSA.getOptimRashod(power, napor, true, sostav);
-					Console.Write(String.Format(" e={0:0.00} k={1:0.00} [{2}]", eq, ideal / eq * 100, String.Join("-", sostav)));
-
-					Dictionary<int,double> kpdArr=kpdArrs[napor];
-					double p=0;
-					Dictionary<int,double> sostavAleks=new Dictionary<int, double>();
-					foreach (KeyValuePair<int,double> de in kpdArr) {
-						p += de.Value;
-						sostavAleks.Add(de.Key, de.Value);
-						if (p >= power) {
-							break;
-						}
-					}
-					checkAleks(sostavAleks, power, napor, rusaAl);
-					aleks = rusaAl.minRashod;
-
-					Console.Write(String.Format(" al={0:0.00} k={1:0.00} [{2}]", aleks, ideal / aleks * 100, ArrToStr(rusaAl.minSostav)));
-
-					str = String.Format("<tr><td>{0}</td><td>{1}</td><td>{2:0.00}</td><td>{3:0.00}</td><td>{4:0.0000}</td><td>{5:0.0000}</td><td>{6}</td><td>{7:0.00}</td>{8}</tr>",
-						napor, power, eq, aleks, ideal / eq * 100, ideal / aleks * 100, String.Join(" ", sostav), power / sostav.Count, ArrToTR(rusaAl.minSostav));
-
-					Console.WriteLine();
-					System.IO.File.AppendAllText(fn, str);
-				}
-			}
-			System.IO.File.AppendAllText(fn, "</table>");
-		}
-
+		
 		protected static void calcFull(List<double> powers, List<double> napors, string fn) {
 			fn = fn + "_" + Guid.NewGuid().ToString() + ".html";
 			List<int> sostav=new List<int>();

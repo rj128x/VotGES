@@ -95,6 +95,9 @@ namespace VotGES.Rashod
 			if (!cache.Keys.Contains(str)) {
 				cache.Add(str, new SortedList<double, RUSADiffPowerFull>());								
 			}
+			/*if (cache[str].Count > 100) {
+				cache[str].Clear();
+			}*/
 			if (!cache[str].Keys.Contains(napor)) {
 				RUSADiffPowerFull rusa=new RUSADiffPowerFull(availGenerators, napor);
 				cache[str].Add(napor, rusa);

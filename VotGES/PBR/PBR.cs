@@ -43,9 +43,7 @@ namespace VotGES.PBR
 		}
 
 		public bool checkCondition(PBRCondition newCondition) {
-			foreach (PBRCondition condition in Conditions) {
-				
-			}
+			return false;
 
 		}
 
