@@ -14,21 +14,11 @@ namespace RUSA
 
 
 		static void Main(string[] args) {
-			int powerStart=50;
-			int powerStop=1000;
-			int powerStep=10;
-			Console.WriteLine(String.Join("-", args));
-			try {
-				powerStart = Int32.Parse(args[0]);
-				powerStop = Int32.Parse(args[1]);
-				powerStep = Int32.Parse(args[2]);
-			} catch {
 
-			}
 			Logger.init(new ConsoleLogger());
 
 			List<double>powers=new List<double>();
-			for (double power=powerStart; power <= powerStop; power += powerStep) {
+			for (double power=50; power <= 1000; power += 50) {
 				powers.Add(power);
 			}
 
@@ -38,7 +28,7 @@ namespace RUSA
 			}
 
 			List<double> napors=new List<double>();
-			for (double napor=13; napor <= 23; napor += 1) {
+			for (double napor=17; napor <= 23; napor += 1) {
 				napors.Add(napor);
 			}
 
@@ -50,9 +40,12 @@ namespace RUSA
 
 
 			CheckRusa.fn = "CHECK_RUSA.html";
-			CheckRusa.calc();
 
-			//calcFull(powers, naporsAll, "RUSA_FULL");
+			int[] gas=new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+			//RUSADiffPowerFull.getMinRashod(gas.ToList(), 20, 300);
+			//CheckRusa.calc();
+
+			calcFull(powers, napors, "RUSA_FULL");
 			//compareFull(powersAll, napors.ToList(), "RUSA_COMPARE_FULL");
 			
 			/*createMaxKPD(napors, "KPD_MAX.html");
@@ -158,29 +151,31 @@ namespace RUSA
 			RUSADiffPowerFull rusa;
 			foreach (double power in powers) {				
 				foreach (double napor in napors) {
+					List<RUSADiffPowerFull.RusaChoice> choices=RUSADiffPowerFull.getChoices(allGA, napor, power);
+					foreach (RUSADiffPowerFull.RusaChoice choice in choices) {
+						ideal = 1000 * power / (9.81 * napor);
+						Console.Write(String.Format("{0,-3} {1,-3}", napor, power));
+						eq = VotGES.Rashod.RUSA.getOptimRashod(power, napor, true, sostav);
+						Console.Write(String.Format(" e={0:0.00} k={1:0.00} [{2}]", eq, ideal / eq * 100, String.Join("-", sostav)));
+						sostav.Sort();
+						diff = choice.rashod;
+						SortedList<int,double> sostavOpt=choice.sostav;
 
-					ideal = 1000 * power / (9.81 * napor);
-					Console.Write(String.Format("{0,-3} {1,-3}", napor, power));
-					eq = VotGES.Rashod.RUSA.getOptimRashod(power, napor, true, sostav);
-					Console.Write(String.Format(" e={0:0.00} k={1:0.00} [{2}]", eq, ideal / eq * 100, String.Join("-", sostav)));
-					sostav.Sort();
-					diff = RUSADiffPowerFull.getMinRashod(allGA, napor, power);
-					SortedList<int,double> sostavOpt=RUSADiffPowerFull.getMinSostav(allGA, napor, power);
+						double q=0;
+						foreach (KeyValuePair<int,double> de in sostavOpt) {
+							q += RashodTable.getRashod(de.Key, de.Value, napor);
+						}
+						Console.Write("====" + (diff - q) + "=====");
 
-					double q=0;
-					foreach (KeyValuePair<int,double> de in sostavOpt) {
-						q += RashodTable.getRashod(de.Key, de.Value, napor);
+						Console.WriteLine(String.Format(" d={0:0.00} k={1:0.00} [{2}]", diff, ideal / diff * 100, ArrToStr(sostavOpt)));
+
+						str = String.Format("<tr><td>{0}</td><td>{1}</td><td>{2:0.00}</td><td>{3:0.00}</td><td>{4:0.0000}</td><td>{5:0.0000}</td><td>{6}</td><td>{7:0.00}</td>{8}</tr>",
+							napor, power, eq, diff, ideal / eq * 100, ideal / diff * 100, String.Join(" ", sostav), power / sostav.Count, ArrToTR(sostavOpt));
+
+
+						Console.WriteLine();
+						System.IO.File.AppendAllText(fn, str);
 					}
-					Console.Write("====" + (diff - q) + "=====");
-
-					Console.WriteLine(String.Format(" d={0:0.00} k={1:0.00} [{2}]", diff, ideal / diff * 100, ArrToStr(sostavOpt)));
-
-					str = String.Format("<tr><td>{0}</td><td>{1}</td><td>{2:0.00}</td><td>{3:0.00}</td><td>{4:0.0000}</td><td>{5:0.0000}</td><td>{6}</td><td>{7:0.00}</td>{8}</tr>",
-						napor, power, eq, diff, ideal / eq * 100, ideal / diff * 100, String.Join(" ", sostav), power / sostav.Count, ArrToTR(sostavOpt));
-					
-
-					Console.WriteLine();
-					System.IO.File.AppendAllText(fn, str);
 				}
 			}
 			System.IO.File.AppendAllText(fn, "</table>");

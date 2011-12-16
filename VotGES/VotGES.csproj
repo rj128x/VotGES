@@ -65,7 +65,6 @@
     </Compile>
     <Compile Include="Rashod\RashodTable.cs" />
     <Compile Include="Rashod\RUSA.cs" />
-    <Compile Include="Rashod\RUSADiffPower.cs" />
     <Compile Include="Rashod\RUSADiffPowerFull.cs" />
   </ItemGroup>
   <ItemGroup>
