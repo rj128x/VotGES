@@ -91,19 +91,15 @@ namespace VotGES.Web.Models
     
     
     /// <summary>
-    /// Класс "RUSAData".
+    /// Класс "GAParams".
     /// </summary>
     [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Web.Models")]
-    public sealed partial class RUSAData : ComplexObject
+    public sealed partial class GAParams : ComplexObject
     {
         
-        private Dictionary<int, bool> _gaAvail;
+        private bool _avail;
         
-        private Guid _id;
-        
-        private double _napor;
-        
-        private double _power;
+        private int _gaNumber;
         
         #region Определение методов расширяемости
 
@@ -112,7 +108,104 @@ namespace VotGES.Web.Models
         /// не может быть использован для последующей настройки объекта.
         /// </summary>
         partial void OnCreated();
-        partial void OnGaAvailChanging(Dictionary<int, bool> value);
+        partial void OnAvailChanging(bool value);
+        partial void OnAvailChanged();
+        partial void OnGaNumberChanging(int value);
+        partial void OnGaNumberChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="GAParams"/>.
+        /// </summary>
+        public GAParams()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Avail".
+        /// </summary>
+        [DataMember()]
+        public bool Avail
+        {
+            get
+            {
+                return this._avail;
+            }
+            set
+            {
+                if ((this._avail != value))
+                {
+                    this.OnAvailChanging(value);
+                    this.RaiseDataMemberChanging("Avail");
+                    this.ValidateProperty("Avail", value);
+                    this._avail = value;
+                    this.RaiseDataMemberChanged("Avail");
+                    this.OnAvailChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GaNumber".
+        /// </summary>
+        [DataMember()]
+        public int GaNumber
+        {
+            get
+            {
+                return this._gaNumber;
+            }
+            set
+            {
+                if ((this._gaNumber != value))
+                {
+                    this.OnGaNumberChanging(value);
+                    this.RaiseDataMemberChanging("GaNumber");
+                    this.ValidateProperty("GaNumber", value);
+                    this._gaNumber = value;
+                    this.RaiseDataMemberChanged("GaNumber");
+                    this.OnGaNumberChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Класс "RUSAData".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Web.Models")]
+    public sealed partial class RUSAData : ComplexObject
+    {
+        
+        private List<RUSAResult> _diffResult;
+        
+        private List<RUSAResult> _eqResult;
+        
+        private List<GAParams> _gaAvail;
+        
+        private Guid _id;
+        
+        private double _napor;
+        
+        private double _power;
+        
+        private List<RUSAResult> _result;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnDiffResultChanging(List<RUSAResult> value);
+        partial void OnDiffResultChanged();
+        partial void OnEqResultChanging(List<RUSAResult> value);
+        partial void OnEqResultChanged();
+        partial void OnGaAvailChanging(List<GAParams> value);
         partial void OnGaAvailChanged();
         partial void OnIdChanging(Guid value);
         partial void OnIdChanged();
@@ -120,6 +213,8 @@ namespace VotGES.Web.Models
         partial void OnNaporChanged();
         partial void OnPowerChanging(double value);
         partial void OnPowerChanged();
+        partial void OnResultChanging(List<RUSAResult> value);
+        partial void OnResultChanged();
 
         #endregion
         
@@ -133,10 +228,61 @@ namespace VotGES.Web.Models
         }
         
         /// <summary>
+        /// Возвращает или задает значение параметра "DiffResult".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<RUSAResult> DiffResult
+        {
+            get
+            {
+                return this._diffResult;
+            }
+            set
+            {
+                if ((this._diffResult != value))
+                {
+                    this.OnDiffResultChanging(value);
+                    this.RaiseDataMemberChanging("DiffResult");
+                    this.ValidateProperty("DiffResult", value);
+                    this._diffResult = value;
+                    this.RaiseDataMemberChanged("DiffResult");
+                    this.OnDiffResultChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "EqResult".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<RUSAResult> EqResult
+        {
+            get
+            {
+                return this._eqResult;
+            }
+            set
+            {
+                if ((this._eqResult != value))
+                {
+                    this.OnEqResultChanging(value);
+                    this.RaiseDataMemberChanging("EqResult");
+                    this.ValidateProperty("EqResult", value);
+                    this._eqResult = value;
+                    this.RaiseDataMemberChanged("EqResult");
+                    this.OnEqResultChanged();
+                }
+            }
+        }
+        
+        /// <summary>
         /// Возвращает или задает значение параметра "GaAvail".
         /// </summary>
         [DataMember()]
-        public Dictionary<int, bool> GaAvail
+        [Display(AutoGenerateField=false)]
+        public List<GAParams> GaAvail
         {
             get
             {
@@ -224,6 +370,142 @@ namespace VotGES.Web.Models
                     this._power = value;
                     this.RaiseDataMemberChanged("Power");
                     this.OnPowerChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Result".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<RUSAResult> Result
+        {
+            get
+            {
+                return this._result;
+            }
+            set
+            {
+                if ((this._result != value))
+                {
+                    this.OnResultChanging(value);
+                    this.RaiseDataMemberChanging("Result");
+                    this.ValidateProperty("Result", value);
+                    this._result = value;
+                    this.RaiseDataMemberChanged("Result");
+                    this.OnResultChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Класс "RUSAResult".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Web.Models")]
+    public sealed partial class RUSAResult : ComplexObject
+    {
+        
+        private double _kpd;
+        
+        private double _rashod;
+        
+        private Dictionary<int, double> _sostav;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnKPDChanging(double value);
+        partial void OnKPDChanged();
+        partial void OnRashodChanging(double value);
+        partial void OnRashodChanged();
+        partial void OnSostavChanging(Dictionary<int, double> value);
+        partial void OnSostavChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="RUSAResult"/>.
+        /// </summary>
+        public RUSAResult()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "KPD".
+        /// </summary>
+        [DataMember()]
+        public double KPD
+        {
+            get
+            {
+                return this._kpd;
+            }
+            set
+            {
+                if ((this._kpd != value))
+                {
+                    this.OnKPDChanging(value);
+                    this.RaiseDataMemberChanging("KPD");
+                    this.ValidateProperty("KPD", value);
+                    this._kpd = value;
+                    this.RaiseDataMemberChanged("KPD");
+                    this.OnKPDChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Rashod".
+        /// </summary>
+        [DataMember()]
+        public double Rashod
+        {
+            get
+            {
+                return this._rashod;
+            }
+            set
+            {
+                if ((this._rashod != value))
+                {
+                    this.OnRashodChanging(value);
+                    this.RaiseDataMemberChanging("Rashod");
+                    this.ValidateProperty("Rashod", value);
+                    this._rashod = value;
+                    this.RaiseDataMemberChanged("Rashod");
+                    this.OnRashodChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Sostav".
+        /// </summary>
+        [DataMember()]
+        public Dictionary<int, double> Sostav
+        {
+            get
+            {
+                return this._sostav;
+            }
+            set
+            {
+                if ((this._sostav != value))
+                {
+                    this.OnSostavChanging(value);
+                    this.RaiseDataMemberChanging("Sostav");
+                    this.ValidateProperty("Sostav", value);
+                    this._sostav = value;
+                    this.RaiseDataMemberChanged("Sostav");
+                    this.OnSostavChanged();
                 }
             }
         }
@@ -646,9 +928,9 @@ namespace VotGES.Web.Services
     }
     
     /// <summary>
-    /// Контекст DomainContext, соответствующий службе "RUSAService" DomainService.
+    /// Контекст DomainContext, соответствующий службе "RUSADomainService" DomainService.
     /// </summary>
-    public sealed partial class RUSAContext : DomainContext
+    public sealed partial class RUSADomainContext : DomainContext
     {
         
         #region Определение методов расширяемости
@@ -663,58 +945,30 @@ namespace VotGES.Web.Services
         
         
         /// <summary>
-        /// Инициализация нового экземпляра класса <see cref="RUSAContext"/>.
+        /// Инициализация нового экземпляра класса <see cref="RUSADomainContext"/>.
         /// </summary>
-        public RUSAContext() : 
-                this(new WebDomainClient<IRUSAServiceContract>(new Uri("VotGES-Web-Services-RUSAService.svc", UriKind.Relative)))
+        public RUSADomainContext() : 
+                this(new WebDomainClient<IRUSADomainServiceContract>(new Uri("VotGES-Web-Services-RUSADomainService.svc", UriKind.Relative)))
         {
         }
         
         /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="RUSAContext"/> с указанным URI службы.
+        /// Инициализирует новый экземпляр класса <see cref="RUSADomainContext"/> с указанным URI службы.
         /// </summary>
-        /// <param name="serviceUri">Идентификатор URI службы RUSAService.</param>
-        public RUSAContext(Uri serviceUri) : 
-                this(new WebDomainClient<IRUSAServiceContract>(serviceUri))
+        /// <param name="serviceUri">Идентификатор URI службы RUSADomainService.</param>
+        public RUSADomainContext(Uri serviceUri) : 
+                this(new WebDomainClient<IRUSADomainServiceContract>(serviceUri))
         {
         }
         
         /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="RUSAContext"/> с указанным параметром <paramref name="domainClient"/>.
+        /// Инициализирует новый экземпляр класса <see cref="RUSADomainContext"/> с указанным параметром <paramref name="domainClient"/>.
         /// </summary>
         /// <param name="domainClient">Экземпляр DomainClient для использования в этом контексте DomainContext.</param>
-        public RUSAContext(DomainClient domainClient) : 
+        public RUSADomainContext(DomainClient domainClient) : 
                 base(domainClient)
         {
             this.OnCreated();
-        }
-        
-        /// <summary>
-        /// Асинхронно вызывает метод "initRUSAData" службы DomainService.
-        /// </summary>
-        /// <param name="data">Значение параметра "data" для данного действия.</param>
-        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
-        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
-        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<int> initRUSAData(RUSAData data, Action<InvokeOperation<int>> callback, object userState)
-        {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("data", data);
-            this.ValidateMethod("initRUSAData", parameters);
-            return ((InvokeOperation<int>)(this.InvokeOperation("initRUSAData", typeof(int), parameters, true, callback, userState)));
-        }
-        
-        /// <summary>
-        /// Асинхронно вызывает метод "initRUSAData" службы DomainService.
-        /// </summary>
-        /// <param name="data">Значение параметра "data" для данного действия.</param>
-        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<int> initRUSAData(RUSAData data)
-        {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("data", data);
-            this.ValidateMethod("initRUSAData", parameters);
-            return ((InvokeOperation<int>)(this.InvokeOperation("initRUSAData", typeof(int), parameters, true, null, null)));
         }
         
         /// <summary>
@@ -751,33 +1005,15 @@ namespace VotGES.Web.Services
         /// <returns>Новый экземпляр контейнера.</returns>
         protected override EntityContainer CreateEntityContainer()
         {
-            return new RUSAContextEntityContainer();
+            return new RUSADomainContextEntityContainer();
         }
         
         /// <summary>
-        /// Контракт службы (Service) "RUSAService" DomainService.
+        /// Контракт службы (Service) "RUSADomainService" DomainService.
         /// </summary>
         [ServiceContract()]
-        public interface IRUSAServiceContract
+        public interface IRUSADomainServiceContract
         {
-            
-            /// <summary>
-            /// Асинхронно вызывает операцию "initRUSAData".
-            /// </summary>
-            /// <param name="data">Значение параметра "data" для данного действия.</param>
-            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
-            /// <param name="asyncState">Необязательный объект состояния.</param>
-            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
-            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/RUSAService/initRUSADataDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/RUSAService/initRUSAData", ReplyAction="http://tempuri.org/RUSAService/initRUSADataResponse")]
-            IAsyncResult BegininitRUSAData(RUSAData data, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Завершает асинхронную операцию, начатую "BegininitRUSAData".
-            /// </summary>
-            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegininitRUSAData".</param>
-            /// <returns>Объект "Int32", возвращенный из операции "initRUSAData".</returns>
-            int EndinitRUSAData(IAsyncResult result);
             
             /// <summary>
             /// Асинхронно вызывает операцию "processRUSAData".
@@ -786,8 +1022,8 @@ namespace VotGES.Web.Services
             /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
             /// <param name="asyncState">Необязательный объект состояния.</param>
             /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
-            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/RUSAService/processRUSADataDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/RUSAService/processRUSAData", ReplyAction="http://tempuri.org/RUSAService/processRUSADataResponse")]
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/RUSADomainService/processRUSADataDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/RUSADomainService/processRUSAData", ReplyAction="http://tempuri.org/RUSADomainService/processRUSADataResponse")]
             IAsyncResult BeginprocessRUSAData(RUSAData data, AsyncCallback callback, object asyncState);
             
             /// <summary>
@@ -798,10 +1034,10 @@ namespace VotGES.Web.Services
             RUSAData EndprocessRUSAData(IAsyncResult result);
         }
         
-        internal sealed class RUSAContextEntityContainer : EntityContainer
+        internal sealed class RUSADomainContextEntityContainer : EntityContainer
         {
             
-            public RUSAContextEntityContainer()
+            public RUSADomainContextEntityContainer()
             {
             }
         }

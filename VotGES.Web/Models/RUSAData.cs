@@ -3,29 +3,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ServiceModel.DomainServices.Server;
 
 namespace VotGES.Web.Models
 {
-	public class RUSAData : INotifyPropertyChanged
+	public class GAParams
 	{
-		public class RUSAResult
-		{
-			private double rashod;
-			public double Rashod {
-				get { return rashod; }
-				set { rashod = value; }
-			}
-
-			private double kpd;
-			public double KPD {
-				get { return kpd; }
-				set { kpd = value; }
-			}
-
-			public Dictionary<int,double> sostav;
+		int gaNumber;
+		public int GaNumber {
+			get { return gaNumber; }
+			set { gaNumber = value; }
 		}
 
+		bool avail;
+		public bool Avail {
+			get { return avail; }
+			set { avail = value; }
+		}
 
+		public GAParams() {
+		}
+
+		public GAParams(int ga, bool avail) {
+			this.gaNumber = ga;
+			this.avail = avail;
+		}
+	}
+
+	public class RUSAResult
+	{
+		private double rashod;
+		public double Rashod {
+			get { return rashod; }
+			set { rashod = value; }
+		}
+
+		private double kpd;
+		public double KPD {
+			get { return kpd; }
+			set { kpd = value; }
+		}
+
+		private Dictionary<int,double> sostav;
+		public Dictionary<int, double> Sostav {
+			get { return sostav; }
+			set { sostav = value; }
+		}
+	}
+
+	public class RUSAData : INotifyPropertyChanged
+	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void NotifyChanged(string propName) {
 			if (PropertyChanged != null)
@@ -39,8 +66,8 @@ namespace VotGES.Web.Models
 			set { id = value; }
 		}
 
-		private Dictionary<int,bool> gaAvail;
-		public Dictionary<int, bool> GaAvail {
+		private List<GAParams> gaAvail;
+		public List<GAParams> GaAvail {
 			get { return gaAvail; }
 			set { gaAvail = value; }
 		}
@@ -58,26 +85,42 @@ namespace VotGES.Web.Models
 		}
 								
 		public RUSAData() {
-			gaAvail = new Dictionary<int, bool>();
+			gaAvail = new List<GAParams>();
 			for (int ga=1; ga <= 10; ga++) {
-				gaAvail.Add(ga, false);
+				gaAvail.Add(new GAParams(ga,true));
 			}
 			power = 300;
 			napor = 21;
 		}
 
 		public List<int> getAvailGenerators() {
-			List<int> avail=new List<int>();
-			for (int ga=1; ga <= 10; ga++) {
-				if (gaAvail[ga])
-					avail.Add(ga);
+			List<int> res=new List<int>();
+			foreach (GAParams avail in gaAvail) {
+				if (avail.Avail) {
+					res.Add(avail.GaNumber);
+				}
 			}
-			return avail;
+			return res;
 		}
 
-		public List<RUSAResult> eqResult;
-		public List<RUSAResult> diffResult;
+		private List<RUSAResult> eqResult;
+		public List<RUSAResult> EqResult {
+			get { return eqResult; }
+			set { eqResult = value; }
+		}
 
+		private List<RUSAResult> diffResult;
+		public List<RUSAResult> DiffResult {
+			get { return diffResult; }
+			set { diffResult = value; }
+		}
+
+		
+		private List<RUSAResult> result;
+		public List<RUSAResult> Result {
+			get { return result; }
+			set { result = value; }
+		}
 		
 	}
 }

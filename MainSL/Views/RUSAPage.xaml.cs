@@ -11,8 +11,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
 using VotGES.Web.Models;
-using MainSL.Contexts;
 using System.ServiceModel.DomainServices.Client;
+using VotGES.Web.Services;
 
 namespace MainSL.Views
 {
@@ -21,13 +21,17 @@ namespace MainSL.Views
 		private RUSAData currentData;
 		public RUSAData CurrentData {
 			get { return currentData; }
-			set { currentData = value; }
+			set { 
+				currentData = value;
+				pnlData.DataContext = CurrentData;
+			}
 		}
-		
 
+		RUSADomainContext context;
 
 		public RUSAPage() {
-			InitializeComponent();			
+			InitializeComponent();
+			context = new RUSADomainContext();
 		}
 
 		
@@ -35,36 +39,28 @@ namespace MainSL.Views
 		// Выполняется, когда пользователь переходит на эту страницу.
 		protected override void OnNavigatedTo(NavigationEventArgs e) {
 			CurrentData=new RUSAData();
-			CurrentData.GaAvail = new Dictionary<int, bool>();
+			CurrentData.GaAvail = new List<GAParams>();
 			for (int ga=1; ga <= 10; ga++) {
-				CurrentData.GaAvail.Add(ga, true);
+				GAParams p=new GAParams();
+				p.GaNumber = ga;
+				p.Avail = true;
+				CurrentData.GaAvail.Add(p);
 			}
 			CurrentData.Power = 300;
 			CurrentData.Napor = 21;
-			pnlData.DataContext = CurrentData;
+			
 		}
-
-		void oper_Completed(object sender, EventArgs e) {
-			InvokeOperation<int> oper= sender as InvokeOperation<int>;
-			if (!oper.HasError) {
-				GlobalStatus.Current.IsError = false;
-
-				MessageBox.Show(oper.Value.ToString());
-			} else {
-				GlobalStatus.Current.IsError = true;
-				oper.MarkErrorAsHandled();
-			}
-		}
-
-		
+				
 
 		private void btnCalcRUSA_Click(object sender, RoutedEventArgs e) {
-			InvokeOperation<RUSAData> processOper=RUSAClientContext.Current.Context.processRUSAData(CurrentData);
-			processOper.Completed += new EventHandler(processOper_Completed);
+			context.processRUSAData(CurrentData, oper => {
+				CurrentData = oper.Value;
+			},null);
+			
 		}
 
 		void processOper_Completed(object sender, EventArgs e) {
-			throw new NotImplementedException();
+
 		}
 
 	}

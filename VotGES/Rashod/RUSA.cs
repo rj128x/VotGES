@@ -15,7 +15,7 @@ namespace VotGES.Rashod
 						avail.Add(ga);
 					}
 				}
-
+				
 				if (power < 35)
 					return 0;
 				double minRashod=10e6;

@@ -16,6 +16,7 @@
 	<conv:HeightConverter x:Key="heightConverter"/>
 	<conv:ForegroundColorConverter x:Key="foregroundColorConverter"/>
 	<conv:BackgroundColorConverter x:Key="backgroundColorConverter"/>
+	<conv:GASostavConverter x:Key="gaSostavConverter"/>
 	<gl:GlobalStatus x:Key="globalStatus"/>
 
 

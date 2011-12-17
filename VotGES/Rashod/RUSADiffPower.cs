@@ -68,7 +68,7 @@ namespace VotGES.Rashod
 
 		public double napor;
 		public double stepPower=1;
-		public int countChoices=10;
+		public int countChoices=1;
 
 		protected RUSADiffPower(List<int> avail, double napor) {
 			availGenerators = new List<int>();

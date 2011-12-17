@@ -8,35 +8,38 @@ namespace VotGES.Web.Models
 {
 	public class ProcessRUSAData
 	{
-		public static void processEqualData(RUSAData data) {
+		public static void processEqualData(RUSAData data) {						
 			List<int> sostav=new List<int>();
 			double rashod=RUSA.getOptimRashod(data.Power, data.Napor, true, sostav,data.getAvailGenerators());
-			data.eqResult = new List<RUSAData.RUSAResult>();
-			RUSAData.RUSAResult result=new RUSAData.RUSAResult();
+			data.EqResult = new List<RUSAResult>();
+			RUSAResult result=new RUSAResult();
 			result.Rashod = rashod;
-			result.sostav = new Dictionary<int, double>();
+			result.Sostav = new Dictionary<int, double>();
 			foreach (int ga in sostav) {
-				result.sostav.Add(ga, data.Power / sostav.Count);
+				result.Sostav.Add(ga, data.Power / sostav.Count);
 			}
-			result.KPD = RashodTable.KPD(data.Power, data.Napor, rashod);
-			data.eqResult.Add(result);
+			result.KPD = RashodTable.KPD(data.Power, data.Napor, rashod)*100;
+			data.EqResult.Add(result);
+
+
+
 		}
 
 		public static void processDiffData(RUSAData data) {
 			List<RUSADiffPower.RusaChoice> choices=RUSADiffPower.getChoices(data.getAvailGenerators(), data.Napor, data.Power);
 			foreach (RUSADiffPower.RusaChoice choice in choices) {
 				double rashod=choice.rashod;
-				data.diffResult = new List<RUSAData.RUSAResult>();
-				RUSAData.RUSAResult result=new RUSAData.RUSAResult();
+				data.DiffResult = new List<RUSAResult>();
+				RUSAResult result=new RUSAResult();
 				result.Rashod = rashod;
-				result.sostav = new Dictionary<int, double>();
+				result.Sostav = new Dictionary<int, double>();
 				foreach (KeyValuePair<int, double> de in choice.sostav) {
 					if (de.Value > 0) {
-						result.sostav.Add(de.Key, de.Value);
+						result.Sostav.Add(de.Key, de.Value);
 					}
 				}
-				result.KPD = RashodTable.KPD(data.Power, data.Napor, rashod);
-				data.eqResult.Add(result);
+				result.KPD = RashodTable.KPD(data.Power, data.Napor, rashod)*100;
+				data.EqResult.Add(result);
 			}			
 		}
 
