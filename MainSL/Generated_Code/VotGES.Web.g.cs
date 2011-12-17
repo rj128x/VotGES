@@ -77,6 +77,158 @@ namespace MainSL
         }
     }
 }
+namespace VotGES.Web.Models
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Runtime.Serialization;
+    using System.ServiceModel.DomainServices;
+    using System.ServiceModel.DomainServices.Client;
+    using System.ServiceModel.DomainServices.Client.ApplicationServices;
+    
+    
+    /// <summary>
+    /// Класс "RUSAData".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Web.Models")]
+    public sealed partial class RUSAData : ComplexObject
+    {
+        
+        private Dictionary<int, bool> _gaAvail;
+        
+        private Guid _id;
+        
+        private double _napor;
+        
+        private double _power;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnGaAvailChanging(Dictionary<int, bool> value);
+        partial void OnGaAvailChanged();
+        partial void OnIdChanging(Guid value);
+        partial void OnIdChanged();
+        partial void OnNaporChanging(double value);
+        partial void OnNaporChanged();
+        partial void OnPowerChanging(double value);
+        partial void OnPowerChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="RUSAData"/>.
+        /// </summary>
+        public RUSAData()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GaAvail".
+        /// </summary>
+        [DataMember()]
+        public Dictionary<int, bool> GaAvail
+        {
+            get
+            {
+                return this._gaAvail;
+            }
+            set
+            {
+                if ((this._gaAvail != value))
+                {
+                    this.OnGaAvailChanging(value);
+                    this.RaiseDataMemberChanging("GaAvail");
+                    this.ValidateProperty("GaAvail", value);
+                    this._gaAvail = value;
+                    this.RaiseDataMemberChanged("GaAvail");
+                    this.OnGaAvailChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Id".
+        /// </summary>
+        [DataMember()]
+        public Guid Id
+        {
+            get
+            {
+                return this._id;
+            }
+            set
+            {
+                if ((this._id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.RaiseDataMemberChanging("Id");
+                    this.ValidateProperty("Id", value);
+                    this._id = value;
+                    this.RaiseDataMemberChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Napor".
+        /// </summary>
+        [DataMember()]
+        public double Napor
+        {
+            get
+            {
+                return this._napor;
+            }
+            set
+            {
+                if ((this._napor != value))
+                {
+                    this.OnNaporChanging(value);
+                    this.RaiseDataMemberChanging("Napor");
+                    this.ValidateProperty("Napor", value);
+                    this._napor = value;
+                    this.RaiseDataMemberChanged("Napor");
+                    this.OnNaporChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Power".
+        /// </summary>
+        [DataMember()]
+        public double Power
+        {
+            get
+            {
+                return this._power;
+            }
+            set
+            {
+                if ((this._power != value))
+                {
+                    this.OnPowerChanging(value);
+                    this.RaiseDataMemberChanging("Power");
+                    this.ValidateProperty("Power", value);
+                    this._power = value;
+                    this.RaiseDataMemberChanged("Power");
+                    this.OnPowerChanged();
+                }
+            }
+        }
+    }
+}
 namespace VotGES.Web.Services
 {
     using System;
@@ -90,6 +242,7 @@ namespace VotGES.Web.Services
     using System.ServiceModel.DomainServices.Client;
     using System.ServiceModel.DomainServices.Client.ApplicationServices;
     using System.ServiceModel.Web;
+    using VotGES.Web.Models;
     
     
     /// <summary>
@@ -487,6 +640,168 @@ namespace VotGES.Web.Services
         {
             
             public LoggerContextEntityContainer()
+            {
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Контекст DomainContext, соответствующий службе "RUSAService" DomainService.
+    /// </summary>
+    public sealed partial class RUSAContext : DomainContext
+    {
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="RUSAContext"/>.
+        /// </summary>
+        public RUSAContext() : 
+                this(new WebDomainClient<IRUSAServiceContract>(new Uri("VotGES-Web-Services-RUSAService.svc", UriKind.Relative)))
+        {
+        }
+        
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="RUSAContext"/> с указанным URI службы.
+        /// </summary>
+        /// <param name="serviceUri">Идентификатор URI службы RUSAService.</param>
+        public RUSAContext(Uri serviceUri) : 
+                this(new WebDomainClient<IRUSAServiceContract>(serviceUri))
+        {
+        }
+        
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="RUSAContext"/> с указанным параметром <paramref name="domainClient"/>.
+        /// </summary>
+        /// <param name="domainClient">Экземпляр DomainClient для использования в этом контексте DomainContext.</param>
+        public RUSAContext(DomainClient domainClient) : 
+                base(domainClient)
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "initRUSAData" службы DomainService.
+        /// </summary>
+        /// <param name="data">Значение параметра "data" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<int> initRUSAData(RUSAData data, Action<InvokeOperation<int>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("data", data);
+            this.ValidateMethod("initRUSAData", parameters);
+            return ((InvokeOperation<int>)(this.InvokeOperation("initRUSAData", typeof(int), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "initRUSAData" службы DomainService.
+        /// </summary>
+        /// <param name="data">Значение параметра "data" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<int> initRUSAData(RUSAData data)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("data", data);
+            this.ValidateMethod("initRUSAData", parameters);
+            return ((InvokeOperation<int>)(this.InvokeOperation("initRUSAData", typeof(int), parameters, true, null, null)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "processRUSAData" службы DomainService.
+        /// </summary>
+        /// <param name="data">Значение параметра "data" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<RUSAData> processRUSAData(RUSAData data, Action<InvokeOperation<RUSAData>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("data", data);
+            this.ValidateMethod("processRUSAData", parameters);
+            return ((InvokeOperation<RUSAData>)(this.InvokeOperation("processRUSAData", typeof(RUSAData), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "processRUSAData" службы DomainService.
+        /// </summary>
+        /// <param name="data">Значение параметра "data" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<RUSAData> processRUSAData(RUSAData data)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("data", data);
+            this.ValidateMethod("processRUSAData", parameters);
+            return ((InvokeOperation<RUSAData>)(this.InvokeOperation("processRUSAData", typeof(RUSAData), parameters, true, null, null)));
+        }
+        
+        /// <summary>
+        /// Создает новый объект EntityContainer для наборов сущностей EntitySets данного контекста DomainContext.
+        /// </summary>
+        /// <returns>Новый экземпляр контейнера.</returns>
+        protected override EntityContainer CreateEntityContainer()
+        {
+            return new RUSAContextEntityContainer();
+        }
+        
+        /// <summary>
+        /// Контракт службы (Service) "RUSAService" DomainService.
+        /// </summary>
+        [ServiceContract()]
+        public interface IRUSAServiceContract
+        {
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "initRUSAData".
+            /// </summary>
+            /// <param name="data">Значение параметра "data" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/RUSAService/initRUSADataDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/RUSAService/initRUSAData", ReplyAction="http://tempuri.org/RUSAService/initRUSADataResponse")]
+            IAsyncResult BegininitRUSAData(RUSAData data, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BegininitRUSAData".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegininitRUSAData".</param>
+            /// <returns>Объект "Int32", возвращенный из операции "initRUSAData".</returns>
+            int EndinitRUSAData(IAsyncResult result);
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "processRUSAData".
+            /// </summary>
+            /// <param name="data">Значение параметра "data" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/RUSAService/processRUSADataDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/RUSAService/processRUSAData", ReplyAction="http://tempuri.org/RUSAService/processRUSADataResponse")]
+            IAsyncResult BeginprocessRUSAData(RUSAData data, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BeginprocessRUSAData".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginprocessRUSAData".</param>
+            /// <returns>Объект "RUSAData", возвращенный из операции "processRUSAData".</returns>
+            RUSAData EndprocessRUSAData(IAsyncResult result);
+        }
+        
+        internal sealed class RUSAContextEntityContainer : EntityContainer
+        {
+            
+            public RUSAContextEntityContainer()
             {
             }
         }

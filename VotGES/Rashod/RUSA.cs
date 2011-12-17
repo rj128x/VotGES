@@ -7,18 +7,25 @@ namespace VotGES.Rashod
 {
 	public static class RUSA
 	{
-		public static double getOptimRashod(double power, double napor, bool min = true, List<int> sostav =null) {			
+		public static double getOptimRashod(double power, double napor, bool min = true, List<int> sostav =null, List<int> avail=null) {			
 			try {
+				if (avail == null) {
+					avail = new List<int>();
+					for (int ga=1; ga <= 10; ga++) {
+						avail.Add(ga);
+					}
+				}
+
 				if (power < 35)
 					return 0;
 				double minRashod=10e6;
 				double maxRashod=0;
-				for (int count=1; count <= 10; count++) {					
+				for (int count=1; count <= avail.Count; count++) {					
 					double divPower=(double)power / (double)count;
 					if ((divPower < 35) || (divPower > 110))
 						continue;
 					SortedList<double,int>rashods=new SortedList<double, int>();
-					for (int ga=1; ga <= 10; ga++) {
+					foreach(int ga in avail) {
 						double rashodGA=RashodTable.getRashod(ga, divPower, napor);						
 						while (rashods.Keys.Contains(rashodGA)) {
 							rashodGA += 10e-5;
@@ -43,7 +50,7 @@ namespace VotGES.Rashod
 					} else {
 						double fullRashod=0;
 						for (int i=0; i < count; i++) {
-							fullRashod += rashods.Keys[9 - i];
+							fullRashod += rashods.Keys[avail.Count-1 - i];
 						}
 						if (maxRashod < fullRashod) {
 							maxRashod = fullRashod;
@@ -51,7 +58,7 @@ namespace VotGES.Rashod
 								sostav.Clear();
 							for (int i=0; i < count; i++) {
 								if (sostav != null)
-									sostav.Add(rashods.Values[9-i]);
+									sostav.Add(rashods.Values[avail.Count - 1 - i]);
 							}
 						}
 					}

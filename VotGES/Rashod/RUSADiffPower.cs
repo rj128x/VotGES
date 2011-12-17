@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VotGES.Rashod
 {
-	public class RUSADiffPowerFull
+	public class RUSADiffPower
 	{
 		public class RusaChoice
 		{
@@ -53,10 +53,10 @@ namespace VotGES.Rashod
 			}
 
 		}
-		protected static SortedList<string, SortedList<double, RUSADiffPowerFull>> cache=new SortedList<string, SortedList<double, RUSADiffPowerFull>>();
+		protected static SortedList<string, SortedList<double, RUSADiffPower>> cache=new SortedList<string, SortedList<double, RUSADiffPower>>();
 
-		static RUSADiffPowerFull() {
-			cache = new SortedList<string, SortedList<double, RUSADiffPowerFull>>();
+		static RUSADiffPower() {
+			cache = new SortedList<string, SortedList<double, RUSADiffPower>>();
 		}
 
 
@@ -70,7 +70,7 @@ namespace VotGES.Rashod
 		public double stepPower=1;
 		public int countChoices=10;
 
-		protected RUSADiffPowerFull(List<int> avail, double napor) {
+		protected RUSADiffPower(List<int> avail, double napor) {
 			availGenerators = new List<int>();
 
 			this.napor = napor;
@@ -144,16 +144,16 @@ namespace VotGES.Rashod
 		}
 
 
-		public static RUSADiffPowerFull getFromCache(List<int> availGenerators, double napor, int countChoices = 1) {
+		public static RUSADiffPower getFromCache(List<int> availGenerators, double napor, int countChoices = 1) {
 			string str=String.Join("-", availGenerators);
 			if (!cache.Keys.Contains(str)) {
-				cache.Add(str, new SortedList<double, RUSADiffPowerFull>());
+				cache.Add(str, new SortedList<double, RUSADiffPower>());
 			}
 			if (cache[str].Keys.Count > 100) {
-				cache[str] = new SortedList<double, RUSADiffPowerFull>();
+				cache[str] = new SortedList<double, RUSADiffPower>();
 			}
 			if (!cache[str].Keys.Contains(napor)) {
-				RUSADiffPowerFull rusa=new RUSADiffPowerFull(availGenerators, napor);
+				RUSADiffPower rusa=new RUSADiffPower(availGenerators, napor);
 				cache[str].Add(napor, rusa);
 			}
 			return cache[str][napor];

@@ -16,6 +16,8 @@
 	<conv:HeightConverter x:Key="heightConverter"/>
 	<conv:ForegroundColorConverter x:Key="foregroundColorConverter"/>
 	<conv:BackgroundColorConverter x:Key="backgroundColorConverter"/>
+	<gl:GlobalStatus x:Key="globalStatus"/>
+
 
 	<Style x:Name="CenterHeaderText" TargetType="prim:DataGridColumnHeader">
 		<Setter Property="HorizontalContentAlignment" Value="Stretch" />

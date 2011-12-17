@@ -30,7 +30,7 @@ namespace RUSA
 	}
 	static class CheckRusa
 	{
-		public static DateTime dateStart=new DateTime(2009, 1, 1);
+		public static DateTime dateStart=new DateTime(2010, 1, 1);
 		public static DateTime dateEnd=new DateTime(2010, 11, 1);
 
 		public static string fn;
@@ -109,64 +109,7 @@ namespace RUSA
 			}
 		}
 
-		public static void processGAP(DateTime ds, DateTime de) {
-			int[] items=new int[] { 2, 6, 18, 22, 26, 30, 42, 46, 50, 54 };
-			List<int> il=items.ToList();
-			Piramida3000Entities model = VotGES.Piramida.PiramidaAccess.getModel();
-			IQueryable<DATA> dataArr = from DATA d in model.DATA where
-													d.PARNUMBER == 12 && d.DATA_DATE > ds && d.DATA_DATE < de &&
-													d.OBJTYPE == 0 && d.OBJECT == 8738 && il.Contains(d.ITEM)
-												select d;
-			DateTime date;
-			foreach (DATA data in dataArr) {
-				date = data.DATA_DATE;
-				if (data.VALUE0.Value > 0) {
-					int ga=-1;
-					switch (data.ITEM) {
-						case 2:
-							ga = 1;
-							break;
-						case 6:
-							ga = 2;
-							break;
-						case 18:
-							ga = 3;
-							break;
-						case 22:
-							ga = 4;
-							break;
-						case 26:
-							ga = 5;
-							break;
-						case 30:
-							ga = 6;
-							break;
-						case 42:
-							ga = 7;
-							break;
-						case 46:
-							ga = 8;
-							break;
-						case 50:
-							ga = 9;
-							break;
-						case 54:
-							ga = 10;
-							break;
-					}
-					if (ga != -1) {
-						double q= RashodTable.getRashod(ga, data.VALUE0.Value / 1000, result[date].napor);
-						result[date].realQ[ga] =q;
-						realCount[ga]++;
-						realQ[ga] += q;
-						Qreal += q;
-					}
-				}
-			}
-		}
-
-
-
+		
 		public static void calc() {
 			realCount = new SortedList<int, int>();
 			realQ = new SortedList<int, double>();
@@ -230,8 +173,8 @@ namespace RUSA
 				foreach (DateTime date in napors[napor]) {
 					RUSARecord rusa=result[date];
 					Console.WriteLine(String.Format("{0}: {1} {2}", rusa.date, napor, rusa.p));
-					diff = RUSADiffPowerFull.getMinRashod(availList, napor, rusa.p);
-					sostavDiff = RUSADiffPowerFull.getMinSostav(availList, rusa.napor, rusa.p);
+					diff = RUSADiffPower.getMinRashod(availList, napor, rusa.p);
+					sostavDiff = RUSADiffPower.getMinSostav(availList, rusa.napor, rusa.p);
 					equal = VotGES.Rashod.RUSA.getOptimRashod(rusa.p, rusa.napor, true, sostavEq);
 
 					foreach (int ga in sostavDiff.Keys) {
