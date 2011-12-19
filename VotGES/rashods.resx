@@ -119,39 +119,39 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="avg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Data\rashods\avg.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+    <value>Data\rashods\avg.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="opt" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Data\rashods\opt.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+    <value>Data\rashods\opt.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Data\rashods\1.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+    <value>Data\rashods\1.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Data\rashods\10.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+    <value>Data\rashods\10.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Data\rashods\2.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+    <value>Data\rashods\2.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Data\rashods\3.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+    <value>Data\rashods\3.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Data\rashods\4.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+    <value>Data\rashods\4.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Data\rashods\5.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+    <value>Data\rashods\5.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Data\rashods\6.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+    <value>Data\rashods\6.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Data\rashods\7.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+    <value>Data\rashods\7.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="_8" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Data\rashods\8.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+    <value>Data\rashods\8.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="_9" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Data\rashods\9.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+    <value>Data\rashods\9.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

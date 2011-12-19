@@ -27,10 +27,11 @@ namespace VotGES
 
 		static RashodTable() {
 			rashodTables = new RashodTable[13];
-			
+			Logger.Info("init");
 		}
 
 		protected RashodTable(int ga) {
+			Logger.Info("RashodTable" + ga.ToString());
 			string str=null;
 			int len=111;
 			switch (ga) {
@@ -102,6 +103,11 @@ namespace VotGES
 			maxNapor = napors[napors.Length - 1];
 			stepPower = powers[1] - powers[0];
 			stepNapor = napors[1] - napors[0];
+
+			Logger.Info(minPower.ToString());
+			Logger.Info(maxPower.ToString());
+			Logger.Info(minNapor.ToString());
+			Logger.Info(maxNapor.ToString());
 
 			rashodsByNapor = new SortedList<double, SortedList<double, double>>();
 			rashodsByPower = new SortedList<double, SortedList<double, double>>();

@@ -15,7 +15,7 @@ namespace VotGES.Web.Services
 		protected override User GetAuthenticatedUser(System.Security.Principal.IPrincipal principal) {
 			Logger.Info(String.Format("Пользователь пытается авторизоваться в системе"), Logger.LoggerSource.server);
 			User user=base.GetAuthenticatedUser(principal);
-			Logger.Info(String.Format("Пользователь авторизовался в системе: {0}", user), Logger.LoggerSource.server);
+			Logger.Info(String.Format("Пользователь авторизовался в системе: {0}", user.Name), Logger.LoggerSource.server);
 
 			return user;
 		}
