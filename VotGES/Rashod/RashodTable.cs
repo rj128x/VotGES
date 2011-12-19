@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using VotGES.Rashod;
+using System.Globalization;
 
 namespace VotGES
 {
@@ -11,6 +12,8 @@ namespace VotGES
 	
 	public class RashodTable
 	{
+		
+
 		protected double[] napors;
 		protected double[] powers;
 		protected double[][] rashods;
@@ -27,11 +30,11 @@ namespace VotGES
 
 		static RashodTable() {
 			rashodTables = new RashodTable[13];
-			Logger.Info("init");
 		}
 
 		protected RashodTable(int ga) {
-			Logger.Info("RashodTable" + ga.ToString());
+			NumberFormatInfo nfi = new CultureInfo("ru-RU", false).NumberFormat;
+			nfi.NumberDecimalSeparator = ".";
 			string str=null;
 			int len=111;
 			switch (ga) {
@@ -78,20 +81,20 @@ namespace VotGES
 			int Row = 0;
 			foreach (string strLine in rows) {
 				try {
-					string[] Line = strLine.Split(';');
+					string[] Line = strLine.Replace(",",".").Split(';');
 					if (Row == 0) {
 						//strArray = new string[Line.Length, 111];
 						napors = new double[Line.Length - 1];
 						rashods = new double[len][];
 						powers = new double[len];
 						for (int column=1; column < Line.Length; column++) {
-							napors[column - 1] = Double.Parse(Line[column]);
+							napors[column - 1] = Double.Parse(Line[column], nfi);
 						}
 					} else {
 						rashods[Row-1]=new double[Line.Length - 1];
-						powers[Row - 1] = Double.Parse(Line[0]);
+						powers[Row - 1] = Double.Parse(Line[0], nfi);
 						for (int column=1; column < Line.Length; column++) {
-							rashods[Row - 1][column - 1] = Double.Parse(Line[column]);
+							rashods[Row - 1][column - 1] = Double.Parse(Line[column], nfi);
 						}
 					}
 					Row++;
@@ -103,11 +106,6 @@ namespace VotGES
 			maxNapor = napors[napors.Length - 1];
 			stepPower = powers[1] - powers[0];
 			stepNapor = napors[1] - napors[0];
-
-			Logger.Info(minPower.ToString());
-			Logger.Info(maxPower.ToString());
-			Logger.Info(minNapor.ToString());
-			Logger.Info(maxNapor.ToString());
 
 			rashodsByNapor = new SortedList<double, SortedList<double, double>>();
 			rashodsByPower = new SortedList<double, SortedList<double, double>>();

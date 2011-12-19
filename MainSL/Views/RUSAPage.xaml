@@ -37,7 +37,8 @@
 							<sdk:DataGridTemplateColumn.CellTemplate >
 								<DataTemplate>
 									<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-										<CheckBox IsChecked="{Binding Avail, Mode=TwoWay}" HorizontalAlignment="Center"/>
+										<CheckBox IsChecked="{Binding Avail, Mode=TwoWay}" HorizontalAlignment="Center"
+													 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 									</StackPanel>
 								</DataTemplate>
 							</sdk:DataGridTemplateColumn.CellTemplate>
@@ -56,11 +57,11 @@
 					</Grid.RowDefinitions>
 					<TextBlock Text="Напор, м" Grid.Row="0" Grid.Column="0"/>
 					<TextBlock Text="Мощность, МВт" Grid.Row="1" Grid.Column="0"/>
-					<TextBox Text="{Binding Napor, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
-					<TextBox Text="{Binding Power,Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+					<TextBox Text="{Binding Napor, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+					<TextBox Text="{Binding Power,Mode=TwoWay}" Grid.Row="1" Grid.Column="1" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 				</Grid>
 
-				<Button Name="btnCalcRUSA" Click="btnCalcRUSA_Click" Content="Расчет РУСА" Margin="0,20,0,0"/>
+				<Button Name="btnCalcRUSA" Click="btnCalcRUSA_Click" Content="Расчет РУСА" Margin="0,20,0,0" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 			</StackPanel>
 			<StackPanel Grid.Column="1">
 				<sdk:DataGrid x:Name="resultGrid" AutoGenerateColumns="False" ColumnHeaderStyle="{StaticResource CenterHeaderText}"

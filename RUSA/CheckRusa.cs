@@ -26,6 +26,7 @@ namespace RUSA
 				diffQ.Add(ga, 0);
 			}
 		}
+		public bool hasQ=false;
 
 	}
 	static class CheckRusa
@@ -52,57 +53,60 @@ namespace RUSA
 													d.PARNUMBER == 12 && d.DATA_DATE > ds && d.DATA_DATE < de &&
 													d.OBJTYPE == 2 && d.OBJECT == 1 && il.Contains(d.ITEM)
 												select d;
-			DateTime date;			
+			DateTime date;
 			foreach (DATA data in dataArr) {
-				date = data.DATA_DATE;				
-				if (data.VALUE0.Value > 0) {
-					int ga=-1;
-					switch (data.ITEM) {
-						case 276:							
-							double napor=Math.Round(data.VALUE0.Value * 10) / 10;
-							result[date].napor = napor;
-							if (!napors.Keys.Contains(napor)) {
-								napors.Add(napor, new List<DateTime>());
+				date = data.DATA_DATE;
+				if (result.Keys.Contains(date)) {
+					if (data.VALUE0.Value > 0) {
+						int ga=-1;
+						switch (data.ITEM) {
+							case 276:
+								double napor=Math.Round(data.VALUE0.Value * 10) / 10;
+								result[date].napor = napor;
+								if (!napors.Keys.Contains(napor)) {
+									napors.Add(napor, new List<DateTime>());
+								}
+								napors[napor].Add(date);
+								break;
+							case 104:
+								ga = 1;
+								break;
+							case 129:
+								ga = 2;
+								break;
+							case 154:
+								ga = 3;
+								break;
+							case 179:
+								ga = 4;
+								break;
+							case 204:
+								ga = 5;
+								break;
+							case 229:
+								ga = 6;
+								break;
+							case 254:
+								ga = 7;
+								break;
+							case 279:
+								ga = 8;
+								break;
+							case 304:
+								ga = 9;
+								break;
+							case 329:
+								ga = 10;
+								break;
+						}
+						if (processSum) {
+							if (ga != -1) {
+								result[date].realQ[ga] = data.VALUE0.Value;
+								realCount[ga]++;
+								realQ[ga] += data.VALUE0.Value;
+								Qreal += data.VALUE0.Value;
+								result[date].hasQ = true;
 							}
-							napors[napor].Add(date);
-							break;
-						case 104:
-							ga = 1;
-							break;
-						case 129:
-							ga = 2;
-							break;
-						case 154:
-							ga = 3;
-							break;
-						case 179:
-							ga = 4;
-							break;
-						case 204:
-							ga = 5;
-							break;
-						case 229:
-							ga = 6;
-							break;
-						case 254:
-							ga = 7;
-							break;
-						case 279:
-							ga = 8;
-							break;
-						case 304:
-							ga = 9;
-							break;
-						case 329:
-							ga = 10;
-							break;
-					}
-					if (processSum) {
-						if (ga != -1) {
-							result[date].realQ[ga] = data.VALUE0.Value;
-							realCount[ga]++;
-							realQ[ga] += data.VALUE0.Value;
-							Qreal += data.VALUE0.Value;
 						}
 					}
 				}
@@ -172,25 +176,27 @@ namespace RUSA
 			foreach (double napor in napors.Keys) {
 				foreach (DateTime date in napors[napor]) {
 					RUSARecord rusa=result[date];
-					Console.WriteLine(String.Format("{0}: {1} {2}", rusa.date, napor, rusa.p));
-					diff = RUSADiffPower.getMinRashod(availList, napor, rusa.p);
-					sostavDiff = RUSADiffPower.getMinSostav(availList, rusa.napor, rusa.p);
-					equal = VotGES.Rashod.RUSA.getOptimRashod(rusa.p, rusa.napor, true, sostavEq);
+					if (rusa.hasQ) {
+						Console.WriteLine(String.Format("{0}: {1} {2}", rusa.date, napor, rusa.p));
+						diff = RUSADiffPower.getMinRashod(availList, napor, rusa.p);
+						sostavDiff = RUSADiffPower.getMinSostav(availList, rusa.napor, rusa.p);
+						equal = VotGES.Rashod.RUSA.getOptimRashod(rusa.p, rusa.napor, true, sostavEq);
 
-					foreach (int ga in sostavDiff.Keys) {
-						if (sostavDiff[ga] > 0) {
-							rusa.diffQ[ga] = RashodTable.getRashod(ga, sostavDiff[ga], rusa.napor);
-							diffCount[ga]++;
-							diffQ[ga] += rusa.diffQ[ga];
-							Qdiff += rusa.diffQ[ga];
+						foreach (int ga in sostavDiff.Keys) {
+							if (sostavDiff[ga] > 0) {
+								rusa.diffQ[ga] = RashodTable.getRashod(ga, sostavDiff[ga], rusa.napor);
+								diffCount[ga]++;
+								diffQ[ga] += rusa.diffQ[ga];
+								Qdiff += rusa.diffQ[ga];
+							}
 						}
-					}
 
-					foreach (int ga in sostavEq) {
-						rusa.equalQ[ga] = RashodTable.getRashod(ga, rusa.p / sostavEq.Count, rusa.napor);
-						equalCount[ga]++;
-						equalQ[ga] += rusa.equalQ[ga];
-						Qeq += rusa.equalQ[ga];
+						foreach (int ga in sostavEq) {
+							rusa.equalQ[ga] = RashodTable.getRashod(ga, rusa.p / sostavEq.Count, rusa.napor);
+							equalCount[ga]++;
+							equalQ[ga] += rusa.equalQ[ga];
+							Qeq += rusa.equalQ[ga];
+						}
 					}
 				}
 			}

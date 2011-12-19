@@ -32,6 +32,7 @@ namespace MainSL.Views
 		public RUSAPage() {
 			InitializeComponent();
 			context = new RUSADomainContext();
+			GlobalStatus.Current.addContext(context);
 		}
 
 		
@@ -54,8 +55,10 @@ namespace MainSL.Views
 
 		private void btnCalcRUSA_Click(object sender, RoutedEventArgs e) {
 			context.processRUSAData(CurrentData, oper => {
+				GlobalStatus.Current.IsWaiting = false;
 				CurrentData = oper.Value;
 			},null);
+			GlobalStatus.Current.IsWaiting = true;
 			
 		}
 

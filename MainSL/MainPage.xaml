@@ -65,10 +65,28 @@
 				</Grid.ColumnDefinitions>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2">
 					<TextBlock x:Name="LoginText" Text="Вы вошли как: "/>
-					<TextBlock x:Name="LoginName" Text="{Binding Name}"/>					
+					<TextBlock x:Name="LoginName" Text="{Binding Name}"/>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="0">
-					
+					<TextBlock x:Name="StatusLabel" Text="Статус: "/>
+					<TextBlock x:Name="StatusText" Text="{Binding Status, Source={StaticResource globalStatus}}"/>
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0,0,0">
+						<TextBlock x:Name="LastUpdateLabel" Text="Последнее обновление: "/>
+						<TextBlock x:Name="LastUpdateText" 
+								  Text="{Binding LastUpdate, Source={StaticResource globalStatus},
+						Converter={StaticResource dateTimeConverter},ConverterParameter='HH:mm:ss'}"/>
+						<TextBlock x:Name="NeedRefreshText" Text=" [Ожидается обновление]" 
+								  Visibility="{Binding NeedRefresh,  Source={StaticResource globalStatus},
+									Converter={StaticResource visibilityConverter}}"/>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0,0,0">
+						<TextBlock x:Name="ConnectText" Text="Сервер найден" 
+								  Visibility="{Binding IsError,  Source={StaticResource globalStatus},
+									Converter={StaticResource visibilityNotConverter}}"/>
+						<TextBlock x:Name="NotConnectText" Text="Сервер не найден" Foreground="Red"
+								  Visibility="{Binding IsError,  Source={StaticResource globalStatus},
+									Converter={StaticResource visibilityConverter}}"/>
+					</StackPanel>
 				</StackPanel>
 			</Grid>
 

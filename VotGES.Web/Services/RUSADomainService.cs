@@ -26,7 +26,6 @@ namespace VotGES.Web.Services
 			foreach (RUSAResult result in data.DiffResult) {
 				data.Result.Add(result);
 			}
-			Logger.Info(data.Result.Count.ToString());
 			return data;
 		}
 	}

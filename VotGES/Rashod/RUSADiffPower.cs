@@ -70,7 +70,9 @@ namespace VotGES.Rashod
 		public double stepPower=1;
 		public int countChoices=1;
 
-		protected RUSADiffPower(List<int> avail, double napor) {
+		protected RUSADiffPower(List<int> avail, double napor,int countChoices) 
+		{
+			this.countChoices = countChoices;
 			availGenerators = new List<int>();
 
 			this.napor = napor;
@@ -146,6 +148,7 @@ namespace VotGES.Rashod
 
 		public static RUSADiffPower getFromCache(List<int> availGenerators, double napor, int countChoices = 1) {
 			string str=String.Join("-", availGenerators);
+			str = countChoices + "_" + str;
 			if (!cache.Keys.Contains(str)) {
 				cache.Add(str, new SortedList<double, RUSADiffPower>());
 			}
@@ -153,24 +156,24 @@ namespace VotGES.Rashod
 				cache[str] = new SortedList<double, RUSADiffPower>();
 			}
 			if (!cache[str].Keys.Contains(napor)) {
-				RUSADiffPower rusa=new RUSADiffPower(availGenerators, napor);
+				RUSADiffPower rusa=new RUSADiffPower(availGenerators, napor,countChoices);
 				cache[str].Add(napor, rusa);
 			}
 			return cache[str][napor];
 		}
 
-		public static double getMinRashod(List<int> availGenerators, double napor, double power) {
-			double min=getFromCache(availGenerators, napor).RUSARecords[0][power].choices[8].rashod;
+		public static double getMinRashod(List<int> availGenerators, double napor, double power, int countChoices = 1) {
+			double min=getFromCache(availGenerators, napor, countChoices).RUSARecords[0][power].choices[8].rashod;
 			return min;
 		}
 
-		public static SortedList<int, double> getMinSostav(List<int> availGenerators, double napor, double power) {
-			RusaRecord rec= getFromCache(availGenerators, napor).RUSARecords[0][power];
+		public static SortedList<int, double> getMinSostav(List<int> availGenerators, double napor, double power, int countChoices = 1) {
+			RusaRecord rec= getFromCache(availGenerators, napor, countChoices).RUSARecords[0][power];
 			return rec.choices.First().Value.sostav;
 		}
 
-		public static List<RusaChoice> getChoices(List<int> availGenerators, double napor, double power) {
-			return getFromCache(availGenerators, napor).RUSARecords[0][power].choices.Values.ToList();
+		public static List<RusaChoice> getChoices(List<int> availGenerators, double napor, double power, int countChoices = 1) {
+			return getFromCache(availGenerators, napor,countChoices).RUSARecords[0][power].choices.Values.ToList();
 		}
 
 	}

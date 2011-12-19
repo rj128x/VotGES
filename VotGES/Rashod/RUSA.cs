@@ -72,7 +72,53 @@ namespace VotGES.Rashod
 			}
 		}
 
+		public static SortedList<double, List<int>> getOptimRashodsFull(double power, double napor, List<int> avail = null) {
+			try {
+				if (avail == null) {
+					avail = new List<int>();
+					for (int ga=1; ga <= 10; ga++) {
+						avail.Add(ga);
+					}
+				}
 
+				SortedList<double,List<int>> sostav=new SortedList<double,List<int>>();
+				for (int index=1; index <= 1023; index++) {
+					List<int> gas=new List<int>();
+					string s=Convert.ToString(index, 2);
+					while (s.Length<10)
+						s="0"+s;
+					bool allAvail=true;
+					for (int ga=1; ga <= 10; ga++) {
+						if (s[ga - 1] == '1') {
+							gas.Add(ga);
+							if (!avail.Contains(ga))
+								allAvail = false;
+						}
+					}
+
+					
+					double divPower=power / gas.Count;
+					if ((divPower > 35) && (divPower < 110) && allAvail) {
+
+						double rashod=0;
+						foreach (int ga in gas) {
+							rashod += RashodTable.getRashod(ga, divPower, napor);
+						}
+
+						while (sostav.Keys.Contains(rashod)) {
+							rashod += 10e-5;
+						}
+						sostav.Add(rashod, gas);
+					}
+				}
+				return sostav;
+
+			} catch (Exception e) {
+				Logger.Error(String.Format("Ошибка получения оптимпльного расхода мощность: {0} napor: {1} ({2})", power, napor, e.Message));
+				Logger.Error(e.StackTrace);
+				return null;
+			}
+		}
 
 		
 	}
