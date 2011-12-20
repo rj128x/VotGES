@@ -36,6 +36,9 @@
     <Reference Include="log4net">
       <HintPath>..\..\Libs\log4net-1.2.10\bin\net\2.0\release\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="PHPSerializationLibrary">
+      <HintPath>..\PHPSerializationLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
@@ -51,14 +54,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logger.cs" />
-    <Compile Include="PBR\PBR.cs" />
-    <Compile Include="PBR\PBRCondition.cs" />
+    <Compile Include="nnet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>nnet.resx</DependentUpon>
+    </Compile>
+    <Compile Include="NNET\NNET.cs" />
+    <Compile Include="PBR\GraphVyrabAnswer.cs" />
+    <Compile Include="PBR\GraphVyrabData.cs" />
+    <Compile Include="PBR\PBRData.cs" />
     <Compile Include="Piramida\Piramida3000.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Piramida3000.edmx</DependentUpon>
     </Compile>
     <Compile Include="Piramida\PiramidaAccess.cs" />
+    <Compile Include="PrognozNB\PrognozNB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rashods.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -71,6 +82,10 @@
     <Compile Include="Rashod\RUSADiffPower.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="nnet.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>nnet.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="rashods.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>rashods.Designer.cs</LastGenOutput>
@@ -79,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="Data\nnet\vges_nb.net" />
     <None Include="Data\rashods\1.csv" />
     <None Include="Data\rashods\10.csv" />
     <None Include="Data\rashods\2.csv" />
@@ -97,7 +113,9 @@
       <LastGenOutput>Piramida3000.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Data\nnet\vges_nb.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
