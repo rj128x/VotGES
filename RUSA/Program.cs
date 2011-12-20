@@ -43,9 +43,9 @@ namespace RUSA
 
 			int[] gas=new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 			//RUSADiffPowerFull.getMinRashod(gas.ToList(), 20, 300);
-			//CheckRusa.calc();
+			CheckRusa.calc();
 
-			calcFull(powers, napors, "RUSA_FULL");
+			//calcFull(powers, napors, "RUSA_FULL");
 			//compareFull(powersAll, napors.ToList(), "RUSA_COMPARE_FULL");
 			
 			/*createMaxKPD(napors, "KPD_MAX.html");

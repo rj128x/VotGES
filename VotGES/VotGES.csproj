@@ -53,10 +53,10 @@
     <Compile Include="Logger.cs" />
     <Compile Include="PBR\PBR.cs" />
     <Compile Include="PBR\PBRCondition.cs" />
-    <Compile Include="Piramida\Piramida.Designer.cs">
+    <Compile Include="Piramida\Piramida3000.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Piramida.edmx</DependentUpon>
+      <DependentUpon>Piramida3000.edmx</DependentUpon>
     </Compile>
     <Compile Include="Piramida\PiramidaAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,9 +92,9 @@
     <None Include="Data\rashods\avg.csv" />
     <None Include="Data\rashods\opt.csv" />
     <None Include="Data\rashods\rashod.xls" />
-    <EntityDeploy Include="Piramida\Piramida.edmx">
+    <EntityDeploy Include="Piramida\Piramida3000.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Piramida.Designer.cs</LastGenOutput>
+      <LastGenOutput>Piramida3000.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup />

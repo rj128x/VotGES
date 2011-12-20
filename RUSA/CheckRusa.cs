@@ -32,7 +32,7 @@ namespace RUSA
 	static class CheckRusa
 	{
 		public static DateTime dateStart=new DateTime(2010, 1, 1);
-		public static DateTime dateEnd=new DateTime(2010, 11, 1);
+		public static DateTime dateEnd=new DateTime(2011, 12, 1);
 
 		public static string fn;
 
@@ -62,6 +62,8 @@ namespace RUSA
 						switch (data.ITEM) {
 							case 276:
 								double napor=Math.Round(data.VALUE0.Value * 10) / 10;
+								napor = napor < 16 ? 16 : napor;
+								napor = napor > 23 ? 23 : napor;
 								result[date].napor = napor;
 								if (!napors.Keys.Contains(napor)) {
 									napors.Add(napor, new List<DateTime>());
@@ -146,7 +148,7 @@ namespace RUSA
 
 				IQueryable<DATA> dataArr=from DATA d in model.DATA where
 													 d.PARNUMBER == 12 && d.DATA_DATE > ds && d.DATA_DATE < de &&
-													 d.OBJTYPE == 2 && d.OBJECT == 0 && d.ITEM == 1 select d;
+													 d.OBJTYPE == 2 && d.OBJECT == 0 && d.ITEM == 1 && d.VALUE0.Value < 800000 select d;
 				DateTime date;
 				foreach (DATA data in dataArr) {
 					date = data.DATA_DATE;
@@ -170,7 +172,7 @@ namespace RUSA
 			double diff=0;
 			double equal=0;
 			SortedList<int,double> sostavDiff;
-			int[]avail=new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+			int[]avail=new int[] { 1,2,3, 4, 5, 6, 7, 8, 9, 10 };
 			List<int> sostavEq=new List<int>();
 			List<int>availList=avail.ToList();
 			foreach (double napor in napors.Keys) {
@@ -180,7 +182,7 @@ namespace RUSA
 						Console.WriteLine(String.Format("{0}: {1} {2}", rusa.date, napor, rusa.p));
 						diff = RUSADiffPower.getMinRashod(availList, napor, rusa.p);
 						sostavDiff = RUSADiffPower.getMinSostav(availList, rusa.napor, rusa.p);
-						equal = VotGES.Rashod.RUSA.getOptimRashod(rusa.p, rusa.napor, true, sostavEq);
+						equal = VotGES.Rashod.RUSA.getOptimRashod(rusa.p, rusa.napor, true, sostavEq, availList);
 
 						foreach (int ga in sostavDiff.Keys) {
 							if (sostavDiff[ga] > 0) {

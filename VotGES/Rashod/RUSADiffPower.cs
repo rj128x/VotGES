@@ -163,7 +163,7 @@ namespace VotGES.Rashod
 		}
 
 		public static double getMinRashod(List<int> availGenerators, double napor, double power, int countChoices = 1) {
-			double min=getFromCache(availGenerators, napor, countChoices).RUSARecords[0][power].choices[8].rashod;
+			double min=getFromCache(availGenerators, napor, countChoices).RUSARecords[0][power].choices.First().Key;
 			return min;
 		}
 
