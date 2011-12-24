@@ -15,8 +15,37 @@ namespace VotGES.PrognozNB
 	
 	class PrognozNB
 	{
-		SortedList<DateTime,PrognozNBFirstData> FirstData;
-		double T;
+		protected SortedList<DateTime,PrognozNBFirstData> firstData;
+		public SortedList<DateTime, PrognozNBFirstData> FirstData {
+			get { return firstData; }
+			set { firstData = value; }
+		}
+
+		double t=0;
+		public double T {
+			get { return t; }
+			set { t = value; }
+		}
+		
+		protected DateTime datePrognozStart;
+		public DateTime DatePrognozStart {
+			get { return datePrognozStart; }
+			set { datePrognozStart = value; }
+		}
+
+		protected SortedList<DateTime, double> rashods;
+		public SortedList<DateTime, double> Rashods {
+			get { return rashods; }
+			protected set { rashods = value; }
+		}
+
+		protected SortedList<DateTime, double> pArr;
+		public SortedList<DateTime, double> PArr {
+			get { return pArr; }
+			protected set { pArr = value; }
+		}
+
+		bool IsQFakt = false;
 
 		protected static NNET.NNET nnet;
 
@@ -24,8 +53,7 @@ namespace VotGES.PrognozNB
 			nnet = NNET.NNET.getNNET(NNET.NNETMODEL.vges_nb);
 		}
 
-		protected SortedList<DateTime, double> getPrognoz(DateTime datePrognozStart, SortedList<DateTime, double> pArr,
-			SortedList<DateTime, double> prevPrognoz, out SortedList<DateTime, double> rashods, bool isQFakt = false) {
+		protected SortedList<DateTime, double> getPrognoz() {
 			
 			SortedList<int,double>prevDataRashodArray=new SortedList<int, double>();
 			SortedList<int,double>prevDataNBArray=new SortedList<int, double>();
@@ -45,20 +73,13 @@ namespace VotGES.PrognozNB
 			rashods = new SortedList<DateTime, double>();
 
 
-			if (prevPrognoz == null) {
-				double napor=prevDataVBArray.Last().Value - prevDataNBArray.Last().Value;
-				foreach (KeyValuePair<DateTime,double>de in pArr) {
-					naporArray.Add(de.Key, napor);
-				}
-			} else {
-				double vb=prevDataVBArray.Last().Value;
-				foreach (KeyValuePair<DateTime,double>de in pArr) {
-					naporArray.Add(de.Key, vb - prevPrognoz.First(pr => pr.Key >= de.Key).Value);
-				}
+			double napor=prevDataVBArray.Last().Value - prevDataNBArray.Last().Value;
+			foreach (KeyValuePair<DateTime,double>de in pArr) {
+				naporArray.Add(de.Key, napor);
 			}
-
-			foreach (KeyValuePair<DateTime,double> de in pArr) {
-				double rashod=isQFakt ? de.Value : RashodTable.getStationRashod(de.Value, naporArray[de.Key],RashodCalcMode.avg);
+		
+			foreach (KeyValuePair<DateTime,double> de in PArr) {
+				double rashod=IsQFakt ? de.Value : RashodTable.getStationRashod(de.Value, naporArray[de.Key],RashodCalcMode.avg);
 				rashods.Add(de.Key, rashod);
 				prognoz.Add(de.Key, 0);
 			}
@@ -75,8 +96,8 @@ namespace VotGES.PrognozNB
 					SortedList<int,double> outputVector=new SortedList<int, double>();
 					for (int step=0; step <= 3; step++) {
 						SortedList<int, double> inputVector=new SortedList<int, double>();
-						inputVector[0] = datePrognozStart.Year;
-						inputVector[1] = datePrognozStart.DayOfYear;
+						inputVector[0] = DatePrognozStart.Year;
+						inputVector[1] = DatePrognozStart.DayOfYear;
 						inputVector[2] = T;
 
 						inputVector[3] = prevDataVBArray[0];
@@ -92,7 +113,7 @@ namespace VotGES.PrognozNB
 
 						for (int i=0; i < 24; i++) {
 							double rashod=0;
-							if (!isQFakt) {
+							if (!IsQFakt) {
 								rashod = RashodTable.getStationRashod(pArr[dataForPrognoz.Keys[i]], naporsForPrognoz[dataForPrognoz.Keys[i]], RashodCalcMode.avg);
 							} else {
 								rashod = rashods[dataForPrognoz.Keys[i]];

@@ -77,6 +77,882 @@ namespace MainSL
         }
     }
 }
+namespace VotGES.Chart
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Runtime.Serialization;
+    using System.ServiceModel.DomainServices;
+    using System.ServiceModel.DomainServices.Client;
+    using System.ServiceModel.DomainServices.Client.ApplicationServices;
+    using System.Xml.Serialization;
+    
+    
+    /// <summary>
+    /// Класс "ChartAnswer".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Chart")]
+    public sealed partial class ChartAnswer : ComplexObject
+    {
+        
+        private ChartData _data;
+        
+        private ChartProperties _properties;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnDataChanging(ChartData value);
+        partial void OnDataChanged();
+        partial void OnPropertiesChanging(ChartProperties value);
+        partial void OnPropertiesChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="ChartAnswer"/>.
+        /// </summary>
+        public ChartAnswer()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Data".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public ChartData Data
+        {
+            get
+            {
+                return this._data;
+            }
+            set
+            {
+                if ((this._data != value))
+                {
+                    this.OnDataChanging(value);
+                    this.RaiseDataMemberChanging("Data");
+                    this.ValidateProperty("Data", value);
+                    this._data = value;
+                    this.RaiseDataMemberChanged("Data");
+                    this.OnDataChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Properties".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public ChartProperties Properties
+        {
+            get
+            {
+                return this._properties;
+            }
+            set
+            {
+                if ((this._properties != value))
+                {
+                    this.OnPropertiesChanging(value);
+                    this.RaiseDataMemberChanging("Properties");
+                    this.ValidateProperty("Properties", value);
+                    this._properties = value;
+                    this.RaiseDataMemberChanged("Properties");
+                    this.OnPropertiesChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Класс "ChartAxisProperties".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Chart")]
+    public sealed partial class ChartAxisProperties : ComplexObject
+    {
+        
+        private bool _auto;
+        
+        private int _index;
+        
+        private double _interval;
+        
+        private double _max;
+        
+        private double _min;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnAutoChanging(bool value);
+        partial void OnAutoChanged();
+        partial void OnIndexChanging(int value);
+        partial void OnIndexChanged();
+        partial void OnIntervalChanging(double value);
+        partial void OnIntervalChanged();
+        partial void OnMaxChanging(double value);
+        partial void OnMaxChanged();
+        partial void OnMinChanging(double value);
+        partial void OnMinChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="ChartAxisProperties"/>.
+        /// </summary>
+        public ChartAxisProperties()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Auto".
+        /// </summary>
+        [DataMember()]
+        public bool Auto
+        {
+            get
+            {
+                return this._auto;
+            }
+            set
+            {
+                if ((this._auto != value))
+                {
+                    this.OnAutoChanging(value);
+                    this.RaiseDataMemberChanging("Auto");
+                    this.ValidateProperty("Auto", value);
+                    this._auto = value;
+                    this.RaiseDataMemberChanged("Auto");
+                    this.OnAutoChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Index".
+        /// </summary>
+        [DataMember()]
+        public int Index
+        {
+            get
+            {
+                return this._index;
+            }
+            set
+            {
+                if ((this._index != value))
+                {
+                    this.OnIndexChanging(value);
+                    this.RaiseDataMemberChanging("Index");
+                    this.ValidateProperty("Index", value);
+                    this._index = value;
+                    this.RaiseDataMemberChanged("Index");
+                    this.OnIndexChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Interval".
+        /// </summary>
+        [DataMember()]
+        public double Interval
+        {
+            get
+            {
+                return this._interval;
+            }
+            set
+            {
+                if ((this._interval != value))
+                {
+                    this.OnIntervalChanging(value);
+                    this.RaiseDataMemberChanging("Interval");
+                    this.ValidateProperty("Interval", value);
+                    this._interval = value;
+                    this.RaiseDataMemberChanged("Interval");
+                    this.OnIntervalChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Max".
+        /// </summary>
+        [DataMember()]
+        public double Max
+        {
+            get
+            {
+                return this._max;
+            }
+            set
+            {
+                if ((this._max != value))
+                {
+                    this.OnMaxChanging(value);
+                    this.RaiseDataMemberChanging("Max");
+                    this.ValidateProperty("Max", value);
+                    this._max = value;
+                    this.RaiseDataMemberChanged("Max");
+                    this.OnMaxChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Min".
+        /// </summary>
+        [DataMember()]
+        public double Min
+        {
+            get
+            {
+                return this._min;
+            }
+            set
+            {
+                if ((this._min != value))
+                {
+                    this.OnMinChanging(value);
+                    this.RaiseDataMemberChanging("Min");
+                    this.ValidateProperty("Min", value);
+                    this._min = value;
+                    this.RaiseDataMemberChanged("Min");
+                    this.OnMinChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Класс "ChartData".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Chart")]
+    [XmlRoot(ElementName="chart")]
+    public sealed partial class ChartData : ComplexObject
+    {
+        
+        private List<ChartDataSerie> _series;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnSeriesChanging(List<ChartDataSerie> value);
+        partial void OnSeriesChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="ChartData"/>.
+        /// </summary>
+        public ChartData()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Series".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<ChartDataSerie> Series
+        {
+            get
+            {
+                return this._series;
+            }
+            set
+            {
+                if ((this._series != value))
+                {
+                    this.OnSeriesChanging(value);
+                    this.RaiseDataMemberChanging("Series");
+                    this.ValidateProperty("Series", value);
+                    this._series = value;
+                    this.RaiseDataMemberChanged("Series");
+                    this.OnSeriesChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Класс "ChartDataPoint".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Chart")]
+    public sealed partial class ChartDataPoint : ComplexObject
+    {
+        
+        private string _xVal;
+        
+        private double _yVal;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnXValChanging(string value);
+        partial void OnXValChanged();
+        partial void OnYValChanging(double value);
+        partial void OnYValChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="ChartDataPoint"/>.
+        /// </summary>
+        public ChartDataPoint()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "XVal".
+        /// </summary>
+        [DataMember()]
+        public string XVal
+        {
+            get
+            {
+                return this._xVal;
+            }
+            set
+            {
+                if ((this._xVal != value))
+                {
+                    this.OnXValChanging(value);
+                    this.RaiseDataMemberChanging("XVal");
+                    this.ValidateProperty("XVal", value);
+                    this._xVal = value;
+                    this.RaiseDataMemberChanged("XVal");
+                    this.OnXValChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "YVal".
+        /// </summary>
+        [DataMember()]
+        public double YVal
+        {
+            get
+            {
+                return this._yVal;
+            }
+            set
+            {
+                if ((this._yVal != value))
+                {
+                    this.OnYValChanging(value);
+                    this.RaiseDataMemberChanging("YVal");
+                    this.ValidateProperty("YVal", value);
+                    this._yVal = value;
+                    this.RaiseDataMemberChanged("YVal");
+                    this.OnYValChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Класс "ChartDataSerie".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Chart")]
+    public sealed partial class ChartDataSerie : ComplexObject
+    {
+        
+        private string _name;
+        
+        private List<ChartDataPoint> _points;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        partial void OnPointsChanging(List<ChartDataPoint> value);
+        partial void OnPointsChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="ChartDataSerie"/>.
+        /// </summary>
+        public ChartDataSerie()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Name".
+        /// </summary>
+        [DataMember()]
+        public string Name
+        {
+            get
+            {
+                return this._name;
+            }
+            set
+            {
+                if ((this._name != value))
+                {
+                    this.OnNameChanging(value);
+                    this.RaiseDataMemberChanging("Name");
+                    this.ValidateProperty("Name", value);
+                    this._name = value;
+                    this.RaiseDataMemberChanged("Name");
+                    this.OnNameChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Points".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<ChartDataPoint> Points
+        {
+            get
+            {
+                return this._points;
+            }
+            set
+            {
+                if ((this._points != value))
+                {
+                    this.OnPointsChanging(value);
+                    this.RaiseDataMemberChanging("Points");
+                    this.ValidateProperty("Points", value);
+                    this._points = value;
+                    this.RaiseDataMemberChanged("Points");
+                    this.OnPointsChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Класс "ChartProperties".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Chart")]
+    public sealed partial class ChartProperties : ComplexObject
+    {
+        
+        private List<ChartAxisProperties> _axes;
+        
+        private List<ChartSerieProperties> _series;
+        
+        private XAxisTypeEnum _xAxisType;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnAxesChanging(List<ChartAxisProperties> value);
+        partial void OnAxesChanged();
+        partial void OnSeriesChanging(List<ChartSerieProperties> value);
+        partial void OnSeriesChanged();
+        partial void OnXAxisTypeChanging(XAxisTypeEnum value);
+        partial void OnXAxisTypeChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="ChartProperties"/>.
+        /// </summary>
+        public ChartProperties()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Axes".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<ChartAxisProperties> Axes
+        {
+            get
+            {
+                return this._axes;
+            }
+            set
+            {
+                if ((this._axes != value))
+                {
+                    this.OnAxesChanging(value);
+                    this.RaiseDataMemberChanging("Axes");
+                    this.ValidateProperty("Axes", value);
+                    this._axes = value;
+                    this.RaiseDataMemberChanged("Axes");
+                    this.OnAxesChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Series".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<ChartSerieProperties> Series
+        {
+            get
+            {
+                return this._series;
+            }
+            set
+            {
+                if ((this._series != value))
+                {
+                    this.OnSeriesChanging(value);
+                    this.RaiseDataMemberChanging("Series");
+                    this.ValidateProperty("Series", value);
+                    this._series = value;
+                    this.RaiseDataMemberChanged("Series");
+                    this.OnSeriesChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "XAxisType".
+        /// </summary>
+        [DataMember()]
+        public XAxisTypeEnum XAxisType
+        {
+            get
+            {
+                return this._xAxisType;
+            }
+            set
+            {
+                if ((this._xAxisType != value))
+                {
+                    this.OnXAxisTypeChanging(value);
+                    this.RaiseDataMemberChanging("XAxisType");
+                    this.ValidateProperty("XAxisType", value);
+                    this._xAxisType = value;
+                    this.RaiseDataMemberChanged("XAxisType");
+                    this.OnXAxisTypeChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Класс "ChartSerieProperties".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Chart")]
+    public sealed partial class ChartSerieProperties : ComplexObject
+    {
+        
+        private string _color;
+        
+        private bool _enabled;
+        
+        private int _lineWidth;
+        
+        private bool _marker;
+        
+        private ChartSerieType _serieType;
+        
+        private string _tagName;
+        
+        private string _title;
+        
+        private int _yAxisIndex;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnColorChanging(string value);
+        partial void OnColorChanged();
+        partial void OnEnabledChanging(bool value);
+        partial void OnEnabledChanged();
+        partial void OnLineWidthChanging(int value);
+        partial void OnLineWidthChanged();
+        partial void OnMarkerChanging(bool value);
+        partial void OnMarkerChanged();
+        partial void OnSerieTypeChanging(ChartSerieType value);
+        partial void OnSerieTypeChanged();
+        partial void OnTagNameChanging(string value);
+        partial void OnTagNameChanged();
+        partial void OnTitleChanging(string value);
+        partial void OnTitleChanged();
+        partial void OnYAxisIndexChanging(int value);
+        partial void OnYAxisIndexChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="ChartSerieProperties"/>.
+        /// </summary>
+        public ChartSerieProperties()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Color".
+        /// </summary>
+        [DataMember()]
+        public string Color
+        {
+            get
+            {
+                return this._color;
+            }
+            set
+            {
+                if ((this._color != value))
+                {
+                    this.OnColorChanging(value);
+                    this.RaiseDataMemberChanging("Color");
+                    this.ValidateProperty("Color", value);
+                    this._color = value;
+                    this.RaiseDataMemberChanged("Color");
+                    this.OnColorChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Enabled".
+        /// </summary>
+        [DataMember()]
+        public bool Enabled
+        {
+            get
+            {
+                return this._enabled;
+            }
+            set
+            {
+                if ((this._enabled != value))
+                {
+                    this.OnEnabledChanging(value);
+                    this.RaiseDataMemberChanging("Enabled");
+                    this.ValidateProperty("Enabled", value);
+                    this._enabled = value;
+                    this.RaiseDataMemberChanged("Enabled");
+                    this.OnEnabledChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "LineWidth".
+        /// </summary>
+        [DataMember()]
+        public int LineWidth
+        {
+            get
+            {
+                return this._lineWidth;
+            }
+            set
+            {
+                if ((this._lineWidth != value))
+                {
+                    this.OnLineWidthChanging(value);
+                    this.RaiseDataMemberChanging("LineWidth");
+                    this.ValidateProperty("LineWidth", value);
+                    this._lineWidth = value;
+                    this.RaiseDataMemberChanged("LineWidth");
+                    this.OnLineWidthChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Marker".
+        /// </summary>
+        [DataMember()]
+        public bool Marker
+        {
+            get
+            {
+                return this._marker;
+            }
+            set
+            {
+                if ((this._marker != value))
+                {
+                    this.OnMarkerChanging(value);
+                    this.RaiseDataMemberChanging("Marker");
+                    this.ValidateProperty("Marker", value);
+                    this._marker = value;
+                    this.RaiseDataMemberChanged("Marker");
+                    this.OnMarkerChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "SerieType".
+        /// </summary>
+        [DataMember()]
+        public ChartSerieType SerieType
+        {
+            get
+            {
+                return this._serieType;
+            }
+            set
+            {
+                if ((this._serieType != value))
+                {
+                    this.OnSerieTypeChanging(value);
+                    this.RaiseDataMemberChanging("SerieType");
+                    this.ValidateProperty("SerieType", value);
+                    this._serieType = value;
+                    this.RaiseDataMemberChanged("SerieType");
+                    this.OnSerieTypeChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "TagName".
+        /// </summary>
+        [DataMember()]
+        public string TagName
+        {
+            get
+            {
+                return this._tagName;
+            }
+            set
+            {
+                if ((this._tagName != value))
+                {
+                    this.OnTagNameChanging(value);
+                    this.RaiseDataMemberChanging("TagName");
+                    this.ValidateProperty("TagName", value);
+                    this._tagName = value;
+                    this.RaiseDataMemberChanged("TagName");
+                    this.OnTagNameChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Title".
+        /// </summary>
+        [DataMember()]
+        public string Title
+        {
+            get
+            {
+                return this._title;
+            }
+            set
+            {
+                if ((this._title != value))
+                {
+                    this.OnTitleChanging(value);
+                    this.RaiseDataMemberChanging("Title");
+                    this.ValidateProperty("Title", value);
+                    this._title = value;
+                    this.RaiseDataMemberChanged("Title");
+                    this.OnTitleChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "YAxisIndex".
+        /// </summary>
+        [DataMember()]
+        public int YAxisIndex
+        {
+            get
+            {
+                return this._yAxisIndex;
+            }
+            set
+            {
+                if ((this._yAxisIndex != value))
+                {
+                    this.OnYAxisIndexChanging(value);
+                    this.RaiseDataMemberChanging("YAxisIndex");
+                    this.ValidateProperty("YAxisIndex", value);
+                    this._yAxisIndex = value;
+                    this.RaiseDataMemberChanged("YAxisIndex");
+                    this.OnYAxisIndexChanged();
+                }
+            }
+        }
+    }
+    
+    public enum ChartSerieType
+    {
+        
+        line = 0,
+        
+        bar = 1,
+        
+        pie = 2,
+        
+        column = 3,
+        
+        stepLine = 4,
+    }
+    
+    public enum XAxisTypeEnum
+    {
+        
+        auto = 0,
+        
+        datetime = 1,
+    }
+}
 namespace VotGES.Web.Models
 {
     using System;
@@ -524,6 +1400,7 @@ namespace VotGES.Web.Services
     using System.ServiceModel.DomainServices.Client;
     using System.ServiceModel.DomainServices.Client.ApplicationServices;
     using System.ServiceModel.Web;
+    using VotGES.Chart;
     using VotGES.Web.Models;
     
     
@@ -718,6 +1595,115 @@ namespace VotGES.Web.Services
             public AuthenticationDomainContextEntityContainer()
             {
                 this.CreateEntitySet<User>(EntitySetOperations.Edit);
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Контекст DomainContext, соответствующий службе "ChartService" DomainService.
+    /// </summary>
+    public sealed partial class ChartContext : DomainContext
+    {
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="ChartContext"/>.
+        /// </summary>
+        public ChartContext() : 
+                this(new WebDomainClient<IChartServiceContract>(new Uri("VotGES-Web-Services-ChartService.svc", UriKind.Relative)))
+        {
+        }
+        
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="ChartContext"/> с указанным URI службы.
+        /// </summary>
+        /// <param name="serviceUri">Идентификатор URI службы ChartService.</param>
+        public ChartContext(Uri serviceUri) : 
+                this(new WebDomainClient<IChartServiceContract>(serviceUri))
+        {
+        }
+        
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="ChartContext"/> с указанным параметром <paramref name="domainClient"/>.
+        /// </summary>
+        /// <param name="domainClient">Экземпляр DomainClient для использования в этом контексте DomainContext.</param>
+        public ChartContext(DomainClient domainClient) : 
+                base(domainClient)
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "processChart" службы DomainService.
+        /// </summary>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<ChartAnswer> processChart(Action<InvokeOperation<ChartAnswer>> callback, object userState)
+        {
+            this.ValidateMethod("processChart", null);
+            return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("processChart", typeof(ChartAnswer), null, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "processChart" службы DomainService.
+        /// </summary>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<ChartAnswer> processChart()
+        {
+            this.ValidateMethod("processChart", null);
+            return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("processChart", typeof(ChartAnswer), null, true, null, null)));
+        }
+        
+        /// <summary>
+        /// Создает новый объект EntityContainer для наборов сущностей EntitySets данного контекста DomainContext.
+        /// </summary>
+        /// <returns>Новый экземпляр контейнера.</returns>
+        protected override EntityContainer CreateEntityContainer()
+        {
+            return new ChartContextEntityContainer();
+        }
+        
+        /// <summary>
+        /// Контракт службы (Service) "ChartService" DomainService.
+        /// </summary>
+        [ServiceContract()]
+        public interface IChartServiceContract
+        {
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "processChart".
+            /// </summary>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/ChartService/processChartDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ChartService/processChart", ReplyAction="http://tempuri.org/ChartService/processChartResponse")]
+            IAsyncResult BeginprocessChart(AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BeginprocessChart".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginprocessChart".</param>
+            /// <returns>Объект "ChartAnswer", возвращенный из операции "processChart".</returns>
+            ChartAnswer EndprocessChart(IAsyncResult result);
+        }
+        
+        internal sealed class ChartContextEntityContainer : EntityContainer
+        {
+            
+            public ChartContextEntityContainer()
+            {
             }
         }
     }

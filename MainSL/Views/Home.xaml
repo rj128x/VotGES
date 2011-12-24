@@ -1,16 +1,15 @@
-<navigation:Page x:Class="MainSL.Home" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480" Title="Домашняя страница" Style="{StaticResource PageStyle}">
+<navigation:Page x:Class="MainSL.Home" 
+					  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+					  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+					  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+					  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+					  xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" 
+					  xmlns:usr="clr-namespace:MainSL.Views" 
+					  mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480" Title="Домашняя страница" 
+					  Style="{StaticResource PageStyle}">
 
     <Grid x:Name="LayoutRoot">
-        <ScrollViewer x:Name="PageScrollViewer" Style="{StaticResource PageScrollViewerStyle}">
-
-            <StackPanel x:Name="ContentStackPanel">
-
-                <TextBlock x:Name="HeaderText" Style="{StaticResource HeaderTextStyle}" Text="Домашняя страница"/>
-                <TextBlock x:Name="ContentText" Style="{StaticResource ContentTextStyle}" Text="Содержимое домашней страницы"/>
-
-            </StackPanel>
-
-        </ScrollViewer>
+		<usr:ChartControl x:Name="chartControl" VerticalAlignment="Stretch"/>
     </Grid>
 
 </navigation:Page>

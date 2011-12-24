@@ -53,6 +53,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chart\ChartAnswer.cs" />
+    <Compile Include="Chart\ChartAxisProperties.cs" />
+    <Compile Include="Chart\ChartData.cs" />
+    <Compile Include="Chart\ChartDataPoint.cs" />
+    <Compile Include="Chart\ChartDataSerie.cs" />
+    <Compile Include="Chart\ChartProperties.cs" />
+    <Compile Include="Chart\ChartSerieProperties.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="nnet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -60,8 +67,6 @@
       <DependentUpon>nnet.resx</DependentUpon>
     </Compile>
     <Compile Include="NNET\NNET.cs" />
-    <Compile Include="PBR\GraphVyrabAnswer.cs" />
-    <Compile Include="PBR\GraphVyrabData.cs" />
     <Compile Include="PBR\PBRData.cs" />
     <Compile Include="Piramida\Piramida3000.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -80,6 +85,7 @@
     <Compile Include="Rashod\RashodTable.cs" />
     <Compile Include="Rashod\RUSA.cs" />
     <Compile Include="Rashod\RUSADiffPower.cs" />
+    <Compile Include="XMLSer\XMLSer.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="nnet.resx">

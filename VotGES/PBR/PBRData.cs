@@ -66,7 +66,7 @@ namespace PILib.PBR
 
 			Piramida3000Entities model = VotGES.Piramida.PiramidaAccess.getModel();
 			IQueryable<DATA> dataArr = from DATA d in model.DATA where
-													d.PARNUMBER == 212 && d.DATA_DATE > dateStart && d.DATA_DATE < dateEnd &&
+													d.PARNUMBER == 212 && d.DATA_DATE > DateStart && d.DATA_DATE < DateEnd &&
 													d.OBJTYPE == 2 && d.OBJECT == 1 && d.ITEM==1
 												select d;
 			//adapter.FillGTPPBR(table, 1, DateStart, DateEnd);
