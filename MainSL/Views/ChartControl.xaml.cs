@@ -67,6 +67,7 @@ namespace MainSL.Views
 					}
 				}
 			}
+			LegendGrid.ItemsSource = ChartSeries;
 
 		}
 
@@ -91,8 +92,7 @@ namespace MainSL.Views
 
 			CurrentChart.LegendVisibility = Visibility.Collapsed;
 
-			CurrentChart.Behaviour = manager;
-			RefreshLegend();
+			CurrentChart.Behaviour = manager;			
 		}
 
 		public void NotifyChanged(string propName) {
@@ -116,13 +116,8 @@ namespace MainSL.Views
 		}
 
 
-
-		public void RefreshLegend() {
-			LegendGrid.ItemsSource = CurrentChart.Series;
-		}
-
 		private void ToggleSettingsBtn_Click(object sender, RoutedEventArgs e) {
-			SettingsPanel.Visibility = SettingsPanel.Visibility == System.Windows.Visibility.Collapsed ? 
+			LegendGrid.Visibility = LegendGrid.Visibility == System.Windows.Visibility.Collapsed ? 
 				System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
 
 		}
