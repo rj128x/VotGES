@@ -41,14 +41,16 @@ namespace MainSL.Views
 			foreach (ChartAxisProperties ax in chartAnswer.Properties.Axes) {
 				LinearAxis axis=new LinearAxis();
 				axis.AutoScaleToVisibleData = true;
+				
 				axis.LabelFormatString = "### ### ##0.##";
 				axis.ShowGridlines = ax.Index == 0;
+				
 				if (ax.Interval != 0) {
 					axis.MajorTickInterval = ax.Interval;
 				}
 				if (!ax.Auto) {
 					axis.Range = new DoubleRange(ax.Min, ax.Max);
-				}
+				} 
 				if (ax.Index > 1) {
 					CurrentChart.AdditionalSecondaryYAxes.Add(axis);
 				}
@@ -73,7 +75,16 @@ namespace MainSL.Views
 
 
 		private void CreateChart() {
-			//CurrentChart = new Chart();
+			
+			LayoutRoot.Children.Remove(CurrentChart);
+			CurrentChart = new Chart();
+			LayoutRoot.Children.Add(CurrentChart);
+			CurrentChart.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
+			CurrentChart.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+			CurrentChart.LegendVisibility = System.Windows.Visibility.Collapsed;
+
+			LayoutRoot.Children.Remove(SettingsPanel);
+			LayoutRoot.Children.Add(SettingsPanel);
 
 			BehaviourManager manager=new BehaviourManager();
 			manager.AllowMultipleEnabled = true;

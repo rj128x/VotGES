@@ -38,6 +38,10 @@
 
 			<Border x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
 				<StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
+					<Rectangle x:Name="Divider4" Style="{StaticResource DividerStyle}"/>
+					<HyperlinkButton x:Name="Link4" Style="{StaticResource LinkStyle}" 
+                                     NavigateUri="/CheckPrognozNBPage" TargetName="ContentFrame" Content="Факт НБ"/>
+					
 					<Rectangle x:Name="Divider3" Style="{StaticResource DividerStyle}"/>
 					<HyperlinkButton x:Name="Link3" Style="{StaticResource LinkStyle}" 
                                      NavigateUri="/RUSAPage" TargetName="ContentFrame" Content="РУСА"/>
@@ -46,10 +50,6 @@
 					<HyperlinkButton x:Name="Link1" Style="{StaticResource LinkStyle}" 
                                      NavigateUri="/Home" TargetName="ContentFrame" Content="Главная"/>
 
-					<Rectangle x:Name="Divider2" Style="{StaticResource DividerStyle}"/>
-
-					<HyperlinkButton x:Name="Link2" Style="{StaticResource LinkStyle}" 
-                                     NavigateUri="/About" TargetName="ContentFrame" Content="о программе"/>
 
 				</StackPanel>
 			</Border>

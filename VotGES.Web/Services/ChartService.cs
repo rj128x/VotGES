@@ -12,6 +12,7 @@ namespace VotGES.Web.Services
 	using System.ServiceModel.DomainServices.Server;
 	using VotGES.Piramida;
 	using VotGES.Chart;
+	using VotGES.PrognozNB;
 
 
 	// Реализует логику приложения с использованием контекста Piramida3000Entities.
@@ -86,6 +87,17 @@ namespace VotGES.Web.Services
 				answer.Data = data;
 				Logger.Info(answer.ToString());
 				return answer;
+			} catch (Exception e) {
+				Logger.Error(e.ToString());
+				return null;
+			}
+		}
+
+		public ChartAnswer checkPrognozNB(DateTime date,int countDays) {
+			try {
+				CheckPrognozNB prognoz=new CheckPrognozNB(date.Date,countDays);
+				prognoz.startPrognoz();
+				return prognoz.getChart();
 			} catch (Exception e) {
 				Logger.Error(e.ToString());
 				return null;

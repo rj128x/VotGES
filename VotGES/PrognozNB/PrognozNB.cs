@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VotGES.Chart;
 
 namespace VotGES.PrognozNB
 {
-	class PrognozNBFirstData
+	public class PrognozNBFirstData
 	{
 		public DateTime Date { get; set; }
 		public double Q { get; set; }
@@ -13,7 +14,7 @@ namespace VotGES.PrognozNB
 		public double VB { get; set; }
 	}
 	
-	class PrognozNB
+	public class PrognozNB
 	{
 		protected SortedList<DateTime,PrognozNBFirstData> firstData;
 		public SortedList<DateTime, PrognozNBFirstData> FirstData {
@@ -33,6 +34,12 @@ namespace VotGES.PrognozNB
 			set { datePrognozStart = value; }
 		}
 
+		protected DateTime datePrognozEnd;
+		public DateTime DatePrognozEnd {
+			get { return datePrognozEnd; }
+			set { datePrognozEnd = value; }
+		}
+
 		protected SortedList<DateTime, double> rashods;
 		public SortedList<DateTime, double> Rashods {
 			get { return rashods; }
@@ -42,10 +49,22 @@ namespace VotGES.PrognozNB
 		protected SortedList<DateTime, double> pArr;
 		public SortedList<DateTime, double> PArr {
 			get { return pArr; }
-			protected set { pArr = value; }
+			set { pArr = value; }
 		}
 
-		bool IsQFakt = false;
+		protected  SortedList<DateTime, double> prognoz;
+		public SortedList<DateTime, double> Prognoz
+		{
+			get { return prognoz; }
+			set { prognoz = value; }
+		}
+
+		private bool isQFakt;
+
+		public bool IsQFakt {
+			get { return isQFakt; }
+			set { isQFakt = value; }
+		}
 
 		protected static NNET.NNET nnet;
 
@@ -53,12 +72,21 @@ namespace VotGES.PrognozNB
 			nnet = NNET.NNET.getNNET(NNET.NNETMODEL.vges_nb);
 		}
 
-		protected SortedList<DateTime, double> getPrognoz() {
+		public void calcPrognoz() {
+			if (PArr.Count % 24 != 0) {
+				int addCnt=24 - PArr.Count % 24;
+				for (int i=0; i < addCnt; i++) {
+					DateTime last=PArr.Last().Key;
+					PArr.Add(last.AddMinutes(30), PArr[last]);
+				}
+			}
+
+
 			
 			SortedList<int,double>prevDataRashodArray=new SortedList<int, double>();
 			SortedList<int,double>prevDataNBArray=new SortedList<int, double>();
 			SortedList<int,double>prevDataVBArray=new SortedList<int, double>();
-			SortedList<DateTime,double>prognoz=new SortedList<DateTime, double>();
+			prognoz=new SortedList<DateTime, double>();
 
 			int index=0;
 			foreach (DateTime date in FirstData.Keys) {
@@ -83,7 +111,7 @@ namespace VotGES.PrognozNB
 				rashods.Add(de.Key, rashod);
 				prognoz.Add(de.Key, 0);
 			}
-			prognoz.Add(rashods.First().Key.AddMinutes(-30), prevDataNBArray[4]);
+			//prognoz.Add(rashods.First().Key.AddMinutes(-30), prevDataNBArray[4]);
 
 			double currentNapor=naporArray.First().Value;
 			SortedList<DateTime,double> dataForPrognoz=new SortedList<DateTime, double>();
@@ -100,16 +128,15 @@ namespace VotGES.PrognozNB
 						inputVector[1] = DatePrognozStart.DayOfYear;
 						inputVector[2] = T;
 
-						inputVector[3] = prevDataVBArray[0];
-						inputVector[4] = prevDataVBArray[1];
-						inputVector[5] = prevDataVBArray[2];
-						inputVector[6] = prevDataVBArray[3];
+						inputVector[3] = prevDataVBArray[1];
+						inputVector[4] = prevDataVBArray[2];
+						inputVector[5] = prevDataVBArray[3];
+						inputVector[6] = prevDataVBArray[4];
 
-						inputVector[7] = prevDataRashodArray[0];
-						inputVector[8] = prevDataRashodArray[1];
-						inputVector[9] = prevDataRashodArray[2];
-						inputVector[10] = prevDataRashodArray[3];
-						inputVector[11] = prevDataRashodArray[4];
+						inputVector[7] = prevDataRashodArray[1];
+						inputVector[8] = prevDataRashodArray[2];
+						inputVector[9] = prevDataRashodArray[3];
+						inputVector[10] = prevDataRashodArray[4];
 
 						for (int i=0; i < 24; i++) {
 							double rashod=0;
@@ -120,14 +147,15 @@ namespace VotGES.PrognozNB
 							}
 
 							rashods[dataForPrognoz.Keys[i]] = rashod;
-							inputVector[i + 12] = rashod;
+							inputVector[i + 11] = rashod;
 						}
 
-						inputVector[35] = prevDataNBArray[0];
-						inputVector[36] = prevDataNBArray[1];
-						inputVector[37] = prevDataNBArray[2];
-						inputVector[38] = prevDataNBArray[3];
+						inputVector[35] = prevDataNBArray[1];
+						inputVector[36] = prevDataNBArray[2];
+						inputVector[37] = prevDataNBArray[3];
+						inputVector[38] = prevDataNBArray[4];
 
+						Logger.Info(String.Join("-", inputVector));
 						outputVector = nnet.calc(inputVector);
 
 						for (int i=0; i < outputVector.Count; i++) {
@@ -140,14 +168,157 @@ namespace VotGES.PrognozNB
 					}
 
 					for (int i=0; i <= 4; i++) {
-						prevDataNBArray[i] = prognoz[dataForPrognoz.Keys[18 + i]];
-						prevDataRashodArray[i] = rashods[dataForPrognoz.Keys[18 + i]];
+						prevDataNBArray[i] = prognoz[dataForPrognoz.Keys[19 + i]];
+						prevDataRashodArray[i] = rashods[dataForPrognoz.Keys[19 + i]];
 					}
 
 					dataForPrognoz.Clear();
 				}
 			}
-			return prognoz;
+
+
+			while (prognoz.Last().Key > DatePrognozEnd) {
+				prognoz.Remove(prognoz.Last().Key);
+			}
+			while (rashods.Last().Key > DatePrognozEnd) {
+				rashods.Remove(rashods.Last().Key);
+			}
+		}
+
+		public void AddChartData(ChartData data) {
+			ChartDataSerie prognozNBSerie=new ChartDataSerie();
+			foreach (KeyValuePair<DateTime,double> de in Prognoz) {
+				prognozNBSerie.Points.Add(new ChartDataPoint(de.Key.ToString(),de.Value));
+			}
+
+			ChartDataSerie prognozQSerie=new ChartDataSerie();
+			foreach (KeyValuePair<DateTime,double> de in Rashods) {
+				prognozQSerie.Points.Add(new ChartDataPoint(de.Key.ToString(), de.Value));
+			}
+
+			prognozNBSerie.Name = "NBPrognoz";
+			prognozQSerie.Name = "QPrognoz";
+
+			data.Series.Add(prognozNBSerie);
+			data.Series.Add(prognozQSerie);
+		}
+
+
+		public ChartProperties createChartProperties() {
+			ChartProperties props=new ChartProperties();
+
+			ChartAxisProperties pAx=new ChartAxisProperties();
+			pAx.Min = 0;
+			pAx.Max = 1020;
+			pAx.Auto = false;
+			pAx.Interval = 100;
+			pAx.Index = 1;
+
+			ChartAxisProperties nbAx=new ChartAxisProperties();
+			nbAx.Auto = true;
+			nbAx.Interval = 0.1;
+			nbAx.Index = 0;
+
+			ChartAxisProperties qAx=new ChartAxisProperties();
+			qAx.Auto = false;
+			qAx.Min = 0;
+			qAx.Max = 8000;
+			qAx.Index = 2;
+
+			ChartAxisProperties vbAx=new ChartAxisProperties();
+			vbAx.Auto = true;
+			vbAx.Index = 3;
+
+			ChartAxisProperties naporAx=new ChartAxisProperties();
+			naporAx.Auto = true;
+			naporAx.Index = 4;
+
+			ChartSerieProperties pSerie=new ChartSerieProperties();
+			pSerie.Color = "0-0-255";
+			pSerie.LineWidth = 2;
+			pSerie.SerieType = ChartSerieType.line;
+			pSerie.Title = "P факт";
+			pSerie.TagName = "PFakt";
+			pSerie.YAxisIndex = 1;
+
+			ChartSerieProperties pbrSerie=new ChartSerieProperties();
+			pbrSerie.Color = "0-0-255";
+			pbrSerie.LineWidth = 1;
+			pbrSerie.SerieType = ChartSerieType.line;
+			pbrSerie.Title = "ПБР";
+			pbrSerie.TagName = "PBR";
+			pbrSerie.YAxisIndex = 1;
+
+			ChartSerieProperties nbFaktSerie=new ChartSerieProperties();
+			nbFaktSerie.Color = "255-0-0";
+			nbFaktSerie.LineWidth = 2;
+			nbFaktSerie.SerieType = ChartSerieType.line;
+			nbFaktSerie.Title = "НБ факт";
+			nbFaktSerie.TagName = "NBFakt";
+			nbFaktSerie.YAxisIndex = 0;
+
+			ChartSerieProperties nbPrognozSerie=new ChartSerieProperties();
+			nbPrognozSerie.Color = "255-0-0";
+			nbPrognozSerie.LineWidth = 1;
+			nbPrognozSerie.SerieType = ChartSerieType.line;
+			nbPrognozSerie.Title = "НБ прогноз";
+			nbPrognozSerie.TagName = "NBPrognoz";
+			nbPrognozSerie.YAxisIndex = 0;
+
+			ChartSerieProperties qFaktSerie=new ChartSerieProperties();
+			qFaktSerie.Color = "0-255-0";
+			qFaktSerie.LineWidth = 2;
+			qFaktSerie.SerieType = ChartSerieType.line;
+			qFaktSerie.Title = "Q факт";
+			qFaktSerie.TagName = "QFakt";
+			qFaktSerie.YAxisIndex = 2;
+
+			ChartSerieProperties qPrognozSerie=new ChartSerieProperties();
+			qPrognozSerie.Color = "0-255-0";
+			qPrognozSerie.LineWidth = 2;
+			qPrognozSerie.SerieType = ChartSerieType.line;
+			qPrognozSerie.Title = "Q прогноз";
+			qPrognozSerie.TagName = "QPrognoz";
+			qPrognozSerie.Enabled = false;
+			qPrognozSerie.YAxisIndex = 2;
+
+			ChartSerieProperties vbSerie=new ChartSerieProperties();
+			vbSerie.Color = "0-255-255";
+			vbSerie.LineWidth = 2;
+			vbSerie.SerieType = ChartSerieType.line;
+			vbSerie.Title = "ВБ";
+			vbSerie.TagName = "VB";
+			vbSerie.Enabled = false;
+			vbSerie.YAxisIndex = 3;
+
+			ChartSerieProperties naporSerie=new ChartSerieProperties();
+			naporSerie.Color = "255-255-0";
+			naporSerie.LineWidth = 2;
+			naporSerie.SerieType = ChartSerieType.line;
+			naporSerie.Title = "Напор";
+			naporSerie.TagName = "Napor";
+			naporSerie.Enabled = false;
+			naporSerie.YAxisIndex = 4;
+			
+
+			props.Axes.Add(pAx);
+			props.Axes.Add(nbAx);
+			props.Axes.Add(qAx);
+			props.Axes.Add(vbAx);
+			props.Axes.Add(naporAx);
+
+			props.Series.Add(pSerie);
+			props.Series.Add(pbrSerie);
+			props.Series.Add(nbFaktSerie);
+			props.Series.Add(nbPrognozSerie);
+			props.Series.Add(qFaktSerie);
+			props.Series.Add(qPrognozSerie);
+			props.Series.Add(vbSerie);
+			props.Series.Add(naporSerie);
+
+			props.XAxisType = XAxisTypeEnum.datetime;
+
+			return props;
 		}
 	}
 }

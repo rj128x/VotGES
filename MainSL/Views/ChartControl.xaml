@@ -19,7 +19,7 @@
 
 		
 		<StackPanel Name="SettingsPanel" VerticalAlignment="Top" HorizontalAlignment="Right" >
-			<sdk:DataGrid Name="LegendGrid" AutoGenerateColumns="False">
+			<sdk:DataGrid Name="LegendGrid" AutoGenerateColumns="False" ColumnHeaderStyle="{StaticResource CenterHeaderText}">
 				<sdk:DataGrid.Columns>					
 					<sdk:DataGridTemplateColumn Header="Имя">
 						<sdk:DataGridTemplateColumn.CellTemplate>
@@ -28,6 +28,24 @@
 									<Rectangle Height="10" Width="10" Fill="{Binding LineStroke}"/>
 									<CheckBox VerticalAlignment="Center" Content="{Binding Name}"
 												 IsChecked="{Binding Enabled, Mode=TwoWay}"/>
+								</StackPanel>
+							</DataTemplate>
+						</sdk:DataGridTemplateColumn.CellTemplate>
+					</sdk:DataGridTemplateColumn>
+					<sdk:DataGridTemplateColumn Header="X">
+						<sdk:DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="{Binding CurrentPoint.X, StringFormat='dd.MM.yy hh:mm'}"/>
+								</StackPanel>
+							</DataTemplate>
+						</sdk:DataGridTemplateColumn.CellTemplate>
+					</sdk:DataGridTemplateColumn>
+					<sdk:DataGridTemplateColumn Header="Y">
+						<sdk:DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="{Binding CurrentPoint.Y, StringFormat='### ### ### ### ##0.##'}"/>
 								</StackPanel>
 							</DataTemplate>
 						</sdk:DataGridTemplateColumn.CellTemplate>

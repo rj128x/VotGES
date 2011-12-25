@@ -8,30 +8,40 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Visiblox.Charts.Primitives;
-using Visiblox.Charts;
+using System.Windows.Navigation;
 using VotGES.Web.Services;
 using VotGES.Chart;
 
-namespace MainSL
+namespace MainSL.Views
 {
-	public partial class Home : Page
+	public partial class CheckPrognozNBPage : Page
 	{
 		ChartContext chartContext;
-		public Home() {
+		public CheckPrognozNBPage() {
 			InitializeComponent();
 			chartContext = new ChartContext();
+			txtCountDays.Text = "1";
+			clndDate.SelectedDate = DateTime.Now.Date.AddDays(-1);
 		}
 
 		// Выполняется, когда пользователь переходит на эту страницу.
 		protected override void OnNavigatedTo(NavigationEventArgs e) {
-			
 		}
 
-		private void Button_Click(object sender, RoutedEventArgs e) {
-			chartContext.processChart(oper => {
+		private void btnGetPrognoz_Click(object sender, RoutedEventArgs e) {
+			DateTime date=clndDate.SelectedDate.Value;
+			int CountDays=1;
+			try{
+				CountDays=Int32.Parse(txtCountDays.Text);
+			}catch{
+				CountDays = 1;
+			}
+			CountDays = CountDays > 10 ? 10 : CountDays;
+			CountDays = CountDays < 1 ? 1 : CountDays;
+			txtCountDays.Text = CountDays.ToString();
+
+			chartContext.checkPrognozNB(date, CountDays, oper => {
 				ChartAnswer answer=oper.Value;
 				chartControl.Create(answer);
 
@@ -39,5 +49,6 @@ namespace MainSL
 			}, null);
 			GlobalStatus.Current.IsWaiting = true;
 		}
+
 	}
 }

@@ -74,6 +74,7 @@
       <DependentUpon>Piramida3000.edmx</DependentUpon>
     </Compile>
     <Compile Include="Piramida\PiramidaAccess.cs" />
+    <Compile Include="PrognozNB\CheckPrognozNB.cs" />
     <Compile Include="PrognozNB\PrognozNB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rashods.Designer.cs">

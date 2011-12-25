@@ -1644,6 +1644,38 @@ namespace VotGES.Web.Services
         }
         
         /// <summary>
+        /// Асинхронно вызывает метод "checkPrognozNB" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<ChartAnswer> checkPrognozNB(DateTime date, int countDays, Action<InvokeOperation<ChartAnswer>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            parameters.Add("countDays", countDays);
+            this.ValidateMethod("checkPrognozNB", parameters);
+            return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("checkPrognozNB", typeof(ChartAnswer), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "checkPrognozNB" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<ChartAnswer> checkPrognozNB(DateTime date, int countDays)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            parameters.Add("countDays", countDays);
+            this.ValidateMethod("checkPrognozNB", parameters);
+            return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("checkPrognozNB", typeof(ChartAnswer), parameters, true, null, null)));
+        }
+        
+        /// <summary>
         /// Асинхронно вызывает метод "processChart" службы DomainService.
         /// </summary>
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
@@ -1680,6 +1712,25 @@ namespace VotGES.Web.Services
         [ServiceContract()]
         public interface IChartServiceContract
         {
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "checkPrognozNB".
+            /// </summary>
+            /// <param name="date">Значение параметра "date" для данного действия.</param>
+            /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/ChartService/checkPrognozNBDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ChartService/checkPrognozNB", ReplyAction="http://tempuri.org/ChartService/checkPrognozNBResponse")]
+            IAsyncResult BegincheckPrognozNB(DateTime date, int countDays, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BegincheckPrognozNB".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegincheckPrognozNB".</param>
+            /// <returns>Объект "ChartAnswer", возвращенный из операции "checkPrognozNB".</returns>
+            ChartAnswer EndcheckPrognozNB(IAsyncResult result);
             
             /// <summary>
             /// Асинхронно вызывает операцию "processChart".

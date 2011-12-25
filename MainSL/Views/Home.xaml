@@ -10,6 +10,7 @@
 
     <Grid x:Name="LayoutRoot">
 		<usr:ChartControl x:Name="chartControl" VerticalAlignment="Stretch"/>
-    </Grid>
+		<Button VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="test" Click="Button_Click"/>
+	</Grid>
 
 </navigation:Page>

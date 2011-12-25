@@ -97,6 +97,9 @@
     <Compile Include="Views\ChartControl.xaml.cs">
       <DependentUpon>ChartControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CheckPrognozNBPage.xaml.cs">
+      <DependentUpon>CheckPrognozNBPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ErrorWindow.xaml.cs">
       <DependentUpon>ErrorWindow.xaml</DependentUpon>
     </Compile>
@@ -126,6 +129,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Views\ChartControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CheckPrognozNBPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,7 +178,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contexts\" />
-    <Folder Include="SLChart\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

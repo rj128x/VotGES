@@ -32,7 +32,7 @@ namespace RUSA
 	static class CheckRusa
 	{
 		public static DateTime dateStart=new DateTime(2010, 1, 1);
-		public static DateTime dateEnd=new DateTime(2011, 12, 1);
+		public static DateTime dateEnd=new DateTime(2010, 2, 1);
 
 		public static string fn;
 
