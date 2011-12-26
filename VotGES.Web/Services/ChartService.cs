@@ -95,6 +95,8 @@ namespace VotGES.Web.Services
 
 		public ChartAnswer checkPrognozNB(DateTime date,int countDays) {
 			try {
+				if (date.AddHours(-2).Date >= DateTime.Now.Date)
+					date = DateTime.Now.AddHours(-2).Date.AddHours(-24);
 				CheckPrognozNB prognoz=new CheckPrognozNB(date.Date,countDays);
 				//PrognozNBByPBR prognoz=new PrognozNBByPBR(date.Date, 1, date.Date.AddHours(8).AddMinutes(15),null);
 				prognoz.startPrognoz();
@@ -107,9 +109,9 @@ namespace VotGES.Web.Services
 
 		public ChartAnswer getPrognoz( int countDays, SortedList<DateTime,double> pbr) {
 			try {
-				//DateTime date= DateTime.Now.Date.AddHours(-2);
-				DateTime date=new DateTime(2010, 03, 15);
-				date = date.AddHours(15).AddMinutes(15);
+				DateTime date= DateTime.Now.AddHours(-2);
+				//DateTime date=new DateTime(2010, 03, 15);
+				//date = date.AddHours(15).AddMinutes(15);
 				PrognozNBByPBR prognoz=new PrognozNBByPBR(date.Date,countDays,date,pbr);
 				prognoz.startPrognoz();
 				return prognoz.getChart();

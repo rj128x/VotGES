@@ -46,25 +46,29 @@ namespace MainSL.Views
 			CountDays = CountDays < 1 ? 1 : CountDays;
 			txtCountDays.Text = CountDays.ToString();
 
-			chartContext.getPrognoz(CountDays, null, oper => {
-				ChartAnswer answer=oper.Value;
-				chartControl.Create(answer);
+			chartContext.getPrognoz(CountDays, CurrentPBRData.Data, oper => {
+				try {
+					ChartAnswer answer=oper.Value;
+					chartControl.Create(answer);
 
-				foreach (ChartDataSerie serie in answer.Data.Series) {
-					if (serie.Name == "PBR") {
-						Dictionary<DateTime,double> data=new Dictionary<DateTime, double>();
-						foreach (ChartDataPoint point in serie.Points) {
-							data.Add(point.XVal, point.YVal);
+					foreach (ChartDataSerie serie in answer.Data.Series) {
+						if (serie.Name == "PBR") {
+							Dictionary<DateTime,double> data=new Dictionary<DateTime, double>();
+							foreach (ChartDataPoint point in serie.Points) {
+								data.Add(point.XVal, point.YVal);
+							}
+							CurrentPBRData = new PBRData();
+							CurrentPBRData.Data = data;
+							pbrEditor = new PBREditorWindow(CurrentPBRData);
+							pbrEditor.DataContext = CurrentPBRData;
+							btnGenPBR.Visibility = System.Windows.Visibility.Visible;
 						}
-						CurrentPBRData = new PBRData();
-						CurrentPBRData.Data = data;
-						pbrEditor = new PBREditorWindow(CurrentPBRData);
-						pbrEditor.DataContext = CurrentPBRData;
-						btnGenPBR.Visibility = System.Windows.Visibility.Visible;
 					}
+				}catch{
+					MessageBox.Show("Ошибка при обработке ответа от сервера");
 				}
-
 				GlobalStatus.Current.IsWaiting = false;
+
 			}, null);
 			GlobalStatus.Current.IsWaiting = true;
 		}

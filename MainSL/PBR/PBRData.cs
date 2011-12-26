@@ -122,9 +122,9 @@ namespace MainSL
 			set {
 				pbr.Clear();
 				foreach (KeyValuePair<DateTime,double> de in value) {
-					if (de.Key.Minute == 0) {
+					//if (de.Key.Minute == 0) {
 						pbr.Add(new PBRPoint(de.Key, de.Value, this));
-					}
+					//}
 				}
 				NotifyChanged("PBR");
 			}

@@ -7,7 +7,7 @@ using VotGES.Chart;
 
 namespace VotGES.PrognozNB
 {
-	public class PrognozNBByPBR:PrognozNBFunc
+	public class PrognozNBByPBR : PrognozNBFunc
 	{
 		protected DateTime datePrognozStart;
 		public DateTime DatePrognozStart {
@@ -28,7 +28,7 @@ namespace VotGES.PrognozNB
 					m53500 = new SortedList<DateTime, double>();
 					readM53500();
 				}
-				return m53500; 
+				return m53500;
 			}
 			set { m53500 = value; }
 		}
@@ -40,7 +40,7 @@ namespace VotGES.PrognozNB
 					pbrPrevSutki = new SortedList<DateTime, double>();
 					readPBRPrevSutki();
 				}
-				return pbrPrevSutki; 
+				return pbrPrevSutki;
 			}
 			set { pbrPrevSutki = value; }
 		}
@@ -51,7 +51,7 @@ namespace VotGES.PrognozNB
 			set { pbrFull = value; }
 		}
 
-		public PrognozNBByPBR(DateTime dateStart, int daysCount, DateTime datePrognozStart, SortedList<DateTime,double> userPBR)
+		public PrognozNBByPBR(DateTime dateStart, int daysCount, DateTime datePrognozStart, SortedList<DateTime, double> userPBR)
 			: base(dateStart, daysCount) {
 			DateStart = dateStart.Date;
 			DaysCount = daysCount;
@@ -60,12 +60,12 @@ namespace VotGES.PrognozNB
 			DatePrognozStart = datePrognozStart;
 			int hour=DatePrognozStart.Hour;
 			int min=DatePrognozStart.Minute;
-			min=min<30?0:min;
-			min=min>30?30:min;
+			min = min < 30 ? 0 : min;
+			min = min > 30 ? 30 : min;
 			DatePrognozStart = DatePrognozStart.Date.AddHours(hour).AddMinutes(min);
 			UserPBR = userPBR;
-			
-			
+
+
 		}
 
 		public void readM53500() {
@@ -92,28 +92,27 @@ namespace VotGES.PrognozNB
 		}
 
 		public void preparePArr() {
-			pbrFull=new SortedList<DateTime,double>();
+			pbrFull = new SortedList<DateTime, double>();
 			DateTime date=datePrognozStart.AddMinutes(0);
 			while (date <= dateEnd) {
 				if (userPBR != null && userPBR.Keys.Contains(date)) {
-					pbrFull.Add(date,userPBR[date]);
-				}else{
-					if (pbr.Keys.Contains(date)){
-						pbrFull.Add(date,pbr[date]);
-					}else if (M53500.Keys.Contains(date)){
-						pbrFull.Add(date,M53500[date]);
-					} else if (pbrFull.Keys.Contains(date.AddHours(-24))) {
-						pbrFull.Add(date,pbrFull[date.AddHours(-24)]);
-					}else if (PBRPrevSutki.Keys.Contains(date.AddHours(-24))){
-						pbrFull.Add(date,PBRPrevSutki[date.AddHours(-24)]);
-					}else if (pbrFull.Keys.Contains(date.AddMinutes(-30))){
-						pbrFull.Add(date,pbrFull[date.AddMinutes(-30)]);
-					}else{
-						pbrFull.Add(date,0);
-					}
+					pbrFull.Add(date, userPBR[date]);
+				} else if (pbr.Keys.Contains(date)) {
+					pbrFull.Add(date, pbr[date]);
+				} else if (M53500.Keys.Contains(date)) {
+					pbrFull.Add(date, M53500[date]);
+				} else if (pbrFull.Keys.Contains(date.AddHours(-24))) {
+					pbrFull.Add(date, pbrFull[date.AddHours(-24)]);
+				} else if (PBRPrevSutki.Keys.Contains(date.AddHours(-24))) {
+					pbrFull.Add(date, PBRPrevSutki[date.AddHours(-24)]);
+				} else if (pbrFull.Keys.Contains(date.AddMinutes(-30))) {
+					pbrFull.Add(date, pbrFull[date.AddMinutes(-30)]);
+				} else {
+					pbrFull.Add(date, 0);
 				}
 				date = date.AddMinutes(30);
 			}
+			
 		}
 
 		public override SortedList<DateTime, PrognozNBFirstData> readFirstData(DateTime date) {
@@ -124,12 +123,12 @@ namespace VotGES.PrognozNB
 			List<int> il=items.ToList();
 			double cnt=0;
 			int index=0;
-			while (cnt < 30 && index<=10) {
+			while (cnt < 30 && index <= 10) {
 				DateTime ds=date.AddHours(-2);
 				DateTime de=date.AddHours(0);
-				dataArr=from DATA d in model.DATA where
-														 d.PARNUMBER == 12 && d.DATA_DATE >= ds && d.DATA_DATE <= de &&
-														 d.OBJTYPE == 2 && (d.OBJECT == 1 && il.Contains(d.ITEM) || d.OBJECT == 0 && d.ITEM == 1) select d;
+				dataArr = from DATA d in model.DATA where
+															d.PARNUMBER == 12 && d.DATA_DATE >= ds && d.DATA_DATE <= de &&
+															d.OBJTYPE == 2 && (d.OBJECT == 1 && il.Contains(d.ITEM) || d.OBJECT == 0 && d.ITEM == 1) select d;
 				cnt = dataArr.Count();
 				Logger.Info(cnt.ToString());
 				date = date.AddMinutes(-30);
@@ -145,7 +144,7 @@ namespace VotGES.PrognozNB
 			foreach (ChartDataSerie serie in data.Series) {
 				if (serie.Name == "PBR") {
 					serie.Points.Clear();
-					foreach (KeyValuePair<DateTime,double> de in PBR) {
+					foreach (KeyValuePair<DateTime,double> de in PBRFull) {
 						serie.Points.Add(new ChartDataPoint(de.Key, de.Value));
 					}
 				}

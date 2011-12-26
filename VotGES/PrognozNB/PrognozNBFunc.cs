@@ -162,7 +162,7 @@ namespace VotGES.PrognozNB
 
 				switch (data.ITEM) {
 					case 1:
-						firstData[data.DATA_DATE].P = data.VALUE0.Value;
+						firstData[data.DATA_DATE].P = data.VALUE0.Value/1000;
 						break;
 					case 354:
 						firstData[data.DATA_DATE].Q = data.VALUE0.Value;

@@ -42,9 +42,13 @@ namespace MainSL.Views
 			txtCountDays.Text = CountDays.ToString();
 
 			chartContext.checkPrognozNB(date, CountDays, oper => {
-				ChartAnswer answer=oper.Value;
-				chartControl.Create(answer);
-
+				try {
+					ChartAnswer answer=oper.Value;
+					clndDate.SelectedDate = answer.Data.Series[0].Points[0].XVal;
+					chartControl.Create(answer);
+				} catch (Exception) {
+					MessageBox.Show("Ошибка при обработке ответа от сервера");
+				}
 				GlobalStatus.Current.IsWaiting = false;
 			}, null);
 			GlobalStatus.Current.IsWaiting = true;

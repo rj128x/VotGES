@@ -90,10 +90,12 @@ namespace VotGES.PrognozNB
 			prognoz=new SortedList<DateTime, double>();
 
 			int index=0;
+			double k=0;
 			foreach (DateTime date in FirstData.Keys) {
 				prevDataRashodArray.Add(index, FirstData[date].Q);
 				prevDataNBArray.Add(index, FirstData[date].NB);
 				prevDataVBArray.Add(index, FirstData[date].VB);
+				k = FirstData[date].Q / RashodTable.getStationRashod(FirstData[date].P, FirstData[date].VB - FirstData[date].NB, RashodCalcMode.avg);
 				index++;
 			}
 
@@ -108,7 +110,7 @@ namespace VotGES.PrognozNB
 			}
 		
 			foreach (KeyValuePair<DateTime,double> de in PArr) {
-				double rashod=IsQFakt ? de.Value : RashodTable.getStationRashod(de.Value, naporArray[de.Key],RashodCalcMode.avg);
+				double rashod=IsQFakt ? de.Value : RashodTable.getStationRashod(de.Value, naporArray[de.Key],RashodCalcMode.avg)*k;
 				rashods.Add(de.Key, rashod);
 				prognoz.Add(de.Key, 0);
 			}
@@ -142,7 +144,7 @@ namespace VotGES.PrognozNB
 						for (int i=0; i < 24; i++) {
 							double rashod=0;
 							if (!IsQFakt) {
-								rashod = RashodTable.getStationRashod(pArr[dataForPrognoz.Keys[i]], naporsForPrognoz[dataForPrognoz.Keys[i]], RashodCalcMode.avg);
+								rashod = RashodTable.getStationRashod(pArr[dataForPrognoz.Keys[i]], naporsForPrognoz[dataForPrognoz.Keys[i]], RashodCalcMode.avg)*k;
 							} else {
 								rashod = rashods[dataForPrognoz.Keys[i]];
 							}
