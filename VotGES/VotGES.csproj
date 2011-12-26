@@ -76,6 +76,8 @@
     <Compile Include="Piramida\PiramidaAccess.cs" />
     <Compile Include="PrognozNB\CheckPrognozNB.cs" />
     <Compile Include="PrognozNB\PrognozNB.cs" />
+    <Compile Include="PrognozNB\PrognozNBByPBR.cs" />
+    <Compile Include="PrognozNB\PrognozNBFunc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rashods.Designer.cs">
       <AutoGen>True</AutoGen>

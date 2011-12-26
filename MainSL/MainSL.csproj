@@ -92,8 +92,13 @@
     <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="Converters\VisibilityNotConverter.cs" />
     <Compile Include="Converters\GASostavConverter.cs" />
+    <Compile Include="DelegateCommand.cs" />
     <Compile Include="GlobalStatus.cs" />
     <Compile Include="Logging\Logger.cs" />
+    <Compile Include="PBR\PBRData.cs" />
+    <Compile Include="PBR\PBREditorWindow.xaml.cs">
+      <DependentUpon>PBREditorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ChartControl.xaml.cs">
       <DependentUpon>ChartControl.xaml</DependentUpon>
     </Compile>
@@ -119,6 +124,9 @@
     <Compile Include="Views\RUSAPage.xaml.cs">
       <DependentUpon>RUSAPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PrognozNBPage.xaml.cs">
+      <DependentUpon>PrognozNBPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VisiBloxChart\VisibloxChartSerie.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -128,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="PBR\PBREditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ChartControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -139,6 +151,10 @@
     <Page Include="Views\RUSAPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PrognozNBPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Resource Include="Assets\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>

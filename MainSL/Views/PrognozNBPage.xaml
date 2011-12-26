@@ -1,0 +1,30 @@
+﻿<navigation:Page xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"  x:Class="MainSL.Views.PrognozNBPage" 
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           mc:Ignorable="d"
+           xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation"
+			  xmlns:usr="clr-namespace:MainSL.Views" 
+           d:DesignWidth="640" d:DesignHeight="480"
+           Title="PrognozNBPage Page">
+    <Grid x:Name="LayoutRoot">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="Auto"/>
+		</Grid.ColumnDefinitions>
+		<usr:ChartControl x:Name="chartControl" VerticalAlignment="Stretch"/>
+		<StackPanel Name="pnlSettings" Grid.Column="1">			
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+				<TextBlock Text="Дней"/>
+				<TextBox Name="txtCountDays" Width="100" TextAlignment="Right"
+							IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+			</StackPanel>
+			<Button Name="btnGenPBR" Click="btnGenPBR_Click" Content="Задать ПБР"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+			<Button Name="btnGetPrognoz" Click="btnGetPrognoz_Click" Content="Получить прогноз"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+		</StackPanel>
+		 
+	</Grid>
+</navigation:Page>
