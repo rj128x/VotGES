@@ -194,42 +194,42 @@ namespace VotGES.PrognozNB
 			ChartDataSerie nbFaktSerie=new ChartDataSerie();
 			nbFaktSerie.Name = "NBFakt";
 			foreach (KeyValuePair<DateTime,double> de in NBFakt){
-				nbFaktSerie.Points.Add(new ChartDataPoint(de.Key.ToString(), de.Value));
+				nbFaktSerie.Points.Add(new ChartDataPoint(de.Key, de.Value));
 			}
 			data.Series.Add(nbFaktSerie);
 
 			ChartDataSerie pFaktSerie=new ChartDataSerie();
 			pFaktSerie.Name = "PFakt";
 			foreach (KeyValuePair<DateTime,double> de in PFakt) {
-				pFaktSerie.Points.Add(new ChartDataPoint(de.Key.ToString(), de.Value));
+				pFaktSerie.Points.Add(new ChartDataPoint(de.Key, de.Value));
 			}
 			data.Series.Add(pFaktSerie);
 
 			ChartDataSerie pbrSerie=new ChartDataSerie();
 			pbrSerie.Name = "PBR";
 			foreach (KeyValuePair<DateTime,double> de in PBR) {
-				pbrSerie.Points.Add(new ChartDataPoint(de.Key.ToString(), de.Value));
+				pbrSerie.Points.Add(new ChartDataPoint(de.Key, de.Value));
 			}
 			data.Series.Add(pbrSerie);
 
 			ChartDataSerie qFaktSerie=new ChartDataSerie();
 			qFaktSerie.Name = "QFakt";
 			foreach (KeyValuePair<DateTime,double> de in QFakt) {
-				qFaktSerie.Points.Add(new ChartDataPoint(de.Key.ToString(), de.Value));
+				qFaktSerie.Points.Add(new ChartDataPoint(de.Key, de.Value));
 			}
 			data.Series.Add(qFaktSerie);
 
 			ChartDataSerie naporFaktSerie=new ChartDataSerie();
 			naporFaktSerie.Name = "Napor";
 			foreach (KeyValuePair<DateTime,double> de in NaporFakt) {
-				naporFaktSerie.Points.Add(new ChartDataPoint(de.Key.ToString(), de.Value));
+				naporFaktSerie.Points.Add(new ChartDataPoint(de.Key, de.Value));
 			}
 			data.Series.Add(naporFaktSerie);
 
 			ChartDataSerie vbFaktSerie=new ChartDataSerie();
 			vbFaktSerie.Name = "VB";
 			foreach (KeyValuePair<DateTime,double> de in VBFakt) {
-				vbFaktSerie.Points.Add(new ChartDataPoint(de.Key.ToString(), de.Value));
+				vbFaktSerie.Points.Add(new ChartDataPoint(de.Key, de.Value));
 			}
 			data.Series.Add(vbFaktSerie);
 

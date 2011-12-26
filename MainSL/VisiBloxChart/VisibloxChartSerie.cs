@@ -112,7 +112,7 @@ namespace MainSL
 			
 			DataSeries<DateTime,double> dataSeries=new DataSeries<DateTime, double>{Title=Name};
 			foreach (ChartDataPoint point in serieData.Points) {
-				dataSeries.Add(new DataPoint<DateTime,double>(DateTime.Parse(point.XVal),point.YVal));
+				dataSeries.Add(new DataPoint<DateTime,double>(point.XVal,point.YVal));
 			}
 			Serie=null;
 			Brush br=new SolidColorBrush(Color.FromArgb(255,0,0,0));
@@ -160,7 +160,7 @@ namespace MainSL
 		public void refresh(ChartDataSerie serieData) {
 			DataSeries<DateTime,double> dataSeries=new DataSeries<DateTime, double> { Title = Name };
 			foreach (ChartDataPoint point in serieData.Points) {
-				dataSeries.Add(new DataPoint<DateTime, double>(DateTime.Parse(point.XVal), point.YVal));
+				dataSeries.Add(new DataPoint<DateTime, double>(point.XVal, point.YVal));
 			}
 			Serie.DataSeries = dataSeries;
 		}

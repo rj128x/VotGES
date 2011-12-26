@@ -77,8 +77,8 @@ namespace VotGES.Web.Services
 				serieData2.Name = "s2";
 
 				for (int i=-10; i <= 10; i++) {
-					serieData.Points.Add(new ChartDataPoint(new DateTime(2010,1,20+i).ToString(), i * i));
-					serieData2.Points.Add(new ChartDataPoint(new DateTime(2010, 1, 20+i).ToString(), i * i * i));
+					serieData.Points.Add(new ChartDataPoint(new DateTime(2010,1,20+i), i * i));
+					serieData2.Points.Add(new ChartDataPoint(new DateTime(2010, 1, 20+i), i * i * i));
 				}
 
 				data.Series.Add(serieData);

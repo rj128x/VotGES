@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using Conversive.PHPSerializationLibrary;
 using System.Collections;
+using System.Globalization;
 namespace VotGES.NNET
 {
 	public enum NNETMODEL { vges_nb }
 	public class NNET
 	{
+		static NumberFormatInfo nfi = new CultureInfo("ru-RU", false).NumberFormat;
+			
+
 		protected static SortedList<NNETMODEL,NNET>nnets;
 		protected object nnetObj;
 
@@ -16,10 +20,12 @@ namespace VotGES.NNET
 		protected SortedList<int,double>l1b,l2b;
 
 		protected NNET(NNETMODEL name) {
+
 			init(name);	
 		}
 
 		static NNET() {
+			nfi.NumberDecimalSeparator = ".";
 			nnets = new SortedList<NNETMODEL, NNET>();
 		}
 
@@ -55,7 +61,7 @@ namespace VotGES.NNET
 			int index=-1;
 			foreach (object elem in arrObj) {
 				index++;
-				double val=Double.Parse(elem.ToString().Replace(".",","));
+				double val=Double.Parse(elem.ToString().Replace(",","."),nfi);
 				result.Add(index,val);
 			}
 			return result;

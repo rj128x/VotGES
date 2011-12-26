@@ -9,13 +9,13 @@ namespace VotGES.Chart
 	public class ChartDataPoint
 	{
 		public double YVal{get; set;}
-		public String XVal { get; set; }
+
+		public DateTime XVal { get; set; }
 
 		public ChartDataPoint() {
 		}
 
-		public ChartDataPoint(String XVal, double YVal) {
-			
+		public ChartDataPoint(DateTime XVal, double YVal) {
 			this.XVal = XVal;
 			this.YVal = YVal;
 			//this.Index = Index;

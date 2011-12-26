@@ -407,7 +407,7 @@ namespace VotGES.Chart
     public sealed partial class ChartDataPoint : ComplexObject
     {
         
-        private string _xVal;
+        private DateTime _xVal;
         
         private double _yVal;
         
@@ -418,7 +418,7 @@ namespace VotGES.Chart
         /// не может быть использован для последующей настройки объекта.
         /// </summary>
         partial void OnCreated();
-        partial void OnXValChanging(string value);
+        partial void OnXValChanging(DateTime value);
         partial void OnXValChanged();
         partial void OnYValChanging(double value);
         partial void OnYValChanged();
@@ -438,7 +438,7 @@ namespace VotGES.Chart
         /// Возвращает или задает значение параметра "XVal".
         /// </summary>
         [DataMember()]
-        public string XVal
+        public DateTime XVal
         {
             get
             {

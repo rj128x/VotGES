@@ -157,6 +157,7 @@ namespace VotGES.PrognozNB
 
 						Logger.Info(String.Join("-", inputVector));
 						outputVector = nnet.calc(inputVector);
+						Logger.Info(String.Join("-",outputVector));
 
 						for (int i=0; i < outputVector.Count; i++) {
 							prognoz[dataForPrognoz.Keys[i]] = outputVector[i];
@@ -188,12 +189,12 @@ namespace VotGES.PrognozNB
 		public void AddChartData(ChartData data) {
 			ChartDataSerie prognozNBSerie=new ChartDataSerie();
 			foreach (KeyValuePair<DateTime,double> de in Prognoz) {
-				prognozNBSerie.Points.Add(new ChartDataPoint(de.Key.ToString(),de.Value));
+				prognozNBSerie.Points.Add(new ChartDataPoint(de.Key,de.Value));
 			}
 
 			ChartDataSerie prognozQSerie=new ChartDataSerie();
 			foreach (KeyValuePair<DateTime,double> de in Rashods) {
-				prognozQSerie.Points.Add(new ChartDataPoint(de.Key.ToString(), de.Value));
+				prognozQSerie.Points.Add(new ChartDataPoint(de.Key, de.Value));
 			}
 
 			prognozNBSerie.Name = "NBPrognoz";
