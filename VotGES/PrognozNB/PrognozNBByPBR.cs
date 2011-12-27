@@ -130,7 +130,6 @@ namespace VotGES.PrognozNB
 															d.PARNUMBER == 12 && d.DATA_DATE >= ds && d.DATA_DATE <= de &&
 															d.OBJTYPE == 2 && (d.OBJECT == 1 && il.Contains(d.ITEM) || d.OBJECT == 0 && d.ITEM == 1) select d;
 				cnt = dataArr.Count();
-				Logger.Info(cnt.ToString());
 				date = date.AddMinutes(-30);
 				index++;
 			}
@@ -173,8 +172,10 @@ namespace VotGES.PrognozNB
 				}
 				prev = de.Value;
 				isFirst = false;
-			}
+			}			
 			prognoz.calcPrognoz();
+			prognoz.Prognoz.Add(datePrognozStart, prognoz.FirstData.Last().Value.NB);
+			prognoz.Rashods.Add(datePrognozStart, prognoz.FirstData.Last().Value.Q);
 		}
 	}
 }

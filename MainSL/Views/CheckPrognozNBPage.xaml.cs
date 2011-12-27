@@ -12,17 +12,53 @@ using System.Windows.Shapes;
 using System.Windows.Navigation;
 using VotGES.Web.Services;
 using VotGES.Chart;
+using System.ComponentModel;
 
 namespace MainSL.Views
 {
 	public partial class CheckPrognozNBPage : Page
 	{
+		public class Settings : INotifyPropertyChanged
+		{
+			public event PropertyChangedEventHandler PropertyChanged;
+
+			public void NotifyChanged(string propName) {
+				if (PropertyChanged != null)
+					PropertyChanged(this, new PropertyChangedEventArgs(propName));
+			}
+
+			private int countDays;
+			public int CountDays {
+				get { return countDays; }
+				set {
+					countDays = value;
+					countDays = countDays < 1 ? 1 : countDays;
+					countDays = countDays > 10 ? 10 : countDays;
+					NotifyChanged("CountDays");
+				}
+			}
+
+			private DateTime date;
+			public DateTime Date {
+				get { return date; }
+				set { 
+					date = value;
+					if (date.Date >= DateTime.Now.AddHours(-2).Date)
+						date = DateTime.Now.AddHours(-2).Date.AddDays(-1);
+					NotifyChanged("Date");					
+				}
+			}
+		}
+
+		public Settings settings;
 		ChartContext chartContext;
 		public CheckPrognozNBPage() {
 			InitializeComponent();
 			chartContext = new ChartContext();
-			txtCountDays.Text = "1";
-			clndDate.SelectedDate = DateTime.Now.Date.AddDays(-1);
+			settings = new Settings();
+			settings.CountDays = 1;
+			settings.Date = DateTime.Now.Date.AddDays(-1);
+			pnlSettings.DataContext = settings;
 		}
 
 		// Выполняется, когда пользователь переходит на эту страницу.
@@ -30,24 +66,12 @@ namespace MainSL.Views
 		}
 
 		private void btnGetPrognoz_Click(object sender, RoutedEventArgs e) {
-			DateTime date=clndDate.SelectedDate.Value;
-			int CountDays=1;
-			try{
-				CountDays=Int32.Parse(txtCountDays.Text);
-			}catch{
-				CountDays = 1;
-			}
-			CountDays = CountDays > 10 ? 10 : CountDays;
-			CountDays = CountDays < 1 ? 1 : CountDays;
-			txtCountDays.Text = CountDays.ToString();
-
-			chartContext.checkPrognozNB(date, CountDays, oper => {
+			chartContext.checkPrognozNB(settings.Date, settings.CountDays, oper => {
 				try {
 					ChartAnswer answer=oper.Value;
-					clndDate.SelectedDate = answer.Data.Series[0].Points[0].XVal;
 					chartControl.Create(answer);
-				} catch (Exception) {
-					Logging.Logger.info(e.ToString());
+				} catch (Exception ex) {
+					Logging.Logger.info(ex.ToString());
 					MessageBox.Show("Ошибка при обработке ответа от сервера");
 				}
 				GlobalStatus.Current.IsWaiting = false;

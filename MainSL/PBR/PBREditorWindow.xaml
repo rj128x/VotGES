@@ -77,6 +77,10 @@
 				</Grid>
 			</Grid>
 		</Grid>
-		<Button x:Name="OKButton" Content="Закончить" Click="OKButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,5,5,0" Grid.Row="1" />
+		<StackPanel Orientation="Horizontal" Grid.Row="1" FlowDirection="RightToLeft">			
+			<Button x:Name="OKButton" Content="Закончить" Click="OKButton_Click" Width="75" Height="23" HorizontalAlignment="Right" />
+			<Button Content="ПБР по часам" Name="btnHours" Click="btnHours_Click" Visibility="{Binding ModeHalfHours, Converter={StaticResource visibilityConverter}}"/>
+			<Button Content="ПБР по пол часа" Name="btnHalfHours" Click="btnHalfHours_Click" Visibility="{Binding ModeHalfHours, Converter={StaticResource visibilityNotConverter}}"/>
+		</StackPanel>
 	</Grid>
 </controls:ChildWindow>

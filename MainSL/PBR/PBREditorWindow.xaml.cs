@@ -58,6 +58,14 @@ namespace MainSL.PBR
 			TextBox box=sender as TextBox;
 			box.SelectAll();
 		}
+		
+		private void btnHours_Click(object sender, RoutedEventArgs e) {
+			pbrData.convertToHoursPBR();
+		}
+
+		private void btnHalfHours_Click(object sender, RoutedEventArgs e) {
+			pbrData.convertToHalfHoursPBR();
+		}
 	}
 	
 }

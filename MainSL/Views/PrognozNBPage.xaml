@@ -17,12 +17,14 @@
 		<StackPanel Name="pnlSettings" Grid.Column="1">			
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
 				<TextBlock Text="Дней"/>
-				<TextBox Name="txtCountDays" Width="100" TextAlignment="Right"
+				<TextBox Name="txtCountDays" Width="100" TextAlignment="Right" Text="{Binding CountDays, Mode=TwoWay}"
 							IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 			</StackPanel>
-			<Button Name="btnGenPBR" Click="btnGenPBR_Click" Content="Задать ПБР"
+			<Button Name="btnGenPBR" Click="btnGenPBR_Click" Content="Задать ПБР" 
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 			<Button Name="btnGetPrognoz" Click="btnGetPrognoz_Click" Content="Получить прогноз"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+			<Button Name="btnClearPBR" Click="btnClearPBR_Click" Content="Сбросить ПБР"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 		</StackPanel>
 		 

@@ -158,9 +158,7 @@ namespace VotGES.PrognozNB
 						inputVector[37] = prevDataNBArray[3];
 						inputVector[38] = prevDataNBArray[4];
 
-						Logger.Info(String.Join("-", inputVector));
 						outputVector = nnet.calc(inputVector);
-						Logger.Info(String.Join("-",outputVector));
 
 						for (int i=0; i < outputVector.Count; i++) {
 							prognoz[dataForPrognoz.Keys[i]] = outputVector[i];
@@ -279,7 +277,7 @@ namespace VotGES.PrognozNB
 
 			ChartSerieProperties qPrognozSerie=new ChartSerieProperties();
 			qPrognozSerie.Color = "0-255-0";
-			qPrognozSerie.LineWidth = 2;
+			qPrognozSerie.LineWidth = 1;
 			qPrognozSerie.SerieType = ChartSerieType.line;
 			qPrognozSerie.Title = "Q прогноз";
 			qPrognozSerie.TagName = "QPrognoz";

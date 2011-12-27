@@ -13,40 +13,69 @@ using System.Windows.Navigation;
 using VotGES.Web.Services;
 using VotGES.Chart;
 using MainSL.PBR;
+using System.ComponentModel;
 
 namespace MainSL.Views
 {
+
 	public partial class PrognozNBPage : Page
 	{
+		public class Settings : INotifyPropertyChanged
+		{
+			public event PropertyChangedEventHandler PropertyChanged;
+
+			public void NotifyChanged(string propName) {
+				if (PropertyChanged != null)
+					PropertyChanged(this, new PropertyChangedEventArgs(propName));
+			}
+			
+			private int countDays;
+			public int CountDays {
+				get { return countDays; }
+				set { 
+					countDays = value;
+					countDays = countDays < 1 ? 1 : countDays;
+					countDays = countDays > 10 ? 10 : countDays;
+					NotifyChanged("CountDays");
+				}
+			}
+
+			private PBRData userPBR;
+			public PBRData UserPBR {
+				get { return userPBR; }
+				set { 
+					userPBR = value;
+					NotifyChanged("UserPBR");
+				}
+			}
+		}
+
+
+
 		ChartContext chartContext;
+		public Settings settings;
 		public PrognozNBPage() {
 			InitializeComponent();
 			chartContext = new ChartContext();
-			txtCountDays.Text = "1";
+			settings = new Settings();
+			settings.CountDays = 1;
+			settings.UserPBR = new PBRData(null);
+			pnlSettings.DataContext = settings;
 		}
 
-		public PBRData CurrentPBRData;
 		public PBREditorWindow pbrEditor;
 
 		// Выполняется, когда пользователь переходит на эту страницу.
 		protected override void OnNavigatedTo(NavigationEventArgs e) {
-			CurrentPBRData = new PBRData();
 			btnGenPBR.Visibility = System.Windows.Visibility.Collapsed;
-			
+			btnClearPBR.Visibility = System.Windows.Visibility.Collapsed;
+
 		}
 
-		private void btnGetPrognoz_Click(object sender, RoutedEventArgs e) {
-			int CountDays=1;
-			try{
-				CountDays=Int32.Parse(txtCountDays.Text);
-			}catch{
-				CountDays = 1;
-			}
-			CountDays = CountDays > 10 ? 10 : CountDays;
-			CountDays = CountDays < 1 ? 1 : CountDays;
-			txtCountDays.Text = CountDays.ToString();
 
-			chartContext.getPrognoz(CountDays, CurrentPBRData.Data, oper => {
+		protected void loadPrognoz(bool useUserPBR) {
+			settings.UserPBR.convertToHalfHoursPBR();
+			chartContext.getPrognoz(settings.CountDays, useUserPBR?settings.UserPBR.Data:null, oper => {
 				try {
 					ChartAnswer answer=oper.Value;
 					chartControl.Create(answer);
@@ -57,15 +86,15 @@ namespace MainSL.Views
 							foreach (ChartDataPoint point in serie.Points) {
 								data.Add(point.XVal, point.YVal);
 							}
-							CurrentPBRData = new PBRData();
-							CurrentPBRData.Data = data;
-							pbrEditor = new PBREditorWindow(CurrentPBRData);
-							pbrEditor.DataContext = CurrentPBRData;
+							settings.UserPBR = new PBRData(data);
+							pbrEditor = new PBREditorWindow(settings.UserPBR);
+							pbrEditor.DataContext = settings.UserPBR;
 							btnGenPBR.Visibility = System.Windows.Visibility.Visible;
+							btnClearPBR.Visibility = System.Windows.Visibility.Visible;
 						}
 					}
-				}catch{
-					Logging.Logger.info(e.ToString());
+				} catch (Exception ex) {
+					Logging.Logger.info(ex.ToString());
 					MessageBox.Show("Ошибка при обработке ответа от сервера");
 				}
 				GlobalStatus.Current.IsWaiting = false;
@@ -74,10 +103,19 @@ namespace MainSL.Views
 			GlobalStatus.Current.IsWaiting = true;
 		}
 
+
 		private void btnGenPBR_Click(object sender, RoutedEventArgs e) {
 			if (pbrEditor != null) {
 				pbrEditor.Show();
 			}
+		}
+
+		private void btnGetPrognoz_Click(object sender, RoutedEventArgs e) {
+			loadPrognoz(true);
+		}
+
+		private void btnClearPBR_Click(object sender, RoutedEventArgs e) {
+			loadPrognoz(false);
 		}
 
 	}

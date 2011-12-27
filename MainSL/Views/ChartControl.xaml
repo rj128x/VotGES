@@ -18,8 +18,9 @@
 		</charts:Chart>
 
 		
-		<StackPanel Name="SettingsPanel" VerticalAlignment="Top" HorizontalAlignment="Right" >
-			<sdk:DataGrid Name="LegendGrid" AutoGenerateColumns="False" ColumnHeaderStyle="{StaticResource CenterHeaderText}">
+		<StackPanel Name="SettingsPanel" VerticalAlignment="Top" HorizontalAlignment="Right" Opacity="0.7">			
+			<sdk:DataGrid Name="LegendGrid" AutoGenerateColumns="False" 
+							  ColumnHeaderStyle="{StaticResource CenterHeaderText}" >
 				<sdk:DataGrid.Columns>					
 					<sdk:DataGridTemplateColumn Header="Имя">
 						<sdk:DataGridTemplateColumn.CellTemplate>

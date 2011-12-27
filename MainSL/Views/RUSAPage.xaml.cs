@@ -55,8 +55,13 @@ namespace MainSL.Views
 
 		private void btnCalcRUSA_Click(object sender, RoutedEventArgs e) {
 			context.processRUSAData(CurrentData, oper => {
-				GlobalStatus.Current.IsWaiting = false;
-				CurrentData = oper.Value;
+				try {
+					GlobalStatus.Current.IsWaiting = false;
+					CurrentData = oper.Value;
+				} catch (Exception ex) {
+					Logging.Logger.info(ex.ToString());
+					MessageBox.Show("Ошибка при обработке ответа от сервера");
+				}
 			},null);
 			GlobalStatus.Current.IsWaiting = true;
 			

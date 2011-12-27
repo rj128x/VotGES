@@ -24,9 +24,9 @@ namespace MainSL
 		protected DelegateCommand commandNext;
 
 		public PBRPoint(DateTime date, double val, PBRData parent) {
-			Date = date;
-			Val = val;
 			this.parent = parent;
+			this.date = date;
+			this.val = val;			
 			commandDown = new DelegateCommand(downDataFunc, canExec);
 			commandUp = new DelegateCommand(upDataFunc, canExec);
 			commandPrev = new DelegateCommand(prevDataFunc, canExec);
@@ -75,6 +75,7 @@ namespace MainSL
 			}
 			set {
 				val = value;
+				parent.Data[Date] = val;
 				NotifyChanged("Val");
 			}
 		}
@@ -118,23 +119,28 @@ namespace MainSL
 			}
 		}
 
-		public Dictionary<DateTime, double> Data {
-			set {
-				pbr.Clear();
-				foreach (KeyValuePair<DateTime,double> de in value) {
-					//if (de.Key.Minute == 0) {
-						pbr.Add(new PBRPoint(de.Key, de.Value, this));
-					//}
-				}
-				NotifyChanged("PBR");
+		protected Dictionary<DateTime, double> data;
+		public  Dictionary<DateTime, double> Data {
+			get { return data; }
+			protected set { 
+				data = value;
+				refreshPBRFromData();
 			}
-			get {
-				Dictionary<DateTime,double> result=new Dictionary<DateTime, double>();
-				foreach (PBRPoint point in pbr) {
-					result.Add(point.Date, point.Val);
-				}
-				return result;
+		}
+
+
+		protected void refreshPBRFromData() {
+			pbr.Clear();
+			foreach (KeyValuePair<DateTime,double> de in data) {
+				pbr.Add(new PBRPoint(de.Key, de.Value, this));
 			}
+		}
+		
+		public PBRData(Dictionary<DateTime, double> data) {
+			if (data == null)
+				data = new Dictionary<DateTime, double>();
+			this.data = data;
+			refreshPBRFromData();
 		}
 
 		public void NotifyChanged(string propName) {
@@ -168,6 +174,61 @@ namespace MainSL
 			if (index > 0) {
 				PBR[index].Val = PBR[index - 1].Val;
 			}
+		}
+
+		protected  bool modeHalfHours=true;
+		public bool ModeHalfHours {
+			get { return modeHalfHours; }
+			set { 
+				modeHalfHours = value;
+				NotifyChanged("ModeHalfHours");
+			}
+		}
+
+		public void convertToHoursPBR() {
+			if (!modeHalfHours)
+				return;
+			DateTime[] dates=new DateTime[data.Count];
+			data.Keys.CopyTo(dates,0);
+			DateTime firstDate=dates[0];
+			if (dates[0].Minute==30) {
+				double y=data[firstDate];
+				double y2=data[firstDate.AddMinutes(30)];
+				double y1=y2-2*y;
+				data.Remove(firstDate);
+				data.Add(firstDate.AddMinutes(-30), y1);
+			}
+			foreach (DateTime date in dates) {
+				if (date.Minute == 30) {
+					data.Remove(date);
+				}
+			}
+			ModeHalfHours = false;
+			refreshPBRFromData();
+		}
+
+		public void convertToHalfHoursPBR() {
+			if (modeHalfHours)
+				return;
+			DateTime[] dates=new DateTime[data.Count];
+			data.Keys.CopyTo(dates, 0);
+			DateTime firstDate=dates[0];
+			DateTime lastDate=dates[dates.Length - 1];
+			DateTime date=firstDate.AddMinutes(30);
+			while (date < lastDate) {				
+				double val = (data[date.AddMinutes(-30)] + data[date.AddMinutes(30)]) / 2;
+				data.Add(date, val);
+				date = date.AddMinutes(60);
+			}
+
+			Dictionary<DateTime,double> newData=new Dictionary<DateTime, double>();
+			date=firstDate.AddMinutes(0);
+			while (date <= lastDate) {
+				newData.Add(date, data[date]);
+				date= date.AddMinutes(30);
+			}
+			Data = newData;
+			ModeHalfHours = true;
 		}
 
 

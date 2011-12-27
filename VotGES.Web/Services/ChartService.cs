@@ -94,6 +94,7 @@ namespace VotGES.Web.Services
 		}
 
 		public ChartAnswer checkPrognozNB(DateTime date,int countDays) {
+			Logger.Info(String.Format("Получение прогноза (факт) {0} - {1}",date,countDays));
 			try {
 				if (date.AddHours(-2).Date >= DateTime.Now.Date)
 					date = DateTime.Now.AddHours(-2).Date.AddHours(-24);
@@ -108,6 +109,7 @@ namespace VotGES.Web.Services
 		}
 
 		public ChartAnswer getPrognoz( int countDays, SortedList<DateTime,double> pbr) {
+			Logger.Info(String.Format("Получение прогноза (прогноз) {0} [{1}]",countDays, String.Join(" ",pbr)));
 			try {
 				DateTime date= DateTime.Now.AddHours(-2);
 				//DateTime date=new DateTime(2010, 03, 15);
