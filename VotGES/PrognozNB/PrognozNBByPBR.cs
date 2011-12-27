@@ -72,9 +72,9 @@ namespace VotGES.PrognozNB
 			Piramida3000Entities model=PiramidaAccess.getModel();
 			IQueryable<DATA> dataArr=from DATA d in model.DATA where
 													 d.PARNUMBER == 212 && d.DATA_DATE > DateStart && d.DATA_DATE <= dateEnd &&
-													 d.OBJTYPE == 2 && d.OBJECT == 53500 && d.ITEM == 1 select d;
+													 d.OBJTYPE == 2 && d.OBJECT == 53500 && d.ITEM == 3 select d;
 			foreach (DATA data in dataArr) {
-				pbr.Add(data.DATA_DATE, data.VALUE0.Value / 1000);
+				m53500.Add(data.DATA_DATE, data.VALUE0.Value);
 			}
 		}
 

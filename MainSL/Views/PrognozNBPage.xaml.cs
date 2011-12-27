@@ -65,6 +65,7 @@ namespace MainSL.Views
 						}
 					}
 				}catch{
+					Logging.Logger.info(e.ToString());
 					MessageBox.Show("Ошибка при обработке ответа от сервера");
 				}
 				GlobalStatus.Current.IsWaiting = false;

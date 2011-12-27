@@ -47,6 +47,7 @@ namespace MainSL.Views
 					clndDate.SelectedDate = answer.Data.Series[0].Points[0].XVal;
 					chartControl.Create(answer);
 				} catch (Exception) {
+					Logging.Logger.info(e.ToString());
 					MessageBox.Show("Ошибка при обработке ответа от сервера");
 				}
 				GlobalStatus.Current.IsWaiting = false;
