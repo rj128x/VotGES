@@ -11,6 +11,7 @@ namespace VotGES.PrognozNB
 		public DateTime Date { get; set; }
 		public double Q { get; set; }
 		public double P { get; set; }
+		public double T { get; set; }
 		public double NB { get; set; }
 		public double VB { get; set; }
 	}

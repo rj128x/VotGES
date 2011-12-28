@@ -48,6 +48,8 @@ namespace MainSL.Views
 					NotifyChanged("UserPBR");
 				}
 			}
+
+			public Dictionary<DateTime,double> PrevData{get;set;}
 		}
 
 
@@ -67,11 +69,25 @@ namespace MainSL.Views
 
 		// Выполняется, когда пользователь переходит на эту страницу.
 		protected override void OnNavigatedTo(NavigationEventArgs e) {
-			btnGenPBR.Visibility = System.Windows.Visibility.Collapsed;
 			btnClearPBR.Visibility = System.Windows.Visibility.Collapsed;
-
+			
+			loadPrognoz(false);
 		}
 
+		protected void createPBREditor() {
+			pbrEditor = new PBREditorWindow(settings.UserPBR);
+			pbrEditor.DataContext = settings.UserPBR;
+			pbrEditor.Closed += new EventHandler(pbrEditor_Closed);
+		}
+
+		void pbrEditor_Closed(object sender, EventArgs e) {
+			if (pbrEditor.DialogResult.Value) {
+				loadPrognoz(true);
+			} else {
+				settings.UserPBR = new PBRData(settings.PrevData);
+				createPBREditor();
+			}
+		}
 
 		protected void loadPrognoz(bool useUserPBR) {
 			settings.UserPBR.convertToHalfHoursPBR();
@@ -87,9 +103,7 @@ namespace MainSL.Views
 								data.Add(point.XVal, point.YVal);
 							}
 							settings.UserPBR = new PBRData(data);
-							pbrEditor = new PBREditorWindow(settings.UserPBR);
-							pbrEditor.DataContext = settings.UserPBR;
-							btnGenPBR.Visibility = System.Windows.Visibility.Visible;
+							createPBREditor();
 							btnClearPBR.Visibility = System.Windows.Visibility.Visible;
 						}
 					}
@@ -104,14 +118,12 @@ namespace MainSL.Views
 		}
 
 
-		private void btnGenPBR_Click(object sender, RoutedEventArgs e) {
-			if (pbrEditor != null) {
-				pbrEditor.Show();
-			}
-		}
-
 		private void btnGetPrognoz_Click(object sender, RoutedEventArgs e) {
-			loadPrognoz(true);
+			settings.PrevData = new Dictionary<DateTime, double>();
+			foreach (KeyValuePair<DateTime,double> de in settings.UserPBR.Data){
+				settings.PrevData.Add(de.Key, de.Value);
+			}
+			pbrEditor.Show();
 		}
 
 		private void btnClearPBR_Click(object sender, RoutedEventArgs e) {

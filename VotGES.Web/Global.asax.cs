@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using VotGES.Web.Logging;
 
 namespace VotGES.Web
 {
@@ -24,7 +25,7 @@ namespace VotGES.Web
 		}
 
 		protected void Application_Start() {
-			Logger logger=new Logger();
+			Logger logger=new WebLogger();
 			Logger.init(Logger.createFileLogger(Server.MapPath("/logs/"), "orders", logger));
 			Logger.Info("Старт приложения");
 			AreaRegistration.RegisterAllAreas();

@@ -9,6 +9,7 @@ namespace VotGES.Web.Services
 	using System.ServiceModel.DomainServices.Hosting;
 	using System.ServiceModel.DomainServices.Server;
 	using VotGES.Web.Models;
+	using VotGES.Web.Logging;
 
 
 	// TODO: создайте методы, содержащие собственную логику приложения.
@@ -16,7 +17,7 @@ namespace VotGES.Web.Services
 	public class RUSADomainService : DomainService
 	{
 		public RUSAData processRUSAData(RUSAData data) {
-			Logger.Info("RUSA process", VotGES.Logger.LoggerSource.service);
+			WebLogger.Info("RUSA process", VotGES.Logger.LoggerSource.service);
 			data.Result = new List<RUSAResult>();
 			ProcessRUSAData.processEqualData(data);
 			ProcessRUSAData.processDiffData(data);

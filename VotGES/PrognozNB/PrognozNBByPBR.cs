@@ -50,6 +50,7 @@ namespace VotGES.PrognozNB
 			get { return pbrFull; }
 			set { pbrFull = value; }
 		}
+				
 
 		public PrognozNBByPBR(DateTime dateStart, int daysCount, DateTime datePrognozStart, SortedList<DateTime, double> userPBR)
 			: base(dateStart, daysCount) {
@@ -158,6 +159,7 @@ namespace VotGES.PrognozNB
 			readPBR();
 			readWater();
 			preparePArr();
+			checkData();
 
 			prognoz.DatePrognozStart = DatePrognozStart;
 			prognoz.DatePrognozEnd = DateEnd;

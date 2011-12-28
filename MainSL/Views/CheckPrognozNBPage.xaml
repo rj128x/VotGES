@@ -7,7 +7,7 @@
            xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation"
 			  xmlns:usr="clr-namespace:MainSL.Views" 
            d:DesignWidth="640" d:DesignHeight="480"
-           Title="CheckPrognozNBPage Page">
+           Title="Факт НБ">
     <Grid x:Name="LayoutRoot">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>

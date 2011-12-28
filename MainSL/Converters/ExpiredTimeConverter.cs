@@ -36,7 +36,6 @@ namespace MainSL.Converters
 				if (time.HasValue) {
 					if (time.Value > 0) {
 						return "";
-						return String.Format("{0}", getTimeStr(time.Value));
 					} else if (time.Value < -2) {
 						return String.Format("-{0}", getTimeStr(time.Value));
 					} else {

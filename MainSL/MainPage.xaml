@@ -14,10 +14,10 @@
 		<Border x:Name="ContentBorder" Style="{StaticResource ContentBorderStyle}">
 
 			<navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}" 
-                              Source="/Home" Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
+                              Source="/About" Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
 				<navigation:Frame.UriMapper>
 					<uriMapper:UriMapper>
-						<uriMapper:UriMapping Uri="" MappedUri="/Views/Home.xaml"/>
+						<uriMapper:UriMapping Uri="" MappedUri="/Views/About.xaml"/>
 						<uriMapper:UriMapping Uri="/{pageName}" MappedUri="/Views/{pageName}.xaml"/>
 					</uriMapper:UriMapper>
 				</navigation:Frame.UriMapper>
@@ -48,12 +48,7 @@
 					
 					<Rectangle x:Name="Divider3" Style="{StaticResource DividerStyle}"/>
 					<HyperlinkButton x:Name="Link3" Style="{StaticResource LinkStyle}" 
-                                     NavigateUri="/RUSAPage" TargetName="ContentFrame" Content="РУСА"/>
-					
-					<Rectangle x:Name="Divider1" Style="{StaticResource DividerStyle}"/>
-					<HyperlinkButton x:Name="Link1" Style="{StaticResource LinkStyle}" 
-                                     NavigateUri="/Home" TargetName="ContentFrame" Content="Главная"/>
-
+                                     NavigateUri="/RUSAPage" TargetName="ContentFrame" Content="РУСА"/>					
 
 				</StackPanel>
 			</Border>
@@ -74,15 +69,20 @@
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="0">
 					<TextBlock x:Name="StatusLabel" Text="Статус: "/>
 					<TextBlock x:Name="StatusText" Text="{Binding Status, Source={StaticResource globalStatus}}"/>
+
+					<!-- 
 					<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0,0,0">
+						
 						<TextBlock x:Name="LastUpdateLabel" Text="Последнее обновление: "/>
 						<TextBlock x:Name="LastUpdateText" 
 								  Text="{Binding LastUpdate, Source={StaticResource globalStatus},
 						Converter={StaticResource dateTimeConverter},ConverterParameter='HH:mm:ss'}"/>
+						
 						<TextBlock x:Name="NeedRefreshText" Text=" [Ожидается обновление]" 
 								  Visibility="{Binding NeedRefresh,  Source={StaticResource globalStatus},
-									Converter={StaticResource visibilityConverter}}"/>
+									Converter={StaticResource visibilityConverter}}"/>						
 					</StackPanel>
+					
 					<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0,0,0">
 						<TextBlock x:Name="ConnectText" Text="Сервер найден" 
 								  Visibility="{Binding IsError,  Source={StaticResource globalStatus},
@@ -91,6 +91,7 @@
 								  Visibility="{Binding IsError,  Source={StaticResource globalStatus},
 									Converter={StaticResource visibilityConverter}}"/>
 					</StackPanel>
+					-->
 				</StackPanel>
 			</Grid>
 

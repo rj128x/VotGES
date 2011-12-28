@@ -138,6 +138,34 @@ namespace VotGES.PrognozNB
 			}
 		}
 
+		public void checkData() {
+			DateTime date=dateStart.AddMinutes(30);
+			while (date <= DateEnd) {
+				if (!nbFakt.Keys.Contains(date)) {
+					if (nbFakt.Keys.Contains(date.AddMinutes(-30)))
+						nbFakt.Add(date,nbFakt[date.AddMinutes(-30)]);
+					else nbFakt.Add(date,66);
+				}
+				if (!vbFakt.Keys.Contains(date)) {
+					if (vbFakt.Keys.Contains(date.AddMinutes(-30)))
+						vbFakt.Add(date, nbFakt[date.AddMinutes(-30)]);
+					else vbFakt.Add(date, 87);
+				}
+				if (!naporFakt.Keys.Contains(date)) {
+					naporFakt.Add(date, vbFakt[date] - nbFakt[date]);
+				}
+				if (!pFakt.Keys.Contains(date)) {
+					if (pFakt.Keys.Contains(date.AddMinutes(-30)))
+						pFakt.Add(date, pFakt[date.AddMinutes(-30)]);
+					else pFakt.Add(date, 100);
+				}
+				if (!qFakt.Keys.Contains(date)) {
+					qFakt.Add(date,RashodTable.getStationRashod(pFakt[date],naporFakt[date],RashodCalcMode.avg));
+				}
+				date = date.AddMinutes(30);
+			}
+		}
+
 		public virtual  SortedList<DateTime,PrognozNBFirstData> readFirstData(DateTime date) {
 			
 			Piramida3000Entities model=PiramidaAccess.getModel();
@@ -150,7 +178,7 @@ namespace VotGES.PrognozNB
 													 d.OBJTYPE == 2 && (d.OBJECT == 1 && il.Contains(d.ITEM)|| d.OBJECT==0 && d.ITEM==1) select d;
 			return processFirstData(dataArr);
 		}
-
+		
 		protected SortedList<DateTime, PrognozNBFirstData> processFirstData(IQueryable<DATA> dataArr) {
 			SortedList<DateTime,PrognozNBFirstData> firstData=new SortedList<DateTime, PrognozNBFirstData>();
 			foreach (DATA data in dataArr) {
@@ -172,6 +200,9 @@ namespace VotGES.PrognozNB
 						break;
 					case 274:
 						firstData[data.DATA_DATE].VB = data.VALUE0.Value;
+						break;
+					case 276:
+						firstData[data.DATA_DATE].T = data.VALUE0.Value;
 						break;
 				}
 			}

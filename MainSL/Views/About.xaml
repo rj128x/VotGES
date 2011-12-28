@@ -5,8 +5,8 @@
 
             <StackPanel x:Name="ContentStackPanel">
 
-                <TextBlock x:Name="HeaderText" Style="{StaticResource HeaderTextStyle}" Text="Сведения"/>
-                <TextBlock x:Name="ContentText" Style="{StaticResource ContentTextStyle}" Text="Сведения о содержимом страницы"/>
+				<TextBlock x:Name="HeaderText" Style="{StaticResource HeaderTextStyle}" Text="Филиал ОАО &quot;РусГидро&quot; - &quot;Воткинская ГЭС&quot; "/>
+                <TextBlock x:Name="ContentText" Style="{StaticResource ContentTextStyle}" Text="Прогноз НБ"/>
 
             </StackPanel>
 

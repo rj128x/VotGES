@@ -16,15 +16,15 @@ namespace VotGES.Web.Services
 	public class LoggerService : DomainService
 	{
 		public void info(string message) {
-			Logger.Info(String.Format("{0}", message), Logger.LoggerSource.client);
+			WebLogger.Info(String.Format("{0}", message), Logger.LoggerSource.client);
 		}
 
 		public void error(string message) {
-			Logger.Error(String.Format("{0}", message), Logger.LoggerSource.client);
+			WebLogger.Error(String.Format("{0}", message), Logger.LoggerSource.client);
 		}
 
 		public void debug(string message) {
-			Logger.Debug(String.Format("{0}", message), Logger.LoggerSource.client);
+			WebLogger.Debug(String.Format("{0}", message), Logger.LoggerSource.client);
 		}
 
 		

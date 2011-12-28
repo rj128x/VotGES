@@ -6,7 +6,7 @@
            mc:Ignorable="d"
            xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation"
            d:DesignWidth="640" d:DesignHeight="480"
-           Title="RUSAPage Page">
+           Title="РУСА">
 	<Grid x:Name="LayoutRoot">
 		<Grid Name="pnlData">
 			<Grid.ColumnDefinitions>

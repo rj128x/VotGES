@@ -20,7 +20,7 @@ namespace RUSA
 			Console.WriteLine(createMessage(str, source));
 		}
 
-		protected override string createMessage(string message, LoggerSource source = LoggerSource.server, string user = "", string ip = "") {
+		protected override string createMessage(string message, LoggerSource source = LoggerSource.server) {
 			return DateTime.Now.ToString() + "_" + message;
 		}
 	}

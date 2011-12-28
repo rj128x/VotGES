@@ -39,12 +39,8 @@ namespace VotGES
 			Logger.context = context;
 		}
 
-		protected virtual  string createMessage(string message, LoggerSource source=LoggerSource.server,string user="", string ip="") {
-			try {
-				return String.Format("{0,-30} {1,-15} {2,-20} {3}", user, ip, source.ToString(), message);
-			} catch {
-				return String.Format("{0,-30} {1,-15} {2,-20} {3}", "", "", source.ToString(), message); ;
-			}
+		protected virtual  string createMessage(string message, LoggerSource source=LoggerSource.server) {
+			return String.Format("{0,-20} {1}",  source.ToString(), message);
 		}
 
 		protected virtual void info(string str, LoggerSource source = LoggerSource.server) {

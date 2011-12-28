@@ -66,6 +66,7 @@ namespace MainSL.PBR
 		private void btnHalfHours_Click(object sender, RoutedEventArgs e) {
 			pbrData.convertToHalfHoursPBR();
 		}
+
 	}
 	
 }

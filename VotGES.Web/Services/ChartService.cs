@@ -13,6 +13,7 @@ namespace VotGES.Web.Services
 	using VotGES.Piramida;
 	using VotGES.Chart;
 	using VotGES.PrognozNB;
+	using VotGES.Web.Logging;
 
 
 	// Реализует логику приложения с использованием контекста Piramida3000Entities.
@@ -24,7 +25,7 @@ namespace VotGES.Web.Services
 	public class ChartService : DomainService
 	{
 		public ChartAnswer processChart() {
-			Logger.Info("getChart");
+			WebLogger.Info("getChart");
 			try {
 				ChartAnswer answer=new ChartAnswer();
 				ChartProperties props=new ChartProperties();
@@ -94,7 +95,7 @@ namespace VotGES.Web.Services
 		}
 
 		public ChartAnswer checkPrognozNB(DateTime date,int countDays) {
-			Logger.Info(String.Format("Получение прогноза (факт) {0} - {1}",date,countDays));
+			WebLogger.Info(String.Format("Получение прогноза (факт) {0} - {1}", date, countDays));
 			try {
 				if (date.AddHours(-2).Date >= DateTime.Now.Date)
 					date = DateTime.Now.AddHours(-2).Date.AddHours(-24);
@@ -103,13 +104,13 @@ namespace VotGES.Web.Services
 				prognoz.startPrognoz();
 				return prognoz.getChart();
 			} catch (Exception e) {
-				Logger.Error(e.ToString());
+				WebLogger.Error(e.ToString());
 				return null;
 			}
 		}
 
 		public ChartAnswer getPrognoz( int countDays, SortedList<DateTime,double> pbr) {
-			Logger.Info(String.Format("Получение прогноза (прогноз) {0} [{1}]",countDays, pbr==null?"":String.Join(" ",pbr)));
+			WebLogger.Info(String.Format("Получение прогноза (прогноз) {0} [{1}]", countDays, pbr == null ? "" : String.Join(" ", pbr)));
 			try {
 				DateTime date= DateTime.Now.AddHours(-2);
 				//DateTime date=new DateTime(2010, 03, 15);
@@ -118,7 +119,7 @@ namespace VotGES.Web.Services
 				prognoz.startPrognoz();
 				return prognoz.getChart();
 			} catch (Exception e) {
-				Logger.Error(e.ToString());
+				WebLogger.Error(e.ToString());
 				return null;
 			}
 		}

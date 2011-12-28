@@ -17,10 +17,10 @@ using VotGES.Chart;
 
 namespace MainSL
 {
-	public partial class Home : Page
+	public partial class TestPage : Page
 	{
 		ChartContext chartContext;
-		public Home() {
+		public TestPage() {
 			InitializeComponent();
 			chartContext = new ChartContext();
 		}

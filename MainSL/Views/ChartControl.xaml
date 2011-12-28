@@ -37,7 +37,7 @@
 						<sdk:DataGridTemplateColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal">
-									<TextBlock Text="{Binding CurrentPoint.X, StringFormat='dd.MM.yy hh:mm'}"/>
+									<TextBlock Text="{Binding CurrentPoint.X, StringFormat='dd.MM.yy HH:mm'}"/>
 								</StackPanel>
 							</DataTemplate>
 						</sdk:DataGridTemplateColumn.CellTemplate>

@@ -101,7 +101,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Logging\WebLogger.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ProcessRUSAData.cs" />
     <Compile Include="Models\RUSAData.cs" />

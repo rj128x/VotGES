@@ -46,15 +46,7 @@ namespace MainSL
 			contexts = new List<DomainContext>();
 			LastUpdate = DateTime.Now;	
 		}
-
-		public void init() {
-			try {
-				HomeHeader = "Список заявок";
-			} catch (Exception e) {
-				//Logging.Logger.logMessage(e.ToString());
-			}
-		}
-
+		
 		void Current_PropertyChanged(object sender, PropertyChangedEventArgs e) {
 			if (e.PropertyName == "LastUpdate") {
 			}
