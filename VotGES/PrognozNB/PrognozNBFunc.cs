@@ -138,20 +138,26 @@ namespace VotGES.PrognozNB
 			}
 		}
 
-		public void checkData() {
+		public void checkData(DateTime dateStart, DateTime dateEnd) {
 			DateTime date=dateStart.AddMinutes(30);
-			while (date <= DateEnd) {
-				if (!nbFakt.Keys.Contains(date)) {
+			while (date <= dateEnd) {
+				if (!nbFakt.Keys.Contains(date)||nbFakt[date]==0) {
+					if (nbFakt.Keys.Contains(date))
+						nbFakt.Remove(date);
 					if (nbFakt.Keys.Contains(date.AddMinutes(-30)))
 						nbFakt.Add(date,nbFakt[date.AddMinutes(-30)]);
 					else nbFakt.Add(date,66);
 				}
-				if (!vbFakt.Keys.Contains(date)) {
+				if (!vbFakt.Keys.Contains(date) || vbFakt[date] == 0) {
+					if (vbFakt.Keys.Contains(date))
+						vbFakt.Remove(date);
 					if (vbFakt.Keys.Contains(date.AddMinutes(-30)))
 						vbFakt.Add(date, nbFakt[date.AddMinutes(-30)]);
 					else vbFakt.Add(date, 87);
 				}
-				if (!naporFakt.Keys.Contains(date)) {
+				if (!naporFakt.Keys.Contains(date) || naporFakt[date] == 0) {
+					if (naporFakt.Keys.Contains(date))
+						naporFakt.Remove(date);
 					naporFakt.Add(date, vbFakt[date] - nbFakt[date]);
 				}
 				if (!pFakt.Keys.Contains(date)) {
@@ -159,7 +165,9 @@ namespace VotGES.PrognozNB
 						pFakt.Add(date, pFakt[date.AddMinutes(-30)]);
 					else pFakt.Add(date, 100);
 				}
-				if (!qFakt.Keys.Contains(date)) {
+				if (!qFakt.Keys.Contains(date) || (qFakt[date] == 0 && pFakt[date]>0)) {
+					if (qFakt.Keys.Contains(date))
+						qFakt.Remove(date);
 					qFakt.Add(date,RashodTable.getStationRashod(pFakt[date],naporFakt[date],RashodCalcMode.avg));
 				}
 				date = date.AddMinutes(30);

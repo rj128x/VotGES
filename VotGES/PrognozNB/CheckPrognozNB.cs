@@ -23,7 +23,7 @@ namespace VotGES.PrognozNB
 			readP();
 			readPBR();
 			readWater();
-			checkData();
+			checkData(DateStart,DateEnd);
 
 			prognoz.DatePrognozStart = DateStart;
 			prognoz.DatePrognozEnd = DateEnd;

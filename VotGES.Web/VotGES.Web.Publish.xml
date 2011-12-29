@@ -10,81 +10,81 @@
     <file relUrl="bin/System.Web.Mvc.dll" publishTime="02/17/2010 08:24:14" />
     <file relUrl="bin/ru/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:46" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Server.dll" publishTime="01/14/2011 14:13:46" />
-    <file relUrl="Logging/Logger.cs" publishTime="11/29/2011 08:17:13" />
     <file relUrl="bin/ja/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:46" />
     <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="11/29/2011 08:17:13" />
     <file relUrl="bin/System.Web.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="bin/fr/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:52" />
     <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
     <file relUrl="bin/ru/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
-    <file relUrl="ClientBin/MainSL.xap" publishTime="12/28/2011 08:12:51" />
-    <file relUrl="bin/VotGES.Web.pdb" publishTime="12/28/2011 08:12:42" />
-    <file relUrl="Models/AccountModels.cs" publishTime="11/29/2011 08:17:13" />
+    <file relUrl="ClientBin/MainSL.xap" publishTime="12/29/2011 10:29:48" />
+    <file relUrl="bin/VotGES.Web.pdb" publishTime="12/29/2011 10:18:51" />
     <file relUrl="Properties/AssemblyInfo.cs" publishTime="11/29/2011 08:17:13" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Hosting.xml" publishTime="01/14/2011 14:08:54" />
     <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Server.xml" publishTime="01/14/2011 14:08:52" />
+    <file relUrl="Services/ChartService.cs" publishTime="12/29/2011 08:00:59" />
     <file relUrl="Models/RUSAData.cs" publishTime="12/19/2011 09:52:30" />
     <file relUrl="bin/System.Web.Mvc.xml" publishTime="02/17/2010 08:22:24" />
-    <file relUrl="bin/zh-Hant/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="bin/it/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:46" />
     <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="11/29/2011 08:17:13" />
     <file relUrl="Views/Shared/LogOnUserControl.ascx" publishTime="11/29/2011 08:17:13" />
     <file relUrl="Views/Home/MainSL.aspx" publishTime="11/29/2011 08:17:13" />
-    <file relUrl="VotGES.Web.Publish.xml" publishTime="12/28/2011 08:04:20" />
+    <file relUrl="VotGES.Web.Publish.xml" publishTime="12/29/2011 10:19:03" />
     <file relUrl="clientaccesspolicy.xml" publishTime="11/29/2011 08:17:13" />
     <file relUrl="Scripts/jquery-1.4.1.js" publishTime="11/29/2011 08:17:13" />
     <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="11/29/2011 08:17:13" />
-    <file relUrl="Global.asax.cs" publishTime="12/01/2011 08:50:30" />
-    <file relUrl="Services/RUSADomainService.cs" publishTime="12/20/2011 09:23:20" />
+    <file relUrl="Global.asax.cs" publishTime="12/29/2011 08:00:59" />
+    <file relUrl="Services/RUSADomainService.cs" publishTime="12/29/2011 08:00:59" />
     <file relUrl="bin/rashods.resx" publishTime="12/19/2011 10:33:30" />
-    <file relUrl="bin/VotGES.pdb" publishTime="12/28/2011 08:02:20" />
-    <file relUrl="Global.asax" publishTime="11/29/2011 08:17:13" />
+    <file relUrl="bin/VotGES.pdb" publishTime="12/29/2011 10:18:49" />
     <file relUrl="bin/ru/System.Web.Mvc.resources.dll" publishTime="03/29/2010 17:36:52" />
     <file relUrl="Views/Account/ChangePassword.aspx" publishTime="11/29/2011 08:17:13" />
     <file relUrl="Views/Home/About.aspx" publishTime="11/29/2011 08:17:13" />
     <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="11/29/2011 08:17:13" />
     <file relUrl="bin/ko/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:52" />
-    <file relUrl="VotGES.Web.csproj" publishTime="12/26/2011 07:59:37" />
+    <file relUrl="VotGES.Web.csproj" publishTime="12/29/2011 08:00:59" />
     <file relUrl="Views/Home/Index.aspx" publishTime="11/29/2011 08:17:13" />
     <file relUrl="bin/es/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:48" />
-    <file relUrl="bin/VotGES.Web.dll" publishTime="12/28/2011 08:12:42" />
+    <file relUrl="bin/VotGES.Web.dll" publishTime="12/29/2011 10:18:51" />
     <file relUrl="Controllers/HomeController.cs" publishTime="11/29/2011 08:17:13" />
     <file relUrl="bin/log4net.dll" publishTime="03/30/2006 13:24:28" />
     <file relUrl="Views/Shared/Site.Master" publishTime="11/29/2011 08:17:13" />
     <file relUrl="Scripts/jquery.validate.min.js" publishTime="11/29/2011 08:17:13" />
     <file relUrl="MainSLTestPage.html" publishTime="11/29/2011 08:17:13" />
-    <file relUrl="Services/AuthenticationDomainService.cs" publishTime="12/19/2011 10:21:47" />
+    <file relUrl="Services/AuthenticationDomainService.cs" publishTime="12/29/2011 08:00:59" />
     <file relUrl="Web.Release.config" publishTime="11/29/2011 08:17:13" />
-    <file relUrl="Content/Site.css" publishTime="11/29/2011 08:17:12" />
+    <file relUrl="Logging/WebLogger.cs" publishTime="12/29/2011 08:00:59" />
     <file relUrl="Scripts/jquery.validate-vsdoc.js" publishTime="11/29/2011 08:17:13" />
     <file relUrl="bin/fr/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
+    <file relUrl="bin/it/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="bin/rashods.Designer.cs" publishTime="12/19/2011 10:33:30" />
     <file relUrl="Silverlight.js" publishTime="11/29/2011 08:17:13" />
     <file relUrl="bin/PHPSerializationLibrary.dll" publishTime="12/21/2011 11:03:53" />
     <file relUrl="Views/Web.config" publishTime="12/19/2011 10:01:11" />
+    <file relUrl="Content/Site.css" publishTime="11/29/2011 08:17:12" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Hosting.dll" publishTime="01/14/2011 14:13:40" />
     <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="11/29/2011 08:17:13" />
     <file relUrl="Views/Account/Register.aspx" publishTime="11/29/2011 08:17:13" />
     <file relUrl="bin/de/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="Views/Shared/Error.aspx" publishTime="11/29/2011 08:17:13" />
-    <file relUrl="bin/it/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
+    <file relUrl="logs/orders_28_12_2011.txt" publishTime="12/29/2011 08:00:59" />
+    <file relUrl="bin/zh-Hant/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
+    <file relUrl="bin/VotGES.dll" publishTime="12/29/2011 10:18:50" />
     <file relUrl="MainSLTestPage.aspx" publishTime="11/29/2011 08:17:13" />
     <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="11/29/2011 08:17:13" />
     <file relUrl="bin/de/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
-    <file relUrl="Services/LoggerService.cs" publishTime="11/29/2011 08:17:13" />
+    <file relUrl="Services/LoggerService.cs" publishTime="12/29/2011 08:00:59" />
     <file relUrl="Scripts/MicrosoftMvcAjax.debug.js" publishTime="11/29/2011 08:17:13" />
     <file relUrl="Views/Account/ChangePasswordSuccess.aspx" publishTime="11/29/2011 08:17:13" />
-    <file relUrl="logs/orders_27_12_2011.txt" publishTime="12/28/2011 08:00:13" />
     <file relUrl="Scripts/jquery.validate.js" publishTime="11/29/2011 08:17:13" />
-    <file relUrl="VotGES.Web.csproj.user" publishTime="12/27/2011 13:11:01" />
+    <file relUrl="VotGES.Web.csproj.user" publishTime="12/29/2011 10:09:37" />
     <file relUrl="Web.Debug.config" publishTime="12/19/2011 10:01:38" />
-    <file relUrl="Services/ChartService.cs" publishTime="12/28/2011 08:12:39" />
+    <file relUrl="Global.asax" publishTime="11/29/2011 08:17:13" />
     <file relUrl="Models/ProcessRUSAData.cs" publishTime="12/20/2011 09:23:20" />
     <file relUrl="bin/es/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
     <file relUrl="bin/log4net.xml" publishTime="03/30/2006 13:24:28" />
-    <file relUrl="bin/VotGES.dll" publishTime="12/28/2011 08:02:20" />
-    <file relUrl="Web.config" publishTime="12/28/2011 08:04:14" />
+    <file relUrl="Models/AccountModels.cs" publishTime="11/29/2011 08:17:13" />
+    <file relUrl="Web.config" publishTime="12/29/2011 08:04:07" />
   </publishProfile>
   <publishProfile publishUrl="D:\VotGES" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Профиль2" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="False">
     <file relUrl="logs/orders_17_12_2011.txt" publishTime="12/17/2011 21:11:05" />
@@ -99,20 +99,20 @@
     <file relUrl="bin/System.ServiceModel.DomainServices.Server.dll" publishTime="01/14/2011 14:13:46" />
     <file relUrl="Logging/Logger.cs" publishTime="11/28/2011 19:12:40" />
     <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="11/28/2011 18:48:13" />
-    <file relUrl="bin/it/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:46" />
+    <file relUrl="bin/System.Web.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="bin/fr/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:52" />
     <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
     <file relUrl="bin/ru/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="ClientBin/MainSL.xap" publishTime="12/17/2011 21:09:19" />
     <file relUrl="bin/VotGES.Web.pdb" publishTime="12/19/2011 18:17:41" />
+    <file relUrl="Models/AccountModels.cs" publishTime="11/28/2011 18:48:14" />
     <file relUrl="Properties/AssemblyInfo.cs" publishTime="11/28/2011 18:48:14" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Hosting.xml" publishTime="01/14/2011 14:08:54" />
     <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Server.xml" publishTime="01/14/2011 14:08:52" />
     <file relUrl="Models/RUSAData.cs" publishTime="12/17/2011 20:52:58" />
     <file relUrl="bin/System.Web.Mvc.xml" publishTime="02/17/2010 08:22:24" />
-    <file relUrl="bin/zh-Hant/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
-    <file relUrl="bin/ja/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:46" />
+    <file relUrl="bin/it/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:46" />
     <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="11/28/2011 18:48:13" />
     <file relUrl="Views/Shared/LogOnUserControl.ascx" publishTime="11/28/2011 18:48:13" />
     <file relUrl="Views/Home/MainSL.aspx" publishTime="11/28/2011 20:21:34" />
@@ -141,12 +141,13 @@
     <file relUrl="Scripts/jquery.validate.min.js" publishTime="11/28/2011 18:48:13" />
     <file relUrl="MainSLTestPage.html" publishTime="11/28/2011 21:09:51" />
     <file relUrl="Services/AuthenticationDomainService.cs" publishTime="12/19/2011 18:15:37" />
-    <file relUrl="bin/System.Web.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="Web.Release.config" publishTime="11/28/2011 18:48:13" />
     <file relUrl="Scripts/jquery.validate-vsdoc.js" publishTime="11/28/2011 18:48:13" />
     <file relUrl="bin/fr/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
+    <file relUrl="bin/it/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="bin/rashods.Designer.cs" publishTime="11/28/2011 18:26:08" />
     <file relUrl="Silverlight.js" publishTime="11/28/2011 18:48:16" />
+    <file relUrl="bin/ja/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:46" />
     <file relUrl="Views/Web.config" publishTime="12/19/2011 18:15:37" />
     <file relUrl="Content/Site.css" publishTime="11/28/2011 18:48:13" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Hosting.dll" publishTime="01/14/2011 14:13:40" />
@@ -154,8 +155,7 @@
     <file relUrl="Views/Account/Register.aspx" publishTime="11/28/2011 18:48:13" />
     <file relUrl="bin/de/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="Views/Shared/Error.aspx" publishTime="11/28/2011 18:48:13" />
-    <file relUrl="bin/it/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
-    <file relUrl="bin/VotGES.dll" publishTime="12/19/2011 18:17:40" />
+    <file relUrl="bin/zh-Hant/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="logs/orders_28_11_2011.txt" publishTime="11/28/2011 21:30:11" />
     <file relUrl="MainSLTestPage.aspx" publishTime="11/28/2011 21:09:52" />
     <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="11/28/2011 18:48:13" />
@@ -170,7 +170,7 @@
     <file relUrl="Models/ProcessRUSAData.cs" publishTime="12/17/2011 21:08:08" />
     <file relUrl="bin/es/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
     <file relUrl="bin/log4net.xml" publishTime="03/30/2006 15:24:28" />
-    <file relUrl="Models/AccountModels.cs" publishTime="11/28/2011 18:48:14" />
+    <file relUrl="bin/VotGES.dll" publishTime="12/19/2011 18:17:40" />
     <file relUrl="Web.config" publishTime="12/19/2011 18:17:45" />
   </publishProfile>
 </publishData>
