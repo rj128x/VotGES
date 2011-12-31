@@ -56,7 +56,7 @@ namespace MainSL
 			set { 				
 				enabled = value;
 				if (enabled) {
-					YAxisIndex = yAxisIndex;					
+					YAxisIndex = yAxisIndex;						
 					Serie.Visibility = Visibility.Visible;
 					silverChartControl.CurrentChart.DoInvalidate();
 				} else {
@@ -92,6 +92,15 @@ namespace MainSL
 			set {
 				lineStroke = value;
 				NotifyChanged("LineStroke");
+			}
+		}
+
+		protected bool selected;
+		public bool Selected {
+			get { return selected; }
+			set {
+				selected = value;
+				NotifyChanged("Selected");
 			}
 		}
 
@@ -132,6 +141,7 @@ namespace MainSL
 					lineSerie.ToolTipEnabled = true;
 					lineSerie.LineStroke = br;
 					LineStroke = lineSerie.LineStroke;
+					lineSerie.HighlightingEnabled=true;
 					//GraphVyrabToolkit.logMessage(lineSerie.LineStroke.ToString());
 					Serie = lineSerie;
 					
@@ -141,17 +151,26 @@ namespace MainSL
 					stairSerie.LineStrokeThickness=serieProp.LineWidth+1;
 					stairSerie.ToolTipEnabled = true;
 					stairSerie.LineStroke = br;
+					stairSerie.HighlightingEnabled = true;					
 					LineStroke = stairSerie.LineStroke;
 					Serie = stairSerie;
 					break;			
 			}
-			
+
+			Serie.PropertyChanged += new PropertyChangedEventHandler(Serie_PropertyChanged);
 			silverChartControl.CurrentChart.Series.Add(Serie);
 
 			YAxisIndex = serieProp.YAxisIndex;			
 			Enabled = serieProp.Enabled;			
 			silverChartControl.TrackBehaviour.PropertyChanged += new PropertyChangedEventHandler(TrackBehaviour_PropertyChanged);
 		}
+
+		void Serie_PropertyChanged(object sender, PropertyChangedEventArgs e) {
+			if (e.PropertyName == "IsHighlighted") {				
+				Selected = !Selected;
+			}
+		}
+		
 
 		void TrackBehaviour_PropertyChanged(object sender, PropertyChangedEventArgs e) {
 			CurrentPoint = silverChartControl.TrackBehaviour.CurrentPoints[SerieIndex];

@@ -6,57 +6,67 @@
 	 xmlns:charts="clr-namespace:Visiblox.Charts;assembly=Visiblox.Charts"
     mc:Ignorable="d"
     d:DesignHeight="300" d:DesignWidth="400">
-    
-    <Grid x:Name="LayoutRoot" Background="White">
+
+	
+	<Grid x:Name="LayoutRoot" Background="White">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
 
-		<charts:Chart Name="CurrentChart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-						  LegendVisibility="Collapsed">
-			
-		</charts:Chart>
+		<Grid Name="chartPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseLeftButtonUp="chartPanel_MouseLeftButtonUp" MouseMove="chartPanel_MouseMove">
+			<charts:Chart Name="CurrentChart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+						  LegendVisibility="Collapsed" >
 
-		
-		<StackPanel Name="SettingsPanel" VerticalAlignment="Top" HorizontalAlignment="Right" Opacity="0.7">			
-			<sdk:DataGrid Name="LegendGrid" AutoGenerateColumns="False" 
+			</charts:Chart>
+
+
+
+
+			<StackPanel Name="SettingsPanel" VerticalAlignment="Top" HorizontalAlignment="Left" Opacity="0.7">
+				<Border Height="15" Background="LightGray" Name="borderMove"
+					  MouseLeftButtonDown="borderMove_MouseLeftButtonDown" 
+					  MouseLeftButtonUp="borderMove_MouseLeftButtonUp"  >
+					<TextBlock Text="Легенда" Margin="0,0,0,0" 
+								  Padding="0,0,0,0" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center"/>
+				</Border>
+				<sdk:DataGrid Name="LegendGrid" AutoGenerateColumns="False" 
 							  ColumnHeaderStyle="{StaticResource CenterHeaderText}" >
-				<sdk:DataGrid.Columns>					
-					<sdk:DataGridTemplateColumn Header="Имя">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal">
-									<Rectangle Height="10" Width="10" Fill="{Binding LineStroke}"/>
-									<CheckBox VerticalAlignment="Center" Content="{Binding Name}"
+					<sdk:DataGrid.Columns>
+						<sdk:DataGridTemplateColumn Header="Имя">
+							<sdk:DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<StackPanel Orientation="Horizontal" 
+													Background="{Binding Selected, Converter={StaticResource backgroundColorConverter}, ConverterParameter=SerieSelected}">
+										<Rectangle Height="10" Width="10" Fill="{Binding LineStroke}"/>
+										<CheckBox VerticalAlignment="Center" Content="{Binding Name}"
 												 IsChecked="{Binding Enabled, Mode=TwoWay}"/>
-								</StackPanel>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
-					<sdk:DataGridTemplateColumn Header="X">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal">
-									<TextBlock Text="{Binding CurrentPoint.X, StringFormat='dd.MM.yy HH:mm'}"/>
-								</StackPanel>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
-					<sdk:DataGridTemplateColumn Header="Y">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal">
-									<TextBlock Text="{Binding CurrentPoint.Y, StringFormat='### ### ### ### ##0.##'}"/>
-								</StackPanel>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
-				</sdk:DataGrid.Columns>
-			</sdk:DataGrid>
-			<Button Name="ToggleSettingsBtn"
-					HorizontalAlignment="Stretch" Content="+/-" Height="10"
-					Grid.Row="0" Grid.Column="1" Background="Gray" Click="ToggleSettingsBtn_Click"/>
-		</StackPanel>
-
+									</StackPanel>
+								</DataTemplate>
+							</sdk:DataGridTemplateColumn.CellTemplate>
+						</sdk:DataGridTemplateColumn>
+						<sdk:DataGridTemplateColumn Header="X">
+							<sdk:DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<StackPanel Orientation="Horizontal"
+													Background="{Binding Selected, Converter={StaticResource backgroundColorConverter}, ConverterParameter=SerieSelected}">
+										<TextBlock Text="{Binding CurrentPoint.X, StringFormat='dd.MM.yy HH:mm'}"/>
+									</StackPanel>
+								</DataTemplate>
+							</sdk:DataGridTemplateColumn.CellTemplate>
+						</sdk:DataGridTemplateColumn>
+						<sdk:DataGridTemplateColumn Header="Y">
+							<sdk:DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<StackPanel Orientation="Horizontal"
+													Background="{Binding Selected, Converter={StaticResource backgroundColorConverter}, ConverterParameter=SerieSelected}">
+										<TextBlock Text="{Binding CurrentPoint.Y, StringFormat='### ### ### ### ##0.##'}"/>
+									</StackPanel>
+								</DataTemplate>
+							</sdk:DataGridTemplateColumn.CellTemplate>
+						</sdk:DataGridTemplateColumn>
+					</sdk:DataGrid.Columns>
+				</sdk:DataGrid>
+			</StackPanel>
+		</Grid>
 	</Grid>
 </UserControl>

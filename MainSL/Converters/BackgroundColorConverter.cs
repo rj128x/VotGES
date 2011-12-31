@@ -28,8 +28,14 @@ namespace MainSL.Converters
 			try {
 				Color color=Colors.Transparent;
 				string param=parameter.ToString();
+				switch (param) {
+					case "SerieSelected":
+						bool sel=(bool)value;
+						color=sel?Colors.Gray:Colors.Transparent;
+						break;
+				}
 					
-				return new SolidColorBrush(Colors.Transparent);
+				return new SolidColorBrush(color);
 			} catch {
 				return new SolidColorBrush(Colors.Transparent);
 			}

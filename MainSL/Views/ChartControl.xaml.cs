@@ -41,16 +41,16 @@ namespace MainSL.Views
 			foreach (ChartAxisProperties ax in chartAnswer.Properties.Axes) {
 				LinearAxis axis=new LinearAxis();
 				axis.AutoScaleToVisibleData = true;
-				
+
 				axis.LabelFormatString = "### ### ##0.##";
 				axis.ShowGridlines = ax.Index == 0;
-				
+
 				if (ax.Interval != 0) {
 					axis.MajorTickInterval = ax.Interval;
 				}
 				if (!ax.Auto) {
 					axis.Range = new DoubleRange(ax.Min, ax.Max);
-				} 
+				}
 				if (ax.Index > 1) {
 					CurrentChart.AdditionalSecondaryYAxes.Add(axis);
 				}
@@ -66,7 +66,7 @@ namespace MainSL.Views
 					VisibloxChartSerie chartSerie=new VisibloxChartSerie(this);
 					chartSerie.init(serieData, serieProp);
 					ChartSeries.Add(chartSerie);
-				}catch{
+				} catch {
 				}
 			}
 			LegendGrid.ItemsSource = ChartSeries;
@@ -75,16 +75,16 @@ namespace MainSL.Views
 
 
 		private void CreateChart() {
-			
-			LayoutRoot.Children.Remove(CurrentChart);
+
+			chartPanel.Children.Remove(CurrentChart);
 			CurrentChart = new Chart();
-			LayoutRoot.Children.Add(CurrentChart);
+			chartPanel.Children.Add(CurrentChart);
 			CurrentChart.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
 			CurrentChart.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
 			CurrentChart.LegendVisibility = System.Windows.Visibility.Collapsed;
 
-			LayoutRoot.Children.Remove(SettingsPanel);
-			LayoutRoot.Children.Add(SettingsPanel);
+			chartPanel.Children.Remove(SettingsPanel);
+			chartPanel.Children.Add(SettingsPanel);
 
 			BehaviourManager manager=new BehaviourManager();
 			manager.AllowMultipleEnabled = true;
@@ -94,8 +94,13 @@ namespace MainSL.Views
 			manager.Behaviours.Add(track);
 			track.IsEnabled = true;
 			track.TrackingMode = TrackingPointPattern.LineOnX;
+			track.HideTrackballsOnMouseLeave = true;
+
 
 			ZoomBehaviour zoom=new ZoomBehaviour();
+			zoom.AnimationEnabled = false;
+			zoom.ZoomMode = ZoomMode.MouseDrag;
+			zoom.DisableAxisRendering = true;
 			manager.Behaviours.Add(zoom);
 			zoom.IsEnabled = true;
 
@@ -103,8 +108,13 @@ namespace MainSL.Views
 
 			CurrentChart.LegendVisibility = Visibility.Collapsed;
 
-			CurrentChart.Behaviour = manager;			
+			CurrentChart.Behaviour = manager;
+
 		}
+
+		private bool isMovingPanel=false;
+
+
 
 		public void NotifyChanged(string propName) {
 			if (PropertyChanged != null)
@@ -122,14 +132,36 @@ namespace MainSL.Views
 					ChartDataSerie serieData=answer.Data.Series[answer.Data.SeriesNames[serie.TagName]];
 					serie.refresh(serieData);
 				} catch { }
-			}			
+			}
 		}
 
+		private void chartPanel_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			if (isMovingPanel) {
+				isMovingPanel = false;
+				borderMove.Background = new SolidColorBrush(Colors.LightGray);
+			}
+		}
 
-		private void ToggleSettingsBtn_Click(object sender, RoutedEventArgs e) {
-			LegendGrid.Visibility = LegendGrid.Visibility == System.Windows.Visibility.Collapsed ? 
+		private void chartPanel_MouseMove(object sender, MouseEventArgs e) {
+			if (isMovingPanel) {
+				try {
+					SettingsPanel.Margin = new Thickness(e.GetPosition(chartPanel).X +1, e.GetPosition(chartPanel).Y + 1, 0, 0);
+				} catch { }
+			}
+		}
+
+		private void borderMove_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			isMovingPanel = false;
+			borderMove.Background = new SolidColorBrush(Colors.LightGray);
+			LegendGrid.Visibility = LegendGrid.Visibility == System.Windows.Visibility.Collapsed ?
 				System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-
 		}
+
+		private void borderMove_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
+			isMovingPanel = true;
+			borderMove.Background = new SolidColorBrush(Colors.Blue);
+		}
+
+
 	}
 }
