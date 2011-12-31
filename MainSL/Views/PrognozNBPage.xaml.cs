@@ -14,6 +14,7 @@ using VotGES.Web.Services;
 using VotGES.Chart;
 using MainSL.PBR;
 using System.ComponentModel;
+using System.ServiceModel.DomainServices.Client;
 
 namespace MainSL.Views
 {
@@ -74,6 +75,10 @@ namespace MainSL.Views
 			loadPrognoz(false);
 		}
 
+		protected override void OnNavigatedFrom(NavigationEventArgs e) {
+			GlobalStatus.Current.StopLoad();			
+		}
+
 		protected void createPBREditor() {
 			pbrEditor = new PBREditorWindow(settings.UserPBR);
 			pbrEditor.DataContext = settings.UserPBR;
@@ -91,8 +96,12 @@ namespace MainSL.Views
 
 		protected void loadPrognoz(bool useUserPBR) {
 			settings.UserPBR.convertToHalfHoursPBR();
-			chartContext.getPrognoz(settings.CountDays, useUserPBR?settings.UserPBR.Data:null, oper => {
-				try {
+			InvokeOperation currentOper=chartContext.getPrognoz(settings.CountDays, useUserPBR?settings.UserPBR.Data:null, oper => {
+				if (oper.IsCanceled) {
+					return;
+				}
+				try {					
+					GlobalStatus.Current.StartProcess();
 					ChartAnswer answer=oper.Value;
 					chartControl.Create(answer);
 
@@ -110,11 +119,12 @@ namespace MainSL.Views
 				} catch (Exception ex) {
 					Logging.Logger.info(ex.ToString());
 					MessageBox.Show("Ошибка при обработке ответа от сервера");
+				} finally {
+					GlobalStatus.Current.StopLoad();
 				}
-				GlobalStatus.Current.IsWaiting = false;
 
 			}, null);
-			GlobalStatus.Current.IsWaiting = true;
+			GlobalStatus.Current.StartLoad(currentOper);
 		}
 
 

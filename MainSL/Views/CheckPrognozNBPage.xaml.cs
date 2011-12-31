@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using VotGES.Web.Services;
 using VotGES.Chart;
 using System.ComponentModel;
+using System.ServiceModel.DomainServices.Client;
 
 namespace MainSL.Views
 {
@@ -65,18 +66,27 @@ namespace MainSL.Views
 		protected override void OnNavigatedTo(NavigationEventArgs e) {
 		}
 
+		protected override void OnNavigatedFrom(NavigationEventArgs e) {
+			GlobalStatus.Current.StopLoad();
+		}
+
 		private void btnGetPrognoz_Click(object sender, RoutedEventArgs e) {
-			chartContext.checkPrognozNB(settings.Date, settings.CountDays, oper => {
+			InvokeOperation currentOper=chartContext.checkPrognozNB(settings.Date, settings.CountDays, oper => {
+				if (oper.IsCanceled) {
+					return;
+				}
+				GlobalStatus.Current.StartProcess();
 				try {
 					ChartAnswer answer=oper.Value;
 					chartControl.Create(answer);
 				} catch (Exception ex) {
 					Logging.Logger.info(ex.ToString());
 					MessageBox.Show("Ошибка при обработке ответа от сервера");
-				}
-				GlobalStatus.Current.IsWaiting = false;
+				} finally {
+					GlobalStatus.Current.StopLoad();
+				}				
 			}, null);
-			GlobalStatus.Current.IsWaiting = true;
+			GlobalStatus.Current.StartLoad(currentOper);
 		}
 
 	}

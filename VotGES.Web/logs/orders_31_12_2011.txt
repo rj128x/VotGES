@@ -1,0 +1,286 @@
+[2011-12-31 14:34:43,974] INFO                                                      server               Старт приложения
+[2011-12-31 14:35:45,276] INFO       rj128x-pc\rj128x               ::1             server               Пользователь пытается авторизоваться в системе
+[2011-12-31 14:35:45,319] INFO       rj128x-pc\rj128x               ::1             server               Пользователь авторизовался в системе: rj128x-pc\rj128x
+[2011-12-31 14:37:53,210] INFO                                                      server               Старт приложения
+[2011-12-31 14:37:57,991] INFO       rj128x-pc\rj128x               ::1             server               Пользователь пытается авторизоваться в системе
+[2011-12-31 14:37:57,993] INFO       rj128x-pc\rj128x               ::1             server               Пользователь авторизовался в системе: rj128x-pc\rj128x
+[2011-12-31 14:38:00,232] INFO       rj128x-pc\rj128x               ::1             client               Пользователь авторизовался в клиенте
+[2011-12-31 14:38:00,269] INFO       rj128x-pc\rj128x               ::1             client               Старт главной страницы
+[2011-12-31 14:38:07,943] INFO       rj128x-pc\rj128x               ::1             server               Получение прогноза (факт) 30.12.2011 0:00:00 - 1
+[2011-12-31 14:38:14,699] INFO       rj128x-pc\rj128x               ::1             server               Получение прогноза (факт) 13.05.2010 0:00:00 - 1
+[2011-12-31 14:38:17,693] INFO       rj128x-pc\rj128x               ::1             server               Получение прогноза (прогноз) 1 []
+[2011-12-31 14:38:37,533] INFO       rj128x-pc\rj128x               ::1             server               System.Data.EntityException: Произошла ошибка базового поставщика в Open. ---> System.Data.SqlClient.SqlException: Истекло время ожидания (Timeout). Время ожидания истекло до завершения операции или сервер не отвечает.
+   в System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   в System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   в System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   в System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   в System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   в System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   в System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+   --- Конец трассировки внутреннего стека исключений ---
+   в System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+   в System.Data.EntityClient.EntityConnection.Open()
+   в System.Data.Objects.ObjectContext.EnsureConnection()
+   в System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   в System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   в VotGES.PrognozNB.PrognozNBFunc.processFirstData(IQueryable`1 dataArr) в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNBFunc.cs:строка 192
+   в VotGES.PrognozNB.PrognozNBFunc.readFirstData(DateTime date) в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNBFunc.cs:строка 187
+   в VotGES.PrognozNB.CheckPrognozNB.startPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\CheckPrognozNB.cs:строка 22
+   в VotGES.Web.Services.ChartService.checkPrognozNB(DateTime date, Int32 countDays) в D:\vs2010\VotGES\VotGES.Web\Services\ChartService.cs:строка 104
+[2011-12-31 14:38:37,595] INFO       rj128x-pc\rj128x               ::1             server               System.Data.EntityException: Произошла ошибка базового поставщика в Open. ---> System.InvalidOperationException: Истекло время ожидания. Время ожидания истекло раньше, чем удалось получить подключение из пула. Возможно, все подключения в пуле уже используются и достигнут максимальный размер пула.
+   в System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   в System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+   --- Конец трассировки внутреннего стека исключений ---
+   в System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+   в System.Data.EntityClient.EntityConnection.Open()
+   в System.Data.Objects.ObjectContext.EnsureConnection()
+   в System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   в System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   в VotGES.PrognozNB.PrognozNBFunc.processFirstData(IQueryable`1 dataArr) в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNBFunc.cs:строка 192
+   в VotGES.PrognozNB.PrognozNBFunc.readFirstData(DateTime date) в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNBFunc.cs:строка 187
+   в VotGES.PrognozNB.CheckPrognozNB.startPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\CheckPrognozNB.cs:строка 22
+   в VotGES.Web.Services.ChartService.checkPrognozNB(DateTime date, Int32 countDays) в D:\vs2010\VotGES\VotGES.Web\Services\ChartService.cs:строка 104
+[2011-12-31 14:38:37,723] INFO       rj128x-pc\rj128x               ::1             server               System.Data.EntityException: Произошла ошибка базового поставщика в Open. ---> System.Data.SqlClient.SqlException: Истекло время ожидания (Timeout). Время ожидания истекло до завершения операции или сервер не отвечает.
+   в System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   в System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   в System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   в System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   в System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   в System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   в System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   в System.Data.SqlClient.SqlConnection.Open()
+   в System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+   --- Конец трассировки внутреннего стека исключений ---
+   в System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+   в System.Data.EntityClient.EntityConnection.Open()
+   в System.Data.Objects.ObjectContext.EnsureConnection()
+   в System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   в System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   в System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   в System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__3[TResult](IEnumerable`1 sequence)
+   в System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   в System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   в System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   в VotGES.PrognozNB.PrognozNBByPBR.readFirstData(DateTime date) в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNBByPBR.cs:строка 133
+   в VotGES.PrognozNB.PrognozNBByPBR.startPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNBByPBR.cs:строка 157
+   в VotGES.Web.Services.ChartService.getPrognoz(Int32 countDays, SortedList`2 pbr) в D:\vs2010\VotGES\VotGES.Web\Services\ChartService.cs:строка 119
+[2011-12-31 14:44:51,014] INFO                                                      server               Старт приложения
+[2011-12-31 14:45:22,169] INFO       rj128x-pc\rj128x               ::1             server               Пользователь пытается авторизоваться в системе
+[2011-12-31 14:45:22,170] INFO       rj128x-pc\rj128x               ::1             server               Пользователь авторизовался в системе: rj128x-pc\rj128x
+[2011-12-31 14:45:23,618] INFO       rj128x-pc\rj128x               ::1             client               Пользователь авторизовался в клиенте
+[2011-12-31 14:45:23,630] INFO       rj128x-pc\rj128x               ::1             client               Старт главной страницы
+[2011-12-31 14:47:07,718] INFO       rj128x-pc\rj128x               ::1             server               Получение прогноза (прогноз) 1 []
+[2011-12-31 14:47:31,761] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:47:31,762] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:47:31,762] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:47:31,763] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:47:31,763] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:47:31,763] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:47:31,764] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:47:31,764] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:47:31,764] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:47:31,765] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:47:31,765] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:47:31,770] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:47:31,770] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:47:31,770] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:47:32,020] INFO       rj128x-pc\rj128x               ::1             server               System.InvalidOperationException: Последовательность не содержит элементов
+   в System.Linq.Enumerable.Last[TSource](IEnumerable`1 source)
+   в VotGES.PrognozNB.PrognozNB.calcPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNB.cs:строка 108
+   в VotGES.PrognozNB.PrognozNBByPBR.startPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNBByPBR.cs:строка 178
+   в VotGES.Web.Services.ChartService.getPrognoz(Int32 countDays, SortedList`2 pbr) в D:\vs2010\VotGES\VotGES.Web\Services\ChartService.cs:строка 119
+[2011-12-31 14:50:55,755] INFO                                                      server               Старт приложения
+[2011-12-31 14:51:00,526] INFO       rj128x-pc\rj128x               ::1             server               Пользователь пытается авторизоваться в системе
+[2011-12-31 14:51:00,527] INFO       rj128x-pc\rj128x               ::1             server               Пользователь авторизовался в системе: rj128x-pc\rj128x
+[2011-12-31 14:51:01,969] INFO       rj128x-pc\rj128x               ::1             client               Пользователь авторизовался в клиенте
+[2011-12-31 14:51:01,995] INFO       rj128x-pc\rj128x               ::1             client               Старт главной страницы
+[2011-12-31 14:51:06,514] INFO       rj128x-pc\rj128x               ::1             server               Получение прогноза (прогноз) 1 []
+[2011-12-31 14:51:26,069] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:51:26,070] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:51:26,070] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:51:26,070] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:51:26,072] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:51:26,073] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:51:26,073] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:51:26,074] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:51:26,074] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:51:26,074] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:51:26,075] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:51:26,075] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:51:26,075] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:51:26,075] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 14:51:26,404] INFO       rj128x-pc\rj128x               ::1             server               System.InvalidOperationException: Последовательность не содержит элементов
+   в System.Linq.Enumerable.Last[TSource](IEnumerable`1 source)
+   в VotGES.PrognozNB.PrognozNB.calcPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNB.cs:строка 108
+   в VotGES.PrognozNB.PrognozNBByPBR.startPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNBByPBR.cs:строка 178
+   в VotGES.Web.Services.ChartService.getPrognoz(Int32 countDays, SortedList`2 pbr) в D:\vs2010\VotGES\VotGES.Web\Services\ChartService.cs:строка 119
+[2011-12-31 14:54:39,690] INFO                                                      server               Старт приложения
+[2011-12-31 14:55:35,991] INFO       rj128x-pc\rj128x               ::1             server               Пользователь пытается авторизоваться в системе
+[2011-12-31 14:55:35,992] INFO       rj128x-pc\rj128x               ::1             server               Пользователь авторизовался в системе: rj128x-pc\rj128x
+[2011-12-31 14:55:37,377] INFO       rj128x-pc\rj128x               ::1             client               Пользователь авторизовался в клиенте
+[2011-12-31 14:55:37,391] INFO       rj128x-pc\rj128x               ::1             client               Старт главной страницы
+[2011-12-31 15:01:53,444] INFO                                                      server               Старт приложения
+[2011-12-31 15:02:10,902] INFO       rj128x-pc\rj128x               ::1             server               Пользователь пытается авторизоваться в системе
+[2011-12-31 15:02:10,903] INFO       rj128x-pc\rj128x               ::1             server               Пользователь авторизовался в системе: rj128x-pc\rj128x
+[2011-12-31 15:02:12,516] INFO       rj128x-pc\rj128x               ::1             client               Пользователь авторизовался в клиенте
+[2011-12-31 15:02:12,531] INFO       rj128x-pc\rj128x               ::1             client               Старт главной страницы
+[2011-12-31 15:02:17,361] INFO       rj128x-pc\rj128x               ::1             server               Получение прогноза (прогноз) 1 []
+[2011-12-31 15:02:26,556] INFO       rj128x-pc\rj128x               ::1             client               System.NullReferenceException: В экземпляре объекта не задана ссылка на объект.
+   в MainSL.Views.ChartControl.processChartAnswer(ChartAnswer chartAnswer)
+   в MainSL.Views.PrognozNBPage.<loadPrognoz>b__0(InvokeOperation`1 oper)
+[2011-12-31 15:02:40,090] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:02:40,090] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:02:40,091] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:02:40,091] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:02:40,092] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:02:40,092] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:02:40,092] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:02:40,093] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:02:40,093] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:02:40,094] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:02:40,094] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:02:40,094] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:02:40,095] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:02:40,095] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:02:40,095] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:02:40,212] INFO       rj128x-pc\rj128x               ::1             server               System.InvalidOperationException: Последовательность не содержит элементов
+   в System.Linq.Enumerable.Last[TSource](IEnumerable`1 source)
+   в VotGES.PrognozNB.PrognozNB.calcPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNB.cs:строка 108
+   в VotGES.PrognozNB.PrognozNBByPBR.startPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNBByPBR.cs:строка 178
+   в VotGES.Web.Services.ChartService.getPrognoz(Int32 countDays, SortedList`2 pbr) в D:\vs2010\VotGES\VotGES.Web\Services\ChartService.cs:строка 119
+[2011-12-31 15:04:08,752] INFO                                                      server               Старт приложения
+[2011-12-31 15:04:13,363] INFO       rj128x-pc\rj128x               ::1             server               Пользователь пытается авторизоваться в системе
+[2011-12-31 15:04:13,365] INFO       rj128x-pc\rj128x               ::1             server               Пользователь авторизовался в системе: rj128x-pc\rj128x
+[2011-12-31 15:04:14,652] INFO       rj128x-pc\rj128x               ::1             client               Пользователь авторизовался в клиенте
+[2011-12-31 15:04:14,723] INFO       rj128x-pc\rj128x               ::1             client               Старт главной страницы
+[2011-12-31 15:04:18,073] INFO       rj128x-pc\rj128x               ::1             server               Получение прогноза (прогноз) 1 []
+[2011-12-31 15:04:42,985] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:04:42,987] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:04:42,988] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:04:42,988] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:04:42,988] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:04:42,988] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:04:42,989] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:04:42,989] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:04:42,989] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:04:42,990] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:04:42,991] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:04:42,991] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:04:42,991] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:04:42,992] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:04:42,993] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:04:43,112] INFO       rj128x-pc\rj128x               ::1             server               System.InvalidOperationException: Последовательность не содержит элементов
+   в System.Linq.Enumerable.Last[TSource](IEnumerable`1 source)
+   в VotGES.PrognozNB.PrognozNB.calcPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNB.cs:строка 108
+   в VotGES.PrognozNB.PrognozNBByPBR.startPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNBByPBR.cs:строка 178
+   в VotGES.Web.Services.ChartService.getPrognoz(Int32 countDays, SortedList`2 pbr) в D:\vs2010\VotGES\VotGES.Web\Services\ChartService.cs:строка 119
+[2011-12-31 15:39:01,179] INFO                                                      server               Старт приложения
+[2011-12-31 15:39:02,714] INFO       rj128x-pc\rj128x               ::1             service              RUSA process
+[2011-12-31 15:39:07,192] INFO       rj128x-pc\rj128x               ::1             server               Получение прогноза (факт) 16.12.2011 0:00:00 - 1
+[2011-12-31 15:39:22,132] INFO       rj128x-pc\rj128x               ::1             client               System.NullReferenceException: В экземпляре объекта не задана ссылка на объект.
+   в MainSL.Views.ChartControl.processChartAnswer(ChartAnswer chartAnswer)
+   в MainSL.Views.CheckPrognozNBPage.<btnGetPrognoz_Click>b__0(InvokeOperation`1 oper)
+[2011-12-31 15:39:22,155] INFO       rj128x-pc\rj128x               ::1             server               Получение прогноза (прогноз) 1 []
+[2011-12-31 15:39:23,481] INFO       rj128x-pc\rj128x               ::1             server               Получение прогноза (прогноз) 1 []
+[2011-12-31 15:39:51,719] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,720] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,720] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,721] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,721] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,721] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,722] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,722] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,722] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,723] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,723] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,724] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,724] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,724] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,725] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,725] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,725] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,726] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,726] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,726] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,727] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,727] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,727] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,728] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,728] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,728] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,729] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,729] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,730] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,730] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,731] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,731] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,731] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,734] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,737] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,737] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,737] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,737] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,738] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,738] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,738] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,739] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,739] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,740] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,740] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,740] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,743] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:51,908] INFO       rj128x-pc\rj128x               ::1             server               System.InvalidOperationException: Последовательность не содержит элементов
+   в System.Linq.Enumerable.Last[TSource](IEnumerable`1 source)
+   в VotGES.PrognozNB.PrognozNB.calcPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNB.cs:строка 108
+   в VotGES.PrognozNB.CheckPrognozNB.startPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\CheckPrognozNB.cs:строка 36
+   в VotGES.Web.Services.ChartService.checkPrognozNB(DateTime date, Int32 countDays) в D:\vs2010\VotGES\VotGES.Web\Services\ChartService.cs:строка 104
+[2011-12-31 15:39:52,987] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:52,987] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:52,987] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:52,987] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:52,987] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,058] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,059] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,059] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,059] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,059] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,060] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,060] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,061] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,062] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,064] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,064] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,072] INFO       rj128x-pc\rj128x               ::1             server               System.InvalidOperationException: Последовательность не содержит элементов
+   в System.Linq.Enumerable.Last[TSource](IEnumerable`1 source)
+   в VotGES.PrognozNB.PrognozNB.calcPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNB.cs:строка 108
+   в VotGES.PrognozNB.PrognozNBByPBR.startPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNBByPBR.cs:строка 178
+   в VotGES.Web.Services.ChartService.getPrognoz(Int32 countDays, SortedList`2 pbr) в D:\vs2010\VotGES\VotGES.Web\Services\ChartService.cs:строка 119
+[2011-12-31 15:39:53,547] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,549] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,549] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,549] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,550] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,550] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,550] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,551] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,551] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,551] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,551] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,552] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,552] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,552] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,553] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,553] INFO       rj128x-pc\rj128x               ::1             server               Ошибка получения расхода мощность: 100 napor: 0 (Последовательность не содержит соответствующий элемент)
+[2011-12-31 15:39:53,554] INFO       rj128x-pc\rj128x               ::1             server               System.InvalidOperationException: Последовательность не содержит элементов
+   в System.Linq.Enumerable.Last[TSource](IEnumerable`1 source)
+   в VotGES.PrognozNB.PrognozNB.calcPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNB.cs:строка 108
+   в VotGES.PrognozNB.PrognozNBByPBR.startPrognoz() в D:\vs2010\VotGES\VotGES\PrognozNB\PrognozNBByPBR.cs:строка 178
+   в VotGES.Web.Services.ChartService.getPrognoz(Int32 countDays, SortedList`2 pbr) в D:\vs2010\VotGES\VotGES.Web\Services\ChartService.cs:строка 119

@@ -17,42 +17,25 @@ namespace MainSL
 	public class GlobalStatus : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
-		protected List<DomainContext> contexts;
+
+		private InvokeOperation currentOper;
+
+		public InvokeOperation CurrentOper {
+			get { return currentOper; }
+			set {
+				if (currentOper != null && currentOper.CanCancel) {
+					CurrentOper.Cancel();
+				}
+				currentOper = value; 
+
+			}
+		}
 
 		public void NotifyChanged(string propName) {
 			if (PropertyChanged != null)
 				PropertyChanged(this, new PropertyChangedEventArgs(propName));
 		}
-
-		public void addContext(DomainContext context) {
-			context.PropertyChanged += new PropertyChangedEventHandler(context_PropertyChanged);
-			contexts.Add(context);
-			IsBusy = false;
-		}
-
-		void context_PropertyChanged(object sender, PropertyChangedEventArgs e) {
-			checkBusy();
-		}
-
-		protected void checkBusy() {
-			bool busy=false;
-			foreach (DomainContext context in contexts) {
-				busy = busy || context.IsLoading || context.IsSubmitting;
-			}
-			IsBusy = busy || IsWaiting;
-		}
-
-		public GlobalStatus() {
-			contexts = new List<DomainContext>();
-			LastUpdate = DateTime.Now;	
-		}
 		
-		void Current_PropertyChanged(object sender, PropertyChangedEventArgs e) {
-			if (e.PropertyName == "LastUpdate") {
-			}
-		}
-			
-
 		protected string status;
 		public string Status {
 			get {
@@ -71,69 +54,28 @@ namespace MainSL
 			}
 			set {
 				isBusy = value;
-				Status = IsBusy ? "Загрузка" : "Готово";
 				NotifyChanged("IsBusy");
-				CanRefresh = !IsBusy;
 			}
+		}				
+
+		public void StartLoad(InvokeOperation oper, string message = "Загрузка") {
+			CurrentOper = oper;
+			Status = message;
+			IsBusy = true;
 		}
 
-		private bool isWaiting;
-		public bool IsWaiting {
-			get { return isWaiting; }
-			set { 
-				isWaiting = value;
-				checkBusy();
-				NotifyChanged("IsWaiting");
-			}
-		}
-		
-
-		protected bool isError;
-		public bool IsError {
-			get { return isError; }
-			set {
-				isError = value;
-				NotifyChanged("IsError");
-			}
+		public void StartProcess(string message = "Обработка ответа от сервера") {
+			Status = message;
 		}
 
-		private bool canRefresh;
-		public bool CanRefresh {
-			get { return canRefresh; }
-			set {
-				canRefresh = value;
-				NotifyChanged("CanRefresh");
-			}
+		public void ChangeStatus(string message = "Загрузка") {
+			Status = message;
 		}
 
-		private bool needRefresh;
-		public bool NeedRefresh {
-			get { return needRefresh; }
-			set {
-				needRefresh = value;
-				NotifyChanged("NeedRefresh");
-			}
-		}
-
-		private string homeHeader;
-		public string HomeHeader {
-			get { return homeHeader; }
-			set {
-				homeHeader = value;
-				NotifyChanged("HomeHeader");
-			}
-		}
-
-		private DateTime lastUpdate;
-		public DateTime LastUpdate {
-			get {
-				return lastUpdate;
-			}
-			protected set {
-				lastUpdate = value;
-				NotifyChanged("LastUpdate");
-				NeedRefresh = false;
-			}
+		public void StopLoad(string message = "Готово") {
+			CurrentOper = null;
+			Status = message;
+			IsBusy = false;
 		}
 
 		public static GlobalStatus Current {

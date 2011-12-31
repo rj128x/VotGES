@@ -35,9 +35,7 @@ namespace MainSL
 				ChartAnswer answer=oper.Value;
 				chartControl.Create(answer);
 
-				GlobalStatus.Current.IsWaiting = false;
 			}, null);
-			GlobalStatus.Current.IsWaiting = true;
 		}
 	}
 }

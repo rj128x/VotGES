@@ -32,7 +32,6 @@ namespace MainSL.Views
 		public RUSAPage() {
 			InitializeComponent();
 			context = new RUSADomainContext();
-			GlobalStatus.Current.addContext(context);
 		}
 
 		
@@ -51,19 +50,28 @@ namespace MainSL.Views
 			CurrentData.Napor = 21;
 			
 		}
+
+		protected override void OnNavigatedFrom(NavigationEventArgs e) {
+			GlobalStatus.Current.StopLoad();
+		}
 				
 
 		private void btnCalcRUSA_Click(object sender, RoutedEventArgs e) {
-			context.processRUSAData(CurrentData, oper => {
+			InvokeOperation currentOper=context.processRUSAData(CurrentData, oper => {
+				if (oper.IsCanceled) {
+					return;
+				}
 				try {
-					GlobalStatus.Current.IsWaiting = false;
-					CurrentData = oper.Value;
+					GlobalStatus.Current.StartProcess();
+					CurrentData = oper.Value;					
 				} catch (Exception ex) {
 					Logging.Logger.info(ex.ToString());
 					MessageBox.Show("Ошибка при обработке ответа от сервера");
+				} finally {
+					GlobalStatus.Current.StopLoad();
 				}
 			},null);
-			GlobalStatus.Current.IsWaiting = true;
+			GlobalStatus.Current.StartLoad(currentOper);
 			
 		}
 

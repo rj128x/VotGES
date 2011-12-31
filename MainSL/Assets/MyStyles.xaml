@@ -161,8 +161,6 @@
 		<Setter Property="FontSize" Value="12"></Setter>
 		<Setter Property="FontWeight" Value="Bold"></Setter>
 		<Setter Property="Opacity" Value="0.9"></Setter>
-	</Style>
-
-	
-	
+		
+	</Style>	
 </ResourceDictionary>

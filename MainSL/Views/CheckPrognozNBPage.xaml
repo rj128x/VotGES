@@ -15,14 +15,14 @@
 		</Grid.ColumnDefinitions>
 		<usr:ChartControl x:Name="chartControl" VerticalAlignment="Stretch"/>
 		<StackPanel Name="pnlSettings" Grid.Column="1" >
-			<sdk:Calendar Name="clndDate" SelectedDate="{Binding Date, Mode=TwoWay}"
-							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+			<sdk:Calendar Name="clndDate" SelectedDate="{Binding Date, Mode=TwoWay}"  
+				IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
 				<TextBlock Text="Дней"/>
 				<TextBox Name="txtCountDays" Width="100" TextAlignment="Right" Text="{Binding CountDays, Mode=TwoWay}"
-							IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+					IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 			</StackPanel>
-			<Button Name="btnGetPrognoz" Click="btnGetPrognoz_Click" Content="Получить прогноз"
+			<Button Name="btnGetPrognoz" Click="btnGetPrognoz_Click" Content="Получить прогноз" 
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 		</StackPanel>
 		 
