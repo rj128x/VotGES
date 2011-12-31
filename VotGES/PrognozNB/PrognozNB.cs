@@ -6,6 +6,7 @@ using VotGES.Chart;
 
 namespace VotGES.PrognozNB
 {
+
 	public class PrognozNBFirstData
 	{
 		public DateTime Date { get; set; }
@@ -202,8 +203,8 @@ namespace VotGES.PrognozNB
 			prognozNBSerie.Name = "NBPrognoz";
 			prognozQSerie.Name = "QPrognoz";
 
-			data.Series.Add(prognozNBSerie);
-			data.Series.Add(prognozQSerie);
+			data.addSerie(prognozNBSerie);
+			data.addSerie(prognozQSerie);
 		}
 
 
@@ -304,20 +305,20 @@ namespace VotGES.PrognozNB
 			naporSerie.YAxisIndex = 4;
 			
 
-			props.Axes.Add(pAx);
-			props.Axes.Add(nbAx);
-			props.Axes.Add(qAx);
-			props.Axes.Add(vbAx);
-			props.Axes.Add(naporAx);
+			props.addAxis(pAx);
+			props.addAxis(nbAx);
+			props.addAxis(qAx);
+			props.addAxis(vbAx);
+			props.addAxis(naporAx);
 
-			props.Series.Add(pSerie);
-			props.Series.Add(pbrSerie);
-			props.Series.Add(nbFaktSerie);
-			props.Series.Add(nbPrognozSerie);
-			props.Series.Add(qFaktSerie);
-			props.Series.Add(qPrognozSerie);
-			props.Series.Add(vbSerie);
-			props.Series.Add(naporSerie);
+			props.addSerie(pSerie);
+			props.addSerie(pbrSerie);
+			props.addSerie(nbFaktSerie);
+			props.addSerie(nbPrognozSerie);
+			props.addSerie(qFaktSerie);
+			props.addSerie(qPrognozSerie);
+			props.addSerie(vbSerie);
+			props.addSerie(naporSerie);
 
 			props.XAxisType = XAxisTypeEnum.datetime;
 

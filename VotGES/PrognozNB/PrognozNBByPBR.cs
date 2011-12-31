@@ -7,6 +7,27 @@ using VotGES.Chart;
 
 namespace VotGES.PrognozNB
 {
+	public class PrognozValue
+	{
+		public DateTime Date { get; set; }
+		public double QAvg { get; set; }
+		public double Vyrab { get; set; }
+		public double NBAvg { get; set; }
+		public double NBMin { get; set; }
+		public double NBMax { get; set; }
+	}
+	public class PrognozNBByPBRAnswer
+	{
+
+		public ChartAnswer Chart { get; set; }
+		public double VyrabFakt { get; set; }
+		public double QFakt { get; set; }
+		public double NBAvg { get; set; }
+		public double NBMin { get; set; }
+		public double NBMax { get; set; }
+		public List<PrognozValue> PrognozValues{get;set;}		
+	}
+
 	public class PrognozNBByPBR : PrognozNBFunc
 	{
 		protected DateTime datePrognozStart;
@@ -50,7 +71,13 @@ namespace VotGES.PrognozNB
 			get { return pbrFull; }
 			set { pbrFull = value; }
 		}
-				
+
+		protected PrognozNBByPBRAnswer prognozAnswer;
+		public PrognozNBByPBRAnswer PrognozAnswer {
+			get { return prognozAnswer; }
+			set { prognozAnswer = value; }
+		}
+
 
 		public PrognozNBByPBR(DateTime dateStart, int daysCount, DateTime datePrognozStart, SortedList<DateTime, double> userPBR)
 			: base(dateStart, daysCount) {
@@ -113,7 +140,7 @@ namespace VotGES.PrognozNB
 				}
 				date = date.AddMinutes(30);
 			}
-			
+
 		}
 
 		public override SortedList<DateTime, PrognozNBFirstData> readFirstData(DateTime date) {
@@ -141,14 +168,79 @@ namespace VotGES.PrognozNB
 		public override void writeFaktData(Chart.ChartData data) {
 			base.writeFaktData(data);
 
-			foreach (ChartDataSerie serie in data.Series) {
-				if (serie.Name == "PBR") {
-					serie.Points.Clear();
-					foreach (KeyValuePair<DateTime,double> de in PBRFull) {
-						serie.Points.Add(new ChartDataPoint(de.Key, de.Value));
-					}
+			ChartDataSerie serie=data.Series[data.SeriesNames["PBR"]];
+			serie.Points.Clear();
+			foreach (KeyValuePair<DateTime,double> de in PBRFull) {
+				serie.Points.Add(new ChartDataPoint(de.Key, de.Value));
+			}
+		}
+
+		public void processAnswer() {
+			PrognozNBByPBRAnswer answer=new PrognozNBByPBRAnswer();
+			foreach (DateTime date in PFakt.Keys) {
+				if (date > DateStart && date <= DatePrognozStart) {
+					answer.VyrabFakt += PFakt[date] / 2;
 				}
 			}
+
+			int countQ=0;
+			foreach (DateTime date in QFakt.Keys) {
+				if (date > DateStart && date <= DatePrognozStart) {
+					answer.QFakt += QFakt[date];
+					countQ++;
+				}
+			}
+
+			answer.NBMin = 100;
+			answer.NBMax = 0;
+			int countNB=0;
+			foreach (DateTime date in NBFakt.Keys) {
+				if (date > DateStart && date <= DatePrognozStart) {
+					double nb=NBFakt[date];
+					answer.NBAvg += nb;
+					answer.NBMin = answer.NBMin < nb ? answer.NBMin : nb;
+					answer.NBMax = answer.NBMax > nb ? answer.NBMax : nb;
+					countNB++;
+				}
+			}
+			
+			SortedList<DateTime,PrognozValue> values=new SortedList<DateTime, PrognozValue>();
+			DateTime currentDate=DatePrognozStart.AddMinutes(30);
+			while (currentDate <= DateEnd) {
+				DateTime dt=currentDate.AddMinutes(-30).Date;
+				if (!values.Keys.Contains(dt)) {
+					values.Add(dt, new PrognozValue());
+					values[dt].NBMin = 100;
+					values[dt].NBMax = 0;
+					values[dt].Date = currentDate;
+				}
+				double nb= Prognoz.Prognoz[currentDate];
+				values[dt].Vyrab += Prognoz.PArr[currentDate];
+				values[dt].QAvg += Prognoz.Rashods[currentDate];
+				values[dt].NBAvg += nb;
+				values[dt].NBMin = values[dt].NBMin < nb ? values[dt].NBMin : nb;
+				values[dt].NBMax = values[dt].NBMax > nb ? values[dt].NBMax : nb;
+								
+				currentDate = currentDate.AddMinutes(30);
+			}
+
+			DateTime datePrognoz=DateStart.AddMinutes(30).Date;
+			values[datePrognoz].QAvg += answer.QFakt;
+			values[datePrognoz].NBAvg += answer.NBAvg;
+			values[datePrognoz].Vyrab += answer.VyrabFakt;
+			values[datePrognoz].NBMin = answer.NBMin < values[datePrognoz].NBMin ? answer.NBMin : values[datePrognoz].NBMin;
+			values[datePrognoz].NBMax = answer.NBMax > values[datePrognoz].NBMax ? answer.NBMax : values[datePrognoz].NBMax;
+			
+			answer.QFakt /= countQ;
+			answer.NBAvg /= countNB;
+
+			foreach (DateTime date in values.Keys) {
+				values[date].QAvg /= 48;
+				values[date].NBAvg /= 48;
+			}
+
+			answer.PrognozValues = values.Values.ToList();
+			PrognozAnswer = answer;
 		}
 
 		public void startPrognoz() {
@@ -159,7 +251,7 @@ namespace VotGES.PrognozNB
 			readPBR();
 			readWater();
 			preparePArr();
-			checkData(DateStart,DatePrognozStart);
+			checkData(DateStart, DatePrognozStart);
 
 			prognoz.DatePrognozStart = DatePrognozStart;
 			prognoz.DatePrognozEnd = DateEnd;
@@ -174,10 +266,14 @@ namespace VotGES.PrognozNB
 				}
 				prev = de.Value;
 				isFirst = false;
-			}			
+			}
 			prognoz.calcPrognoz();
+			processAnswer();
+			
+
 			prognoz.Prognoz.Add(datePrognozStart, prognoz.FirstData.Last().Value.NB);
 			prognoz.Rashods.Add(datePrognozStart, prognoz.FirstData.Last().Value.Q);
+			PrognozAnswer.Chart = getChart();
 		}
 	}
 }

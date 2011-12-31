@@ -18,9 +18,10 @@
 			<sdk:Calendar Name="clndDate" SelectedDate="{Binding Date, Mode=TwoWay}"  
 				IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-				<TextBlock Text="Дней"/>
-				<TextBox Name="txtCountDays" Width="100" TextAlignment="Right" Text="{Binding CountDays, Mode=TwoWay}"
-					IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<TextBlock Text="Прогноз на " Style="{StaticResource Label}"/>
+				<TextBox Name="txtCountDays" Width="30" TextAlignment="Right" Text="{Binding CountDays, Mode=TwoWay}" 								
+							IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<TextBlock Text=" дней вперед" Style="{StaticResource Label}"/>
 			</StackPanel>
 			<Button Name="btnGetPrognoz" Click="btnGetPrognoz_Click" Content="Получить прогноз" 
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>

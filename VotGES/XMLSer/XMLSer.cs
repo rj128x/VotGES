@@ -26,7 +26,8 @@ namespace VotGES.XMLSer
 				T data = (T)mySerializer.Deserialize(myFileStream);
 				myFileStream.Close();
 				return data;
-			} catch (Exception e) {				
+			} catch (Exception e) {
+				Logger.Error(e.ToString());
 				return default(T);
 			}
 		}

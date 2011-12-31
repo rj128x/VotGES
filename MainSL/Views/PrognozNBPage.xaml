@@ -8,23 +8,98 @@
 			  xmlns:usr="clr-namespace:MainSL.Views" 
            d:DesignWidth="640" d:DesignHeight="480"
            Title="Прогноз НБ">
-    <Grid x:Name="LayoutRoot">
+	<Grid x:Name="LayoutRoot">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>
 			<ColumnDefinition Width="Auto"/>
 		</Grid.ColumnDefinitions>
 		<usr:ChartControl x:Name="chartControl" VerticalAlignment="Stretch"/>
-		<StackPanel Name="pnlSettings" Grid.Column="1">			
-			<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-				<TextBlock Text="Дней"/>
-				<TextBox Name="txtCountDays" Width="100" TextAlignment="Right" Text="{Binding CountDays, Mode=TwoWay}"
+		<StackPanel Name="rightPanel" Grid.Column="1">
+			<StackPanel Name="pnlSettings">
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+					<TextBlock Text="Прогноз на " Style="{StaticResource Label}"/>
+					<TextBox Name="txtCountDays" Width="30" TextAlignment="Right" Text="{Binding CountDays, Mode=TwoWay}" 								
 							IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-			</StackPanel>			
-			<Button Name="btnGetPrognoz" Click="btnGetPrognoz_Click" Content="Задать ПБР"
+					<TextBlock Text=" дней вперед" Style="{StaticResource Label}"/>
+				</StackPanel>
+				<Button Name="btnGetPrognoz" Click="btnGetPrognoz_Click" Content="Задать ПБР"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-			<Button Name="btnClearPBR" Click="btnClearPBR_Click" Content="ПБР с сервера"
+				<Button Name="btnClearPBR" Click="btnClearPBR_Click" Content="ПБР с сервера"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+			</StackPanel>
+			<StackPanel Name="pnlAnswer" Margin="0,10,0,0">
+				<Border>
+					<StackPanel>
+						<TextBlock Text="С начала суток" Style="{StaticResource Label}" HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"/>
+						<TextBlock Text="Выработка (МВт):" Style="{StaticResource Label}"/>
+						<TextBlock Text="{Binding VyrabFakt, StringFormat='### ##0'}" Style="{StaticResource Value}" HorizontalAlignment="Center"/>
+						<TextBlock Text="Расход (куб.м/с):" Style="{StaticResource Label}"/>
+						<TextBlock Text="{Binding QFakt, StringFormat='### ##0'}" Style="{StaticResource Value}" HorizontalAlignment="Center"/>
+						<TextBlock Text="Нижний бьеф (среднее)" Style="{StaticResource Label}"/>
+						<TextBlock Text="{Binding NBAvg, StringFormat='00.00'}" Style="{StaticResource Value}"/>
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+							<TextBlock Text="НБмин=" Style="{StaticResource Label}" Margin="10,0,0,0"/>
+							<TextBlock Text="{Binding NBMin, StringFormat='00.00'}" Style="{StaticResource Value}"/>
+							<TextBlock Text="НБмакс=" Style="{StaticResource Label}" Margin="10,0,0,0"/>
+							<TextBlock Text="{Binding NBMax, StringFormat='00.00'}" Style="{StaticResource Value}"/>
+						</StackPanel>
+					</StackPanel>
+				</Border>
+
+				<Border>
+					<StackPanel>
+						<TextBlock Text="Прогноз"  Style="{StaticResource Label}" HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"/>
+						<sdk:DataGrid Name="LegendGrid" AutoGenerateColumns="False" 
+							  ColumnHeaderStyle="{StaticResource CenterHeaderText}" ItemsSource="{Binding PrognozValues}" 
+								CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False">
+							<sdk:DataGrid.Columns>
+								<sdk:DataGridTemplateColumn Header="Дата">
+									<sdk:DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding Date, StringFormat='dd.MM.yy'}"/>
+										</DataTemplate>
+									</sdk:DataGridTemplateColumn.CellTemplate>
+								</sdk:DataGridTemplateColumn>
+								<sdk:DataGridTemplateColumn Header="P">
+									<sdk:DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding Vyrab, StringFormat='### ##0'}"/>
+										</DataTemplate>
+									</sdk:DataGridTemplateColumn.CellTemplate>
+								</sdk:DataGridTemplateColumn>
+								<sdk:DataGridTemplateColumn Header="Q">
+									<sdk:DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding QAvg, StringFormat='### ##0'}"/>
+										</DataTemplate>
+									</sdk:DataGridTemplateColumn.CellTemplate>
+								</sdk:DataGridTemplateColumn>
+								<sdk:DataGridTemplateColumn Header="НБ ср" Width="40">
+									<sdk:DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding NBAvg, StringFormat='00.00'}"/>
+										</DataTemplate>
+									</sdk:DataGridTemplateColumn.CellTemplate>
+								</sdk:DataGridTemplateColumn>
+								<sdk:DataGridTemplateColumn Header="НБ мин" Width="40">
+									<sdk:DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding NBMin, StringFormat='00.00'}"/>
+										</DataTemplate>
+									</sdk:DataGridTemplateColumn.CellTemplate>
+								</sdk:DataGridTemplateColumn>
+								<sdk:DataGridTemplateColumn Header="НБ макс" Width="40">
+									<sdk:DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding NBMax, StringFormat='00.00'}"/>
+										</DataTemplate>
+									</sdk:DataGridTemplateColumn.CellTemplate>
+								</sdk:DataGridTemplateColumn>
+							</sdk:DataGrid.Columns>
+						</sdk:DataGrid>
+					</StackPanel>
+				</Border>
+			</StackPanel>
 		</StackPanel>
-		 
 	</Grid>
 </navigation:Page>

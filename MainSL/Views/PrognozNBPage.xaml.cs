@@ -29,11 +29,11 @@ namespace MainSL.Views
 				if (PropertyChanged != null)
 					PropertyChanged(this, new PropertyChangedEventArgs(propName));
 			}
-			
+
 			private int countDays;
 			public int CountDays {
 				get { return countDays; }
-				set { 
+				set {
 					countDays = value;
 					countDays = countDays < 1 ? 1 : countDays;
 					countDays = countDays > 10 ? 10 : countDays;
@@ -44,13 +44,13 @@ namespace MainSL.Views
 			private PBRData userPBR;
 			public PBRData UserPBR {
 				get { return userPBR; }
-				set { 
+				set {
 					userPBR = value;
 					NotifyChanged("UserPBR");
 				}
 			}
 
-			public Dictionary<DateTime,double> PrevData{get;set;}
+			public Dictionary<DateTime, double> PrevData { get; set; }
 		}
 
 
@@ -70,13 +70,12 @@ namespace MainSL.Views
 
 		// Выполняется, когда пользователь переходит на эту страницу.
 		protected override void OnNavigatedTo(NavigationEventArgs e) {
-			btnClearPBR.Visibility = System.Windows.Visibility.Collapsed;
-			
+			rightPanel.Visibility = System.Windows.Visibility.Collapsed;
 			loadPrognoz(false);
 		}
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e) {
-			GlobalStatus.Current.StopLoad();			
+			GlobalStatus.Current.StopLoad();
 		}
 
 		protected void createPBREditor() {
@@ -96,26 +95,25 @@ namespace MainSL.Views
 
 		protected void loadPrognoz(bool useUserPBR) {
 			settings.UserPBR.convertToHalfHoursPBR();
-			InvokeOperation currentOper=chartContext.getPrognoz(settings.CountDays, useUserPBR?settings.UserPBR.Data:null, oper => {
+			InvokeOperation currentOper=chartContext.getPrognoz(settings.CountDays, useUserPBR ? settings.UserPBR.Data : null, oper => {
 				if (oper.IsCanceled) {
 					return;
 				}
-				try {					
+				try {
 					GlobalStatus.Current.StartProcess();
-					ChartAnswer answer=oper.Value;
+					ChartAnswer answer=oper.Value.Chart;
 					chartControl.Create(answer);
 
-					foreach (ChartDataSerie serie in answer.Data.Series) {
-						if (serie.Name == "PBR") {
-							Dictionary<DateTime,double> data=new Dictionary<DateTime, double>();
-							foreach (ChartDataPoint point in serie.Points) {
-								data.Add(point.XVal, point.YVal);
-							}
-							settings.UserPBR = new PBRData(data);
-							createPBREditor();
-							btnClearPBR.Visibility = System.Windows.Visibility.Visible;
-						}
+					ChartDataSerie serie=answer.Data.Series[answer.Data.SeriesNames["PBR"]];
+					Dictionary<DateTime,double> data=new Dictionary<DateTime, double>();
+					foreach (ChartDataPoint point in serie.Points) {
+						data.Add(point.XVal, point.YVal);
 					}
+					settings.UserPBR = new PBRData(data);
+					createPBREditor();
+					rightPanel.Visibility = System.Windows.Visibility.Visible;
+
+					pnlAnswer.DataContext = oper.Value;
 				} catch (Exception ex) {
 					Logging.Logger.info(ex.ToString());
 					MessageBox.Show("Ошибка при обработке ответа от сервера");
@@ -130,7 +128,7 @@ namespace MainSL.Views
 
 		private void btnGetPrognoz_Click(object sender, RoutedEventArgs e) {
 			settings.PrevData = new Dictionary<DateTime, double>();
-			foreach (KeyValuePair<DateTime,double> de in settings.UserPBR.Data){
+			foreach (KeyValuePair<DateTime,double> de in settings.UserPBR.Data) {
 				settings.PrevData.Add(de.Key, de.Value);
 			}
 			pbrEditor.Show();

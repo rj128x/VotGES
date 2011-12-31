@@ -54,12 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chart\ChartAnswer.cs" />
-    <Compile Include="Chart\ChartAxisProperties.cs" />
     <Compile Include="Chart\ChartData.cs" />
-    <Compile Include="Chart\ChartDataPoint.cs" />
-    <Compile Include="Chart\ChartDataSerie.cs" />
     <Compile Include="Chart\ChartProperties.cs" />
-    <Compile Include="Chart\ChartSerieProperties.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="nnet.Designer.cs">
       <AutoGen>True</AutoGen>

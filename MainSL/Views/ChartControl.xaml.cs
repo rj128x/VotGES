@@ -61,12 +61,12 @@ namespace MainSL.Views
 
 			ChartSeries = new List<VisibloxChartSerie>();
 			foreach (ChartSerieProperties serieProp in prop.Series) {
-				foreach (ChartDataSerie serieData in data.Series) {
-					if (serieData.Name == serieProp.TagName) {
-						VisibloxChartSerie chartSerie=new VisibloxChartSerie(this);
-						chartSerie.init(serieData, serieProp);
-						ChartSeries.Add(chartSerie);
-					}
+				try {
+					ChartDataSerie serieData=chartAnswer.Data.Series[chartAnswer.Data.SeriesNames[serieProp.TagName]];
+					VisibloxChartSerie chartSerie=new VisibloxChartSerie(this);
+					chartSerie.init(serieData, serieProp);
+					ChartSeries.Add(chartSerie);
+				}catch{
 				}
 			}
 			LegendGrid.ItemsSource = ChartSeries;
@@ -117,13 +117,12 @@ namespace MainSL.Views
 
 		public void RefreshData(ChartAnswer answer) {
 			Answer = answer;
-			foreach (ChartDataSerie serieData in answer.Data.Series) {
-				foreach (VisibloxChartSerie serie in ChartSeries) {
-					if (serie.TagName == serieData.Name) {
-						serie.refresh(serieData);
-					}
-				}
-			}
+			foreach (VisibloxChartSerie serie in ChartSeries) {
+				try {
+					ChartDataSerie serieData=answer.Data.Series[answer.Data.SeriesNames[serie.TagName]];
+					serie.refresh(serieData);
+				} catch { }
+			}			
 		}
 
 

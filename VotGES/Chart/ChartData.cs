@@ -10,11 +10,36 @@ using System.Runtime.Serialization;
 
 namespace VotGES.Chart
 {
-	[XmlRoot(ElementName = "chart")]	
+	public class ChartDataSerie
+	{
+		public List<ChartDataPoint> Points { get; set; }
+		public string Name { get; set; }
+
+		public ChartDataSerie() {
+			Points = new List<ChartDataPoint>();
+		}
+
+	}
+
+	public class ChartDataPoint
+	{
+		public double YVal { get; set; }
+
+		public DateTime XVal { get; set; }
+
+		public ChartDataPoint() {
+		}
+
+		public ChartDataPoint(DateTime XVal, double YVal) {
+			this.XVal = XVal;
+			this.YVal = YVal;
+			//this.Index = Index;
+		}
+	}
+
 	public class ChartData
 	{
 
-		[XmlIgnore]
 		protected List<ChartDataSerie> series=null;
 
 		public List<ChartDataSerie> Series {
@@ -26,31 +51,22 @@ namespace VotGES.Chart
 			}
 		}
 
+		
+
+		public Dictionary<string, int> SeriesNames { get; set; }
+
 		public ChartData() {
 			Series = new List<ChartDataSerie>();
+			SeriesNames = new Dictionary<string, int>();			
 		}
 
-		public void toXML(string fileName) {
-			XmlSerializer mySerializer = new XmlSerializer(typeof(ChartData));
-			// To write to a file, create a StreamWriter object.
-			StreamWriter myWriter = new StreamWriter(fileName);
-			mySerializer.Serialize(myWriter, this);
-			myWriter.Close();
-		}
-
-		public static ChartData fromXML(string fileName) {
-			try {
-				XmlSerializer mySerializer = new XmlSerializer(typeof(ChartData));
-				// To read the file, create a FileStream.
-				FileStream myFileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-				// Call the Deserialize method and cast to the object type.
-				ChartData data = (ChartData)mySerializer.Deserialize(myFileStream);
-				myFileStream.Close();
-				return data;
-			} catch (Exception e) {
-				return null;
+		public void addSerie(ChartDataSerie serie) {
+			if (!SeriesNames.Keys.Contains(serie.Name)){
+				Series.Add(serie);
+				SeriesNames.Add(serie.Name, Series.IndexOf(serie));
 			}
 		}
+
 
 		public ChartDataSerie this[string name]{
 			get {

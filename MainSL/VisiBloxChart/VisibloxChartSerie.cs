@@ -76,7 +76,7 @@ namespace MainSL
 				NotifyChanged("Name"); 
 			}
 		}		
-
+		
 		protected ChartSerieType serieType;
 		public ChartSerieType SerieType {
 			get { return serieType; }

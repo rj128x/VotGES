@@ -4,19 +4,60 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using System.IO;
+using System.Runtime.Serialization;
 
 namespace VotGES.Chart
 {
-	public enum XAxisTypeEnum{auto,datetime}	
+	public enum ChartSerieType { line, bar, pie, column, stepLine }
+	public enum XAxisTypeEnum { auto, datetime }	
+
+	[Serializable]
+	public class ChartSerieProperties
+	{
+		public string TagName { get; set; }
+		public string Title { get; set; }
+		public bool Enabled { get; set; }
+		public ChartSerieType SerieType { get; set; }
+		public int LineWidth { get; set; }
+		public string Color { get; set; }
+		public bool Marker { get; set; }
+		public int YAxisIndex { get; set; }
+
+
+		public ChartSerieProperties() {
+			Enabled = true;
+			LineWidth = 2;
+			Color = null;
+			Marker = true;
+			YAxisIndex = 0;
+		}
+	}
+	
+
+	public class ChartAxisProperties
+	{
+		public int Index { get; set; }
+		public bool Auto { get; set; }
+		public double Min { get; set; }
+		public double Max { get; set; }
+		public double Interval { get; set; }
+	}
+
+	
 	public class ChartProperties
 	{
+		[DataMember]
 		public List<ChartSerieProperties> Series { get; set; }
 		public XAxisTypeEnum XAxisType{get;set;}
 		public List<ChartAxisProperties> Axes { get; set; }
+		public Dictionary<string, int> SeriesNames { get; set; }
+		public Dictionary<int, int> AxesNumbers { get; set; }
 
 		public ChartProperties() {
 			Axes = new List<ChartAxisProperties>();
 			Series = new List<ChartSerieProperties>();
+			SeriesNames = new Dictionary<string, int>();
+			AxesNumbers = new Dictionary<int, int>();
 		}
 
 		public static ChartProperties fromXML(string fileName) {
@@ -44,6 +85,7 @@ namespace VotGES.Chart
 				}
 				return data;
 			} catch (Exception e) {
+				Logger.Error(e.ToString());
 				return null;
 			}
 		}
@@ -56,11 +98,19 @@ namespace VotGES.Chart
 			myWriter.Close();
 		}
 
-		public static void createNullXML(string fileName) {
-			ChartProperties prop=new ChartProperties();
-			prop.Series = new List<ChartSerieProperties>();
-			prop.Series.Add(new ChartSerieProperties());
-			prop.toXML(fileName);
+		public void addSerie(ChartSerieProperties serie) {
+			if (!SeriesNames.Keys.Contains(serie.TagName)) {
+				Series.Add(serie);
+				SeriesNames.Add(serie.TagName, Series.IndexOf(serie));
+			}
 		}
+
+		public void addAxis(ChartAxisProperties ax) {
+			if (!AxesNumbers.Keys.Contains(ax.Index)) {
+				Axes.Add(ax);
+				AxesNumbers.Add(ax.Index, Axes.IndexOf(ax));
+			}
+		}
+
 	}
 }

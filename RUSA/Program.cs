@@ -148,7 +148,6 @@ namespace RUSA
 			string res=String.Format("<table border='1'><tr><th>h</th><th>p</th><th>eq</th><th>Diff</th><th>kpdEq</th><th>kpdDiff</th><th>sostavEq</th><th>pEq</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>");
 			System.IO.File.WriteAllText(fn, res);
 			string str="";
-			RUSADiffPower rusa;
 			foreach (double power in powers) {				
 				foreach (double napor in napors) {
 					List<RUSADiffPower.RusaChoice> choices=RUSADiffPower.getChoices(allGA, napor, power);

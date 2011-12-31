@@ -31,11 +31,7 @@ namespace MainSL
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e) {
-			chartContext.processChart(oper => {
-				ChartAnswer answer=oper.Value;
-				chartControl.Create(answer);
-
-			}, null);
+			
 		}
 	}
 }

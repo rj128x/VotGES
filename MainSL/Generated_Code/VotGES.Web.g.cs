@@ -88,7 +88,6 @@ namespace VotGES.Chart
     using System.ServiceModel.DomainServices;
     using System.ServiceModel.DomainServices.Client;
     using System.ServiceModel.DomainServices.Client.ApplicationServices;
-    using System.Xml.Serialization;
     
     
     /// <summary>
@@ -347,11 +346,12 @@ namespace VotGES.Chart
     /// Класс "ChartData".
     /// </summary>
     [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Chart")]
-    [XmlRoot(ElementName="chart")]
     public sealed partial class ChartData : ComplexObject
     {
         
         private List<ChartDataSerie> _series;
+        
+        private Dictionary<string, int> _seriesNames;
         
         #region Определение методов расширяемости
 
@@ -362,6 +362,8 @@ namespace VotGES.Chart
         partial void OnCreated();
         partial void OnSeriesChanging(List<ChartDataSerie> value);
         partial void OnSeriesChanged();
+        partial void OnSeriesNamesChanging(Dictionary<string, int> value);
+        partial void OnSeriesNamesChanged();
 
         #endregion
         
@@ -395,6 +397,30 @@ namespace VotGES.Chart
                     this._series = value;
                     this.RaiseDataMemberChanged("Series");
                     this.OnSeriesChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "SeriesNames".
+        /// </summary>
+        [DataMember()]
+        public Dictionary<string, int> SeriesNames
+        {
+            get
+            {
+                return this._seriesNames;
+            }
+            set
+            {
+                if ((this._seriesNames != value))
+                {
+                    this.OnSeriesNamesChanging(value);
+                    this.RaiseDataMemberChanging("SeriesNames");
+                    this.ValidateProperty("SeriesNames", value);
+                    this._seriesNames = value;
+                    this.RaiseDataMemberChanged("SeriesNames");
+                    this.OnSeriesNamesChanged();
                 }
             }
         }
@@ -576,7 +602,11 @@ namespace VotGES.Chart
         
         private List<ChartAxisProperties> _axes;
         
+        private Dictionary<int, int> _axesNumbers;
+        
         private List<ChartSerieProperties> _series;
+        
+        private Dictionary<string, int> _seriesNames;
         
         private XAxisTypeEnum _xAxisType;
         
@@ -589,8 +619,12 @@ namespace VotGES.Chart
         partial void OnCreated();
         partial void OnAxesChanging(List<ChartAxisProperties> value);
         partial void OnAxesChanged();
+        partial void OnAxesNumbersChanging(Dictionary<int, int> value);
+        partial void OnAxesNumbersChanged();
         partial void OnSeriesChanging(List<ChartSerieProperties> value);
         partial void OnSeriesChanged();
+        partial void OnSeriesNamesChanging(Dictionary<string, int> value);
+        partial void OnSeriesNamesChanged();
         partial void OnXAxisTypeChanging(XAxisTypeEnum value);
         partial void OnXAxisTypeChanged();
 
@@ -631,6 +665,30 @@ namespace VotGES.Chart
         }
         
         /// <summary>
+        /// Возвращает или задает значение параметра "AxesNumbers".
+        /// </summary>
+        [DataMember()]
+        public Dictionary<int, int> AxesNumbers
+        {
+            get
+            {
+                return this._axesNumbers;
+            }
+            set
+            {
+                if ((this._axesNumbers != value))
+                {
+                    this.OnAxesNumbersChanging(value);
+                    this.RaiseDataMemberChanging("AxesNumbers");
+                    this.ValidateProperty("AxesNumbers", value);
+                    this._axesNumbers = value;
+                    this.RaiseDataMemberChanged("AxesNumbers");
+                    this.OnAxesNumbersChanged();
+                }
+            }
+        }
+        
+        /// <summary>
         /// Возвращает или задает значение параметра "Series".
         /// </summary>
         [DataMember()]
@@ -651,6 +709,30 @@ namespace VotGES.Chart
                     this._series = value;
                     this.RaiseDataMemberChanged("Series");
                     this.OnSeriesChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "SeriesNames".
+        /// </summary>
+        [DataMember()]
+        public Dictionary<string, int> SeriesNames
+        {
+            get
+            {
+                return this._seriesNames;
+            }
+            set
+            {
+                if ((this._seriesNames != value))
+                {
+                    this.OnSeriesNamesChanging(value);
+                    this.RaiseDataMemberChanging("SeriesNames");
+                    this.ValidateProperty("SeriesNames", value);
+                    this._seriesNames = value;
+                    this.RaiseDataMemberChanged("SeriesNames");
+                    this.OnSeriesNamesChanged();
                 }
             }
         }
@@ -951,6 +1033,440 @@ namespace VotGES.Chart
         auto = 0,
         
         datetime = 1,
+    }
+}
+namespace VotGES.PrognozNB
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Runtime.Serialization;
+    using System.ServiceModel.DomainServices;
+    using System.ServiceModel.DomainServices.Client;
+    using System.ServiceModel.DomainServices.Client.ApplicationServices;
+    using VotGES.Chart;
+    
+    
+    /// <summary>
+    /// Класс "PrognozNBByPBRAnswer".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.PrognozNB")]
+    public sealed partial class PrognozNBByPBRAnswer : ComplexObject
+    {
+        
+        private ChartAnswer _chart;
+        
+        private double _nbAvg;
+        
+        private double _nbMax;
+        
+        private double _nbMin;
+        
+        private List<PrognozValue> _prognozValues;
+        
+        private double _qFakt;
+        
+        private double _vyrabFakt;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnChartChanging(ChartAnswer value);
+        partial void OnChartChanged();
+        partial void OnNBAvgChanging(double value);
+        partial void OnNBAvgChanged();
+        partial void OnNBMaxChanging(double value);
+        partial void OnNBMaxChanged();
+        partial void OnNBMinChanging(double value);
+        partial void OnNBMinChanged();
+        partial void OnPrognozValuesChanging(List<PrognozValue> value);
+        partial void OnPrognozValuesChanged();
+        partial void OnQFaktChanging(double value);
+        partial void OnQFaktChanged();
+        partial void OnVyrabFaktChanging(double value);
+        partial void OnVyrabFaktChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="PrognozNBByPBRAnswer"/>.
+        /// </summary>
+        public PrognozNBByPBRAnswer()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Chart".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public ChartAnswer Chart
+        {
+            get
+            {
+                return this._chart;
+            }
+            set
+            {
+                if ((this._chart != value))
+                {
+                    this.OnChartChanging(value);
+                    this.RaiseDataMemberChanging("Chart");
+                    this.ValidateProperty("Chart", value);
+                    this._chart = value;
+                    this.RaiseDataMemberChanged("Chart");
+                    this.OnChartChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "NBAvg".
+        /// </summary>
+        [DataMember()]
+        public double NBAvg
+        {
+            get
+            {
+                return this._nbAvg;
+            }
+            set
+            {
+                if ((this._nbAvg != value))
+                {
+                    this.OnNBAvgChanging(value);
+                    this.RaiseDataMemberChanging("NBAvg");
+                    this.ValidateProperty("NBAvg", value);
+                    this._nbAvg = value;
+                    this.RaiseDataMemberChanged("NBAvg");
+                    this.OnNBAvgChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "NBMax".
+        /// </summary>
+        [DataMember()]
+        public double NBMax
+        {
+            get
+            {
+                return this._nbMax;
+            }
+            set
+            {
+                if ((this._nbMax != value))
+                {
+                    this.OnNBMaxChanging(value);
+                    this.RaiseDataMemberChanging("NBMax");
+                    this.ValidateProperty("NBMax", value);
+                    this._nbMax = value;
+                    this.RaiseDataMemberChanged("NBMax");
+                    this.OnNBMaxChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "NBMin".
+        /// </summary>
+        [DataMember()]
+        public double NBMin
+        {
+            get
+            {
+                return this._nbMin;
+            }
+            set
+            {
+                if ((this._nbMin != value))
+                {
+                    this.OnNBMinChanging(value);
+                    this.RaiseDataMemberChanging("NBMin");
+                    this.ValidateProperty("NBMin", value);
+                    this._nbMin = value;
+                    this.RaiseDataMemberChanged("NBMin");
+                    this.OnNBMinChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PrognozValues".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<PrognozValue> PrognozValues
+        {
+            get
+            {
+                return this._prognozValues;
+            }
+            set
+            {
+                if ((this._prognozValues != value))
+                {
+                    this.OnPrognozValuesChanging(value);
+                    this.RaiseDataMemberChanging("PrognozValues");
+                    this.ValidateProperty("PrognozValues", value);
+                    this._prognozValues = value;
+                    this.RaiseDataMemberChanged("PrognozValues");
+                    this.OnPrognozValuesChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "QFakt".
+        /// </summary>
+        [DataMember()]
+        public double QFakt
+        {
+            get
+            {
+                return this._qFakt;
+            }
+            set
+            {
+                if ((this._qFakt != value))
+                {
+                    this.OnQFaktChanging(value);
+                    this.RaiseDataMemberChanging("QFakt");
+                    this.ValidateProperty("QFakt", value);
+                    this._qFakt = value;
+                    this.RaiseDataMemberChanged("QFakt");
+                    this.OnQFaktChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "VyrabFakt".
+        /// </summary>
+        [DataMember()]
+        public double VyrabFakt
+        {
+            get
+            {
+                return this._vyrabFakt;
+            }
+            set
+            {
+                if ((this._vyrabFakt != value))
+                {
+                    this.OnVyrabFaktChanging(value);
+                    this.RaiseDataMemberChanging("VyrabFakt");
+                    this.ValidateProperty("VyrabFakt", value);
+                    this._vyrabFakt = value;
+                    this.RaiseDataMemberChanged("VyrabFakt");
+                    this.OnVyrabFaktChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Класс "PrognozValue".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.PrognozNB")]
+    public sealed partial class PrognozValue : ComplexObject
+    {
+        
+        private DateTime _date;
+        
+        private double _nbAvg;
+        
+        private double _nbMax;
+        
+        private double _nbMin;
+        
+        private double _qAvg;
+        
+        private double _vyrab;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnDateChanging(DateTime value);
+        partial void OnDateChanged();
+        partial void OnNBAvgChanging(double value);
+        partial void OnNBAvgChanged();
+        partial void OnNBMaxChanging(double value);
+        partial void OnNBMaxChanged();
+        partial void OnNBMinChanging(double value);
+        partial void OnNBMinChanged();
+        partial void OnQAvgChanging(double value);
+        partial void OnQAvgChanged();
+        partial void OnVyrabChanging(double value);
+        partial void OnVyrabChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="PrognozValue"/>.
+        /// </summary>
+        public PrognozValue()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Date".
+        /// </summary>
+        [DataMember()]
+        public DateTime Date
+        {
+            get
+            {
+                return this._date;
+            }
+            set
+            {
+                if ((this._date != value))
+                {
+                    this.OnDateChanging(value);
+                    this.RaiseDataMemberChanging("Date");
+                    this.ValidateProperty("Date", value);
+                    this._date = value;
+                    this.RaiseDataMemberChanged("Date");
+                    this.OnDateChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "NBAvg".
+        /// </summary>
+        [DataMember()]
+        public double NBAvg
+        {
+            get
+            {
+                return this._nbAvg;
+            }
+            set
+            {
+                if ((this._nbAvg != value))
+                {
+                    this.OnNBAvgChanging(value);
+                    this.RaiseDataMemberChanging("NBAvg");
+                    this.ValidateProperty("NBAvg", value);
+                    this._nbAvg = value;
+                    this.RaiseDataMemberChanged("NBAvg");
+                    this.OnNBAvgChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "NBMax".
+        /// </summary>
+        [DataMember()]
+        public double NBMax
+        {
+            get
+            {
+                return this._nbMax;
+            }
+            set
+            {
+                if ((this._nbMax != value))
+                {
+                    this.OnNBMaxChanging(value);
+                    this.RaiseDataMemberChanging("NBMax");
+                    this.ValidateProperty("NBMax", value);
+                    this._nbMax = value;
+                    this.RaiseDataMemberChanged("NBMax");
+                    this.OnNBMaxChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "NBMin".
+        /// </summary>
+        [DataMember()]
+        public double NBMin
+        {
+            get
+            {
+                return this._nbMin;
+            }
+            set
+            {
+                if ((this._nbMin != value))
+                {
+                    this.OnNBMinChanging(value);
+                    this.RaiseDataMemberChanging("NBMin");
+                    this.ValidateProperty("NBMin", value);
+                    this._nbMin = value;
+                    this.RaiseDataMemberChanged("NBMin");
+                    this.OnNBMinChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "QAvg".
+        /// </summary>
+        [DataMember()]
+        public double QAvg
+        {
+            get
+            {
+                return this._qAvg;
+            }
+            set
+            {
+                if ((this._qAvg != value))
+                {
+                    this.OnQAvgChanging(value);
+                    this.RaiseDataMemberChanging("QAvg");
+                    this.ValidateProperty("QAvg", value);
+                    this._qAvg = value;
+                    this.RaiseDataMemberChanged("QAvg");
+                    this.OnQAvgChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Vyrab".
+        /// </summary>
+        [DataMember()]
+        public double Vyrab
+        {
+            get
+            {
+                return this._vyrab;
+            }
+            set
+            {
+                if ((this._vyrab != value))
+                {
+                    this.OnVyrabChanging(value);
+                    this.RaiseDataMemberChanging("Vyrab");
+                    this.ValidateProperty("Vyrab", value);
+                    this._vyrab = value;
+                    this.RaiseDataMemberChanged("Vyrab");
+                    this.OnVyrabChanged();
+                }
+            }
+        }
     }
 }
 namespace VotGES.Web.Models
@@ -1401,6 +1917,7 @@ namespace VotGES.Web.Services
     using System.ServiceModel.DomainServices.Client.ApplicationServices;
     using System.ServiceModel.Web;
     using VotGES.Chart;
+    using VotGES.PrognozNB;
     using VotGES.Web.Models;
     
     
@@ -1683,13 +2200,13 @@ namespace VotGES.Web.Services
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
         /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<ChartAnswer> getPrognoz(int countDays, Dictionary<DateTime, double> pbr, Action<InvokeOperation<ChartAnswer>> callback, object userState)
+        public InvokeOperation<PrognozNBByPBRAnswer> getPrognoz(int countDays, Dictionary<DateTime, double> pbr, Action<InvokeOperation<PrognozNBByPBRAnswer>> callback, object userState)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("countDays", countDays);
             parameters.Add("pbr", pbr);
             this.ValidateMethod("getPrognoz", parameters);
-            return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("getPrognoz", typeof(ChartAnswer), parameters, true, callback, userState)));
+            return ((InvokeOperation<PrognozNBByPBRAnswer>)(this.InvokeOperation("getPrognoz", typeof(PrognozNBByPBRAnswer), parameters, true, callback, userState)));
         }
         
         /// <summary>
@@ -1698,35 +2215,13 @@ namespace VotGES.Web.Services
         /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
         /// <param name="pbr">Значение параметра "pbr" для данного действия.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<ChartAnswer> getPrognoz(int countDays, Dictionary<DateTime, double> pbr)
+        public InvokeOperation<PrognozNBByPBRAnswer> getPrognoz(int countDays, Dictionary<DateTime, double> pbr)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("countDays", countDays);
             parameters.Add("pbr", pbr);
             this.ValidateMethod("getPrognoz", parameters);
-            return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("getPrognoz", typeof(ChartAnswer), parameters, true, null, null)));
-        }
-        
-        /// <summary>
-        /// Асинхронно вызывает метод "processChart" службы DomainService.
-        /// </summary>
-        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
-        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
-        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<ChartAnswer> processChart(Action<InvokeOperation<ChartAnswer>> callback, object userState)
-        {
-            this.ValidateMethod("processChart", null);
-            return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("processChart", typeof(ChartAnswer), null, true, callback, userState)));
-        }
-        
-        /// <summary>
-        /// Асинхронно вызывает метод "processChart" службы DomainService.
-        /// </summary>
-        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<ChartAnswer> processChart()
-        {
-            this.ValidateMethod("processChart", null);
-            return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("processChart", typeof(ChartAnswer), null, true, null, null)));
+            return ((InvokeOperation<PrognozNBByPBRAnswer>)(this.InvokeOperation("getPrognoz", typeof(PrognozNBByPBRAnswer), parameters, true, null, null)));
         }
         
         /// <summary>
@@ -1780,25 +2275,8 @@ namespace VotGES.Web.Services
             /// Завершает асинхронную операцию, начатую "BegingetPrognoz".
             /// </summary>
             /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegingetPrognoz".</param>
-            /// <returns>Объект "ChartAnswer", возвращенный из операции "getPrognoz".</returns>
-            ChartAnswer EndgetPrognoz(IAsyncResult result);
-            
-            /// <summary>
-            /// Асинхронно вызывает операцию "processChart".
-            /// </summary>
-            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
-            /// <param name="asyncState">Необязательный объект состояния.</param>
-            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
-            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/ChartService/processChartDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ChartService/processChart", ReplyAction="http://tempuri.org/ChartService/processChartResponse")]
-            IAsyncResult BeginprocessChart(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Завершает асинхронную операцию, начатую "BeginprocessChart".
-            /// </summary>
-            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginprocessChart".</param>
-            /// <returns>Объект "ChartAnswer", возвращенный из операции "processChart".</returns>
-            ChartAnswer EndprocessChart(IAsyncResult result);
+            /// <returns>Объект "PrognozNBByPBRAnswer", возвращенный из операции "getPrognoz".</returns>
+            PrognozNBByPBRAnswer EndgetPrognoz(IAsyncResult result);
         }
         
         internal sealed class ChartContextEntityContainer : EntityContainer
