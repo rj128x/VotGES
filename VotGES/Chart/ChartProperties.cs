@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 namespace VotGES.Chart
 {
 	public enum ChartSerieType { line, bar, pie, column, stepLine }
-	public enum XAxisTypeEnum { auto, datetime }	
+	public enum XAxisTypeEnum { numeric, datetime }	
 
 	[Serializable]
 	public class ChartSerieProperties
@@ -22,6 +22,7 @@ namespace VotGES.Chart
 		public string Color { get; set; }
 		public bool Marker { get; set; }
 		public int YAxisIndex { get; set; }
+		
 
 
 		public ChartSerieProperties() {
@@ -52,12 +53,14 @@ namespace VotGES.Chart
 		public List<ChartAxisProperties> Axes { get; set; }
 		public Dictionary<string, int> SeriesNames { get; set; }
 		public Dictionary<int, int> AxesNumbers { get; set; }
+		public string XValueFormatString {get;set;}
 
 		public ChartProperties() {
 			Axes = new List<ChartAxisProperties>();
 			Series = new List<ChartSerieProperties>();
 			SeriesNames = new Dictionary<string, int>();
 			AxesNumbers = new Dictionary<int, int>();
+			XValueFormatString = "dd.MM HH:mm";
 		}
 
 		public static ChartProperties fromXML(string fileName) {

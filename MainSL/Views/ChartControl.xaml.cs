@@ -23,7 +23,8 @@ namespace MainSL.Views
 		public List<VisibloxChartSerie> ChartSeries;
 		public Dictionary<int,LinearAxis> Axes;
 		public TrackballBehaviour TrackBehaviour { get; protected set; }
-
+		public XAxisTypeEnum XAxesType { get; set; }
+		public string XAxesForamtString { get; set; }
 		public ChartControl() {
 			InitializeComponent();
 		}
@@ -34,6 +35,16 @@ namespace MainSL.Views
 			ChartProperties prop=Answer.Properties;
 
 			CreateChart();
+			switch (XAxesType) {
+				case XAxisTypeEnum.numeric:
+					CurrentChart.XAxis = new LinearAxis();
+					break;
+				case XAxisTypeEnum.datetime:
+					CurrentChart.XAxis = new DateTimeAxis();
+					break;
+			}
+			CurrentChart.XAxis.LabelFormatString = XAxesForamtString;
+			
 			LinearAxis hiddenYAxis=new LinearAxis();
 			hiddenYAxis.Visibility = Visibility.Collapsed;
 			CurrentChart.AdditionalSecondaryYAxes.Add(hiddenYAxis);
@@ -59,6 +70,7 @@ namespace MainSL.Views
 			CurrentChart.YAxis = Axes[0];
 			CurrentChart.SecondaryYAxis = Axes[1];
 
+
 			ChartSeries = new List<VisibloxChartSerie>();
 			foreach (ChartSerieProperties serieProp in prop.Series) {
 				try {
@@ -82,6 +94,8 @@ namespace MainSL.Views
 			CurrentChart.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
 			CurrentChart.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
 			CurrentChart.LegendVisibility = System.Windows.Visibility.Collapsed;
+			XAxesForamtString = Answer.Properties.XValueFormatString;
+			XAxesType = Answer.Properties.XAxisType;
 
 			chartPanel.Children.Remove(SettingsPanel);
 			chartPanel.Children.Add(SettingsPanel);

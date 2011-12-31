@@ -435,6 +435,8 @@ namespace VotGES.Chart
         
         private DateTime _xVal;
         
+        private double _xValDouble;
+        
         private double _yVal;
         
         #region Определение методов расширяемости
@@ -446,6 +448,8 @@ namespace VotGES.Chart
         partial void OnCreated();
         partial void OnXValChanging(DateTime value);
         partial void OnXValChanged();
+        partial void OnXValDoubleChanging(double value);
+        partial void OnXValDoubleChanged();
         partial void OnYValChanging(double value);
         partial void OnYValChanged();
 
@@ -480,6 +484,30 @@ namespace VotGES.Chart
                     this._xVal = value;
                     this.RaiseDataMemberChanged("XVal");
                     this.OnXValChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "XValDouble".
+        /// </summary>
+        [DataMember()]
+        public double XValDouble
+        {
+            get
+            {
+                return this._xValDouble;
+            }
+            set
+            {
+                if ((this._xValDouble != value))
+                {
+                    this.OnXValDoubleChanging(value);
+                    this.RaiseDataMemberChanging("XValDouble");
+                    this.ValidateProperty("XValDouble", value);
+                    this._xValDouble = value;
+                    this.RaiseDataMemberChanged("XValDouble");
+                    this.OnXValDoubleChanged();
                 }
             }
         }
@@ -610,6 +638,8 @@ namespace VotGES.Chart
         
         private XAxisTypeEnum _xAxisType;
         
+        private string _xValueFormatString;
+        
         #region Определение методов расширяемости
 
         /// <summary>
@@ -627,6 +657,8 @@ namespace VotGES.Chart
         partial void OnSeriesNamesChanged();
         partial void OnXAxisTypeChanging(XAxisTypeEnum value);
         partial void OnXAxisTypeChanged();
+        partial void OnXValueFormatStringChanging(string value);
+        partial void OnXValueFormatStringChanged();
 
         #endregion
         
@@ -757,6 +789,30 @@ namespace VotGES.Chart
                     this._xAxisType = value;
                     this.RaiseDataMemberChanged("XAxisType");
                     this.OnXAxisTypeChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "XValueFormatString".
+        /// </summary>
+        [DataMember()]
+        public string XValueFormatString
+        {
+            get
+            {
+                return this._xValueFormatString;
+            }
+            set
+            {
+                if ((this._xValueFormatString != value))
+                {
+                    this.OnXValueFormatStringChanging(value);
+                    this.RaiseDataMemberChanging("XValueFormatString");
+                    this.ValidateProperty("XValueFormatString", value);
+                    this._xValueFormatString = value;
+                    this.RaiseDataMemberChanged("XValueFormatString");
+                    this.OnXValueFormatStringChanged();
                 }
             }
         }
@@ -1030,7 +1086,7 @@ namespace VotGES.Chart
     public enum XAxisTypeEnum
     {
         
-        auto = 0,
+        numeric = 0,
         
         datetime = 1,
     }
@@ -2117,178 +2173,6 @@ namespace VotGES.Web.Services
     }
     
     /// <summary>
-    /// Контекст DomainContext, соответствующий службе "ChartService" DomainService.
-    /// </summary>
-    public sealed partial class ChartContext : DomainContext
-    {
-        
-        #region Определение методов расширяемости
-
-        /// <summary>
-        /// Этот метод вызывается из конструктора по завершении инициализации и
-        /// не может быть использован для последующей настройки объекта.
-        /// </summary>
-        partial void OnCreated();
-
-        #endregion
-        
-        
-        /// <summary>
-        /// Инициализация нового экземпляра класса <see cref="ChartContext"/>.
-        /// </summary>
-        public ChartContext() : 
-                this(new WebDomainClient<IChartServiceContract>(new Uri("VotGES-Web-Services-ChartService.svc", UriKind.Relative)))
-        {
-        }
-        
-        /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="ChartContext"/> с указанным URI службы.
-        /// </summary>
-        /// <param name="serviceUri">Идентификатор URI службы ChartService.</param>
-        public ChartContext(Uri serviceUri) : 
-                this(new WebDomainClient<IChartServiceContract>(serviceUri))
-        {
-        }
-        
-        /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="ChartContext"/> с указанным параметром <paramref name="domainClient"/>.
-        /// </summary>
-        /// <param name="domainClient">Экземпляр DomainClient для использования в этом контексте DomainContext.</param>
-        public ChartContext(DomainClient domainClient) : 
-                base(domainClient)
-        {
-            this.OnCreated();
-        }
-        
-        /// <summary>
-        /// Асинхронно вызывает метод "checkPrognozNB" службы DomainService.
-        /// </summary>
-        /// <param name="date">Значение параметра "date" для данного действия.</param>
-        /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
-        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
-        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
-        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<ChartAnswer> checkPrognozNB(DateTime date, int countDays, Action<InvokeOperation<ChartAnswer>> callback, object userState)
-        {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("date", date);
-            parameters.Add("countDays", countDays);
-            this.ValidateMethod("checkPrognozNB", parameters);
-            return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("checkPrognozNB", typeof(ChartAnswer), parameters, true, callback, userState)));
-        }
-        
-        /// <summary>
-        /// Асинхронно вызывает метод "checkPrognozNB" службы DomainService.
-        /// </summary>
-        /// <param name="date">Значение параметра "date" для данного действия.</param>
-        /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
-        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<ChartAnswer> checkPrognozNB(DateTime date, int countDays)
-        {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("date", date);
-            parameters.Add("countDays", countDays);
-            this.ValidateMethod("checkPrognozNB", parameters);
-            return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("checkPrognozNB", typeof(ChartAnswer), parameters, true, null, null)));
-        }
-        
-        /// <summary>
-        /// Асинхронно вызывает метод "getPrognoz" службы DomainService.
-        /// </summary>
-        /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
-        /// <param name="pbr">Значение параметра "pbr" для данного действия.</param>
-        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
-        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
-        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<PrognozNBByPBRAnswer> getPrognoz(int countDays, Dictionary<DateTime, double> pbr, Action<InvokeOperation<PrognozNBByPBRAnswer>> callback, object userState)
-        {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("countDays", countDays);
-            parameters.Add("pbr", pbr);
-            this.ValidateMethod("getPrognoz", parameters);
-            return ((InvokeOperation<PrognozNBByPBRAnswer>)(this.InvokeOperation("getPrognoz", typeof(PrognozNBByPBRAnswer), parameters, true, callback, userState)));
-        }
-        
-        /// <summary>
-        /// Асинхронно вызывает метод "getPrognoz" службы DomainService.
-        /// </summary>
-        /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
-        /// <param name="pbr">Значение параметра "pbr" для данного действия.</param>
-        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<PrognozNBByPBRAnswer> getPrognoz(int countDays, Dictionary<DateTime, double> pbr)
-        {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("countDays", countDays);
-            parameters.Add("pbr", pbr);
-            this.ValidateMethod("getPrognoz", parameters);
-            return ((InvokeOperation<PrognozNBByPBRAnswer>)(this.InvokeOperation("getPrognoz", typeof(PrognozNBByPBRAnswer), parameters, true, null, null)));
-        }
-        
-        /// <summary>
-        /// Создает новый объект EntityContainer для наборов сущностей EntitySets данного контекста DomainContext.
-        /// </summary>
-        /// <returns>Новый экземпляр контейнера.</returns>
-        protected override EntityContainer CreateEntityContainer()
-        {
-            return new ChartContextEntityContainer();
-        }
-        
-        /// <summary>
-        /// Контракт службы (Service) "ChartService" DomainService.
-        /// </summary>
-        [ServiceContract()]
-        public interface IChartServiceContract
-        {
-            
-            /// <summary>
-            /// Асинхронно вызывает операцию "checkPrognozNB".
-            /// </summary>
-            /// <param name="date">Значение параметра "date" для данного действия.</param>
-            /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
-            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
-            /// <param name="asyncState">Необязательный объект состояния.</param>
-            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
-            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/ChartService/checkPrognozNBDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ChartService/checkPrognozNB", ReplyAction="http://tempuri.org/ChartService/checkPrognozNBResponse")]
-            IAsyncResult BegincheckPrognozNB(DateTime date, int countDays, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Завершает асинхронную операцию, начатую "BegincheckPrognozNB".
-            /// </summary>
-            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegincheckPrognozNB".</param>
-            /// <returns>Объект "ChartAnswer", возвращенный из операции "checkPrognozNB".</returns>
-            ChartAnswer EndcheckPrognozNB(IAsyncResult result);
-            
-            /// <summary>
-            /// Асинхронно вызывает операцию "getPrognoz".
-            /// </summary>
-            /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
-            /// <param name="pbr">Значение параметра "pbr" для данного действия.</param>
-            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
-            /// <param name="asyncState">Необязательный объект состояния.</param>
-            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
-            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/ChartService/getPrognozDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ChartService/getPrognoz", ReplyAction="http://tempuri.org/ChartService/getPrognozResponse")]
-            IAsyncResult BegingetPrognoz(int countDays, Dictionary<DateTime, double> pbr, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Завершает асинхронную операцию, начатую "BegingetPrognoz".
-            /// </summary>
-            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegingetPrognoz".</param>
-            /// <returns>Объект "PrognozNBByPBRAnswer", возвращенный из операции "getPrognoz".</returns>
-            PrognozNBByPBRAnswer EndgetPrognoz(IAsyncResult result);
-        }
-        
-        internal sealed class ChartContextEntityContainer : EntityContainer
-        {
-            
-            public ChartContextEntityContainer()
-            {
-            }
-        }
-    }
-    
-    /// <summary>
     /// Контекст DomainContext, соответствующий службе "LoggerService" DomainService.
     /// </summary>
     public sealed partial class LoggerContext : DomainContext
@@ -2488,6 +2372,178 @@ namespace VotGES.Web.Services
         {
             
             public LoggerContextEntityContainer()
+            {
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Контекст DomainContext, соответствующий службе "PrognozNBService" DomainService.
+    /// </summary>
+    public sealed partial class PrognozNBContext : DomainContext
+    {
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="PrognozNBContext"/>.
+        /// </summary>
+        public PrognozNBContext() : 
+                this(new WebDomainClient<IPrognozNBServiceContract>(new Uri("VotGES-Web-Services-PrognozNBService.svc", UriKind.Relative)))
+        {
+        }
+        
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="PrognozNBContext"/> с указанным URI службы.
+        /// </summary>
+        /// <param name="serviceUri">Идентификатор URI службы PrognozNBService.</param>
+        public PrognozNBContext(Uri serviceUri) : 
+                this(new WebDomainClient<IPrognozNBServiceContract>(serviceUri))
+        {
+        }
+        
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="PrognozNBContext"/> с указанным параметром <paramref name="domainClient"/>.
+        /// </summary>
+        /// <param name="domainClient">Экземпляр DomainClient для использования в этом контексте DomainContext.</param>
+        public PrognozNBContext(DomainClient domainClient) : 
+                base(domainClient)
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "checkPrognozNB" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<ChartAnswer> checkPrognozNB(DateTime date, int countDays, Action<InvokeOperation<ChartAnswer>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            parameters.Add("countDays", countDays);
+            this.ValidateMethod("checkPrognozNB", parameters);
+            return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("checkPrognozNB", typeof(ChartAnswer), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "checkPrognozNB" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<ChartAnswer> checkPrognozNB(DateTime date, int countDays)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            parameters.Add("countDays", countDays);
+            this.ValidateMethod("checkPrognozNB", parameters);
+            return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("checkPrognozNB", typeof(ChartAnswer), parameters, true, null, null)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getPrognoz" службы DomainService.
+        /// </summary>
+        /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
+        /// <param name="pbr">Значение параметра "pbr" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<PrognozNBByPBRAnswer> getPrognoz(int countDays, Dictionary<DateTime, double> pbr, Action<InvokeOperation<PrognozNBByPBRAnswer>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("countDays", countDays);
+            parameters.Add("pbr", pbr);
+            this.ValidateMethod("getPrognoz", parameters);
+            return ((InvokeOperation<PrognozNBByPBRAnswer>)(this.InvokeOperation("getPrognoz", typeof(PrognozNBByPBRAnswer), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getPrognoz" службы DomainService.
+        /// </summary>
+        /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
+        /// <param name="pbr">Значение параметра "pbr" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<PrognozNBByPBRAnswer> getPrognoz(int countDays, Dictionary<DateTime, double> pbr)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("countDays", countDays);
+            parameters.Add("pbr", pbr);
+            this.ValidateMethod("getPrognoz", parameters);
+            return ((InvokeOperation<PrognozNBByPBRAnswer>)(this.InvokeOperation("getPrognoz", typeof(PrognozNBByPBRAnswer), parameters, true, null, null)));
+        }
+        
+        /// <summary>
+        /// Создает новый объект EntityContainer для наборов сущностей EntitySets данного контекста DomainContext.
+        /// </summary>
+        /// <returns>Новый экземпляр контейнера.</returns>
+        protected override EntityContainer CreateEntityContainer()
+        {
+            return new PrognozNBContextEntityContainer();
+        }
+        
+        /// <summary>
+        /// Контракт службы (Service) "PrognozNBService" DomainService.
+        /// </summary>
+        [ServiceContract()]
+        public interface IPrognozNBServiceContract
+        {
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "checkPrognozNB".
+            /// </summary>
+            /// <param name="date">Значение параметра "date" для данного действия.</param>
+            /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/PrognozNBService/checkPrognozNBDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/PrognozNBService/checkPrognozNB", ReplyAction="http://tempuri.org/PrognozNBService/checkPrognozNBResponse")]
+            IAsyncResult BegincheckPrognozNB(DateTime date, int countDays, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BegincheckPrognozNB".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegincheckPrognozNB".</param>
+            /// <returns>Объект "ChartAnswer", возвращенный из операции "checkPrognozNB".</returns>
+            ChartAnswer EndcheckPrognozNB(IAsyncResult result);
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "getPrognoz".
+            /// </summary>
+            /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
+            /// <param name="pbr">Значение параметра "pbr" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/PrognozNBService/getPrognozDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/PrognozNBService/getPrognoz", ReplyAction="http://tempuri.org/PrognozNBService/getPrognozResponse")]
+            IAsyncResult BegingetPrognoz(int countDays, Dictionary<DateTime, double> pbr, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BegingetPrognoz".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegingetPrognoz".</param>
+            /// <returns>Объект "PrognozNBByPBRAnswer", возвращенный из операции "getPrognoz".</returns>
+            PrognozNBByPBRAnswer EndgetPrognoz(IAsyncResult result);
+        }
+        
+        internal sealed class PrognozNBContextEntityContainer : EntityContainer
+        {
+            
+            public PrognozNBContextEntityContainer()
             {
             }
         }

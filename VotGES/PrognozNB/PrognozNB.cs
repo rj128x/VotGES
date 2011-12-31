@@ -210,6 +210,7 @@ namespace VotGES.PrognozNB
 
 		public ChartProperties createChartProperties() {
 			ChartProperties props=new ChartProperties();
+			props.XAxisType = XAxisTypeEnum.datetime;
 
 			ChartAxisProperties pAx=new ChartAxisProperties();
 			pAx.Min = 0;

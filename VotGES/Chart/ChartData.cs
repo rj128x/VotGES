@@ -24,8 +24,8 @@ namespace VotGES.Chart
 	public class ChartDataPoint
 	{
 		public double YVal { get; set; }
-
 		public DateTime XVal { get; set; }
+		public double XValDouble { get; set; }
 
 		public ChartDataPoint() {
 		}
@@ -33,7 +33,11 @@ namespace VotGES.Chart
 		public ChartDataPoint(DateTime XVal, double YVal) {
 			this.XVal = XVal;
 			this.YVal = YVal;
-			//this.Index = Index;
+		}
+
+		public ChartDataPoint(double XVal, double YVal) {
+			this.XValDouble = XVal;
+			this.YVal = YVal;
 		}
 	}
 

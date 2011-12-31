@@ -22,7 +22,7 @@ namespace VotGES.Web.Services
 	// Кроме того, рассмотрите возможность добавления ролей для соответствующего ограничения доступа.
 	// [RequiresAuthentication]
 	[EnableClientAccess()]
-	public class ChartService : DomainService
+	public class PrognozNBService : DomainService
 	{
 		
 		public ChartAnswer checkPrognozNB(DateTime date,int countDays) {

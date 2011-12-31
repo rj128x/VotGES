@@ -39,6 +39,15 @@ namespace MainSL
 			}
 		}
 
+		private string currentPointX;
+		public string CurrentPointX {
+			get { return currentPointX; }
+			set { 
+				currentPointX = value;
+				NotifyChanged("CurrentPointX"); 
+			}
+		}
+
 		protected IDataPoint currentPoint;
 		public IDataPoint CurrentPoint {
 			get {
@@ -46,6 +55,7 @@ namespace MainSL
 			}
 			set {
 				currentPoint = value;
+				CurrentPointX = String.Format("{0:" + silverChartControl.XAxesForamtString + "}", currentPoint.X);
 				NotifyChanged("CurrentPoint"); 
 			}
 		}
@@ -119,10 +129,7 @@ namespace MainSL
 			TagName = serieData.Name;
 			Name = serieProp.Title;
 			
-			DataSeries<DateTime,double> dataSeries=new DataSeries<DateTime, double>{Title=Name};
-			foreach (ChartDataPoint point in serieData.Points) {
-				dataSeries.Add(new DataPoint<DateTime,double>(point.XVal,point.YVal));
-			}
+	
 			Serie=null;
 			Brush br=new SolidColorBrush(Color.FromArgb(255,0,0,0));
 			if (serieProp.Color != null) {
@@ -136,7 +143,7 @@ namespace MainSL
 			}
 			switch (serieProp.SerieType){
 				case ChartSerieType.line:
-					LineSeries lineSerie=new LineSeries{DataSeries=dataSeries};
+					LineSeries lineSerie=new LineSeries();
 					lineSerie.LineStrokeThickness=serieProp.LineWidth+1;
 					lineSerie.ToolTipEnabled = true;
 					lineSerie.LineStroke = br;
@@ -147,7 +154,7 @@ namespace MainSL
 					
 					break;
 				case ChartSerieType.stepLine:
-					StaircaseSeries stairSerie=new StaircaseSeries{DataSeries=dataSeries};
+					StaircaseSeries stairSerie=new StaircaseSeries();
 					stairSerie.LineStrokeThickness=serieProp.LineWidth+1;
 					stairSerie.ToolTipEnabled = true;
 					stairSerie.LineStroke = br;
@@ -163,6 +170,7 @@ namespace MainSL
 			YAxisIndex = serieProp.YAxisIndex;			
 			Enabled = serieProp.Enabled;			
 			silverChartControl.TrackBehaviour.PropertyChanged += new PropertyChangedEventHandler(TrackBehaviour_PropertyChanged);
+			refresh(serieData);
 		}
 
 		void Serie_PropertyChanged(object sender, PropertyChangedEventArgs e) {
@@ -177,11 +185,22 @@ namespace MainSL
 		}
 
 		public void refresh(ChartDataSerie serieData) {
-			DataSeries<DateTime,double> dataSeries=new DataSeries<DateTime, double> { Title = Name };
-			foreach (ChartDataPoint point in serieData.Points) {
-				dataSeries.Add(new DataPoint<DateTime, double>(point.XVal, point.YVal));
-			}
-			Serie.DataSeries = dataSeries;
+			switch (silverChartControl.XAxesType) {
+				case XAxisTypeEnum.numeric:
+					DataSeries<double,double> dataSeries=new DataSeries<double, double> { Title = Name };
+					foreach (ChartDataPoint point in serieData.Points) {				
+						dataSeries.Add(new DataPoint<double, double>(point.XValDouble, point.YVal));
+					}
+					Serie.DataSeries = dataSeries;
+					break;
+				case XAxisTypeEnum.datetime:
+					DataSeries<DateTime,double> dataSeriesDate=new DataSeries<DateTime, double> { Title = Name };
+					foreach (ChartDataPoint point in serieData.Points) {
+						dataSeriesDate.Add(new DataPoint<DateTime, double>(point.XVal, point.YVal));
+					}
+					Serie.DataSeries = dataSeriesDate;
+					break;
+			}			
 		}
 		
 	}

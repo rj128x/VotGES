@@ -49,7 +49,7 @@
 								<DataTemplate>
 									<StackPanel Orientation="Horizontal"
 													Background="{Binding Selected, Converter={StaticResource backgroundColorConverter}, ConverterParameter=SerieSelected}">
-										<TextBlock Text="{Binding CurrentPoint.X, StringFormat='dd.MM.yy HH:mm'}"/>
+										<TextBlock Text="{Binding CurrentPointX}"/>
 									</StackPanel>
 								</DataTemplate>
 							</sdk:DataGridTemplateColumn.CellTemplate>

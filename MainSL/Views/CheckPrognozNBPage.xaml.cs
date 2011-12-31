@@ -52,10 +52,10 @@ namespace MainSL.Views
 		}
 
 		public Settings settings;
-		ChartContext chartContext;
+		PrognozNBContext context;
 		public CheckPrognozNBPage() {
 			InitializeComponent();
-			chartContext = new ChartContext();
+			context = new PrognozNBContext();
 			settings = new Settings();
 			settings.CountDays = 1;
 			settings.Date = DateTime.Now.Date.AddDays(-1);
@@ -71,7 +71,7 @@ namespace MainSL.Views
 		}
 
 		private void btnGetPrognoz_Click(object sender, RoutedEventArgs e) {
-			InvokeOperation currentOper=chartContext.checkPrognozNB(settings.Date, settings.CountDays, oper => {
+			InvokeOperation currentOper=context.checkPrognozNB(settings.Date, settings.CountDays, oper => {
 				if (oper.IsCanceled) {
 					return;
 				}

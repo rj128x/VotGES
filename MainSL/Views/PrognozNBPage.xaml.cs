@@ -55,11 +55,11 @@ namespace MainSL.Views
 
 
 
-		ChartContext chartContext;
+		PrognozNBContext context;
 		public Settings settings;
 		public PrognozNBPage() {
 			InitializeComponent();
-			chartContext = new ChartContext();
+			context=new PrognozNBContext();
 			settings = new Settings();
 			settings.CountDays = 1;
 			settings.UserPBR = new PBRData(null);
@@ -95,7 +95,7 @@ namespace MainSL.Views
 
 		protected void loadPrognoz(bool useUserPBR) {
 			settings.UserPBR.convertToHalfHoursPBR();
-			InvokeOperation currentOper=chartContext.getPrognoz(settings.CountDays, useUserPBR ? settings.UserPBR.Data : null, oper => {
+			InvokeOperation currentOper=context.getPrognoz(settings.CountDays, useUserPBR ? settings.UserPBR.Data : null, oper => {
 				if (oper.IsCanceled) {
 					return;
 				}

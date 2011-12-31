@@ -88,77 +88,70 @@
 						<sdk:DataGridTemplateColumn Header="ГА1">
 							<sdk:DataGridTemplateColumn.CellTemplate >
 								<DataTemplate>
-									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='1', StringFormat='0.##'}"/>
+									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='1', StringFormat='0'}"/>
 								</DataTemplate>
 							</sdk:DataGridTemplateColumn.CellTemplate>
 						</sdk:DataGridTemplateColumn>
 						<sdk:DataGridTemplateColumn Header="ГА2">
 							<sdk:DataGridTemplateColumn.CellTemplate >
 								<DataTemplate>
-									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='2', StringFormat='0.##'}"/>
+									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='2', StringFormat='0'}"/>
 								</DataTemplate>
 							</sdk:DataGridTemplateColumn.CellTemplate>
 						</sdk:DataGridTemplateColumn>
 						<sdk:DataGridTemplateColumn Header="ГА3">
 							<sdk:DataGridTemplateColumn.CellTemplate >
 								<DataTemplate>
-									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='3', StringFormat='0.##'}"/>
-								</DataTemplate>
-							</sdk:DataGridTemplateColumn.CellTemplate>
-						</sdk:DataGridTemplateColumn>
-						<sdk:DataGridTemplateColumn Header="ГА1">
-							<sdk:DataGridTemplateColumn.CellTemplate >
-								<DataTemplate>
-									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='1', StringFormat='0.##'}"/>
+									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='3', StringFormat='0'}"/>
 								</DataTemplate>
 							</sdk:DataGridTemplateColumn.CellTemplate>
 						</sdk:DataGridTemplateColumn>
 						<sdk:DataGridTemplateColumn Header="ГА4">
 							<sdk:DataGridTemplateColumn.CellTemplate >
 								<DataTemplate>
-									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='4', StringFormat='0.##'}"/>
+									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='4', StringFormat='0'}"/>
 								</DataTemplate>
 							</sdk:DataGridTemplateColumn.CellTemplate>
 						</sdk:DataGridTemplateColumn>
 						<sdk:DataGridTemplateColumn Header="ГА5">
 							<sdk:DataGridTemplateColumn.CellTemplate >
 								<DataTemplate>
-									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='5', StringFormat='0.##'}"/>
+									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='5', StringFormat='0'}"/>
 								</DataTemplate>
 							</sdk:DataGridTemplateColumn.CellTemplate>
 						</sdk:DataGridTemplateColumn>
 						<sdk:DataGridTemplateColumn Header="ГА6">
 							<sdk:DataGridTemplateColumn.CellTemplate >
 								<DataTemplate>
-									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='6', StringFormat='0.##'}"/>
+									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='6', StringFormat='0'}"/>
 								</DataTemplate>
 							</sdk:DataGridTemplateColumn.CellTemplate>
 						</sdk:DataGridTemplateColumn>
 						<sdk:DataGridTemplateColumn Header="ГА7">
 							<sdk:DataGridTemplateColumn.CellTemplate >
 								<DataTemplate>
-									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='7', StringFormat='0.##'}"/>
+									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='7', StringFormat='0'}"/>
 								</DataTemplate>
 							</sdk:DataGridTemplateColumn.CellTemplate>
 						</sdk:DataGridTemplateColumn>
 						<sdk:DataGridTemplateColumn Header="ГА8">
 							<sdk:DataGridTemplateColumn.CellTemplate >
 								<DataTemplate>
-									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='8', StringFormat='0.##'}"/>
+									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='8', StringFormat='0'}"/>
 								</DataTemplate>
 							</sdk:DataGridTemplateColumn.CellTemplate>
 						</sdk:DataGridTemplateColumn>
 						<sdk:DataGridTemplateColumn Header="ГА9">
 							<sdk:DataGridTemplateColumn.CellTemplate >
 								<DataTemplate>
-									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='9', StringFormat='0.##'}"/>
+									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='9', StringFormat='0'}"/>
 								</DataTemplate>
 							</sdk:DataGridTemplateColumn.CellTemplate>
 						</sdk:DataGridTemplateColumn>
 						<sdk:DataGridTemplateColumn Header="ГА10">
 							<sdk:DataGridTemplateColumn.CellTemplate >
 								<DataTemplate>
-									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='10', StringFormat='0.##'}"/>
+									<TextBlock Text="{Binding Sostav, Converter={StaticResource gaSostavConverter}, ConverterParameter='10', StringFormat='0'}"/>
 								</DataTemplate>
 							</sdk:DataGridTemplateColumn.CellTemplate>
 						</sdk:DataGridTemplateColumn>

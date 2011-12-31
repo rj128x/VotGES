@@ -19,10 +19,10 @@ namespace MainSL
 {
 	public partial class TestPage : Page
 	{
-		ChartContext chartContext;
+		PrognozNBContext context;
 		public TestPage() {
 			InitializeComponent();
-			chartContext = new ChartContext();
+			context = new PrognozNBContext();
 		}
 
 		// Выполняется, когда пользователь переходит на эту страницу.
