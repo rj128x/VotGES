@@ -109,6 +109,7 @@
     <Compile Include="Services\AuthenticationDomainService.cs" />
     <Compile Include="Services\PrognozNBService.cs" />
     <Compile Include="Services\LoggerService.cs" />
+    <Compile Include="Services\RezhimSKDomainService.cs" />
     <Compile Include="Services\RUSADomainService.cs" />
   </ItemGroup>
   <ItemGroup>

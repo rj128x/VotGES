@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sensors>
+	<sensor id="s1k" object="8737" objType="0" valueField='value0' drType='sensor'/>
+	<sensor id="s2k" object="8738" objType="0" valueField='value0' drType='sensor'/>
+	<sensor id="s1t" object="8739" objType="0" valueField='value0' drType='sensor'/>
+	<sensor id="s2t" object="8740" objType="0" valueField='value0' drType='sensor'/>
+	<sensor id="ikm" object="0" objType="2" valueField='value0' drType='sensor'/>
+	<sensor id="ikm_value1" object="0" objType="2" valueField='value1' drType='sensor'/>
+	<sensor id="ikm_value0_less0" object="0" objType="2" valueField='value0' drType='sensor' conditionValue="abs(~value~)&lt;0"/>
+	<sensor id="ikm_value0_greater0" object="0" objType="2" valueField='value0' drType='sensor' conditionValue="abs(~value~)&gt;0"/>
+	
+	<sensor id="s2k_min" object="8738" objType="0" valueField='value0' drType='sensor' operation='min'/>
+	<sensor id="s2k_max" object="8738" objType="0" valueField='value0' drType='sensor' operation='max'/>
+	
+	
+	<sensor id="m53500" object="53500" objType="2" connection='p3000' valueField='value0' drType='sensor'/>
+	<sensor id="m53500_avg" object="53500" objType="2" connection='p3000' operation='avg' valueField='value0' drType='sensor'/>
+	<sensor id="water" object="1" objType="2" connection='p3000' valueField='value0' drType='sensor'/>
+	<sensor id="water_avg" object="1" objType="2" connection='p3000' valueField='value0' operation='avg' drType='sensor'/>
+	<sensor id="water_min" object="1" objType="2" connection='p3000' valueField='value0' operation='min' drType='sensor'/>
+	<sensor id="water_max" object="1" objType="2" connection='p3000' valueField='value0' operation='max' drType='sensor'/>
+	<sensor id="water_value1" object="1" objType="2" connection='p3000' valueField='value1' operation='sum' drType='sensor'/>
+	<sensor id="waterOpt" object="10" objType="2" connection='p3000' valueField='value0' drType='sensor'/>
+	<sensor id="waterOptP2k" object="10" objType="2" connection='p3000' valueField='p2kstatus' drType='sensor'/>
+	<sensor id="br" object="4" objType="2" connection='p3000' valueField='value0' drType='sensor'/>
+	<sensor id="br_avg" object="4" objType="2" connection='p3000' operation='avg' valueField='value0' drType='sensor'/>
+	<sensor id="sutVed" object="7" objType="2" connection='p3000' operation='avg'  valueField='value0' drType='sensor'/>
+	<sensor id="sutVed_sum" object="7" objType="2" connection='p3000' operation='sum'  valueField='value0' drType='sensor'/>
+	<sensor id="sutVed_value1" object="7" objType="2" connection='p3000' operation='sum'  valueField='value1' drType='sensor'/>
+	<sensor id='asutp' object='asutp' objType='2' operation='sum' drType='asutp'/>	
+</sensors>

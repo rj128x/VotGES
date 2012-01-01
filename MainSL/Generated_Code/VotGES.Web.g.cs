@@ -1525,6 +1525,74 @@ namespace VotGES.PrognozNB
         }
     }
 }
+namespace VotGES.Reports
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Runtime.Serialization;
+    using System.ServiceModel.DomainServices;
+    using System.ServiceModel.DomainServices.Client;
+    using System.ServiceModel.DomainServices.Client.ApplicationServices;
+    
+    
+    /// <summary>
+    /// Класс "ReportRecord".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Reports")]
+    public sealed partial class ReportRecord : ComplexObject
+    {
+        
+        private DateTime _date;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnDateChanging(DateTime value);
+        partial void OnDateChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="ReportRecord"/>.
+        /// </summary>
+        public ReportRecord()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Date".
+        /// </summary>
+        [DataMember()]
+        public DateTime Date
+        {
+            get
+            {
+                return this._date;
+            }
+            set
+            {
+                if ((this._date != value))
+                {
+                    this.OnDateChanging(value);
+                    this.RaiseDataMemberChanging("Date");
+                    this.ValidateProperty("Date", value);
+                    this._date = value;
+                    this.RaiseDataMemberChanged("Date");
+                    this.OnDateChanged();
+                }
+            }
+        }
+    }
+}
 namespace VotGES.Web.Models
 {
     using System;
@@ -1974,6 +2042,7 @@ namespace VotGES.Web.Services
     using System.ServiceModel.Web;
     using VotGES.Chart;
     using VotGES.PrognozNB;
+    using VotGES.Reports;
     using VotGES.Web.Models;
     
     
@@ -2549,6 +2618,122 @@ namespace VotGES.Web.Services
         {
             
             public PrognozNBContextEntityContainer()
+            {
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Контекст DomainContext, соответствующий службе "RezhimSKDomainService" DomainService.
+    /// </summary>
+    public sealed partial class RezhimSKDomainContext : DomainContext
+    {
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="RezhimSKDomainContext"/>.
+        /// </summary>
+        public RezhimSKDomainContext() : 
+                this(new WebDomainClient<IRezhimSKDomainServiceContract>(new Uri("VotGES-Web-Services-RezhimSKDomainService.svc", UriKind.Relative)))
+        {
+        }
+        
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="RezhimSKDomainContext"/> с указанным URI службы.
+        /// </summary>
+        /// <param name="serviceUri">Идентификатор URI службы RezhimSKDomainService.</param>
+        public RezhimSKDomainContext(Uri serviceUri) : 
+                this(new WebDomainClient<IRezhimSKDomainServiceContract>(serviceUri))
+        {
+        }
+        
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="RezhimSKDomainContext"/> с указанным параметром <paramref name="domainClient"/>.
+        /// </summary>
+        /// <param name="domainClient">Экземпляр DomainClient для использования в этом контексте DomainContext.</param>
+        public RezhimSKDomainContext(DomainClient domainClient) : 
+                base(domainClient)
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getReznimSKReport" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<List<ReportRecord>> getReznimSKReport(DateTime date, Action<InvokeOperation<List<ReportRecord>>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            this.ValidateMethod("getReznimSKReport", parameters);
+            return ((InvokeOperation<List<ReportRecord>>)(this.InvokeOperation("getReznimSKReport", typeof(List<ReportRecord>), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getReznimSKReport" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<List<ReportRecord>> getReznimSKReport(DateTime date)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            this.ValidateMethod("getReznimSKReport", parameters);
+            return ((InvokeOperation<List<ReportRecord>>)(this.InvokeOperation("getReznimSKReport", typeof(List<ReportRecord>), parameters, true, null, null)));
+        }
+        
+        /// <summary>
+        /// Создает новый объект EntityContainer для наборов сущностей EntitySets данного контекста DomainContext.
+        /// </summary>
+        /// <returns>Новый экземпляр контейнера.</returns>
+        protected override EntityContainer CreateEntityContainer()
+        {
+            return new RezhimSKDomainContextEntityContainer();
+        }
+        
+        /// <summary>
+        /// Контракт службы (Service) "RezhimSKDomainService" DomainService.
+        /// </summary>
+        [ServiceContract()]
+        public interface IRezhimSKDomainServiceContract
+        {
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "getReznimSKReport".
+            /// </summary>
+            /// <param name="date">Значение параметра "date" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/RezhimSKDomainService/getReznimSKReportDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/RezhimSKDomainService/getReznimSKReport", ReplyAction="http://tempuri.org/RezhimSKDomainService/getReznimSKReportResponse")]
+            IAsyncResult BegingetReznimSKReport(DateTime date, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BegingetReznimSKReport".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegingetReznimSKReport".</param>
+            /// <returns>Объект "List`1", возвращенный из операции "getReznimSKReport".</returns>
+            List<ReportRecord> EndgetReznimSKReport(IAsyncResult result);
+        }
+        
+        internal sealed class RezhimSKDomainContextEntityContainer : EntityContainer
+        {
+            
+            public RezhimSKDomainContextEntityContainer()
             {
             }
         }

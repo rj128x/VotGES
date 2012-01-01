@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<items>
+		<item name='ИКМ' id='ikm'>
+			<items>
+				<item code='1' name='Выработка ГЭС' obj='ikm' id='ikm_1' toCSV='true' scaleParam='scaleP'/>
+				<item code='2' name='ГТП-1 110кВ' obj='ikm' id='ikm_2' toCSV='true'  scaleParam='scaleP'/>
+				<item code='3' name='ГТП-2 220кВ' obj='ikm' id='ikm_3' toCSV='true'  scaleParam='scaleP'/>
+				<item code='1' name='Выработка ГЭС (План)' obj='ikm_value1' id='ikm_plan_1' toCSV='true' scaleParam='scaleP' param='plan'/>
+				<item code='2' name='ГТП-1 110кВ (План)' obj='ikm_value1' id='ikm_plan_2' toCSV='true'  scaleParam='scaleP' param='plan'/>
+				<item code='3' name='ГТП-2 220кВ (План)' obj='ikm_value1' id='ikm_plan_3' toCSV='true'  scaleParam='scaleP' param='plan'/>
+		
+				
+				<item code='5' name='Режим СК' obj='ikm' id='ikm_5' toCSV='true'  scaleParam='scaleP'/>
+				<item code='13' name='Полезный отпуск э/э' obj='ikm' id='ikm_13' toCSV='true'  scaleParam='scaleP'/>
+				<item code='14' name='Расход на собственные нужды ГЭС' obj='ikm' id='ikm_14' toCSV='true'  scaleParam='scaleP'/>
+				<item code='15' name='Сальдо ВЛ 500кВ Емелино' obj='ikm' id='ikm_15' toCSV='true'  scaleParam='scaleP'/>
+				<item code='16' name='Сальдо ВЛ 500кВ Карманово' obj='ikm' id='ikm_16' toCSV='true'  scaleParam='scaleP'/>
+				<item code='17' name='Сальдо ВЛ 500кВ Вятка' obj='ikm' id='ikm_17' toCSV='true'  scaleParam='scaleP'/>
+				<item code='24' name='Небаланс по ГЭС' obj='ikm' id='ikm_24' toCSV='true'  scaleParam='scaleP'/>
+				<item code='25' name='Потери в сетях и трансформаторах' obj='ikm' id='ikm_25' toCSV='true'  scaleParam='scaleP'/>
+				<item code='26' name='Баланс СШ 500кВ' obj='ikm' id='ikm_26' toCSV='true'  scaleParam='scaleP'/>
+				<item code='27' name='Баланс СШ 220кВ' obj='ikm' id='ikm_27' toCSV='true'  scaleParam='scaleP'/>
+				<item code='28' name='Баланс СШ 110кВ' obj='ikm' id='ikm_28' toCSV='true'  scaleParam='scaleP'/>
+				<item code='29' name='Баланс 1Т' obj='ikm' id='ikm_29' toCSV='true'  scaleParam='scaleP'/>
+				<item code='30' name='Баланс 2АТ' obj='ikm' id='ikm_30' toCSV='true'  scaleParam='scaleP'/>
+				<item code='31' name='Баланс 3АТ' obj='ikm' id='ikm_31' toCSV='true'  scaleParam='scaleP'/>
+				<item code='32' name='Баланс 4Т' obj='ikm' id='ikm_32' toCSV='true'  scaleParam='scaleP'/>
+				<item code='33' name='Баланс 5,6 АТ' obj='ikm' id='ikm_33' toCSV='true'  scaleParam='scaleP'/>
+				<item code='34' name='Баланс в трансформаторах' obj='ikm' id='ikm_34' toCSV='true'  scaleParam='scaleP'/>
+				<item code='35' name='Потребление 11Т-20Т' obj='ikm' id='ikm_35' toCSV='true'  scaleParam='scaleP'/>
+				<item code='39' name='Отпуск э/э с шин' obj='ikm' id='ikm_39' toCSV='true'  scaleParam='scaleP'/>
+				<item code='42' name='Возбуждение 1-10ГА' obj='ikm' id='ikm_42' toCSV='true'  scaleParam='scaleP'/>
+				<item code='47' name='Потребление - компрессорная №1 ' obj='ikm' id='ikm_47' toCSV='true'  scaleParam='scaleP'/>
+				<item code='48' name='Потребление Г3 - Г8' obj='ikm' id='ikm_48' toCSV='true'  scaleParam='scaleP'/>
+				<item code='49' name='Небаланс в трансформаторах 7Т, 8Т' obj='ikm' id='ikm_49' toCSV='true'  scaleParam='scaleP'/>
+				<item code='50' name='Потребление 20 НДС' obj='ikm' id='ikm_50' toCSV='true'  scaleParam='scaleP'/>
+				<item code='52' name='PVOTGES1' obj='ikm' id='ikm_52' toCSV='true'  scaleParam='scaleP'/>
+				<item code='53' name='_PVOTGES1-PFESMSUR-ALL' obj='ikm' id='ikm_53' toCSV='true'  scaleParam='scaleP'/>
+				<item code='54' name='_PVOTGES1-PFESMSUR-ALL-OTD' obj='ikm' id='ikm_54' toCSV='true'  scaleParam='scaleP'/>
+				<item code='55' name='_PVOTGES1-PFESMSUR-ALL-PR' obj='ikm' id='ikm_56' toCSV='true'  scaleParam='scaleP'/>
+				<item code='56' name='_PVOTGES1-PFESMSUR-220-OTD' obj='ikm' id='ikm_56' toCSV='true'  scaleParam='scaleP'/>
+				<item code='57' name='_PVOTGES1-PFESMSUR-220-PR' obj='ikm' id='ikm_57' toCSV='true'  scaleParam='scaleP'/>
+				<item code='58' name='_PVOTGES1-PFESMSUR-500' obj='ikm' id='ikm_58' toCSV='true'  scaleParam='scaleP'/>
+				<item code='59' name='_PVOTGES1-PFESMSUR-220' obj='ikm' id='ikm_59' toCSV='true'  scaleParam='scaleP'/>
+				<item code='60' name='_PVOTGES1-PFESMSUR-500-OTD' obj='ikm' id='ikm_60' toCSV='true'  scaleParam='scaleP'/>
+				<item code='61' name='_PVOTGES1-PFESMSUR-500-PR' obj='ikm' id='ikm_61' toCSV='true'  scaleParam='scaleP'/>
+				<item code='62' name='_PVOTGES1-PPERMENE-ALL' obj='ikm' id='ikm_62' toCSV='true'  scaleParam='scaleP'/>
+				<item code='63' name='_PVOTGES1-PPERMENE-ALL-OTD' obj='ikm' id='ikm_63' toCSV='true'  scaleParam='scaleP'/>
+				<item code='64' name='_PVOTGES1-PPERMENE-ALL-PR' obj='ikm' id='ikm_64' toCSV='true'  scaleParam='scaleP'/>
+				<item code='65' name='_PVOTGES1-PPERMENE-110' obj='ikm' id='ikm_65' toCSV='true'  scaleParam='scaleP'/>
+				<item code='66' name='_PVOTGES1-PPERMENE-110-OTD' obj='ikm' id='ikm_66' toCSV='true'  scaleParam='scaleP'/>
+				<item code='67' name='_PVOTGES1-PPERMENE-110-PR' obj='ikm' id='ikm_67' toCSV='true'  scaleParam='scaleP'/>
+				<item code='68' name='_PVOTGES1-PPERMENE-6' obj='ikm' id='ikm_68' toCSV='true'  scaleParam='scaleP'/>
+				<item code='69' name='_PVOTGES1-PPERMENE-6-SHLUZ' obj='ikm' id='ikm_69' toCSV='true'  scaleParam='scaleP'/>
+				<item code='70' name='_PVOTGES1-PPERMENE-6-FILTR' obj='ikm' id='ikm_70' toCSV='true'  scaleParam='scaleP'/>
+			</items>
+		</item>
+		<item name='С1Т' id='s1t'>
+			<items>
+				<item name='3АТ 500 кВ Прием (P)' code='1' id='s1t_1' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='3АТ 500 кВ Отдача (P)' code='2' id='s1t_2' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='3АТ 500 кВ Прием (Q)' code='3' id='s1t_3' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='3АТ 500 кВ Отдача (Q)' code='4' id='s1t_4' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='2АТ 500 кВ Прием (P)' code='5' id='s1t_5' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='2АТ 500 кВ Отдача (P)' code='6' id='s1t_6' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='2АТ 500 кВ Прием (Q)' code='7' id='s1t_7' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='2АТ 500 кВ Отдача (Q)' code='8' id='s1t_8' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='20НДС-1 прием (P)' code='9' id='s1t_9' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='20НДС-1 прием (Q)' code='10' id='s1t_10' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Компрессор-2 1КУ прием (P)' code='11' id='s1t_11' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Компрессор-2 1КУ прием (Q)' code='12' id='s1t_12' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='31Т 1КУ прием (P)' code='13' id='s1t_13' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='31Т 1КУ прием (Q)' code='14' id='s1t_14' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='29Т прием (P)' code='15' id='s1t_15' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='27Т прием (P)' code='17' id='s1t_17' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='22Т прием (P)' code='18' id='s1t_18' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='30Т, 31Т прием (P)' code='19' id='s1t_19' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='25Т, 37Т прием (P)' code='20' id='s1t_20' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='33Т прием (P)' code='21' id='s1t_21' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='21Т прием (P)' code='22' id='s1t_22' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='34Т прием (P)' code='23' id='s1t_23' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Компрессор-5 1КУ прием (P)' code='25' id='s1t_25' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Компрессор-4 1КУ прием (P)' code='26' id='s1t_26' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='32Т прием (P)' code='27' id='s1t_27' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='20НДС-2 прием (P)' code='28' id='s1t_28' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='20НДС-2 прием (Q)' code='29' id='s1t_29' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='23Т прием (P)' code='30' id='s1t_30' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='28Т прием (P)' code='31' id='s1t_31' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='35Т прием (P)' code='32' id='s1t_32' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='36Т прием (P)' code='33' id='s1t_33' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='26Т, 38Т прием (P)' code='34' id='s1t_34' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ТВИ прием (P)' code='35' id='s1t_35' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ТВИ прием (Q)' code='36' id='s1t_36' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='24Т прием (P)' code='37' id='s1t_37' obj='s1t' toCSV='true'  scaleParam='scaleP'/>
+			</items>
+		</item>
+		<item name='С2Т' id='s2t'>
+			<items>
+				<item name='Возбуждение Г/А 9 прием (P)' code='1' id='s2t_1' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Возбуждение Г/А 10 прием (P)' code='2' id='s2t_2' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='СН 19Т прием (P)' code='3' id='s2t_3' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='СН 20Т прием (P)' code='4' id='s2t_4' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Возбуждение Г/А 7 прием (P)' code='5' id='s2t_5' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Возбуждение Г/А 8 прием (P)' code='6' id='s2t_6' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='СН 17Т прием (P)' code='7' id='s2t_7' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='СН 18Т прием (P)' code='8' id='s2t_8' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='1Т 110 кВ Прием (P)' code='9' id='s2t_9' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='1Т 110 кВ Отдача (P)' code='10' id='s2t_10' obj='s2t' toCSV='true' scaleParam='scaleP' />
+				<item name='1Т 110 кВ Прием (Q)' code='11' id='s2t_11' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='1Т 110 кВ Отдача (Q)' code='12' id='s2t_12' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='2АТ 220 кВ Прием (P)' code='13' id='s2t_13' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='2АТ 220 кВ Отдача (P)' code='14' id='s2t_14' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='2АТ 220 кВ Прием (Q)' code='15' id='s2t_15' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='2АТ 220 кВ Отдача (Q)' code='16' id='s2t_16' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='3АТ 220 кВ Прием (P)' code='17' id='s2t_17' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='3АТ 220 кВ Отдача (P)' code='18' id='s2t_18' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='3АТ 220 кВ Прием (Q)' code='19' id='s2t_19' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='3АТ 220 кВ Отдача (Q)' code='20' id='s2t_20' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='5-6АТ 220 кВ Прием (P)' code='21' id='s2t_21' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='5-6АТ 220 кВ Отдача (P)' code='22' id='s2t_22' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='5-6АТ 220 кВ Прием (Q)' code='23' id='s2t_23' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='5-6АТ 220 кВ Отдача (Q)' code='24' id='s2t_24' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='4Т 220 кВ Прием (P)' code='25' id='s2t_25' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='4Т 220 кВ Отдача (P)' code='26' id='s2t_26' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='4Т 220 кВ Прием (Q)' code='27' id='s2t_27' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='4Т 220 кВ Отдача (Q)' code='28' id='s2t_28' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Возбуждение Г/А 5 прием (P)' code='29' id='s2t_29' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Возбуждение Г/А 6 прием (P)' code='30' id='s2t_30' obj='s2t' toCSV='true' scaleParam='scaleP' />
+				<item name='СН 15Т прием (P)' code='31' id='s2t_31' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='СН 16Т прием (P)' code='32' id='s2t_32' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='СН 8Т прием (P)' code='33' id='s2t_33' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Возбуждение Г/А 1 прием (P)' code='34' id='s2t_34' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Возбуждение Г/А 2 прием (P)' code='35' id='s2t_35' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='СН 11Т прием (P)' code='36' id='s2t_36' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='СН 12Т прием (P)' code='37' id='s2t_37' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='СН 7Т прием (P)' code='38' id='s2t_38' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Возбуждение Г/А 3 прием (P)' code='39' id='s2t_39' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Возбуждение Г/А 4 прием (P)' code='40' id='s2t_40' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='СН 13Т прием (P)' code='41' id='s2t_41' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='СН 14Т прием (P)' code='42' id='s2t_42' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='5-6АТ 110 кВ Прием (P)' code='43' id='s2t_43' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='5-6АТ 110 кВ Отдача (P)' code='44' id='s2t_44' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='5-6АТ 110 кВ Прием (Q)' code='45' id='s2t_45' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+				<item name='5-6АТ 110 кВ Отдача (Q)' code='46' id='s2t_46' obj='s2t' toCSV='true'  scaleParam='scaleP'/>
+
+			</items>
+		</item>
+		<item name='С1К' id='s1k'>
+			<items>
+				<item name='ВЛ 110 Светлая прием (P)' code='1' id='s1k_1' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Светлая отдача (P)' code='2' id='s1k_2' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Светлая прием (Q)' code='3' id='s1k_3' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Светлая отдача (Q)' code='4' id='s1k_4' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Ивановка прием (P)' code='5' id='s1k_5' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Ивановка отдача (P)' code='6' id='s1k_6' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Ивановка прием (Q)' code='7' id='s1k_7' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Ивановка отдача (Q)' code='8' id='s1k_8' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Каучук прием (P)' code='9' id='s1k_9' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Каучук отдача (P)' code='10' id='s1k_10' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Каучук прием (Q)' code='11' id='s1k_11' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Каучук отдача (Q)' code='12' id='s1k_12' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 ЧаТЭЦ прием (P)' code='13' id='s1k_13' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 ЧаТЭЦ отдача (P)' code='14' id='s1k_14' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 ЧаТЭЦ прием (Q)' code='15' id='s1k_15' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 ЧаТЭЦ отдача (Q)' code='16' id='s1k_16' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Березовка прием (P)' code='17' id='s1k_17' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Березовка отдача (P)' code='18' id='s1k_18' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Березовка прием (Q)' code='19' id='s1k_19' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Березовка отдача (Q)' code='20' id='s1k_20' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Светлая прием (P)' code='21' id='s1k_21' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Светлая отдача (P)' code='22' id='s1k_22' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Светлая прием (Q)' code='23' id='s1k_23' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Светлая отдача (Q)' code='24' id='s1k_24' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Каучук-1 прием (P)' code='25' id='s1k_25' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Каучук-1 отдача (P)' code='26' id='s1k_26' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Каучук-1 прием (Q)' code='27' id='s1k_27' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Каучук-1 отдача (Q)' code='28' id='s1k_28' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Каучук-2 прием (P)' code='29' id='s1k_29' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Каучук-2 отдача (P)' code='30' id='s1k_30' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Каучук-2 прием (Q)' code='31' id='s1k_31' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Каучук-2 отдача (Q)' code='32' id='s1k_32' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Ижевск-1 прием (P)' code='33' id='s1k_33' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Ижевск-1 отдача (P)' code='34' id='s1k_34' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Ижевск-1 прием (Q)' code='35' id='s1k_35' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Ижевск-1 отдача (Q)' code='36' id='s1k_36' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Ижевск-2 прием (P)' code='37' id='s1k_37' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Ижевск-2 отдача (P)' code='38' id='s1k_38' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Ижевск-2 прием (Q)' code='39' id='s1k_39' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 220 Ижевск-2 отдача (Q)' code='40' id='s1k_40' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 КШТ-1 прием (P)' code='41' id='s1k_41' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 КШТ-1 отдача (P)' code='42' id='s1k_42' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 КШТ-1 прием (Q)' code='43' id='s1k_43' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 КШТ-1 отдача (Q)' code='44' id='s1k_44' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 КШТ-2 прием (P)' code='45' id='s1k_45' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 КШТ-2 отдача (P)' code='46' id='s1k_46' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 КШТ-2 прием (Q)' code='47' id='s1k_47' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 КШТ-2 отдача (Q)' code='48' id='s1k_48' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Дубовая прием (P)' code='49' id='s1k_49' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Дубовая отдача (P)' code='50' id='s1k_50' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Дубовая прием (Q)' code='51' id='s1k_51' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Дубовая отдача (Q)' code='52' id='s1k_52' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Водозабор-2 прием (P)' code='53' id='s1k_53' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Водозабор-2 отдача (P)' code='54' id='s1k_54' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Водозабор-2 прием (Q)' code='55' id='s1k_55' obj='s1k' toCSV='true' scaleParam='scaleP' />
+				<item name='ВЛ 110 Водозабор-2 отдача (Q)' code='56' id='s1k_56' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Водозабор-1 прием (P)' code='57' id='s1k_57' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Водозабор-1 отдача (P)' code='58' id='s1k_58' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Водозабор-1 прием (Q)' code='59' id='s1k_59' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 110 Водозабор-1 отдача (Q)' code='60' id='s1k_60' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 500 Емелино прием (P)' code='61' id='s1k_61' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 500 Емелино отдача (P)' code='62' id='s1k_62' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 500 Емелино прием (Q)' code='63' id='s1k_63' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 500 Емелино отдача (Q)' code='64' id='s1k_64' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 500 Карманово прием (P)' code='65' id='s1k_65' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 500 Карманово отдача (P)' code='66' id='s1k_66' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 500 Карманово прием (Q)' code='67' id='s1k_67' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 500 Карманово отдача (Q)' code='68' id='s1k_68' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 500 Вятка прием (P)' code='69' id='s1k_69' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 500 Вятка отдача (P)' code='70' id='s1k_70' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 500 Вятка прием (Q)' code='71' id='s1k_71' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='ВЛ 500 Вятка отдача (Q)' code='72' id='s1k_72' obj='s1k' toCSV='true'  scaleParam='scaleP'/>
+			</items>
+		</item>
+		<item name='C2R' id='s2k'>
+			<items>
+				<item name='Генератор-1 прием (P)' code='1' id='s2k_1' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-1 отдача (P)' code='2' id='s2k_2' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-1 прием (Q)' code='3' id='s2k_3' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-1 отдача (Q)' code='4' id='s2k_4' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-2 прием (P)' code='5' id='s2k_5' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-2 отдача (P)' code='6' id='s2k_6' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-2 прием (Q)' code='7' id='s2k_7' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-2 отдача (Q)' code='8' id='s2k_8' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Шлюз-1 прием (P)' code='9' id='s2k_9' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Шлюз-1 отдача (P)' code='10' id='s2k_10' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Шлюз-1 прием (Q)' code='11' id='s2k_11' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Шлюз-1 отдача (Q)' code='12' id='s2k_12' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Шлюз-2 прием (P)' code='13' id='s2k_13' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Шлюз-2 отдача (P)' code='14' id='s2k_14' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Шлюз-2 прием (Q)' code='15' id='s2k_15' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Шлюз-2 отдача (Q)' code='16' id='s2k_16' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-3 прием (P)' code='17' id='s2k_17' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-3 отдача (P)' code='18' id='s2k_18' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-3 прием (Q)' code='19' id='s2k_19' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-3 отдача (Q)' code='20' id='s2k_20' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-4 прием (P)' code='21' id='s2k_21' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-4 отдача (P)' code='22' id='s2k_22' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-4 прием (Q)' code='23' id='s2k_23' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-4 отдача (Q)' code='24' id='s2k_24' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-5 прием (P)' code='25' id='s2k_25' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-5 отдача (P)' code='26' id='s2k_26' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-5 прием (Q)' code='27' id='s2k_27' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-5 отдача (Q)' code='28' id='s2k_28' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-6 прием (P)' code='29' id='s2k_29' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-6 отдача (P)' code='30' id='s2k_30' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-6 прием (Q)' code='31' id='s2k_31' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-6 отдача (Q)' code='32' id='s2k_32' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Фильтр-1 прием (P)' code='33' id='s2k_33' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Фильтр-1 отдача (P)' code='34' id='s2k_34' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Фильтр-1 прием (Q)' code='35' id='s2k_35' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Фильтр-1 отдача (Q)' code='36' id='s2k_36' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Фильтр-2 прием (P)' code='37' id='s2k_37' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Фильтр-2 отдача (P)' code='38' id='s2k_38' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Фильтр-2 прием (Q)' code='39' id='s2k_39' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='КЛ 6 Фильтр-2 отдача (Q)' code='40' id='s2k_40' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-7 прием (P)' code='41' id='s2k_41' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-7 отдача (P)' code='42' id='s2k_42' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-7 прием (Q)' code='43' id='s2k_43' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-7 отдача (Q)' code='44' id='s2k_44' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-8 прием (P)' code='45' id='s2k_45' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-8 отдача (P)' code='46' id='s2k_46' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-8 прием (Q)' code='47' id='s2k_47' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-8 отдача (Q)' code='48' id='s2k_48' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-9 прием (P)' code='49' id='s2k_49' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-9 отдача (P)' code='50' id='s2k_50' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-9 прием (Q)' code='51' id='s2k_51' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-9 отдача (Q)' code='52' id='s2k_52' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-10 прием (P)' code='53' id='s2k_53' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-10 отдача (P)' code='54' id='s2k_54' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-10 прием (Q)' code='55' id='s2k_55' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+				<item name='Генератор-10 отдача (Q)' code='56' id='s2k_56' obj='s2k' toCSV='true'  scaleParam='scaleP'/>
+			</items>
+		</item>
+		<item name='water' id='water'>
+			<items>
+				<item name="Нижний бьеф [cр]" obj="water_avg" code="275" id='nb_avg'  sumOper='avg'  scaleParam='scaleWater' afterPoint='2'/>
+				<item name="Верхний бьеф [cр]" obj="water_avg" code="274" id='vb_avg'  sumOper='avg' scaleParam='scaleWater' afterPoint='2'/>
+				<item name="Напор [cр]" obj="water_avg" code="276" id='napor_avg' sumOper='avg' scaleParam='scaleWater' afterPoint='2'/>
+				<item name="Температура [cр]" obj="water_avg" code="373" id='temp_avg' sumOper='avg' scaleParam='scaleWater' afterPoint='2'/>
+				<item name="Расход факт [cр]" obj="water_avg" code="354" id="rashod_avg" sumOper='avg' scaleParam='scaleWater' afterPoint='2'></item>
+				
+				<item name="Нижний бьеф [макс]" obj="water_max" code="275" id='nb_max'  sumOper='max'  scaleParam='scaleWater' afterPoint='2'/>
+				<item name="Верхний бьеф [макс]" obj="water_max" code="274" id='vb_max'  sumOper='max' scaleParam='scaleWater' afterPoint='2'/>
+				<item name="Напор [макс]" obj="water_max" code="276" id='napor_max' sumOper='max' scaleParam='scaleWater' afterPoint='2'/>
+				<item name="Температура [макс]" obj="water_max" code="373" id='temp_max' sumOper='max' scaleParam='scaleWater' afterPoint='2'/>
+				<item name="Расход факт [макс]" obj="water_max" code="354" id="rashod_max" sumOper='max' scaleParam='scaleWater' afterPoint='2'></item>
+				
+				<item name="Нижний бьеф [мин]" obj="water_min" code="275" id='nb_min'  sumOper='min'  scaleParam='scaleWater' afterPoint='2'/>
+				<item name="Верхний бьеф [мин]" obj="water_min" code="274" id='vb_min'  sumOper='min' scaleParam='scaleWater' afterPoint='2'/>
+				<item name="Напор [мин]" obj="water_min" code="276" id='napor_min' sumOper='min' scaleParam='scaleWater' afterPoint='2'/>
+				<item name="Температура [мин]" obj="water_min" code="373" id='temp_min' sumOper='min' scaleParam='scaleWater' afterPoint='2'/>
+				<item name="Расход факт [мин]" obj="water_min" code="354" id="rashod_min" sumOper='min' scaleParam='scaleWater' afterPoint='2'></item>
+				
+				<item name="Расход факт" obj="water" code="354" id="rashod" sumOper='avg' scaleParam='scaleWater' afterPoint='2'></item>
+				
+				<item name="Расход ГА-1" obj="water" code="104" id="ga1fakt" sumOper='sum' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-2" obj="water" code="129" id="ga2fakt" sumOper='sum' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-3" obj="water" code="154" id="ga3fakt" sumOper='sum' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-4" obj="water" code="179" id="ga4fakt" sumOper='sum' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-5" obj="water" code="204" id="ga5fakt" sumOper='sum' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-6" obj="water" code="229" id="ga6fakt" sumOper='sum' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-7" obj="water" code="254" id="ga7fakt" sumOper='sum' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-8" obj="water" code="279" id="ga8fakt" sumOper='sum' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-9" obj="water" code="304" id="ga9fakt" sumOper='sum' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-10" obj="water" code="329" id="ga10fakt" sumOper='sum' scaleParam='scaleWater' afterPoint='2'></item>
+				
+				<item name="Расход ГА-1 [ср]" obj="water_avg" code="104" id="ga1fakt_avg" sumOper='avg' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-2 [ср]" obj="water_avg" code="129" id="ga2fakt_avg" sumOper='avg' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-3 [ср]" obj="water_avg" code="154" id="ga3fakt_avg" sumOper='avg' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-4 [ср]" obj="water_avg" code="179" id="ga4fakt_avg" sumOper='avg' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-5 [ср]" obj="water_avg" code="204" id="ga5fakt_avg" sumOper='avg' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-6 [ср]" obj="water_avg" code="229" id="ga6fakt_avg" sumOper='avg' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-7 [ср]" obj="water_avg" code="254" id="ga7fakt_avg" sumOper='avg' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-8 [ср]" obj="water_avg" code="279" id="ga8fakt_avg" sumOper='avg' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-9 [ср]" obj="water_avg" code="304" id="ga9fakt_avg" sumOper='avg' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход ГА-10 [ср]" obj="water_avg" code="329" id="ga10fakt_avg" sumOper='avg' scaleParam='scaleWater' afterPoint='2'></item>
+				
+				<item name="Расход опт ГЭС" obj="waterOpt" code="1" id="rashodOpt"  sumOper='sum' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход опт ГТП 1" obj="waterOpt" code="2" id="rashodOpt1" sumOper='sum' scaleParam='scaleWater' afterPoint='2'></item>
+				<item name="Расход опт ГТП 2" obj="waterOpt" code="3" id="rashodOpt2"  sumOper='sum' scaleParam='scaleWater' afterPoint='2'></item>
+				
+				<item name='Расход ГТП 1' id='rashod1' val='operation' operation='$ga1fakt+$ga2fakt'  afterPoint='2'/>
+				<item name='Расход ГТП 2' id='rashod2' val='operation' operation='$ga10fakt+$ga9fakt+$ga3fakt+$ga4fakt+$ga5fakt+$ga6fakt+$ga7fakt+$ga8fakt' afterPoint='2'/>
+				
+				<item name="Сумма по ГЭС [О&lt;sub&gt;ВЭР&lt;/sub&gt;]" val="operation" operation="OptimRashod::getKoef(100,$rashod,$rashodOpt)" id="rashodDiff"
+					nullVal="1000" sumOper="operation" afterPoint='2'/>			
+				<item name="ГТП-1 110кВ [О&lt;sub&gt;ВЭР&lt;/sub&gt;]" val="operation" operation="OptimRashod::getKoef(100,$rashod1,$rashodOpt1)" id="rashodDiff1"
+					nullVal="1000" sumOper="operation" afterPoint='2'/>			
+				<item name="ГТП-2 220кВ [О&lt;sub&gt;ВЭР&lt;/sub&gt;]" val="operation" operation="OptimRashod::getKoef(100,$rashod2,$rashodOpt2)" id="rashodDiff2"
+					nullVal="1000" sumOper="operation" afterPoint='2'/>				
+			</items>
+		</item>
+		<item name='sutVed' id='sutVed'>
+			<items>
+				<item name='Выработка (Сут Вед)' id='vyrab_sutki' obj='sutVed_sum' code='11' afterPoint='0' sumOper='sum' param='sutVed' scaleParam='scaleP26'/>				
+				<item name='Верхний бьеф КамГЭС' id='vb_kamGES' obj='sutVed' code='25' afterPoint='2' sumOper='avg' param='sutVed'/>
+				<item name='Нижний бьеф КамГЭС' id='nb_kamGES' obj='sutVed' code='26' afterPoint='2' sumOper='avg' param='sutVed'/>
+				<item name='Приток КамГЭС' id='pritok_kamGES' obj='sutVed' code='27' afterPoint='2' sumOper='sum' param='sutVed'/>
+				<item name='Расход в Н.Б. КамГЭС' id='rashod_nb_kam' obj='sutVed' code='22' afterPoint='2' sumOper='sum'  param='sutVed'/>
+				<item name='Расход (СутВед)' id='rashod_full' obj='sutVed' code='20' afterPoint='0' sumOper='sum' param='sutVed'/>
+				<item name='Наш приток' id='our_pritok' obj='sutVed' code='24' afterPoint='2' sumOper='sum' param='sutVed'/>
+				<item name='Удельный расход' id='ud_rashod' obj='sutVed' code='21' afterPoint='2' sumOper='avg'  param='sutVed'/>
+			</items>
+		</item>
+		<item id='calc' val='null'>
+			<items>
+				<item name='Светлая 110кВ (P)' id='svetlaya_110_p' val='operation' operation='$s1k_1-$s1k_2' toCSV='true' />
+				<item name='Светлая 110кВ (Q)' id='svetlaya_110_q' val='operation' operation='$s1k_3-$s1k_4' toCSV='true' />
+				<item name='Ивановка 110кВ (P)' id='ivanovka_110_p' val='operation' operation='$s1k_5-$s1k_6' toCSV='true' />
+				<item name='Ивановка 110кВ (Q)' id='ivanovka_110_q' val='operation' operation='$s1k_7-$s1k_8' toCSV='true' />
+				<item name='Каучук 110кВ (P)' id='kauchuk_110_p' val='operation' operation='$s1k_9-$s1k_10' toCSV='true' />
+				<item name='Каучук 110кВ (Q)' id='kauchuk_110_q' val='operation' operation='$s1k_11-$s1k_12' toCSV='true' />
+				<item name='ЧаТЭЦ 110кВ (P)' id='tec_110_p' val='operation' operation='$s1k_13-$s1k_14' toCSV='true' />
+				<item name='ЧаТЭЦ 110кВ (Q)' id='tec_110_q' val='operation' operation='$s1k_15-$s1k_16' toCSV='true' />
+				<item name='Березовка 110кВ (P)' id='berezovka_110_p' val='operation' operation='$s1k_17-$s1k_18' toCSV='true' />
+				<item name='Березовка 110кВ (Q)' id='berezovka_110_q' val='operation' operation='$s1k_19-$s1k_20' toCSV='true' />
+				<item name='Светлая 220кВ (P)' id='svetlaya_220_p' val='operation' operation='$s1k_21-$s1k_22' toCSV='true' />
+				<item name='Светлая 220кВ (P)' id='svetlaya_220_q' val='operation' operation='$s1k_23-$s1k_24' toCSV='true' />
+				<item name='Каучук-1 220кВ (P)' id='kauchuk_1_220_p' val='operation' operation='$s1k_25-$s1k_26' toCSV='true' />
+				<item name='Каучук-1 220кВ (Q)' id='kauchuk_1_220_q' val='operation' operation='$s1k_27-$s1k_28' toCSV='true' />
+				<item name='Каучук-2 220кВ (P)' id='kauchuk_2_220_p' val='operation' operation='$s1k_29-$s1k_30' toCSV='true' />
+				<item name='Каучук-2 220кВ (Q)' id='kauchuk_2_220_q' val='operation' operation='$s1k_31-$s1k_32' toCSV='true' />
+
+				<item name='Ижевск-1 220кВ (P)' id='izh_1_220_p' val='operation' operation='$s1k_33-$s1k_34' toCSV='true' />
+				<item name='Ижевск-1 220кВ (Q)' id='izh_1_220_q' val='operation' operation='$s1k_35-$s1k_36' toCSV='true' />
+				<item name='Ижевск-2 220кВ (P)' id='izh_2_220_p' val='operation' operation='$s1k_37-$s1k_38' toCSV='true' />
+				<item name='Ижевск-2 220кВ (Q)' id='izh_2_220_q' val='operation' operation='$s1k_39-$s1k_40' toCSV='true' />
+				<item name='КШТ-1 220кВ (P)' id='ksht_1_110_p' val='operation' operation='$s1k_41-$s1k_42' toCSV='true' />
+				<item name='КШТ-1 220кВ (Q)' id='ksht_1_110_q' val='operation' operation='$s1k_43-$s1k_44' toCSV='true' />
+				<item name='КШТ-2 220кВ (P)' id='ksht_2_110_p' val='operation' operation='$s1k_45-$s1k_46' toCSV='true' />
+				<item name='КШТ-2 220кВ (Q)' id='ksht_2_110_q' val='operation' operation='$s1k_47-$s1k_48' toCSV='true' />
+				<item name='Дубовая 110кВ (P)' id='dubovaya_110_p' val='operation' operation='$s1k_49-$s1k_50' toCSV='true' />
+				<item name='Дубовая 110кВ (Q)' id='dubovaya_110_q' val='operation' operation='$s1k_51-$s1k_52' toCSV='true' />
+				<item name='Водозабор-1 220кВ (P)' id='vodozabor_2_110_p' val='operation' operation='$s1k_53-$s1k_54' toCSV='true' />
+				<item name='Водозабор-1 220кВ (Q)' id='vodozabor_2_110_q' val='operation' operation='$s1k_55-$s1k_56' toCSV='true' />
+				<item name='Водозабор-2 220кВ (P)' id='vodozabor_1_110_p' val='operation' operation='$s1k_57-$s1k_58' toCSV='true' />
+				<item name='Водозабор-2 220кВ (Q)' id='vodozabor_1_110_q' val='operation' operation='$s1k_59-$s1k_60' toCSV='true' />
+				<item name='Емелино 500кВ (P)' id='emelino_500_p' val='operation' operation='$s1k_61-$s1k_62' toCSV='true' />
+				<item name='Емелино 500кВ (Q)' id='emelino_500_q' val='operation' operation='$s1k_63-$s1k_64' toCSV='true' />
+				<item name='Карманово 500кВ (P)' id='karmanovo_500_p' val='operation' operation='$s1k_65-$s1k_66' toCSV='true' />
+				<item name='Карманово 500кВ (Q)' id='karmanovo_500_q' val='operation' operation='$s1k_67-$s1k_68' toCSV='true' />
+				<item name='Вятка 500кВ (P)' id='vyatka_500_p' val='operation' operation='$s1k_69-$s1k_70' toCSV='true' />
+				<item name='Вятка 500кВ (Q)' id='vyatka_500_q' val='operation' operation='$s1k_71-$s1k_72' toCSV='true' />
+
+				<item name='Генератор 1 (P)' id='gen1_p' val='operation' operation='-$s2k_1+$s2k_2' toCSV='true' />
+				<item name='Генератор 1 (Q)' id='gen1_q' val='operation' operation='-$s2k_3+$s2k_4' toCSV='true' />
+				<item name='Генератор 2 (P)' id='gen2_p' val='operation' operation='-$s2k_5+$s2k_6' toCSV='true' />
+				<item name='Генератор 2 (Q)' id='gen2_q' val='operation' operation='-$s2k_7+$s2k_8' toCSV='true' />
+				<item name='Шлюз-1 (P)' id='shluiz_1_6_p' val='operation' operation='$s2k_9-$s2k_10' toCSV='true' />
+				<item name='Шлюз-1 (Q)' id='shluiz_1_6_q' val='operation' operation='$s2k_11-$s2k_12' toCSV='true' />
+				<item name='Шлюз-2 (P)' id='shluiz_2_6_p' val='operation' operation='$s2k_13-$s2k_14' toCSV='true' />
+				<item name='Шлюз-2 (Q)' id='shluiz_2_6_q' val='operation' operation='$s2k_15-$s2k_16' toCSV='true' />
+				<item name='Генератор 3 (P)' id='gen3_p' val='operation' operation='$s2k_18' toCSV='true' />
+				<item name='Генератор 3 (Q)' id='gen3_q' val='operation' operation='-$s2k_19+$s2k_20' toCSV='true' />
+				<item name='Генератор 4 (P)' id='gen4_p' val='operation' operation='$s2k_22' toCSV='true' />
+				<item name='Генератор 4 (Q)' id='gen4_q' val='operation' operation='-$s2k_23+$s2k_24' toCSV='true' />
+				<item name='Генератор 5 (P)' id='gen5_p' val='operation' operation='$s2k_26' toCSV='true' />
+				<item name='Генератор 5 (Q)' id='gen5_q' val='operation' operation='-$s2k_27+$s2k_28' toCSV='true' />
+				<item name='Генератор 6 (P)' id='gen6_p' val='operation' operation='$s2k_30' toCSV='true' />
+				<item name='Генератор 6 (Q)' id='gen6_q' val='operation' operation='-$s2k_31+$s2k_32' toCSV='true' />
+				<item name='Фильтр-1 (P)' id='filtr_1_6_p' val='operation' operation='$s2k_33-$s2k_34' toCSV='true' />
+				<item name='Фильтр-1 (Q)' id='filtr_1_6_q' val='operation' operation='$s2k_35-$s2k_36' toCSV='true' />
+				<item name='Фильтр-1 (P)' id='filtr_2_6_p' val='operation' operation='$s2k_37-$s2k_38' toCSV='true' />
+				<item name='Фильтр-2 (Q)' id='filtr_2_6_q' val='operation' operation='$s2k_39-$s2k_40' toCSV='true' />
+				<item name='Генератор 7 (P)' id='gen7_p' val='operation' operation='$s2k_42' toCSV='true' />
+				<item name='Генератор 7 (Q)' id='gen7_q' val='operation' operation='-$s2k_43+$s2k_44' toCSV='true' />
+				<item name='Генератор 8 (P)' id='gen8_p' val='operation' operation='$s2k_46' toCSV='true' />
+				<item name='Генератор 8 (Q)' id='gen8_q' val='operation' operation='-$s2k_47+$s2k_48' toCSV='true' />
+				<item name='Генератор 9 (P)' id='gen9_p' val='operation' operation='-$s2k_49+$s2k_50' toCSV='true' />
+				<item name='Генератор 9 (Q)' id='gen9_q' val='operation' operation='-$s2k_51+$s2k_52' toCSV='true' />
+				<item name='Генератор 10 (P)' id='gen10_p' val='operation' operation='-$s2k_53+$s2k_54' toCSV='true' />
+				<item name='Генератор 10 (Q)' id='gen10_q' val='operation' operation='-$s2k_55+$s2k_56' toCSV='true' />
+
+				<item name='ГЭС (P)' id='ges_p' val='operation' operation='$s2k_2+$s2k_6+$s2k_18+$s2k_22+$s2k_26+$s2k_30+$s2k_42+$s2k_46+$s2k_50+$s2k_54'
+					toCSV='true' />
+				<item name='ГЭС (Q)' id='ges_q' val='operation' operation='$gen1_q+$gen2_q+$gen3_q+$gen4_q+$gen5_q+$gen6_q+$gen7_q+$gen8_q+$gen9_q+$gen10_q'
+					toCSV='true' />
+				<item name='ГЭС Прием (P)' id='ges_priem_p' val='operation' operation='$s2k_1+$s2k_5+$s2k_17+$s2k_21+$s2k_25+$s2k_29+$s2k_41+$s2k_45+$s2k_49+$s2k_53'
+					toCSV='true' />
+				<item name='ГЭС Прием (Q)' id='ges_priem_q' val='operation' operation='$s2k_3+$s2k_7+$s2k_19+$s2k_23+$s2k_27+$s2k_31+$s2k_43+$s2k_47+$s2k_51+$s2k_55'
+					toCSV='true' />
+				<item name='ГЭС Отдача (P)' id='ges_otd_p' val='operation' operation='$s2k_2+$s2k_6+$s2k_18+$s2k_22+$s2k_26+$s2k_30+$s2k_42+$s2k_46+$s2k_50+$s2k_54'
+					toCSV='true' />
+				<item name='ГЭС Отдача (Q)' id='ges_otd_q' val='operation' operation='$s2k_4+$s2k_8+$s2k_20+$s2k_24+$s2k_28+$s2k_32+$s2k_44+$s2k_48+$s2k_52+$s2k_56'
+					toCSV='true' />
+					
+				<item name='ГТП-1 (P)' id='gtp1_p' val='operation' operation='$s2k_2+$s2k_6'
+					toCSV='true' />
+				<item name='ГТП-2 (P)' id='gtp2_p' val='operation' operation='$s2k_18+$s2k_22+$s2k_26+$s2k_30+$s2k_42+$s2k_46+$s2k_50+$s2k_54'
+					toCSV='true' />
+
+				<item name='3АТ 500кВ (P)' id='t3at_500_p' val='operation' operation='$s1t_1-$s1t_2' toCSV='true' />
+				<item name='3АТ 500кВ (Q)' id='t3at_500_q' val='operation' operation='$s1t_3-$s1t_4' toCSV='true' />
+				<item name='2АТ 500кВ (P)' id='t2at_500_p' val='operation' operation='$s1t_5-$s1t_6' toCSV='true' />
+				<item name='2АТ 500кВ (Q)' id='t2at_500_q' val='operation' operation='$s1t_7-$s1t_8' toCSV='true' />
+
+				<item name='СН 7Т' id='sn7t' val='operation' operation='$s2t_38' toCSV='true' />
+				<item name='СН 8Т' id='sn8t' val='operation' operation='$s2t_33' toCSV='true' />
+				<item name='СН 11Т' id='sn11t' val='operation' operation='$s2t_36' toCSV='true' />
+				<item name='СН 12Т' id='sn12t' val='operation' operation='$s2t_37' toCSV='true' />
+				<item name='СН 13Т' id='sn13t' val='operation' operation='$s2t_41' toCSV='true' />
+				<item name='СН 14Т' id='sn14t' val='operation' operation='$s2t_42' toCSV='true' />
+				<item name='СН 15Т' id='sn15t' val='operation' operation='$s2t_31' toCSV='true' />
+				<item name='СН 16Т' id='sn16t' val='operation' operation='$s2t_32' toCSV='true' />
+				<item name='СН 17Т' id='sn17t' val='operation' operation='$s2t_7' toCSV='true' />
+				<item name='СН 18Т' id='sn18t' val='operation' operation='$s2t_8' toCSV='true' />
+				<item name='СН 19Т' id='sn19t' val='operation' operation='$s2t_3' toCSV='true' />
+				<item name='СН 20Т' id='sn20t' val='operation' operation='$s2t_4' toCSV='true' />
+
+				<item name='Возбуждение Г1' id='vozb_ga1_p' val='operation' operation='$s2t_34' toCSV='true' />
+				<item name='Возбуждение Г2' id='vozb_ga2_p' val='operation' operation='$s2t_35' toCSV='true' />
+				<item name='Возбуждение Г3' id='vozb_ga3_p' val='operation' operation='$s2t_39' toCSV='true' />
+				<item name='Возбуждение Г4' id='vozb_ga4_p' val='operation' operation='$s2t_40' toCSV='true' />
+				<item name='Возбуждение Г5' id='vozb_ga5_p' val='operation' operation='$s2t_29' toCSV='true' />
+				<item name='Возбуждение Г6' id='vozb_ga6_p' val='operation' operation='$s2t_30' toCSV='true' />
+				<item name='Возбуждение Г7' id='vozb_ga7_p' val='operation' operation='$s2t_5' toCSV='true' />
+				<item name='Возбуждение Г8' id='vozb_ga8_p' val='operation' operation='$s2t_6' toCSV='true' />
+				<item name='Возбуждение Г9' id='vozb_ga9_p' val='operation' operation='$s2t_1' toCSV='true' />
+				<item name='Возбуждение Г10' id='vozb_ga10_p' val='operation' operation='$s2t_2' toCSV='true' />
+
+
+				<item name='1Т 110 кВ (P)' id='t1t_110_p' val='operation' operation='$s2t_9-$s2t_10' toCSV='true' />
+				<item name='1Т 110 кВ (Q)' id='t1t_110_q' val='operation' operation='$s2t_11-$s2t_12' toCSV='true' />
+				<item name='2АТ 220 кВ (P)' id='t2at_220_p' val='operation' operation='$s2t_13-$s2t_14' toCSV='true' />
+				<item name='2АТ 220 кВ (Q)' id='t2at_220_q' val='operation' operation='$s2t_15-$s2t_16' toCSV='true' />
+				<item name='3АТ 220 кВ (P)' id='t3at_220_p' val='operation' operation='$s2t_17-$s2t_18' toCSV='true' />
+				<item name='3АТ 220 кВ (Q)' id='t3at_220_q' val='operation' operation='$s2t_19-$s2t_20' toCSV='true' />
+				<item name='5-6АТ 220 кВ (P)' id='t56at_220_p' val='operation' operation='$s2t_21-$s2t_22' toCSV='true' />
+				<item name='5-6АТ 220 кВ (Q)' id='t56at_220_q' val='operation' operation='$s2t_23-$s2t_24' toCSV='true' />
+				<item name='4Т 220 кВ (P)' id='t4t_220_p' val='operation' operation='$s2t_25-$s2t_26' toCSV='true' />
+				<item name='4Т 220 кВ (Q)' id='t4t_220_q' val='operation' operation='$s2t_27-$s2t_28' toCSV='true' />
+				<item name='5-6АТ 110 кВ (P)' id='t56at_110_p' val='operation' operation='$s2t_43-$s2t_44' toCSV='true' />
+				<item name='5-6АТ 110 кВ (Q)' id='t56at_110_q' val='operation' operation='$s2t_45-$s2t_46' toCSV='true' />
+
+				<item name="3Н" id='s3n' val='operation' operation='$s1t_17+$s1t_31' toCSV='true' />
+				<item name="7Н" id='s7n' val='operation' operation='$s1t_13+$s1t_27' toCSV='true' />
+				<item name="9Н" id='s9n' val='operation' operation='$s1t_15+$s1t_19' toCSV='true' />
+				<item name="1Н" id='s1n' val='operation' operation='$s1t_22+$s1t_18' toCSV='true' />
+				<item name="10Н" id='s10n' val='operation' operation='$s1t_21+$s1t_23' toCSV='true' />
+				<item name="2Н" id='s2n' val='operation' operation='$s1t_30+$s1t_37' toCSV='true' />
+				<item name="8Н" id='s8n' val='operation' operation='$s1t_20+$s1t_34' toCSV='true' />
+				<item name="36Н" id='s35n' val='operation' operation='$s1t_32+$s1t_33' toCSV='true' />
+				<item name="Насосы" id='nasos' val='operation' operation='$s1t_9+$s1t_28' toCSV='true' />
+
+				<item name="Сальдо 110кВ (P)" id='vl_110_p' val='operation'
+					operation='$ksht_1_110_p+$ksht_2_110_p+$tec_110_p+$svetlaya_110_p+$ivanovka_110_p+$vodozabor_1_110_p+$vodozabor_2_110_p+$berezovka_110_p+$dubovaya_110_p+$kauchuk_110_p'
+					toCSV='true' />
+				<item name="Сальдо 110кВ (Q)" id='vl_110_q' val='operation'
+					operation='$ksht_1_110_q+$ksht_2_110_q+$tec_110_q+$svetlaya_110_q+$ivanovka_110_q+$vodozabor_1_110_q+$vodozabor_2_110_q+$berezovka_110_q+$dubovaya_110_q+$kauchuk_110_q'
+					toCSV='true' />
+				<item name="Сальдо 220кВ (P)" id='vl_220_p' val='operation' operation='$kauchuk_1_220_p+$kauchuk_2_220_p+$svetlaya_220_p+$izh_1_220_p+$izh_2_220_p'
+					toCSV='true' />
+				<item name="Сальдо 220кВ (Q)" id='vl_220_q' val='operation' operation='$kauchuk_1_220_q+$kauchuk_2_220_q+$svetlaya_220_q+$izh_1_220_q+$izh_2_220_q'
+					toCSV='true' />
+				<item name="Сальдо 500кВ (P)" id='vl_500_p' val='operation' operation='$emelino_500_p+$karmanovo_500_p+$vyatka_500_p' toCSV='true' />
+				<item name="Сальдо 500кВ (Q)" id='vl_500_q' val='operation' operation='$emelino_500_q+$karmanovo_500_q+$vyatka_500_q' toCSV='true' />
+				<item name="Сальдо 6кВ (P)" id='kl_6_p' val='operation' operation='$shluiz_1_6_p+$shluiz_2_6_p+$filtr_1_6_p+$filtr_2_6_p' toCSV='true' />
+				<item name="Сальдо 6кВ (Q)" id='kl_6_q' val='operation' operation='$shluiz_1_6_q+$shluiz_2_6_q+$filtr_1_6_q+$filtr_2_6_q' toCSV='true' />
+
+				<item name="Прием 110кВ (Q)" id='vl_110_priem_q' val='operation' operation='$s1k_3+$s1k_7+$s1k_11+$s1k_15+$s1k_19+$s1k_43+$s1k_47+$s1k_51+$s1k_55+$s1k_59'
+					toCSV='true' />
+				<item name="Прием 110кВ (P)" id='vl_110_priem_p' val='operation' operation='$s1k_1+$s1k_5+$s1k_9+$s1k_13+$s1k_17+$s1k_41+$s1k_45+$s1k_49+$s1k_53+$s1k_57'
+					toCSV='true' />
+				<item name="Прием 220кВ (Q)" id='vl_220_priem_q' val='operation' operation='$s1k_23+$s1k_27+$s1k_31+$s1k_35+$s1k_39' toCSV='true' />
+				<item name="Прием 220кВ (P)" id='vl_220_priem_p' val='operation' operation='$s1k_21+$s1k_25+$s1k_29+$s1k_33+$s1k_37' toCSV='true' />
+				<item name="Прием 500кВ (Q)" id='vl_500_priem_q' val='operation' operation='$s1k_63+$s1k_67+$s1k_71' toCSV='true' />
+				<item name="Прием 500кВ (P)" id='vl_500_priem_p' val='operation' operation='$s1k_61+$s1k_65+$s1k_69' toCSV='true' />
+				<item name="Отдача 110кВ (Q)" id='vl_110_otd_q' val='operation' operation='$s1k_4+$s1k_8+$s1k_12+$s1k_16+$s1k_20+$s1k_44+$s1k_48+$s1k_52+$s1k_56+$s1k_60'
+					toCSV='true' />
+				<item name="Отдача 110кВ (P)" id='vl_110_otd_p' val='operation' operation='$s1k_2+$s1k_6+$s1k_10+$s1k_14+$s1k_18+$s1k_42+$s1k_46+$s1k_50+$s1k_54+$s1k_58'
+					toCSV='true' />
+				<item name="Отдача 220кВ (Q)" id='vl_220_otd_q' val='operation' operation='$s1k_24+$s1k_28+$s1k_32+$s1k_36+$s1k_40' toCSV='true' />
+				<item name="Отдача 220кВ (P)" id='vl_220_otd_p' val='operation' operation='$s1k_22+$s1k_26+$s1k_30+$s1k_34+$s1k_38' toCSV='true' />
+				<item name="Отдача 500кВ (Q)" id='vl_500_otd_q' val='operation' operation='$s1k_64+$s1k_68+$s1k_72' toCSV='true' />
+				<item name="Отдача 500кВ (P)" id='vl_500_otd_p' val='operation' operation='$s1k_62+$s1k_66+$s1k_70' toCSV='true' />
+
+				<item name="Возбуждение" id='vozb_p' val='operation' operation='$s2t_1+$s2t_2+$s2t_5+$s2t_6+$s2t_29+$s2t_30+$s2t_34+$s2t_35+$s2t_39+$s2t_40'
+					toCSV='true' />
+				<item name="СН Генераторов" id='sn_gen_p' val='operation' operation='$s2t_3+$s2t_4+$s2t_7+$s2t_8+$s2t_31+$s2t_32+$s2t_36+$s2t_37+$s2t_41+$s2t_42'
+					toCSV='true' />
+				<item name="СН (Щиты)" id='sn' val='operation' operation='$s3n+$s7n+$s9n+$s1n+$s10n+$s2n+$s8n+$s35n+$nasos' toCSV='true' />
+				<item name="Режим СК" id='sk' val='operation' operation='$s2k_1+$s2k_5+$s2k_49+$s2k_53' toCSV='true' />
+
+				<item name="Небаланс 1Т (P)" id='nebalans_1t_p' val='operation' operation='$gen1_p+$gen2_p-$vozb_ga1_p-$vozb_ga2_p-$sn11t-$sn12t-$t1t_110_p'
+					toCSV='true' yAxis='2' />
+				<item name="Небаланс 1Т (Q)" id='nebalans_1t_q' val='operation' operation='$gen1_q+$gen2_q-$t1t_110_q' toCSV='true' yAxis='2' />
+				<item name="Небаланс 2АТ (P)" id='nebalans_2at_p' val='operation' operation='$gen3_p+$gen4_p-$vozb_ga3_p-$vozb_ga4_p-$sn13t-$sn14t-$t2at_500_p-$t2at_220_p-$sn7t'
+					toCSV='true' yAxis='2' />
+				<item name="Небаланс 2АТ (Q)" id='nebalans_2at_q' val='operation' operation='$gen3_q+$gen4_q-$t2at_500_q-$t2at_220_q' toCSV='true' yAxis='2' />
+				<item name="Небаланс 3АТ (P)" id='nebalans_3at_p' val='operation' operation='$gen5_p+$gen6_p-$vozb_ga5_p-$vozb_ga6_p-$sn15t-$sn16t-$t3at_500_p-$t3at_220_p-$sn8t'
+					toCSV='true' yAxis='2' />
+				<item name="Небаланс 3АТ (Q)" id='nebalans_3at_q' val='operation' operation='$gen5_q+$gen6_q-$t3at_500_q-$t3at_220_q' scale='-1' toCSV='true'
+					yAxis='2' />
+				<item name="Небаланс 4Т (P)" id='nebalans_4t_p' val='operation' operation='$gen7_p+$gen8_p-$vozb_ga7_p-$vozb_ga8_p-$sn17t-$sn18t-$t4t_220_p'
+					toCSV='true' yAxis='2' />
+				<item name="Небаланс 4Т (Q)" id='nebalans_4t_q' val='operation' operation='$gen7_q+$gen8_q-$t4t_220_q' scale='-1' toCSV='true' yAxis='2' />
+				<item name="Небаланс 5-6АТ (P)" id='nebalans_56at_p' val='operation' operation='$gen9_p+$gen10_p-$vozb_ga9_p-$vozb_ga10_p-$sn19t-$sn20t-$t56at_110_p-$t56at_220_p'
+					toCSV='true' yAxis='2' />
+				<item name="Небаланс 5-6АТ (Q)" id='nebalans_56at_q' val='operation' operation='$gen9_q+$gen10_q-$t56at_110_q-$t56at_220_q' toCSV='true'
+					yAxis='2' />
+				<item name="Небаланс ВЛ 110кВ (P)" id='nebalans_vl_110_p' val='operation' operation='$vl_110_p+$t1t_110_p+$t56at_110_p' toCSV='true' yAxis='2' />
+				<item name="Небаланс ВЛ 110кВ (Q)" id='nebalans_vl_110_q' val='operation' operation='$vl_110_q+$t1t_110_q+$t56at_110_q' toCSV='true' yAxis='2' />
+				<item name="Небаланс ВЛ 220кВ (P)" id='nebalans_vl_220_p' val='operation' operation='$vl_220_p+$t3at_220_p+$t2at_220_p+$t56at_220_p+$t4t_220_p'
+					toCSV='true' yAxis='2' />
+				<item name="Небаланс ВЛ 220кВ (Q)" id='nebalans_vl_220_q' val='operation' operation='$vl_220_q+$t3at_220_q+$t2at_220_q+$t56at_220_q+$t4t_220_q'
+					toCSV='true' yAxis='2' />
+				<item name="Небаланс ВЛ 500кВ (P)" id='nebalans_vl_500_p' val='operation' operation='$vl_500_p+$t3at_500_p+$t2at_500_p' toCSV='true' yAxis='2' />
+				<item name="Небаланс ВЛ 500кВ (Q)" id='nebalans_vl_500_q' val='operation' operation='$vl_500_q+$t3at_500_q+$t2at_500_q' toCSV='true' yAxis='2' />
+				<item name="Небаланс 6кВ (P)" id='nebalans_kl_6_p' val='operation' operation='-$sn+$kl_6_p+$sn7t+$sn8t' toCSV='true' yAxis='2' />
+				<item name="Небаланс в трансформаторах (P)" id='nebalans_trans_p' val='operation'
+					operation='$nebalans_1t_p+$nebalans_2at_p+$nebalans_3at_p+$nebalans_4t_p+$nebalans_56at_p' toCSV='true' yAxis='2' />
+				<item name="Небаланс в трансформаторах (Q)" id='nebalans_trans_q' val='operation'
+					operation='$nebalans_1t_q+$nebalans_2at_q+$nebalans_3at_q+$nebalans_4t_q+$nebalans_56at_q' toCSV='true' yAxis='2' />
+				<item name="Небаланс в главной схеме (P)" id='nebalans_schema_p' val='operation' operation='$nebalans_vl_110_p+$nebalans_vl_220_p+$nebalans_vl_500_p'
+					toCSV='true' yAxis='2' />
+				<item name="Небаланс в главной схеме (Q)" id='nebalans_schema_q' val='operation' operation='$nebalans_vl_110_q+$nebalans_vl_220_q+$nebalans_vl_500_q'
+					toCSV='true' yAxis='2' />
+				<item name="Небаланс в гл. схеме и трансформаторах (P)" id='nebalans_schema_trans_p' val='operation' operation='$nebalans_schema_p+$nebalans_trans_p'
+					toCSV='true' yAxis='2' />
+				<item name="Небаланс в гл. схеме и трансформаторах (Q)" id='nebalans_schema_trans_q' val='operation' operation='$nebalans_schema_q+$nebalans_trans_q'
+					toCSV='true' yAxis='2' />
+				<item name="Собственные нужды" id='sn_full' val='operation' operation='$sn_gen_p+$sn7t+$sn8t+$kl_6_p' toCSV='true' yAxis='2' />
+				<item name="Собственное потребление" id='sp_full' val='operation' operation='$sn_full+$nebalans_trans_p+$vozb_p+$nebalans_schema_p+$sk'
+					toCSV='true' yAxis='2' />
+
+				<item name='Откл ГТП1' id='gtp1_diff' val='operation' operation='$gtp1_p-$ikm_2' afterPoint='2'/>
+				<item name='Откл ГТП2' id='gtp2_diff' val='operation' operation='$gtp2_p-$ikm_3' afterPoint='2'/>
+				<item name='Откл ГЭС' id='ges_diff' val='operation' operation='$ges_p-$ikm_1'  afterPoint='2'/>			
+				<item name='Откл ГЭС (Сут Вед и P)' id='ges_diff_sutVed_p' val='operation' operation='$ges_p-$vyrab_sutki' afterPoint='2'/>
+				<item name='Откл ГЭС (Сут Вед и ИКМ)' id='ges_diff_sutVed_ikm' val='operation' operation='$ikm_1-$vyrab_sutki' afterPoint='2'/>	
+			</items>
+		</item>
+
+		
+		
+	</items>
+	<paramGroups>
+		<minutes>
+			<param id='default' parNumber='4' />			
+			<param id='sutVed' parNumber='26'/>
+			<param id='plan' parNumber='212' connection='p3000'/>
+		</minutes>
+		<halfHours>
+			<param id='default' parNumber='12' />
+			<param id='plan' parNumber='212' connection='p3000'/>
+			<param id='sutVed' parNumber='26'/>
+		</halfHours>
+		<hours>
+			<param id='default' parNumber='12' />
+			<param id='plan' parNumber='212' connection='p3000'/>
+			<param id='sutVed' parNumber='26'/>
+		</hours>
+		<days26>
+			<param id='default' parNumber='26' />			
+			<param id='sutVed' parNumber='26'/>
+		</days26>
+		<days>
+			<param id='default' parNumber='12' modeHalfHour='true' />
+			<param id='plan' parNumber='212' modeHalfHour='true' connection='p3000'/>
+			<param id='sutVed' parNumber='26'/>
+		</days>
+		<months>
+			<param id='default' parNumber='12' modeHalfHour='true' />
+			<param id='plan' parNumber='212' modeHalfHour='true'  connection='p3000'/>
+			<param id='sutVed' parNumber='26'  modeHalfHour='true' />
+		</months>
+	</paramGroups>
+</root>
