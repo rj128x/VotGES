@@ -23,6 +23,8 @@
 							IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 				<TextBlock Text=" дней вперед" Style="{StaticResource Label}"/>
 			</StackPanel>
+			<CheckBox Name="chbIsQFakt" IsChecked="{Binding IsQFakt, Mode=TwoWay}" Content="По фактическому расходу"
+						 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 			<Button Name="btnGetPrognoz" Click="btnGetPrognoz_Click" Content="Получить прогноз" 
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 		</StackPanel>

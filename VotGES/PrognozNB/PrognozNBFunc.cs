@@ -269,7 +269,7 @@ namespace VotGES.PrognozNB
 			
 		}
 
-		public ChartAnswer getChart() {
+		public virtual ChartAnswer getChart() {
 			ChartAnswer answer=new ChartAnswer();
 			answer.Data = new ChartData();
 			writeFaktData(answer.Data);

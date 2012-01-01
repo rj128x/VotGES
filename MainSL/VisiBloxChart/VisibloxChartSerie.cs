@@ -22,6 +22,8 @@ namespace MainSL
 		public event PropertyChangedEventHandler PropertyChanged;
 		public string TagName { get; protected set; }
 		public ChartSeriesBase Serie { get; protected set; }
+		public object SeriesData;
+		
 
 		public int SerieIndex { get; protected set; }
 
@@ -29,13 +31,19 @@ namespace MainSL
 		public int YAxisIndex {
 			get { return yAxisIndex; }
 			set {
-				yAxisIndex = value;
-				if (!enabled) {
-					Serie.YAxis = silverChartControl.CurrentChart.AdditionalSecondaryYAxes[0];
-				} else {
+				if (yAxisIndex != value) {
+					try {
+						silverChartControl.AxesVisible[yAxisIndex].Remove(Name);
+					} catch { }
+					yAxisIndex = value;
+					try {
+						silverChartControl.AxesVisible[yAxisIndex].Add(Name, Enabled);
+					} catch { }
 					Serie.YAxis = silverChartControl.Axes[value];
+					silverChartControl.checkVisibleAxes(YAxisIndex);
 				}
 				NotifyChanged("YAxisIndex");
+
 			}
 		}
 
@@ -48,6 +56,15 @@ namespace MainSL
 			}
 		}
 
+		private string currentPointY;
+		public string CurrentPointY {
+			get { return currentPointY; }
+			set {
+				currentPointY = value;
+				NotifyChanged("CurrentPointY");
+			}
+		}
+
 		protected IDataPoint currentPoint;
 		public IDataPoint CurrentPoint {
 			get {
@@ -56,6 +73,7 @@ namespace MainSL
 			set {
 				currentPoint = value;
 				CurrentPointX = String.Format("{0:" + silverChartControl.XAxesForamtString + "}", currentPoint.X);
+				CurrentPointY = String.Format("{0:### ### ##0.##}", currentPoint.Y);
 				NotifyChanged("CurrentPoint"); 
 			}
 		}
@@ -63,17 +81,28 @@ namespace MainSL
 		protected bool enabled;
 		public bool Enabled {
 			get { return enabled; }
-			set { 				
-				enabled = value;
-				if (enabled) {
-					YAxisIndex = yAxisIndex;						
-					Serie.Visibility = Visibility.Visible;
-					silverChartControl.CurrentChart.DoInvalidate();
-				} else {
-					YAxisIndex = yAxisIndex;
-					Serie.Visibility = Visibility.Collapsed;
+			set {
+				if (!silverChartControl.AxesVisible[YAxisIndex].ContainsKey(TagName)) {
+					silverChartControl.AxesVisible[YAxisIndex].Add(TagName, false);
 				}
-
+				enabled = value;
+				silverChartControl.AxesVisible[YAxisIndex][TagName] = enabled;
+				if (enabled) {
+					switch (silverChartControl.XAxesType) {
+						case XAxisTypeEnum.datetime:
+							Serie.DataSeries = SeriesData as DataSeries<DateTime, double>;
+							break;
+						case XAxisTypeEnum.numeric:
+							Serie.DataSeries = SeriesData as DataSeries<double, double>;
+							break;
+					}
+					
+				} else {
+					Serie.DataSeries = null;
+					CurrentPointX = "-";
+					CurrentPointY = "-";
+				}
+				silverChartControl.checkVisibleAxes(YAxisIndex);
 				NotifyChanged("Enabled");  
 			}
 		}
@@ -166,11 +195,12 @@ namespace MainSL
 
 			Serie.PropertyChanged += new PropertyChangedEventHandler(Serie_PropertyChanged);
 			silverChartControl.CurrentChart.Series.Add(Serie);
-
+			
 			YAxisIndex = serieProp.YAxisIndex;			
-			Enabled = serieProp.Enabled;			
+			
 			silverChartControl.TrackBehaviour.PropertyChanged += new PropertyChangedEventHandler(TrackBehaviour_PropertyChanged);
 			refresh(serieData);
+			Enabled = serieProp.Enabled;
 		}
 
 		void Serie_PropertyChanged(object sender, PropertyChangedEventArgs e) {
@@ -181,7 +211,17 @@ namespace MainSL
 		
 
 		void TrackBehaviour_PropertyChanged(object sender, PropertyChangedEventArgs e) {
-			CurrentPoint = silverChartControl.TrackBehaviour.CurrentPoints[SerieIndex];
+			try {
+				if (Enabled) {
+					CurrentPoint = silverChartControl.TrackBehaviour.CurrentPoints[SerieIndex];
+				} else {
+					CurrentPointX = "-";
+					CurrentPointY = "-";
+				}
+			} catch {
+				CurrentPointX = "-";
+				CurrentPointY = "-";
+			}
 		}
 
 		public void refresh(ChartDataSerie serieData) {
@@ -191,16 +231,23 @@ namespace MainSL
 					foreach (ChartDataPoint point in serieData.Points) {				
 						dataSeries.Add(new DataPoint<double, double>(point.XValDouble, point.YVal));
 					}
-					Serie.DataSeries = dataSeries;
+					if (Enabled) {
+						Serie.DataSeries = dataSeries;
+					}
+					SeriesData = dataSeries;
 					break;
 				case XAxisTypeEnum.datetime:
 					DataSeries<DateTime,double> dataSeriesDate=new DataSeries<DateTime, double> { Title = Name };
 					foreach (ChartDataPoint point in serieData.Points) {
 						dataSeriesDate.Add(new DataPoint<DateTime, double>(point.XVal, point.YVal));
 					}
-					Serie.DataSeries = dataSeriesDate;
+					if (Enabled) {
+						Serie.DataSeries = dataSeriesDate;
+					}
+					SeriesData = dataSeriesDate;
 					break;
 			}			
+
 		}
 		
 	}

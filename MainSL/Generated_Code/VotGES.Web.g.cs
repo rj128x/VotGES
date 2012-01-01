@@ -2426,14 +2426,16 @@ namespace VotGES.Web.Services
         /// </summary>
         /// <param name="date">Значение параметра "date" для данного действия.</param>
         /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
+        /// <param name="isQFakt">Значение параметра "isQFakt" для данного действия.</param>
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
         /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<ChartAnswer> checkPrognozNB(DateTime date, int countDays, Action<InvokeOperation<ChartAnswer>> callback, object userState)
+        public InvokeOperation<ChartAnswer> checkPrognozNB(DateTime date, int countDays, bool isQFakt, Action<InvokeOperation<ChartAnswer>> callback, object userState)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("date", date);
             parameters.Add("countDays", countDays);
+            parameters.Add("isQFakt", isQFakt);
             this.ValidateMethod("checkPrognozNB", parameters);
             return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("checkPrognozNB", typeof(ChartAnswer), parameters, true, callback, userState)));
         }
@@ -2443,12 +2445,14 @@ namespace VotGES.Web.Services
         /// </summary>
         /// <param name="date">Значение параметра "date" для данного действия.</param>
         /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
+        /// <param name="isQFakt">Значение параметра "isQFakt" для данного действия.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<ChartAnswer> checkPrognozNB(DateTime date, int countDays)
+        public InvokeOperation<ChartAnswer> checkPrognozNB(DateTime date, int countDays, bool isQFakt)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("date", date);
             parameters.Add("countDays", countDays);
+            parameters.Add("isQFakt", isQFakt);
             this.ValidateMethod("checkPrognozNB", parameters);
             return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("checkPrognozNB", typeof(ChartAnswer), parameters, true, null, null)));
         }
@@ -2506,12 +2510,13 @@ namespace VotGES.Web.Services
             /// </summary>
             /// <param name="date">Значение параметра "date" для данного действия.</param>
             /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
+            /// <param name="isQFakt">Значение параметра "isQFakt" для данного действия.</param>
             /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
             /// <param name="asyncState">Необязательный объект состояния.</param>
             /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/PrognozNBService/checkPrognozNBDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/PrognozNBService/checkPrognozNB", ReplyAction="http://tempuri.org/PrognozNBService/checkPrognozNBResponse")]
-            IAsyncResult BegincheckPrognozNB(DateTime date, int countDays, AsyncCallback callback, object asyncState);
+            IAsyncResult BegincheckPrognozNB(DateTime date, int countDays, bool isQFakt, AsyncCallback callback, object asyncState);
             
             /// <summary>
             /// Завершает асинхронную операцию, начатую "BegincheckPrognozNB".

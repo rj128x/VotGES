@@ -108,6 +108,17 @@ namespace VotGES.Chart
 			}
 		}
 
+		public void removeSerie(string name) {
+			if (SeriesNames.Keys.Contains(name)) {
+				Series.RemoveAt(SeriesNames[name]);
+				//SeriesNames.Remove(name);
+				SeriesNames = new Dictionary<string, int>();
+				foreach (ChartSerieProperties serie in Series) {
+					SeriesNames.Add(serie.TagName, Series.IndexOf(serie));
+				}
+			}
+		}
+
 		public void addAxis(ChartAxisProperties ax) {
 			if (!AxesNumbers.Keys.Contains(ax.Index)) {
 				Axes.Add(ax);

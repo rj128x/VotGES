@@ -22,6 +22,7 @@ namespace MainSL.Views
 		public ChartAnswer Answer { get; set; }
 		public List<VisibloxChartSerie> ChartSeries;
 		public Dictionary<int,LinearAxis> Axes;
+		public Dictionary<int,Dictionary<string,bool>> AxesVisible;
 		public TrackballBehaviour TrackBehaviour { get; protected set; }
 		public XAxisTypeEnum XAxesType { get; set; }
 		public string XAxesForamtString { get; set; }
@@ -49,6 +50,7 @@ namespace MainSL.Views
 			hiddenYAxis.Visibility = Visibility.Collapsed;
 			CurrentChart.AdditionalSecondaryYAxes.Add(hiddenYAxis);
 			Axes = new Dictionary<int, LinearAxis>();
+			AxesVisible = new Dictionary<int, Dictionary<string, bool>>();
 			foreach (ChartAxisProperties ax in chartAnswer.Properties.Axes) {
 				LinearAxis axis=new LinearAxis();
 				axis.AutoScaleToVisibleData = true;
@@ -62,10 +64,12 @@ namespace MainSL.Views
 				if (!ax.Auto) {
 					axis.Range = new DoubleRange(ax.Min, ax.Max);
 				}
+
 				if (ax.Index > 1) {
 					CurrentChart.AdditionalSecondaryYAxes.Add(axis);
 				}
 				Axes.Add(ax.Index, axis);
+				AxesVisible.Add(ax.Index, new Dictionary<string,bool>());
 			}
 			CurrentChart.YAxis = Axes[0];
 			CurrentChart.SecondaryYAxis = Axes[1];
@@ -85,6 +89,13 @@ namespace MainSL.Views
 
 		}
 
+		public void checkVisibleAxes(int YAxisIndex) {
+			bool visible=false;
+			foreach (bool vis in AxesVisible[YAxisIndex].Values) {
+				visible = visible || vis;
+			}
+			Axes[YAxisIndex].Visibility = visible ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+		}
 
 		private void CreateChart() {
 

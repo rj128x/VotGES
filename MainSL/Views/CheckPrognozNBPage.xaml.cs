@@ -49,6 +49,15 @@ namespace MainSL.Views
 					NotifyChanged("Date");					
 				}
 			}
+
+			private bool isQFakt;
+			public bool IsQFakt {
+				get { return isQFakt; }
+				set {
+					isQFakt = value;
+					NotifyChanged("IsQFakt");
+				}
+			}
 		}
 
 		public Settings settings;
@@ -71,7 +80,7 @@ namespace MainSL.Views
 		}
 
 		private void btnGetPrognoz_Click(object sender, RoutedEventArgs e) {
-			InvokeOperation currentOper=context.checkPrognozNB(settings.Date, settings.CountDays, oper => {
+			InvokeOperation currentOper=context.checkPrognozNB(settings.Date, settings.CountDays, settings.IsQFakt, oper => {
 				if (oper.IsCanceled) {
 					return;
 				}

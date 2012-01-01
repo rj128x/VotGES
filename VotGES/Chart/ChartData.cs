@@ -71,6 +71,15 @@ namespace VotGES.Chart
 			}
 		}
 
+		public void removeSerie(string name) {
+			if (SeriesNames.Keys.Contains(name)) {
+				Series.RemoveAt(SeriesNames[name]);
+				SeriesNames = new Dictionary<string, int>();
+				foreach (ChartDataSerie serie in Series) {
+					SeriesNames.Add(serie.Name, Series.IndexOf(serie));
+				}
+			}
+		}
 
 		public ChartDataSerie this[string name]{
 			get {

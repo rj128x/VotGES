@@ -59,7 +59,7 @@
 								<DataTemplate>
 									<StackPanel Orientation="Horizontal"
 													Background="{Binding Selected, Converter={StaticResource backgroundColorConverter}, ConverterParameter=SerieSelected}">
-										<TextBlock Text="{Binding CurrentPoint.Y, StringFormat='### ### ### ### ##0.##'}"/>
+										<TextBlock Text="{Binding CurrentPointY}"/>
 									</StackPanel>
 								</DataTemplate>
 							</sdk:DataGridTemplateColumn.CellTemplate>

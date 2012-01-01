@@ -49,6 +49,12 @@ namespace VotGES.PrognozNB
 			protected set { rashods = value; }
 		}
 
+		protected SortedList<DateTime, double> napors;
+		public SortedList<DateTime, double> Napors {
+			get { return napors; }
+			protected set { napors = value; }
+		}
+
 		protected SortedList<DateTime, double> pArr;
 		public SortedList<DateTime, double> PArr {
 			get { return pArr; }
@@ -102,29 +108,29 @@ namespace VotGES.PrognozNB
 			}
 
 
-			SortedList<DateTime,double>naporArray=new SortedList<DateTime, double>();
+			napors=new SortedList<DateTime, double>();
 			rashods = new SortedList<DateTime, double>();
 
 
 			double napor=prevDataVBArray.Last().Value - prevDataNBArray.Last().Value;
 			foreach (KeyValuePair<DateTime,double>de in pArr) {
-				naporArray.Add(de.Key, napor);
+				napors.Add(de.Key, napor);
 			}
 		
 			foreach (KeyValuePair<DateTime,double> de in PArr) {
-				double rashod=IsQFakt ? de.Value : RashodTable.getStationRashod(de.Value, naporArray[de.Key],RashodCalcMode.avg)*k;
+				double rashod=IsQFakt ? de.Value : RashodTable.getStationRashod(de.Value, napors[de.Key], RashodCalcMode.avg) * k;
 				rashods.Add(de.Key, rashod);
 				prognoz.Add(de.Key, 0);
 			}
 			//prognoz.Add(rashods.First().Key.AddMinutes(-30), prevDataNBArray[4]);
 
-			double currentNapor=naporArray.First().Value;
+			double currentNapor=napors.First().Value;
 			SortedList<DateTime,double> dataForPrognoz=new SortedList<DateTime, double>();
 			SortedList<DateTime,double> naporsForPrognoz=new SortedList<DateTime, double>();
 			for (int indexPoint=0; indexPoint < pArr.Keys.Count; indexPoint++) {
 				DateTime Key=pArr.Keys[indexPoint];
 				dataForPrognoz.Add(Key, pArr[Key]);
-				naporsForPrognoz.Add(Key, naporArray[Key]);
+				naporsForPrognoz.Add(Key, napors[Key]);
 				if (dataForPrognoz.Count == 24) {
 					SortedList<int,double> outputVector=new SortedList<int, double>();
 					for (int step=0; step <= 3; step++) {
@@ -168,6 +174,7 @@ namespace VotGES.PrognozNB
 
 						for (int i=0; i < 24; i++) {
 							naporsForPrognoz[dataForPrognoz.Keys[i]] = prevDataVBArray[4] - prognoz[dataForPrognoz.Keys[i]];
+							napors[dataForPrognoz.Keys[i]] = naporsForPrognoz[dataForPrognoz.Keys[i]];
 						}
 					}
 
@@ -187,6 +194,9 @@ namespace VotGES.PrognozNB
 			while (rashods.Last().Key > DatePrognozEnd) {
 				rashods.Remove(rashods.Last().Key);
 			}
+			while (napors.Last().Key > DatePrognozEnd) {
+				napors.Remove(napors.Last().Key);
+			}
 		}
 
 		public void AddChartData(ChartData data) {
@@ -200,11 +210,18 @@ namespace VotGES.PrognozNB
 				prognozQSerie.Points.Add(new ChartDataPoint(de.Key, de.Value));
 			}
 
+			ChartDataSerie prognozNaporSerie=new ChartDataSerie();
+			foreach (KeyValuePair<DateTime,double> de in Napors) {
+				prognozNaporSerie.Points.Add(new ChartDataPoint(de.Key, de.Value));
+			}
+
 			prognozNBSerie.Name = "NBPrognoz";
 			prognozQSerie.Name = "QPrognoz";
+			prognozNaporSerie.Name = "NaporPrognoz";
 
 			data.addSerie(prognozNBSerie);
 			data.addSerie(prognozQSerie);
+			data.addSerie(prognozNaporSerie);
 		}
 
 
@@ -227,7 +244,7 @@ namespace VotGES.PrognozNB
 			ChartAxisProperties qAx=new ChartAxisProperties();
 			qAx.Auto = false;
 			qAx.Min = 0;
-			qAx.Max = 8000;
+			qAx.Max = 7200;
 			qAx.Index = 2;
 
 			ChartAxisProperties vbAx=new ChartAxisProperties();
@@ -297,13 +314,22 @@ namespace VotGES.PrognozNB
 			vbSerie.YAxisIndex = 3;
 
 			ChartSerieProperties naporSerie=new ChartSerieProperties();
-			naporSerie.Color = "255-255-0";
+			naporSerie.Color = "255-0-255";
 			naporSerie.LineWidth = 2;
 			naporSerie.SerieType = ChartSerieType.line;
 			naporSerie.Title = "Напор";
 			naporSerie.TagName = "Napor";
 			naporSerie.Enabled = false;
 			naporSerie.YAxisIndex = 4;
+
+			ChartSerieProperties naporPrognozSerie=new ChartSerieProperties();
+			naporPrognozSerie.Color = "255-0-255";
+			naporPrognozSerie.LineWidth = 1;
+			naporPrognozSerie.SerieType = ChartSerieType.line;
+			naporPrognozSerie.Title = "Напор прогноз";
+			naporPrognozSerie.TagName = "NaporPrognoz";
+			naporPrognozSerie.Enabled = false;
+			naporPrognozSerie.YAxisIndex = 4;
 			
 
 			props.addAxis(pAx);
@@ -320,6 +346,7 @@ namespace VotGES.PrognozNB
 			props.addSerie(qPrognozSerie);
 			props.addSerie(vbSerie);
 			props.addSerie(naporSerie);
+			props.addSerie(naporPrognozSerie);
 
 			props.XAxisType = XAxisTypeEnum.datetime;
 

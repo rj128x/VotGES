@@ -215,7 +215,7 @@ namespace VotGES.PrognozNB
 					values[dt].Date = currentDate;
 				}
 				double nb= Prognoz.Prognoz[currentDate];
-				values[dt].Vyrab += Prognoz.PArr[currentDate];
+				values[dt].Vyrab += Prognoz.PArr[currentDate]/2;
 				values[dt].QAvg += Prognoz.Rashods[currentDate];
 				values[dt].NBAvg += nb;
 				values[dt].NBMin = values[dt].NBMin < nb ? values[dt].NBMin : nb;
@@ -273,6 +273,7 @@ namespace VotGES.PrognozNB
 
 			prognoz.Prognoz.Add(datePrognozStart, prognoz.FirstData.Last().Value.NB);
 			prognoz.Rashods.Add(datePrognozStart, prognoz.FirstData.Last().Value.Q);
+			prognoz.Napors.Add(datePrognozStart, prognoz.FirstData.Last().Value.VB - prognoz.FirstData.Last().Value.NB);
 			PrognozAnswer.Chart = getChart();
 		}
 	}
