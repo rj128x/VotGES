@@ -17,7 +17,11 @@ namespace VotGES.Reports
 		public double GA2Q { get; set; }
 		public double GA9Q { get; set; }
 		public double GA10Q { get; set; }
-		
+
+		public RezhimSKReportRecord() {
+			GA1P = 0; GA2P = 0; GA9P = 0; GA10P = 0;
+			GA1Q = 0; GA2Q = 0; GA9Q = 0; GA10Q = 0;
+		}
 	}
 	public class RezhimSKReport : Report
 	{
@@ -27,7 +31,8 @@ namespace VotGES.Reports
 				where
 					d.DATA_DATE > DateStart && d.DATA_DATE <= DateEnd &&
 					d.ITEM == record.Item && d.OBJECT == record.Obj && d.OBJTYPE == record.ObjType &&
-					d.PARNUMBER == 4 select d;
+					d.PARNUMBER == 4 
+				select d;
 			processEntities(dataArr);
 		}
 
@@ -79,5 +84,6 @@ namespace VotGES.Reports
 			record.Date = date;
 			return record;
 		}
+
 	}
 }

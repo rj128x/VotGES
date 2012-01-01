@@ -18,7 +18,7 @@
 			</Grid.RowDefinitions>
 
 			<StackPanel  Grid.Row="0" Grid.Column="0" >
-				<sdk:DataGrid x:Name="availGrid" AutoGenerateColumns="False" ColumnHeaderStyle="{StaticResource CenterHeaderText}"
+				<sdk:DataGrid x:Name="availGrid" AutoGenerateColumns="False" 
                      HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Height="Auto" ItemsSource="{Binding GaAvail, Mode=TwoWay}">
 					<sdk:DataGrid.Columns>
 
@@ -64,7 +64,7 @@
 				<Button Name="btnCalcRUSA" Click="btnCalcRUSA_Click" Content="Расчет РУСА" Margin="0,20,0,0" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 			</StackPanel>
 			<StackPanel Grid.Column="1">
-				<sdk:DataGrid x:Name="resultGrid" AutoGenerateColumns="False" ColumnHeaderStyle="{StaticResource CenterHeaderText}"
+				<sdk:DataGrid x:Name="resultGrid" AutoGenerateColumns="False" 
                      HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Height="Auto" ItemsSource="{Binding Result}">
 					<sdk:DataGrid.Columns>
 						<sdk:DataGridTemplateColumn Header="Расход" Width="100" >

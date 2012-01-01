@@ -20,8 +20,7 @@
 				<RowDefinition Height="1*"/>
 			</Grid.RowDefinitions>
 			<sdk:DataGrid Name="gridBPR" Grid.Column="0" Grid.Row="0" 
-							  ItemsSource="{Binding Path=PBR}" AutoGenerateColumns="False" SelectionMode="Extended"
-							  ColumnHeaderStyle="{StaticResource CenterHeaderText}">
+							  ItemsSource="{Binding Path=PBR}" AutoGenerateColumns="False" SelectionMode="Extended" >
 				<sdk:DataGrid.Columns>
 					<sdk:DataGridTemplateColumn Header="Дата" >
 						<sdk:DataGridTemplateColumn.CellTemplate>

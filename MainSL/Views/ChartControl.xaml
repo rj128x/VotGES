@@ -29,8 +29,7 @@
 					<TextBlock Text="Легенда" Margin="0,0,0,0" 
 								  Padding="0,0,0,0" FontFamily="Comic Sans MS" FontSize="10" HorizontalAlignment="Center"/>
 				</Border>
-				<sdk:DataGrid Name="LegendGrid" AutoGenerateColumns="False" 
-							  ColumnHeaderStyle="{StaticResource CenterHeaderText}" >
+				<sdk:DataGrid Name="LegendGrid" AutoGenerateColumns="False" >
 					<sdk:DataGrid.Columns>
 						<sdk:DataGridTemplateColumn Header="Имя">
 							<sdk:DataGridTemplateColumn.CellTemplate>

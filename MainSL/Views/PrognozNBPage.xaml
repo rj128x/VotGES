@@ -50,7 +50,7 @@
 					<StackPanel>
 						<TextBlock Text="Прогноз"  Style="{StaticResource Label}" HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"/>
 						<sdk:DataGrid Name="LegendGrid" AutoGenerateColumns="False" 
-							  ColumnHeaderStyle="{StaticResource CenterHeaderText}" ItemsSource="{Binding PrognozValues}" 
+							   ItemsSource="{Binding PrognozValues}" 
 								CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False">
 							<sdk:DataGrid.Columns>
 								<sdk:DataGridTemplateColumn Header="Дата">

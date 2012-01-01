@@ -14,6 +14,28 @@ using System.Collections.Generic;
 
 namespace MainSL
 {
+	public class SettingsBase : INotifyPropertyChanged
+	{
+		public event PropertyChangedEventHandler PropertyChanged;
+		public void NotifyChanged(string propName) {
+			if (PropertyChanged != null)
+				PropertyChanged(this, new PropertyChangedEventArgs(propName));
+		}
+
+		protected DateTime date;
+		public DateTime Date {
+			get { return date; }
+			set {
+				date = value;
+				checkDate();
+				NotifyChanged("Date");
+			}
+		}
+
+		protected virtual void checkDate(){
+
+		}
+	}
 	public class GlobalStatus : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;

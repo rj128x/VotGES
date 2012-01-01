@@ -17,7 +17,7 @@ namespace VotGES.Reports
 		public DateTime DateEnd { get; set; }
 		public Piramida3000Entities Model { get; protected set; }
 
-		public SortedList<DateTime, ReportRecord> Values { get; protected set; }
+		public SortedList<DateTime, ReportRecord> Values { get; set; }
 
 		public Report(){
 			Values=new SortedList<DateTime,ReportRecord>();
@@ -49,7 +49,6 @@ namespace VotGES.Reports
 			if (!Values.Keys.Contains(date)) {
 				Values.Add(date, createReportRecord(date));
 			}
-			ReportRecord record=Values[date];
 		}
 
 		protected virtual ReportRecord createReportRecord(DateTime date) {
