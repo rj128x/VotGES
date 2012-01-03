@@ -1106,6 +1106,511 @@ namespace VotGES.PBR
     
     
     /// <summary>
+    /// Класс "CheckGraphVyrabAnswer".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.PBR")]
+    public sealed partial class CheckGraphVyrabAnswer : ComplexObject
+    {
+        
+        private ChartAnswer _chart;
+        
+        private List<CheckGraphVyrabTableRow> _tableH;
+        
+        private List<CheckGraphVyrabTableRow> _tableHH;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnChartChanging(ChartAnswer value);
+        partial void OnChartChanged();
+        partial void OnTableHChanging(List<CheckGraphVyrabTableRow> value);
+        partial void OnTableHChanged();
+        partial void OnTableHHChanging(List<CheckGraphVyrabTableRow> value);
+        partial void OnTableHHChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="CheckGraphVyrabAnswer"/>.
+        /// </summary>
+        public CheckGraphVyrabAnswer()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Chart".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public ChartAnswer Chart
+        {
+            get
+            {
+                return this._chart;
+            }
+            set
+            {
+                if ((this._chart != value))
+                {
+                    this.OnChartChanging(value);
+                    this.RaiseDataMemberChanging("Chart");
+                    this.ValidateProperty("Chart", value);
+                    this._chart = value;
+                    this.RaiseDataMemberChanged("Chart");
+                    this.OnChartChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "TableH".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<CheckGraphVyrabTableRow> TableH
+        {
+            get
+            {
+                return this._tableH;
+            }
+            set
+            {
+                if ((this._tableH != value))
+                {
+                    this.OnTableHChanging(value);
+                    this.RaiseDataMemberChanging("TableH");
+                    this.ValidateProperty("TableH", value);
+                    this._tableH = value;
+                    this.RaiseDataMemberChanged("TableH");
+                    this.OnTableHChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "TableHH".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<CheckGraphVyrabTableRow> TableHH
+        {
+            get
+            {
+                return this._tableHH;
+            }
+            set
+            {
+                if ((this._tableHH != value))
+                {
+                    this.OnTableHHChanging(value);
+                    this.RaiseDataMemberChanging("TableHH");
+                    this.ValidateProperty("TableHH", value);
+                    this._tableHH = value;
+                    this.RaiseDataMemberChanged("TableHH");
+                    this.OnTableHHChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Класс "CheckGraphVyrabTableRow".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.PBR")]
+    public sealed partial class CheckGraphVyrabTableRow : ComplexObject
+    {
+        
+        private double _gesDiff;
+        
+        private double _gesDiffProc;
+        
+        private double _gesFakt;
+        
+        private double _gesPlan;
+        
+        private double _gtp1Diff;
+        
+        private double _gtp1DiffProc;
+        
+        private double _gtp1Fakt;
+        
+        private double _gtp1Plan;
+        
+        private double _gtp2Diff;
+        
+        private double _gtp2DiffProc;
+        
+        private double _gtp2Fakt;
+        
+        private double _gtp2Plan;
+        
+        private string _title;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnGESDiffChanging(double value);
+        partial void OnGESDiffChanged();
+        partial void OnGESDiffProcChanging(double value);
+        partial void OnGESDiffProcChanged();
+        partial void OnGESFaktChanging(double value);
+        partial void OnGESFaktChanged();
+        partial void OnGESPlanChanging(double value);
+        partial void OnGESPlanChanged();
+        partial void OnGTP1DiffChanging(double value);
+        partial void OnGTP1DiffChanged();
+        partial void OnGTP1DiffProcChanging(double value);
+        partial void OnGTP1DiffProcChanged();
+        partial void OnGTP1FaktChanging(double value);
+        partial void OnGTP1FaktChanged();
+        partial void OnGTP1PlanChanging(double value);
+        partial void OnGTP1PlanChanged();
+        partial void OnGTP2DiffChanging(double value);
+        partial void OnGTP2DiffChanged();
+        partial void OnGTP2DiffProcChanging(double value);
+        partial void OnGTP2DiffProcChanged();
+        partial void OnGTP2FaktChanging(double value);
+        partial void OnGTP2FaktChanged();
+        partial void OnGTP2PlanChanging(double value);
+        partial void OnGTP2PlanChanged();
+        partial void OnTitleChanging(string value);
+        partial void OnTitleChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="CheckGraphVyrabTableRow"/>.
+        /// </summary>
+        public CheckGraphVyrabTableRow()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GESDiff".
+        /// </summary>
+        [DataMember()]
+        public double GESDiff
+        {
+            get
+            {
+                return this._gesDiff;
+            }
+            set
+            {
+                if ((this._gesDiff != value))
+                {
+                    this.OnGESDiffChanging(value);
+                    this.RaiseDataMemberChanging("GESDiff");
+                    this.ValidateProperty("GESDiff", value);
+                    this._gesDiff = value;
+                    this.RaiseDataMemberChanged("GESDiff");
+                    this.OnGESDiffChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GESDiffProc".
+        /// </summary>
+        [DataMember()]
+        public double GESDiffProc
+        {
+            get
+            {
+                return this._gesDiffProc;
+            }
+            set
+            {
+                if ((this._gesDiffProc != value))
+                {
+                    this.OnGESDiffProcChanging(value);
+                    this.RaiseDataMemberChanging("GESDiffProc");
+                    this.ValidateProperty("GESDiffProc", value);
+                    this._gesDiffProc = value;
+                    this.RaiseDataMemberChanged("GESDiffProc");
+                    this.OnGESDiffProcChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GESFakt".
+        /// </summary>
+        [DataMember()]
+        public double GESFakt
+        {
+            get
+            {
+                return this._gesFakt;
+            }
+            set
+            {
+                if ((this._gesFakt != value))
+                {
+                    this.OnGESFaktChanging(value);
+                    this.RaiseDataMemberChanging("GESFakt");
+                    this.ValidateProperty("GESFakt", value);
+                    this._gesFakt = value;
+                    this.RaiseDataMemberChanged("GESFakt");
+                    this.OnGESFaktChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GESPlan".
+        /// </summary>
+        [DataMember()]
+        public double GESPlan
+        {
+            get
+            {
+                return this._gesPlan;
+            }
+            set
+            {
+                if ((this._gesPlan != value))
+                {
+                    this.OnGESPlanChanging(value);
+                    this.RaiseDataMemberChanging("GESPlan");
+                    this.ValidateProperty("GESPlan", value);
+                    this._gesPlan = value;
+                    this.RaiseDataMemberChanged("GESPlan");
+                    this.OnGESPlanChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GTP1Diff".
+        /// </summary>
+        [DataMember()]
+        public double GTP1Diff
+        {
+            get
+            {
+                return this._gtp1Diff;
+            }
+            set
+            {
+                if ((this._gtp1Diff != value))
+                {
+                    this.OnGTP1DiffChanging(value);
+                    this.RaiseDataMemberChanging("GTP1Diff");
+                    this.ValidateProperty("GTP1Diff", value);
+                    this._gtp1Diff = value;
+                    this.RaiseDataMemberChanged("GTP1Diff");
+                    this.OnGTP1DiffChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GTP1DiffProc".
+        /// </summary>
+        [DataMember()]
+        public double GTP1DiffProc
+        {
+            get
+            {
+                return this._gtp1DiffProc;
+            }
+            set
+            {
+                if ((this._gtp1DiffProc != value))
+                {
+                    this.OnGTP1DiffProcChanging(value);
+                    this.RaiseDataMemberChanging("GTP1DiffProc");
+                    this.ValidateProperty("GTP1DiffProc", value);
+                    this._gtp1DiffProc = value;
+                    this.RaiseDataMemberChanged("GTP1DiffProc");
+                    this.OnGTP1DiffProcChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GTP1Fakt".
+        /// </summary>
+        [DataMember()]
+        public double GTP1Fakt
+        {
+            get
+            {
+                return this._gtp1Fakt;
+            }
+            set
+            {
+                if ((this._gtp1Fakt != value))
+                {
+                    this.OnGTP1FaktChanging(value);
+                    this.RaiseDataMemberChanging("GTP1Fakt");
+                    this.ValidateProperty("GTP1Fakt", value);
+                    this._gtp1Fakt = value;
+                    this.RaiseDataMemberChanged("GTP1Fakt");
+                    this.OnGTP1FaktChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GTP1Plan".
+        /// </summary>
+        [DataMember()]
+        public double GTP1Plan
+        {
+            get
+            {
+                return this._gtp1Plan;
+            }
+            set
+            {
+                if ((this._gtp1Plan != value))
+                {
+                    this.OnGTP1PlanChanging(value);
+                    this.RaiseDataMemberChanging("GTP1Plan");
+                    this.ValidateProperty("GTP1Plan", value);
+                    this._gtp1Plan = value;
+                    this.RaiseDataMemberChanged("GTP1Plan");
+                    this.OnGTP1PlanChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GTP2Diff".
+        /// </summary>
+        [DataMember()]
+        public double GTP2Diff
+        {
+            get
+            {
+                return this._gtp2Diff;
+            }
+            set
+            {
+                if ((this._gtp2Diff != value))
+                {
+                    this.OnGTP2DiffChanging(value);
+                    this.RaiseDataMemberChanging("GTP2Diff");
+                    this.ValidateProperty("GTP2Diff", value);
+                    this._gtp2Diff = value;
+                    this.RaiseDataMemberChanged("GTP2Diff");
+                    this.OnGTP2DiffChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GTP2DiffProc".
+        /// </summary>
+        [DataMember()]
+        public double GTP2DiffProc
+        {
+            get
+            {
+                return this._gtp2DiffProc;
+            }
+            set
+            {
+                if ((this._gtp2DiffProc != value))
+                {
+                    this.OnGTP2DiffProcChanging(value);
+                    this.RaiseDataMemberChanging("GTP2DiffProc");
+                    this.ValidateProperty("GTP2DiffProc", value);
+                    this._gtp2DiffProc = value;
+                    this.RaiseDataMemberChanged("GTP2DiffProc");
+                    this.OnGTP2DiffProcChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GTP2Fakt".
+        /// </summary>
+        [DataMember()]
+        public double GTP2Fakt
+        {
+            get
+            {
+                return this._gtp2Fakt;
+            }
+            set
+            {
+                if ((this._gtp2Fakt != value))
+                {
+                    this.OnGTP2FaktChanging(value);
+                    this.RaiseDataMemberChanging("GTP2Fakt");
+                    this.ValidateProperty("GTP2Fakt", value);
+                    this._gtp2Fakt = value;
+                    this.RaiseDataMemberChanged("GTP2Fakt");
+                    this.OnGTP2FaktChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GTP2Plan".
+        /// </summary>
+        [DataMember()]
+        public double GTP2Plan
+        {
+            get
+            {
+                return this._gtp2Plan;
+            }
+            set
+            {
+                if ((this._gtp2Plan != value))
+                {
+                    this.OnGTP2PlanChanging(value);
+                    this.RaiseDataMemberChanging("GTP2Plan");
+                    this.ValidateProperty("GTP2Plan", value);
+                    this._gtp2Plan = value;
+                    this.RaiseDataMemberChanged("GTP2Plan");
+                    this.OnGTP2PlanChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Title".
+        /// </summary>
+        [DataMember()]
+        public string Title
+        {
+            get
+            {
+                return this._title;
+            }
+            set
+            {
+                if ((this._title != value))
+                {
+                    this.OnTitleChanging(value);
+                    this.RaiseDataMemberChanging("Title");
+                    this.ValidateProperty("Title", value);
+                    this._title = value;
+                    this.RaiseDataMemberChanged("Title");
+                    this.OnTitleChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
     /// Класс "GraphVyrabAnswer".
     /// </summary>
     [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.PBR")]
@@ -3002,25 +3507,81 @@ namespace VotGES.Web.Services
         }
         
         /// <summary>
-        /// Асинхронно вызывает метод "getGraphVyrad" службы DomainService.
+        /// Асинхронно вызывает метод "getGraphVyrab" службы DomainService.
         /// </summary>
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
         /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<GraphVyrabAnswer> getGraphVyrad(Action<InvokeOperation<GraphVyrabAnswer>> callback, object userState)
+        public InvokeOperation<GraphVyrabAnswer> getGraphVyrab(Action<InvokeOperation<GraphVyrabAnswer>> callback, object userState)
         {
-            this.ValidateMethod("getGraphVyrad", null);
-            return ((InvokeOperation<GraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrad", typeof(GraphVyrabAnswer), null, true, callback, userState)));
+            this.ValidateMethod("getGraphVyrab", null);
+            return ((InvokeOperation<GraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrab", typeof(GraphVyrabAnswer), null, true, callback, userState)));
         }
         
         /// <summary>
-        /// Асинхронно вызывает метод "getGraphVyrad" службы DomainService.
+        /// Асинхронно вызывает метод "getGraphVyrab" службы DomainService.
         /// </summary>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<GraphVyrabAnswer> getGraphVyrad()
+        public InvokeOperation<GraphVyrabAnswer> getGraphVyrab()
         {
-            this.ValidateMethod("getGraphVyrad", null);
-            return ((InvokeOperation<GraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrad", typeof(GraphVyrabAnswer), null, true, null, null)));
+            this.ValidateMethod("getGraphVyrab", null);
+            return ((InvokeOperation<GraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrab", typeof(GraphVyrabAnswer), null, true, null, null)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getGraphVyrabHH" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<CheckGraphVyrabAnswer> getGraphVyrabHH(DateTime date, Action<InvokeOperation<CheckGraphVyrabAnswer>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            this.ValidateMethod("getGraphVyrabHH", parameters);
+            return ((InvokeOperation<CheckGraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrabHH", typeof(CheckGraphVyrabAnswer), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getGraphVyrabHH" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<CheckGraphVyrabAnswer> getGraphVyrabHH(DateTime date)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            this.ValidateMethod("getGraphVyrabHH", parameters);
+            return ((InvokeOperation<CheckGraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrabHH", typeof(CheckGraphVyrabAnswer), parameters, true, null, null)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getGraphVyrabMin" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<GraphVyrabAnswer> getGraphVyrabMin(DateTime date, Action<InvokeOperation<GraphVyrabAnswer>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            this.ValidateMethod("getGraphVyrabMin", parameters);
+            return ((InvokeOperation<GraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrabMin", typeof(GraphVyrabAnswer), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getGraphVyrabMin" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<GraphVyrabAnswer> getGraphVyrabMin(DateTime date)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            this.ValidateMethod("getGraphVyrabMin", parameters);
+            return ((InvokeOperation<GraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrabMin", typeof(GraphVyrabAnswer), parameters, true, null, null)));
         }
         
         /// <summary>
@@ -3040,21 +3601,57 @@ namespace VotGES.Web.Services
         {
             
             /// <summary>
-            /// Асинхронно вызывает операцию "getGraphVyrad".
+            /// Асинхронно вызывает операцию "getGraphVyrab".
             /// </summary>
             /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
             /// <param name="asyncState">Необязательный объект состояния.</param>
             /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
-            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyradDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrad", ReplyAction="http://tempuri.org/GraphVyrabDomainService/getGraphVyradResponse")]
-            IAsyncResult BegingetGraphVyrad(AsyncCallback callback, object asyncState);
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrab", ReplyAction="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabResponse")]
+            IAsyncResult BegingetGraphVyrab(AsyncCallback callback, object asyncState);
             
             /// <summary>
-            /// Завершает асинхронную операцию, начатую "BegingetGraphVyrad".
+            /// Завершает асинхронную операцию, начатую "BegingetGraphVyrab".
             /// </summary>
-            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegingetGraphVyrad".</param>
-            /// <returns>Объект "GraphVyrabAnswer", возвращенный из операции "getGraphVyrad".</returns>
-            GraphVyrabAnswer EndgetGraphVyrad(IAsyncResult result);
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegingetGraphVyrab".</param>
+            /// <returns>Объект "GraphVyrabAnswer", возвращенный из операции "getGraphVyrab".</returns>
+            GraphVyrabAnswer EndgetGraphVyrab(IAsyncResult result);
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "getGraphVyrabHH".
+            /// </summary>
+            /// <param name="date">Значение параметра "date" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabHHDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabHH", ReplyAction="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabHHResponse")]
+            IAsyncResult BegingetGraphVyrabHH(DateTime date, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BegingetGraphVyrabHH".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegingetGraphVyrabHH".</param>
+            /// <returns>Объект "CheckGraphVyrabAnswer", возвращенный из операции "getGraphVyrabHH".</returns>
+            CheckGraphVyrabAnswer EndgetGraphVyrabHH(IAsyncResult result);
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "getGraphVyrabMin".
+            /// </summary>
+            /// <param name="date">Значение параметра "date" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabMinDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabMin", ReplyAction="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabMinResponse")]
+            IAsyncResult BegingetGraphVyrabMin(DateTime date, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BegingetGraphVyrabMin".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegingetGraphVyrabMin".</param>
+            /// <returns>Объект "GraphVyrabAnswer", возвращенный из операции "getGraphVyrabMin".</returns>
+            GraphVyrabAnswer EndgetGraphVyrabMin(IAsyncResult result);
         }
         
         internal sealed class GraphVyrabDomainContextEntityContainer : EntityContainer

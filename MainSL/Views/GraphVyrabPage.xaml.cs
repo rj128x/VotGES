@@ -14,28 +14,73 @@ using VotGES.Web.Services;
 using System.ServiceModel.DomainServices.Client;
 using VotGES.Chart;
 using VotGES.PBR;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace MainSL.Views
 {
+	public class SettingsGraphVyab : SettingsBase
+	{
+		private int second;
+
+		public int Second {
+			get { return second; }
+			set { 
+				second = value;
+				second = second < 0 ? 30 : second;
+				NotifyChanged("Second");
+			}
+		}
+
+		private bool autoRefresh;
+		public bool AutoRefresh {
+			get { return autoRefresh; }
+			set { 
+				autoRefresh = value;
+				NotifyChanged("AutoRefresh");
+			}
+		}
+	}
 	public partial class GraphVyrabPage : Page
 	{
+		DispatcherTimer timer;
 		public GraphVyrabAnswer CurrentAnswer { get; set; }
 		public GraphVyrabDomainContext context;
+		public SettingsGraphVyab settings;
 
 		public GraphVyrabPage() {
 			InitializeComponent();
 			CurrentAnswer = new GraphVyrabAnswer();
 			context = new GraphVyrabDomainContext();
 			pnlSettings.DataContext = CurrentAnswer;
+			settings = new SettingsGraphVyab();
+			settings.Second = 30;
+			settings.AutoRefresh = true;
+			pnlRefresh.DataContext = settings;
+			timer = new DispatcherTimer();
+			timer.Tick += new EventHandler(timer_Tick);
+			timer.Interval = new TimeSpan(0, 0, 1);
+			timer.Start();
+		}
+
+		void timer_Tick(object sender, EventArgs e) {
+			if (!GlobalStatus.Current.IsBusy && settings.AutoRefresh) {
+				settings.Second--;
+				if (settings.Second == 0 ) {
+					refresh();
+				}
+			}
+			
 		}
 
 		// Выполняется, когда пользователь переходит на эту страницу.
 		protected override void OnNavigatedTo(NavigationEventArgs e) {
-			refresh();
+			refresh();			
 		}
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e) {
 			GlobalStatus.Current.StopLoad();
+			
 		}
 
 		private void btnRefresh_Click(object sender, RoutedEventArgs e) {
@@ -45,7 +90,7 @@ namespace MainSL.Views
 		private void refresh() {
 			if (GlobalStatus.Current.IsBusy)
 				return;
-			InvokeOperation currentOper=context.getGraphVyrad(
+			InvokeOperation currentOper=context.getGraphVyrab(
 				oper => {
 					if (oper.IsCanceled) {
 						return;

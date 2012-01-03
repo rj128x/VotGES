@@ -49,9 +49,43 @@ namespace VotGES.PBR
 		}
 	}
 
+	public class CheckGraphVyrabTableRow
+	{
+		public double GTP1Fakt { get; set; }
+		public double GTP2Fakt { get; set; }
+		public double GESFakt { get; set; }
+
+		public double GTP1Plan { get; set; }
+		public double GTP2Plan { get; set; }
+		public double GESPlan { get; set; }
+
+		public double GTP1Diff { get; set; }
+		public double GTP2Diff { get; set; }
+		public double GESDiff { get; set; }
+
+		public double GTP1DiffProc { get; set; }
+		public double GTP2DiffProc { get; set; }
+		public double GESDiffProc { get; set; }
+
+		public string Title { get; set; }
+	}
+
+	public class CheckGraphVyrabAnswer
+	{
+		public ChartAnswer Chart { get; set; }
+		public List<CheckGraphVyrabTableRow> TableHH { get; set; }
+		public List<CheckGraphVyrabTableRow> TableH { get; set; }
+
+		public CheckGraphVyrabAnswer() {
+			TableHH = new List<CheckGraphVyrabTableRow>();
+			TableH = new List<CheckGraphVyrabTableRow>();
+		}
+	}
+
+
 	public class GraphVyrab
 	{
-		public static GraphVyrabAnswer getAnswer(DateTime date) {
+		public static GraphVyrabAnswer getAnswer(DateTime date, bool calcTables=true) {
 			DateTime dateStart=date.Date;
 			DateTime dateEnd=date.Date.AddHours(24);
 
@@ -78,21 +112,24 @@ namespace VotGES.PBR
 			answer.VyrabDiffProc = PBRData.getDiffProc(ges.IntegratedP[lastDate], ges.IntegratedPBR[lastDate]);
 
 
-			answer.TableCurrent.Add(new GraphVyrabTableRow("P план", gtp1.MinutesPBR[lastDate], gtp2.MinutesPBR[lastDate], ges.MinutesPBR[lastDate], "###"));
-			answer.TableCurrent.Add(new GraphVyrabTableRow("P факт", gtp1.RealP[lastDate], gtp2.RealP[lastDate], ges.RealP[lastDate], "###"));
-			answer.TableCurrent.Add(new GraphVyrabTableRow("P откл", gtp1.getDiff(date), gtp1.getDiff(date), gtp2.getDiff(date), "###"));
-			answer.TableCurrent.Add(new GraphVyrabTableRow("P откл %", gtp1.getDiffProc(date), gtp1.getDiffProc(date), gtp2.getDiffProc(date), "#0.##"));
+			if (calcTables) {
+				answer.TableCurrent.Add(new GraphVyrabTableRow("P план", gtp1.MinutesPBR[lastDate], gtp2.MinutesPBR[lastDate], ges.MinutesPBR[lastDate], "###"));
+				answer.TableCurrent.Add(new GraphVyrabTableRow("P факт", gtp1.RealP[lastDate], gtp2.RealP[lastDate], ges.RealP[lastDate], "###"));
+				answer.TableCurrent.Add(new GraphVyrabTableRow("P откл", gtp1.getDiff(date), gtp1.getDiff(date), gtp2.getDiff(date), "###"));
+				answer.TableCurrent.Add(new GraphVyrabTableRow("P откл %", gtp1.getDiffProc(date), gtp1.getDiffProc(date), gtp2.getDiffProc(date), "#0.##"));
 
 
-			SortedList<string,double> gtp1Hour=gtp1.getHourVals(lastDate);
-			SortedList<string,double> gtp2Hour=gtp2.getHourVals(lastDate);
-			SortedList<string,double> gesHour=ges.getHourVals(lastDate);
+				SortedList<string,double> gtp1Hour=gtp1.getHourVals(lastDate);
+				SortedList<string,double> gtp2Hour=gtp2.getHourVals(lastDate);
+				SortedList<string,double> gesHour=ges.getHourVals(lastDate);
 
-			answer.TableHour.Add(new GraphVyrabTableRow("P план", gtp1Hour["plan"], gtp1Hour["plan"], gesHour["plan"], "###"));
-			answer.TableHour.Add(new GraphVyrabTableRow("P факт", gtp1Hour["fakt"], gtp2Hour["fakt"], gesHour["fakt"], "###"));
-			answer.TableHour.Add(new GraphVyrabTableRow("P откл", gtp1Hour["diff"], gtp2Hour["diff"], gesHour["diff"], "###"));
-			answer.TableHour.Add(new GraphVyrabTableRow("P откл %", gtp1Hour["diffProc"], gtp2Hour["diffProc"], gesHour["diffProc"], "##0.##"));
-			answer.TableHour.Add(new GraphVyrabTableRow("P рек", gtp1Hour["recP"], gtp2Hour["recP"], gesHour["recP"], "###"));
+				answer.TableHour.Add(new GraphVyrabTableRow("P план", gtp1Hour["plan"], gtp1Hour["plan"], gesHour["plan"], "###"));
+				answer.TableHour.Add(new GraphVyrabTableRow("P факт", gtp1Hour["fakt"], gtp2Hour["fakt"], gesHour["fakt"], "###"));
+				answer.TableHour.Add(new GraphVyrabTableRow("P откл", gtp1Hour["diff"], gtp2Hour["diff"], gesHour["diff"], "###"));
+				answer.TableHour.Add(new GraphVyrabTableRow("P откл %", gtp1Hour["diffProc"], gtp2Hour["diffProc"], gesHour["diffProc"], "##0.##"));
+				answer.TableHour.Add(new GraphVyrabTableRow("P рек", gtp1Hour["recP"], gtp2Hour["recP"], gesHour["recP"], "###"));
+			}
+
 
 			answer.Chart.Data.addSerie(getDataSerie("gtp1Fakt",gtp1.RealP,-1));
 			answer.Chart.Data.addSerie(getDataSerie("gtp2Fakt", gtp2.RealP,-1));
@@ -107,7 +144,85 @@ namespace VotGES.PBR
 			return answer;
 		}
 
-		
+		public static CheckGraphVyrabAnswer getAnswerHH(DateTime date) {
+			DateTime dateStart=date.Date;
+			DateTime dateEnd=date.Date.AddHours(24);
+
+			CheckGraphVyrabAnswer answer=new CheckGraphVyrabAnswer();
+
+
+			PBRDataHH ges=new PBRDataHH(dateStart, dateEnd,  0);
+			PBRDataHH gtp1=new PBRDataHH(dateStart, dateEnd,  1);
+			PBRDataHH gtp2=new PBRDataHH(dateStart, dateEnd,  2);
+
+			answer.Chart = new ChartAnswer();
+			answer.Chart.Properties = getChartProperties();
+			answer.Chart.Data = new ChartData();
+
+			gtp1.InitData();
+			gtp2.InitData();
+			ges.InitData();
+
+			foreach (DateTime dt in ges.HalfHoursPBR.Keys) {
+				CheckGraphVyrabTableRow row=new CheckGraphVyrabTableRow();
+
+				row.Title = dt.ToString("dd.MM.yy HH:mm");
+				row.GESFakt = ges.HalfHoursP[dt];
+				row.GESPlan = ges.HalfHoursPBR[dt];
+				row.GESDiff = ges.HalfHoursPBR[dt] - ges.HalfHoursP[dt];
+				row.GESDiffProc = PBRData.getDiffProc(ges.HalfHoursP[dt], ges.HalfHoursPBR[dt]);
+
+				row.GTP1Fakt = gtp1.HalfHoursP[dt];
+				row.GTP1Plan = gtp1.HalfHoursPBR[dt];
+				row.GTP1Diff = gtp1.HalfHoursPBR[dt] - gtp1.HalfHoursP[dt];
+				row.GTP1DiffProc = PBRData.getDiffProc(gtp1.HalfHoursP[dt], gtp1.HalfHoursPBR[dt]);
+
+				row.GTP2Fakt = gtp2.HalfHoursP[dt];
+				row.GTP2Plan = gtp2.HalfHoursPBR[dt];
+				row.GTP2Diff = gtp2.HalfHoursPBR[dt] - gtp2.HalfHoursP[dt];
+				row.GTP2DiffProc = PBRData.getDiffProc(gtp2.HalfHoursP[dt], gtp2.HalfHoursPBR[dt]);
+
+				answer.TableHH.Add(row);				
+			}
+
+
+			foreach (DateTime dt in ges.HoursPBR.Keys) {
+				CheckGraphVyrabTableRow row=new CheckGraphVyrabTableRow();
+				row.Title = dt.ToString("dd.MM.yy HH:mm");
+				row.GESFakt = ges.HoursP[dt];
+				row.GESPlan = ges.HoursPBR[dt];
+				row.GESDiff = ges.HoursPBR[dt] - ges.HoursP[dt];
+				row.GESDiffProc = PBRData.getDiffProc(ges.HoursP[dt], ges.HoursPBR[dt]);
+
+				row.GTP1Fakt = gtp1.HoursP[dt];
+				row.GTP1Plan = gtp1.HoursPBR[dt];
+				row.GTP1Diff = gtp1.HoursPBR[dt] - gtp1.HoursP[dt];
+				row.GTP1DiffProc = PBRData.getDiffProc(gtp1.HoursP[dt], gtp1.HoursPBR[dt]);
+
+				row.GTP2Fakt = gtp2.HoursP[dt];
+				row.GTP2Plan = gtp2.HoursPBR[dt];
+				row.GTP2Diff = gtp2.HoursPBR[dt] - gtp2.HoursP[dt];
+				row.GTP2DiffProc = PBRData.getDiffProc(gtp2.HoursP[dt], gtp2.HoursPBR[dt]);
+
+				answer.TableH.Add(row);
+			}
+			
+
+			answer.Chart.Data.addSerie(getDataSerie("gtp1Fakt", gtp1.HalfHoursP, -30));
+			answer.Chart.Data.addSerie(getDataSerie("gtp2Fakt", gtp2.HalfHoursP, -30));
+			answer.Chart.Data.addSerie(getDataSerie("gesFakt", ges.HalfHoursP, -30));
+			answer.Chart.Data.addSerie(getDataSerie("gtp1Plan", gtp1.HalfHoursPBR, -30));
+			answer.Chart.Data.addSerie(getDataSerie("gtp2Plan", gtp2.HalfHoursPBR, -30));
+			answer.Chart.Data.addSerie(getDataSerie("gesPlan", ges.HalfHoursPBR, -30));
+
+			answer.Chart.Properties.removeSerie("vyrabFakt");
+			answer.Chart.Properties.removeSerie("vyrabPlan");
+			return answer;
+		}
+
+
+
+					
 
 		public static ChartDataSerie getDataSerie(string serieName, SortedList<DateTime, double> data, int correctTime) {
 			ChartDataSerie serie=new ChartDataSerie();

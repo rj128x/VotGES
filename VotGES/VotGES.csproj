@@ -65,6 +65,7 @@
     <Compile Include="NNET\NNET.cs" />
     <Compile Include="PBR\GraphVyrab.cs" />
     <Compile Include="PBR\PBRData.cs" />
+    <Compile Include="PBR\PBRDataHH.cs" />
     <Compile Include="Piramida\Piramida3000.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

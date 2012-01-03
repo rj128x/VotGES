@@ -7,8 +7,8 @@
            xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation"
 			  xmlns:usr="clr-namespace:MainSL.Views" 
            d:DesignWidth="640" d:DesignHeight="480"
-           Title="GraphVyrabPage Page">
-    <Grid x:Name="LayoutRoot">
+           Title="График нагрузки">
+	<Grid x:Name="LayoutRoot">
 		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*"/>
@@ -17,9 +17,6 @@
 			<usr:ChartControl x:Name="chartControl" VerticalAlignment="Stretch"/>
 			<TextBlock Name="txtActualDate" Text="График нагрузки" FontSize="18" FontStyle="Italic" FontWeight="ExtraBold"
 						  HorizontalAlignment="Center" VerticalAlignment="Top"/>
-			<Button Name="btnRefresh" Content="Обновить сейчас" Click="btnRefresh_Click" 
-					  HorizontalAlignment="Left" VerticalAlignment="Bottom"
-					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }"/>
 			<Grid x:Name="pnlSettings" Grid.Column="1">
 				<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
 					<TextBlock Text="Мгновенные значения" Style="{StaticResource Label}" FontSize="12"/>
@@ -108,8 +105,21 @@
 							</StackPanel>
 						</StackPanel>
 					</Border>
+					<Border Style="{StaticResource borderGray}" Margin="0,10,0,0" Name="pnlRefresh">
+						<StackPanel>
+							<CheckBox Content="Обновлять автоматически" Style="{StaticResource LabelChb}" HorizontalAlignment="Right"
+										 IsChecked="{Binding AutoRefresh, Mode=TwoWay}" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }"/>
+							<StackPanel Orientation="Horizontal" Visibility="{Binding AutoRefresh, Converter={StaticResource visibilityConverter}}">
+								<TextBlock Text="Обновление через " Style="{StaticResource Label}"/>
+								<TextBlock Text="{Binding Second}" Style="{StaticResource Value}"/>
+								<TextBlock Text=" секунд" Style="{StaticResource Label}"/>
+							</StackPanel>
+							<Button Name="btnRefresh" Content="Обновить сейчас" Click="btnRefresh_Click" 
+									  HorizontalAlignment="Stretch" VerticalAlignment="Top" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
+						</StackPanel>
+					</Border>
 				</StackPanel>
 			</Grid>
 		</Grid>
-    </Grid>
+	</Grid>
 </navigation:Page>

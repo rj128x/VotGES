@@ -38,6 +38,10 @@
 
 			<Border x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
 				<StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
+					<Rectangle x:Name="Divider7" Style="{StaticResource DividerStyle}"/>
+					<HyperlinkButton x:Name="Link7" Style="{StaticResource LinkStyle}" 
+                                     NavigateUri="/CheckGraphVyrabPage" TargetName="ContentFrame" Content="Факт нагрузка"/>
+					
 					<Rectangle x:Name="Divider6" Style="{StaticResource DividerStyle}"/>
 					<HyperlinkButton x:Name="Link6" Style="{StaticResource LinkStyle}" 
                                      NavigateUri="/GraphVyrabPage" TargetName="ContentFrame" Content="График нагрузки"/>
