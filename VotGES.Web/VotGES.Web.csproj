@@ -107,6 +107,7 @@
     <Compile Include="Models\RUSAData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationDomainService.cs" />
+    <Compile Include="Services\GraphVyrabDomainService.cs" />
     <Compile Include="Services\PrognozNBService.cs" />
     <Compile Include="Services\LoggerService.cs" />
     <Compile Include="Services\RezhimSKDomainService.cs" />

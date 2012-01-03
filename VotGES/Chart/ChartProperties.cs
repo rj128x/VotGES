@@ -61,6 +61,7 @@ namespace VotGES.Chart
 			SeriesNames = new Dictionary<string, int>();
 			AxesNumbers = new Dictionary<int, int>();
 			XValueFormatString = "dd.MM HH:mm";
+			XAxisType = XAxisTypeEnum.datetime;
 		}
 
 		public static ChartProperties fromXML(string fileName) {

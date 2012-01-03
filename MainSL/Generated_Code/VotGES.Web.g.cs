@@ -1091,6 +1091,104 @@ namespace VotGES.Chart
         datetime = 1,
     }
 }
+namespace VotGES.PBR
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Runtime.Serialization;
+    using System.ServiceModel.DomainServices;
+    using System.ServiceModel.DomainServices.Client;
+    using System.ServiceModel.DomainServices.Client.ApplicationServices;
+    using VotGES.Chart;
+    
+    
+    /// <summary>
+    /// Класс "GraphVyrabAnswer".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.PBR")]
+    public sealed partial class GraphVyrabAnswer : ComplexObject
+    {
+        
+        private DateTime _actualDate;
+        
+        private ChartAnswer _chart;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnActualDateChanging(DateTime value);
+        partial void OnActualDateChanged();
+        partial void OnChartChanging(ChartAnswer value);
+        partial void OnChartChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="GraphVyrabAnswer"/>.
+        /// </summary>
+        public GraphVyrabAnswer()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "ActualDate".
+        /// </summary>
+        [DataMember()]
+        public DateTime ActualDate
+        {
+            get
+            {
+                return this._actualDate;
+            }
+            set
+            {
+                if ((this._actualDate != value))
+                {
+                    this.OnActualDateChanging(value);
+                    this.RaiseDataMemberChanging("ActualDate");
+                    this.ValidateProperty("ActualDate", value);
+                    this._actualDate = value;
+                    this.RaiseDataMemberChanged("ActualDate");
+                    this.OnActualDateChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Chart".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public ChartAnswer Chart
+        {
+            get
+            {
+                return this._chart;
+            }
+            set
+            {
+                if ((this._chart != value))
+                {
+                    this.OnChartChanging(value);
+                    this.RaiseDataMemberChanging("Chart");
+                    this.ValidateProperty("Chart", value);
+                    this._chart = value;
+                    this.RaiseDataMemberChanged("Chart");
+                    this.OnChartChanged();
+                }
+            }
+        }
+    }
+}
 namespace VotGES.PrognozNB
 {
     using System;
@@ -2265,6 +2363,7 @@ namespace VotGES.Web.Services
     using System.ServiceModel.DomainServices.Client.ApplicationServices;
     using System.ServiceModel.Web;
     using VotGES.Chart;
+    using VotGES.PBR;
     using VotGES.PrognozNB;
     using VotGES.Reports;
     using VotGES.Web.Models;
@@ -2461,6 +2560,115 @@ namespace VotGES.Web.Services
             public AuthenticationDomainContextEntityContainer()
             {
                 this.CreateEntitySet<User>(EntitySetOperations.Edit);
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Контекст DomainContext, соответствующий службе "GraphVyrabDomainService" DomainService.
+    /// </summary>
+    public sealed partial class GraphVyrabDomainContext : DomainContext
+    {
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="GraphVyrabDomainContext"/>.
+        /// </summary>
+        public GraphVyrabDomainContext() : 
+                this(new WebDomainClient<IGraphVyrabDomainServiceContract>(new Uri("VotGES-Web-Services-GraphVyrabDomainService.svc", UriKind.Relative)))
+        {
+        }
+        
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="GraphVyrabDomainContext"/> с указанным URI службы.
+        /// </summary>
+        /// <param name="serviceUri">Идентификатор URI службы GraphVyrabDomainService.</param>
+        public GraphVyrabDomainContext(Uri serviceUri) : 
+                this(new WebDomainClient<IGraphVyrabDomainServiceContract>(serviceUri))
+        {
+        }
+        
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="GraphVyrabDomainContext"/> с указанным параметром <paramref name="domainClient"/>.
+        /// </summary>
+        /// <param name="domainClient">Экземпляр DomainClient для использования в этом контексте DomainContext.</param>
+        public GraphVyrabDomainContext(DomainClient domainClient) : 
+                base(domainClient)
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getGraphVyrad" службы DomainService.
+        /// </summary>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<GraphVyrabAnswer> getGraphVyrad(Action<InvokeOperation<GraphVyrabAnswer>> callback, object userState)
+        {
+            this.ValidateMethod("getGraphVyrad", null);
+            return ((InvokeOperation<GraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrad", typeof(GraphVyrabAnswer), null, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getGraphVyrad" службы DomainService.
+        /// </summary>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<GraphVyrabAnswer> getGraphVyrad()
+        {
+            this.ValidateMethod("getGraphVyrad", null);
+            return ((InvokeOperation<GraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrad", typeof(GraphVyrabAnswer), null, true, null, null)));
+        }
+        
+        /// <summary>
+        /// Создает новый объект EntityContainer для наборов сущностей EntitySets данного контекста DomainContext.
+        /// </summary>
+        /// <returns>Новый экземпляр контейнера.</returns>
+        protected override EntityContainer CreateEntityContainer()
+        {
+            return new GraphVyrabDomainContextEntityContainer();
+        }
+        
+        /// <summary>
+        /// Контракт службы (Service) "GraphVyrabDomainService" DomainService.
+        /// </summary>
+        [ServiceContract()]
+        public interface IGraphVyrabDomainServiceContract
+        {
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "getGraphVyrad".
+            /// </summary>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyradDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrad", ReplyAction="http://tempuri.org/GraphVyrabDomainService/getGraphVyradResponse")]
+            IAsyncResult BegingetGraphVyrad(AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BegingetGraphVyrad".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegingetGraphVyrad".</param>
+            /// <returns>Объект "GraphVyrabAnswer", возвращенный из операции "getGraphVyrad".</returns>
+            GraphVyrabAnswer EndgetGraphVyrad(IAsyncResult result);
+        }
+        
+        internal sealed class GraphVyrabDomainContextEntityContainer : EntityContainer
+        {
+            
+            public GraphVyrabDomainContextEntityContainer()
+            {
             }
         }
     }

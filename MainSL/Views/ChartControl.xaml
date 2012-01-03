@@ -18,10 +18,7 @@
 						  LegendVisibility="Collapsed" >
 
 			</charts:Chart>
-
-
-
-
+				
 			<StackPanel Name="SettingsPanel" VerticalAlignment="Top" HorizontalAlignment="Left" Opacity="0.7">
 				<Border Height="15" Background="LightGray" Name="borderMove"
 					  MouseLeftButtonDown="borderMove_MouseLeftButtonDown" 

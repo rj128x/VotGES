@@ -2,157 +2,172 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Data;
 using VotGES.Piramida;
 
-namespace PILib.PBR
+namespace VotGES.PBR
 {
-	public class PBRData
+	class PBRData
 	{
-		public DateTime DateStart { get; protected set; }
-		public DateTime DateEnd { get; protected set; }
+		public DateTime DateStart{get;protected set;}
+		public DateTime DateEnd{get;protected set;}
+		public DateTime Date { get; protected set; }
+
 		public int GTPIndex { get; protected set; }
-		public SortedList<DateTime, double> Data30 { get; protected set; }
-		public SortedList<DateTime, double> ProcessData30 { get; protected set; }
-		public SortedList<DateTime, double> ProcessData1 { get; protected set; }
-		public bool Integrate { get; set; }
-		public double Scale { get; set; }
 
-		public PBRData(int GTPIndex,DateTime dateStart, DateTime dateEnd,bool integrate=false, double scale=1,Dictionary<DateTime,double> userPBR=null) {
-			this.DateStart = dateStart;
-			this.DateEnd = dateEnd;
-			this.GTPIndex = GTPIndex;
-			this.Integrate = integrate;
-			this.Scale = scale;
-			if (userPBR == null) {
-				readData();
-			} else {
-				convertUserPBR(userPBR);
-			}
-			processData();
+		public SortedList<DateTime, double> RealPBR{get;protected set;}
+		public SortedList<DateTime, double> SteppedPBR{get;protected set;}
+		public SortedList<DateTime, double> MinutesPBR{get;protected set;}
+		public SortedList<DateTime,double> RealP{get;protected set;}
+
+		public SortedList<DateTime, double> IntegratedP { get; protected set; }
+		public SortedList<DateTime, double> IntegratedPBR { get; protected set; }
+
+
+
+		public PBRData(DateTime dateStart, DateTime dateEnd, DateTime date, int gtpIndex) {
+			DateStart = dateStart.Date.AddHours(dateStart.Hour);
+			DateEnd = dateEnd.Date.AddHours(dateEnd.Hour);
+			Date = date;
+			GTPIndex = gtpIndex;
+			RealPBR = new SortedList<DateTime, double>();
+			SteppedPBR = new SortedList<DateTime, double>();
+			MinutesPBR = new SortedList<DateTime, double>();
+			RealP = new SortedList<DateTime, double>();
+			IntegratedP = new SortedList<DateTime, double>();
+			IntegratedPBR = new SortedList<DateTime, double>();
 		}
 
-		protected void convertUserPBR(Dictionary<DateTime, double> userPBR) {
-			bool first=true;
-			double prevVal=0;
-			Data30 = new SortedList<DateTime, double>();
-			foreach (KeyValuePair<DateTime,double> de in userPBR) {
-				double val= de.Value * Scale;
-				Data30.Add(de.Key, de.Value * Scale);
-				if (!first) {
-					double mid=(val + prevVal) / 2.0;
-					Data30.Add(de.Key.AddMinutes(-30), mid);
-				}
-				prevVal = val;
-				first = false;
-			}
-			longData(DateStart, DateEnd);
-		}
+		public void readData() {
+			int item=GTPIndex + 1;
+			Piramida3000Entities model=PiramidaAccess.getModel();
 
-		protected void readData() {
-			int index=0;
-			switch (GTPIndex) {
-				case 1:
-					index = 2;
-					break;
-				case 2:
-					index = 3;
-					break;
-				case 0:
-					index = 1;
-					break;
-			}
-			Data30 = new SortedList<DateTime, double>();
 
-			Piramida3000Entities model = VotGES.Piramida.PiramidaAccess.getModel();
-			IQueryable<DATA> dataArr = from DATA d in model.DATA where
-													d.PARNUMBER == 212 && d.DATA_DATE > DateStart && d.DATA_DATE < DateEnd &&
-													d.OBJTYPE == 2 && d.OBJECT == 1 && d.ITEM==index
-												select d;
-			//adapter.FillGTPPBR(table, 1, DateStart, DateEnd);
+			IQueryable<DATA> dataArr=from DATA d in model.DATA
+											 where
+												d.DATA_DATE >= DateStart && d.DATA_DATE <= DateEnd &&
+												d.ITEM == item && d.OBJECT == 0 && d.OBJTYPE == 2 &&
+												(d.PARNUMBER == 4 || d.PARNUMBER == 212) select d;
 			foreach (DATA data in dataArr) {
-				DateTime date=data.DATA_DATE;
-
-				double val=data.VALUE0.Value;
-				val = val * Scale;
-
-				Data30.Add(date, val);				
-			}
-			longData(DateStart, DateEnd);
+				try {
+					DateTime date=data.DATA_DATE;
+					double val=data.VALUE0.Value / 1000;
+					switch (data.PARNUMBER) {
+						case 4:
+							if (date > DateStart) {
+								RealP.Add(date, val);
+								Date = date;
+							}
+							break;
+						case 212:
+							if (date.Minute == 0) {
+								RealPBR.Add(date, val);
+							}
+							break;
+					}
+				} catch (Exception e) {
+					Logger.Info("Ошибка при чтении ПБР " + e.ToString());
+				}
+			}						
+			
 		}
 
-		protected void longData(DateTime dateStart, DateTime dateEnd) {
-			DateTime date=dateStart;
-			while (date <= dateEnd) {
-				if (!Data30.Keys.Contains(date)) {
-					if (Data30.Keys.Contains(date.AddHours(-24))){
-						Data30.Add(date,Data30[date.AddHours(-24)]);
-					}else{
-						Data30.Add(date, 0);
+
+		public void checkData() {
+			DateTime date=DateStart.AddMinutes(1);
+			Random r=new Random();
+			while (date <= Date) {
+				if (!RealP.Keys.Contains(date)) {
+					if (RealP.Keys.Contains(date.AddMinutes(-1))) {
+						RealP.Add(date, RealP[date.AddMinutes(-1)]);
+					} else {
+						RealP.Add(date, -1);
+						//Logger.Info("Не записана мощность " + date.ToString());
+						//RealP.Add(date, GTPIndex * 100 + 100 + r.Next(-10, 10));
 					}
 				}
-				date = date.AddMinutes(30);
+				date = date.AddMinutes(1);
 			}
-		}
 
-
-		protected void processData() {
-			ProcessData30 = new SortedList<DateTime, double>();
-			ProcessData1 = new SortedList<DateTime, double>();
-			DateTime lastDate=Data30.Last().Key;
-			double sum=0;
-			foreach (KeyValuePair<DateTime,double> de in Data30){
-				bool last=de.Key == lastDate;
-				DateTime dt=de.Key.AddMinutes(-15);
-				double val=de.Value;
-
-
-				for (int minute=0; minute < 30; minute++) {
-					DateTime dtMin=dt.AddMinutes(minute);
-					if ((dtMin >= DateStart) && (dtMin <= DateEnd)) {
-						sum += val;
-						ProcessData1.Add(dtMin, Integrate?sum:val);
+			date = DateStart.AddMinutes(0);
+			while (date <= DateEnd) {
+				if (!RealPBR.Keys.Contains(date)) {
+					if (RealPBR.Keys.Contains(date.AddMinutes(-60))) {
+						RealP.Add(date, RealPBR[date.AddMinutes(-60)]);
+					} else {
+						RealPBR.Add(date, -1);
+						Logger.Info("Не записан ПБР " + date.ToString());
 					}
 				}
+				date = date.AddMinutes(60);
+			}
 
-				dt=dt<DateStart?DateStart:dt;
-				dt = last? DateEnd : dt;
-				ProcessData30.Add(dt, val);
-			}			
-
+			date = DateStart.AddMinutes(30);
+			while (date <= DateEnd) {
+				DateTime prevDate=date.AddMinutes(-30);
+				DateTime nextDate=date.AddMinutes(30);
+				if (RealPBR.Keys.Contains(prevDate) && (RealPBR.Keys.Contains(nextDate))) {
+					RealPBR.Add(date, (RealPBR[prevDate] + RealPBR[nextDate]) / 2);
+				} else {
+					RealPBR.Add(date, -1);
+					Logger.Info("Ошибка при формировании получасовок");
+				}
+				date = date.AddMinutes(60);
+			}
+			
 		}
 
-		public double getCurrentVal(DateTime date) {
-			KeyValuePair<DateTime,double> first= ProcessData1.First(de => de.Key > date);
-			return first.Value;
-		}
-
-		public double getAvgVal(DateTime date) {
-			double sum=0;
-			int count=0;
-			foreach (KeyValuePair <DateTime,double> de in ProcessData1) {
-				if ((de.Key.Hour == date.Hour)&&(de.Key<=date)) {
-					sum += de.Value;
-					count++;
+		public void createSteppedPBR() {
+			DateTime LastPBRDate=RealPBR.Last().Key;
+			DateTime FirstPBRDate=RealPBR.First().Key;
+			foreach (KeyValuePair<DateTime, double> de in RealPBR) {
+				DateTime date=de.Key.AddMinutes(-15);
+				if (de.Key == FirstPBRDate)
+					date = DateStart;
+				
+				SteppedPBR.Add(date, de.Value);
+				if (de.Key==LastPBRDate){
+					SteppedPBR.Add(DateEnd,de.Value);
 				}
 			}
 			
-			return sum/count;
 		}
 
-		public double getAvg(DateTime date, int minutes) {
-			DateTime ds=date.AddMinutes(minutes);
-			DateTime dt=date;
-			double sum=0;
-			int count=0;
-			foreach (KeyValuePair <DateTime,double> de in ProcessData1) {
-				if ((de.Key >= ds) && (de.Key <= date) || (de.Key <= ds) && (de.Key >= date)) {
-					sum += de.Value;
-					count++;
-				}
+		public void createMinutesPBR() {
+			DateTime date=DateStart;
+			double val=0;
+			Random r=new Random();
+			while (date < DateEnd) {
+				if (SteppedPBR.Keys.Contains(date)) {
+					val = SteppedPBR[date];				
+				}				
+				MinutesPBR.Add(date.AddMinutes(1), val);
+				RealP[date.AddMinutes(1)] = val + r.Next(-3, 3);
+				date = date.AddMinutes(1);
 			}
-			return sum / count;
 		}
 
+		public void createIntegratedValues() {
+			double sum=0;
+			foreach (KeyValuePair<DateTime,double> de in MinutesPBR) {
+				sum += de.Value;
+				IntegratedPBR.Add(de.Key, sum / 60);
+			}
+
+			sum=0;
+			foreach (KeyValuePair<DateTime,double> de in RealP) {
+				sum += de.Value;
+				IntegratedP.Add(de.Key, sum / 60);
+			}
+		}
+
+		public void InitData() {
+			readData();
+			checkData();
+			createSteppedPBR();
+			createMinutesPBR();
+			createIntegratedValues();
+		}
+				
 	}
 }
+

@@ -114,6 +114,9 @@
     <Compile Include="Views\GeneratePBRPage.xaml.cs">
       <DependentUpon>GeneratePBRPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GraphVyrabPage.xaml.cs">
+      <DependentUpon>GraphVyrabPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Reports\RezhimSKReportPage.xaml.cs">
       <DependentUpon>RezhimSKReportPage.xaml</DependentUpon>
     </Compile>
@@ -148,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CheckPrognozNBPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GraphVyrabPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
