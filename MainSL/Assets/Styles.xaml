@@ -22,7 +22,7 @@
 
 	<!-- LayoutRoot Grid Style -->
 	<Style x:Key="LayoutRootGridStyle" TargetType="Grid">
-		<Setter Property="Background" Value="#FFFFFFFF"/>
+		<Setter Property="Background" Value="#FFFFFFFF"/>		
 	</Style>
 
 	<!-- Content Border Style -->
@@ -87,6 +87,7 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
+		<Setter Property="FontFamily" Value="Comic Sans MS"/>
 	</Style>
 
 	<!-- ApplicationName Style -->
@@ -101,6 +102,7 @@
 				<DropShadowEffect BlurRadius="10" Opacity="0.25" ShadowDepth="0"/>
 			</Setter.Value>
 		</Setter>
+		<Setter Property="FontFamily" Value="Comic Sans MS"/>
 	</Style>
 
 	<!-- Links Border Style -->
@@ -277,6 +279,7 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
+		<Setter Property="FontFamily" Value="Comic Sans MS"/>
 	</Style>
 
 	<!-- Divider Style -->
@@ -302,6 +305,7 @@
 		<Setter Property="Padding" Value="0,0,0,0"/>
 		<Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
 		<Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+		<Setter Property="FontFamily" Value="Comic Sans MS"/>
 	</Style>
 
 	<!-- Content Panel Style -->
@@ -315,6 +319,7 @@
 		<Setter Property="TextWrapping" Value="Wrap"/>
 		<Setter Property="Margin" Value="0,4,0,4"/>
 		<Setter Property="HorizontalAlignment" Value="Left"/>
+		<Setter Property="FontFamily" Value="Comic Sans MS"/>		
 	</Style>
 
 	<!-- Content Text Style -->
@@ -324,6 +329,7 @@
 		<Setter Property="TextWrapping" Value="Wrap"/>
 		<Setter Property="Margin" Value="0,2,0,2"/>
 		<Setter Property="HorizontalAlignment" Value="Left"/>
+		<Setter Property="FontFamily" Value="Comic Sans MS"/>
 	</Style>
 
 	<!-- Page HyperlinkButton Style -->
@@ -331,6 +337,7 @@
 		<Setter Property="TargetName" Value="_new"/>
 		<Setter Property="FontSize" Value="12"/>
 		<Setter Property="VerticalAlignment" Value="Center"/>
+		<Setter Property="FontFamily" Value="Comic Sans MS"/>
 	</Style>
 
 	<Style x:Key="LoginContainerStyle" TargetType="Border">

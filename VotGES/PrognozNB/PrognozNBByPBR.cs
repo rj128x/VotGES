@@ -30,11 +30,7 @@ namespace VotGES.PrognozNB
 
 	public class PrognozNBByPBR : PrognozNBFunc
 	{
-		protected DateTime datePrognozStart;
-		public DateTime DatePrognozStart {
-			get { return datePrognozStart; }
-			set { datePrognozStart = value; }
-		}
+		
 
 		protected SortedList<DateTime,double> userPBR;
 		public SortedList<DateTime, double> UserPBR {
@@ -255,7 +251,7 @@ namespace VotGES.PrognozNB
 
 			prognoz.DatePrognozStart = DatePrognozStart;
 			prognoz.DatePrognozEnd = DateEnd;
-			prognoz.T = T;
+			prognoz.T = TSum/TCount;
 			prognoz.PArr = new SortedList<DateTime, double>();
 			prognoz.IsQFakt = false;
 			bool isFirst=true;

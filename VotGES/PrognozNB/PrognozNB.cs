@@ -255,6 +255,10 @@ namespace VotGES.PrognozNB
 			naporAx.Auto = true;
 			naporAx.Index = 4;
 
+			ChartAxisProperties tAx=new ChartAxisProperties();
+			tAx.Auto = true;
+			tAx.Index = 5;
+
 			ChartSerieProperties pSerie=new ChartSerieProperties();
 			pSerie.Color = "0-0-255";
 			pSerie.LineWidth = 2;
@@ -330,6 +334,15 @@ namespace VotGES.PrognozNB
 			naporPrognozSerie.TagName = "NaporPrognoz";
 			naporPrognozSerie.Enabled = false;
 			naporPrognozSerie.YAxisIndex = 4;
+
+			ChartSerieProperties tSerie=new ChartSerieProperties();
+			tSerie.Color = "120-0-255";
+			tSerie.LineWidth = 2;
+			tSerie.SerieType = ChartSerieType.line;
+			tSerie.Title = "Температура";
+			tSerie.TagName = "T";
+			tSerie.Enabled = false;
+			tSerie.YAxisIndex = 5;
 			
 
 			props.addAxis(pAx);
@@ -337,6 +350,7 @@ namespace VotGES.PrognozNB
 			props.addAxis(qAx);
 			props.addAxis(vbAx);
 			props.addAxis(naporAx);
+			props.addAxis(tAx);
 
 			props.addSerie(pSerie);
 			props.addSerie(pbrSerie);
@@ -347,6 +361,7 @@ namespace VotGES.PrognozNB
 			props.addSerie(vbSerie);
 			props.addSerie(naporSerie);
 			props.addSerie(naporPrognozSerie);
+			props.addSerie(tSerie);
 
 			props.XAxisType = XAxisTypeEnum.datetime;
 

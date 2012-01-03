@@ -46,6 +46,27 @@ namespace MainSL.Views
 					NotifyChanged("IsQFakt");
 				}
 			}
+
+			private int hourStart;
+			public int HourStart {
+				get { return hourStart; }
+				set {
+					hourStart = value;
+					hourStart = hourStart < 0 ? 0 : hourStart;
+					hourStart = hourStart > 23 ? 23 : hourStart;
+					NotifyChanged("HourStart");
+				}
+			}
+
+			private int minStart;
+			public int MinStart {
+				get { return minStart; }
+				set {
+					minStart = value;
+					minStart = minStart < 30 ? 0 : 30;
+					NotifyChanged("MinStart");
+				}
+			}
 		}
 
 		public Settings settings;
@@ -56,6 +77,8 @@ namespace MainSL.Views
 			settings = new Settings();
 			settings.CountDays = 1;
 			settings.Date = DateTime.Now.Date.AddDays(-1);
+			settings.HourStart = 0;
+			settings.MinStart = 0;
 			pnlSettings.DataContext = settings;
 		}
 
@@ -68,19 +91,20 @@ namespace MainSL.Views
 		}
 
 		private void btnGetPrognoz_Click(object sender, RoutedEventArgs e) {
-			InvokeOperation currentOper=context.checkPrognozNB(settings.Date, settings.CountDays, settings.IsQFakt, oper => {
-				if (oper.IsCanceled) {
-					return;
-				}
-				GlobalStatus.Current.StartProcess();
-				try {
-					ChartAnswer answer=oper.Value;
-					chartControl.Create(answer);
-				} catch (Exception ex) {
-					Logging.Logger.info(ex.ToString());
-					MessageBox.Show("Ошибка при обработке ответа от сервера");
-				} finally {
-					GlobalStatus.Current.StopLoad();
+			InvokeOperation currentOper=context.checkPrognozNB(settings.Date, settings.CountDays, settings.IsQFakt, settings.HourStart, settings.MinStart, 
+				oper => {
+					if (oper.IsCanceled) {
+						return;
+					}
+					GlobalStatus.Current.StartProcess();
+					try {
+						ChartAnswer answer=oper.Value;
+						chartControl.Create(answer);
+					} catch (Exception ex) {
+						Logging.Logger.info(ex.ToString());
+						MessageBox.Show("Ошибка при обработке ответа от сервера");
+					} finally {
+						GlobalStatus.Current.StopLoad();
 				}				
 			}, null);
 			GlobalStatus.Current.StartLoad(currentOper);

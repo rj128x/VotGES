@@ -21,6 +21,12 @@ namespace VotGES.PrognozNB
 			set { dateEnd = value; }
 		}
 
+		protected DateTime datePrognozStart;
+		public DateTime DatePrognozStart {
+			get { return datePrognozStart; }
+			set { datePrognozStart = value; }
+		}
+
 		protected int daysCount;
 		public int DaysCount {
 			get { return daysCount; }
@@ -57,6 +63,12 @@ namespace VotGES.PrognozNB
 			set { qFakt = value; }
 		}
 
+		protected SortedList<DateTime,double> tFakt;
+		public SortedList<DateTime, double> TFakt {
+			get { return tFakt; }
+			set { tFakt = value; }
+		}
+
 		protected SortedList<DateTime,double> pFakt;
 		public SortedList<DateTime, double> PFakt {
 			get { return pFakt; }
@@ -76,6 +88,9 @@ namespace VotGES.PrognozNB
 		}
 
 
+		protected double TSum { get; set; }
+		protected double TCount { get; set; }
+
 		public PrognozNBFunc(DateTime dateStart, int daysCount) {
 			DateStart = dateStart.Date;
 			DaysCount = daysCount;
@@ -85,7 +100,10 @@ namespace VotGES.PrognozNB
 			vbFakt = new SortedList<DateTime, double>();
 			qFakt = new SortedList<DateTime, double>();
 			pFakt = new SortedList<DateTime, double>();
+			tFakt = new SortedList<DateTime, double>();
 			naporFakt = new SortedList<DateTime, double>();
+			TSum = 0;
+			TCount = 0;
 		}
 
 
@@ -117,6 +135,7 @@ namespace VotGES.PrognozNB
 			IQueryable<DATA> dataArr=from DATA d in model.DATA where
 													 d.PARNUMBER == 12 && d.DATA_DATE > DateStart && d.DATA_DATE <= dateEnd &&
 													 d.OBJTYPE == 2 && d.OBJECT == 1 && il.Contains(d.ITEM) select d;
+			
 			foreach (DATA data in dataArr) {
 				switch (data.ITEM) {
 					case 354:
@@ -132,7 +151,9 @@ namespace VotGES.PrognozNB
 						vbFakt.Add(data.DATA_DATE, data.VALUE0.Value);
 						break;
 					case 373:
-						T = data.VALUE0.Value;
+						tFakt.Add(data.DATA_DATE, data.VALUE0.Value);
+						TSum += data.VALUE0.Value;
+						TCount++;
 						break;
 				}
 			}
@@ -154,6 +175,13 @@ namespace VotGES.PrognozNB
 					if (vbFakt.Keys.Contains(date.AddMinutes(-30)))
 						vbFakt.Add(date, nbFakt[date.AddMinutes(-30)]);
 					else vbFakt.Add(date, 87);
+				}
+				if (!tFakt.Keys.Contains(date) || tFakt[date] == 0) {
+					if (tFakt.Keys.Contains(date))
+						tFakt.Remove(date);
+					if (tFakt.Keys.Contains(date.AddMinutes(-30)))
+						tFakt.Add(date, tFakt[date.AddMinutes(-30)]);
+					else tFakt.Add(date, 0);
 				}
 				if (!naporFakt.Keys.Contains(date) || naporFakt[date] == 0) {
 					if (naporFakt.Keys.Contains(date))
@@ -209,8 +237,12 @@ namespace VotGES.PrognozNB
 					case 274:
 						firstData[data.DATA_DATE].VB = data.VALUE0.Value;
 						break;
-					case 276:
+					case 373:
 						firstData[data.DATA_DATE].T = data.VALUE0.Value;
+						if (data.DATA_DATE <= DateStart) {
+							TSum += data.VALUE0.Value;
+							TCount++;
+						}
 						break;
 				}
 			}
@@ -262,7 +294,12 @@ namespace VotGES.PrognozNB
 			}
 			data.addSerie(vbFaktSerie);
 
-			
+			ChartDataSerie tFaktSerie=new ChartDataSerie();
+			tFaktSerie.Name = "T";
+			foreach (KeyValuePair<DateTime,double> de in TFakt) {
+				tFaktSerie.Points.Add(new ChartDataPoint(de.Key, de.Value));
+			}
+			data.addSerie(tFaktSerie);
 
 			
 

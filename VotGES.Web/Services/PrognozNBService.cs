@@ -25,12 +25,13 @@ namespace VotGES.Web.Services
 	public class PrognozNBService : DomainService
 	{
 		
-		public ChartAnswer checkPrognozNB(DateTime date,int countDays, bool isQFakt) {
+		public ChartAnswer checkPrognozNB(DateTime date,int countDays, bool isQFakt,int hourStart, int minStart) {
 			WebLogger.Info(String.Format("Получение прогноза (факт) {0} - {1}", date, countDays));
 			try {
 				if (date.AddHours(-2).Date >= DateTime.Now.Date)
 					date = DateTime.Now.AddHours(-2).Date.AddHours(-24);
-				CheckPrognozNB prognoz=new CheckPrognozNB(date.Date,countDays,isQFakt);
+				
+				CheckPrognozNB prognoz=new CheckPrognozNB(date.Date,countDays,isQFakt,hourStart,minStart);
 				//PrognozNBByPBR prognoz=new PrognozNBByPBR(date.Date, 1, date.Date.AddHours(8).AddMinutes(15),null);
 				prognoz.startPrognoz();
 				return prognoz.getChart();

@@ -23,7 +23,15 @@
 							IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 				<TextBlock Text=" дней вперед" Style="{StaticResource Label}"/>
 			</StackPanel>
-			<CheckBox Name="chbIsQFakt" IsChecked="{Binding IsQFakt, Mode=TwoWay}" Content="По фактическому расходу"
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+				<TextBlock Text="Начать с " Style="{StaticResource Label}"/>
+				<TextBox Name="txtHourStart" Width="30" TextAlignment="Right" Text="{Binding HourStart, Mode=TwoWay, StringFormat='00'}" 								
+							IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<TextBlock Text=" : " Style="{StaticResource Label}"/>
+				<TextBox Name="txtMinStart" Width="30" TextAlignment="Right" Text="{Binding MinStart, Mode=TwoWay, StringFormat='00'}" 								
+							IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+			</StackPanel>
+			<CheckBox Name="chbIsQFakt" IsChecked="{Binding IsQFakt, Mode=TwoWay}" Content="По фактическому расходу" Style="{StaticResource LabelChb}"
 						 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 			<Button Name="btnGetPrognoz" Click="btnGetPrognoz_Click" Content="Получить прогноз" 
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
