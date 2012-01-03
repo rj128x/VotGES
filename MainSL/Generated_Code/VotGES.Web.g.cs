@@ -1116,6 +1116,18 @@ namespace VotGES.PBR
         
         private ChartAnswer _chart;
         
+        private List<GraphVyrabTableRow> _tableCurrent;
+        
+        private List<GraphVyrabTableRow> _tableHour;
+        
+        private double _vyrabDiff;
+        
+        private double _vyrabDiffProc;
+        
+        private double _vyrabFakt;
+        
+        private double _vyrabPlan;
+        
         #region Определение методов расширяемости
 
         /// <summary>
@@ -1127,6 +1139,18 @@ namespace VotGES.PBR
         partial void OnActualDateChanged();
         partial void OnChartChanging(ChartAnswer value);
         partial void OnChartChanged();
+        partial void OnTableCurrentChanging(List<GraphVyrabTableRow> value);
+        partial void OnTableCurrentChanged();
+        partial void OnTableHourChanging(List<GraphVyrabTableRow> value);
+        partial void OnTableHourChanged();
+        partial void OnVyrabDiffChanging(double value);
+        partial void OnVyrabDiffChanged();
+        partial void OnVyrabDiffProcChanging(double value);
+        partial void OnVyrabDiffProcChanged();
+        partial void OnVyrabFaktChanging(double value);
+        partial void OnVyrabFaktChanged();
+        partial void OnVyrabPlanChanging(double value);
+        partial void OnVyrabPlanChanged();
 
         #endregion
         
@@ -1184,6 +1208,375 @@ namespace VotGES.PBR
                     this._chart = value;
                     this.RaiseDataMemberChanged("Chart");
                     this.OnChartChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "TableCurrent".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<GraphVyrabTableRow> TableCurrent
+        {
+            get
+            {
+                return this._tableCurrent;
+            }
+            set
+            {
+                if ((this._tableCurrent != value))
+                {
+                    this.OnTableCurrentChanging(value);
+                    this.RaiseDataMemberChanging("TableCurrent");
+                    this.ValidateProperty("TableCurrent", value);
+                    this._tableCurrent = value;
+                    this.RaiseDataMemberChanged("TableCurrent");
+                    this.OnTableCurrentChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "TableHour".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<GraphVyrabTableRow> TableHour
+        {
+            get
+            {
+                return this._tableHour;
+            }
+            set
+            {
+                if ((this._tableHour != value))
+                {
+                    this.OnTableHourChanging(value);
+                    this.RaiseDataMemberChanging("TableHour");
+                    this.ValidateProperty("TableHour", value);
+                    this._tableHour = value;
+                    this.RaiseDataMemberChanged("TableHour");
+                    this.OnTableHourChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "VyrabDiff".
+        /// </summary>
+        [DataMember()]
+        public double VyrabDiff
+        {
+            get
+            {
+                return this._vyrabDiff;
+            }
+            set
+            {
+                if ((this._vyrabDiff != value))
+                {
+                    this.OnVyrabDiffChanging(value);
+                    this.RaiseDataMemberChanging("VyrabDiff");
+                    this.ValidateProperty("VyrabDiff", value);
+                    this._vyrabDiff = value;
+                    this.RaiseDataMemberChanged("VyrabDiff");
+                    this.OnVyrabDiffChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "VyrabDiffProc".
+        /// </summary>
+        [DataMember()]
+        public double VyrabDiffProc
+        {
+            get
+            {
+                return this._vyrabDiffProc;
+            }
+            set
+            {
+                if ((this._vyrabDiffProc != value))
+                {
+                    this.OnVyrabDiffProcChanging(value);
+                    this.RaiseDataMemberChanging("VyrabDiffProc");
+                    this.ValidateProperty("VyrabDiffProc", value);
+                    this._vyrabDiffProc = value;
+                    this.RaiseDataMemberChanged("VyrabDiffProc");
+                    this.OnVyrabDiffProcChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "VyrabFakt".
+        /// </summary>
+        [DataMember()]
+        public double VyrabFakt
+        {
+            get
+            {
+                return this._vyrabFakt;
+            }
+            set
+            {
+                if ((this._vyrabFakt != value))
+                {
+                    this.OnVyrabFaktChanging(value);
+                    this.RaiseDataMemberChanging("VyrabFakt");
+                    this.ValidateProperty("VyrabFakt", value);
+                    this._vyrabFakt = value;
+                    this.RaiseDataMemberChanged("VyrabFakt");
+                    this.OnVyrabFaktChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "VyrabPlan".
+        /// </summary>
+        [DataMember()]
+        public double VyrabPlan
+        {
+            get
+            {
+                return this._vyrabPlan;
+            }
+            set
+            {
+                if ((this._vyrabPlan != value))
+                {
+                    this.OnVyrabPlanChanging(value);
+                    this.RaiseDataMemberChanging("VyrabPlan");
+                    this.ValidateProperty("VyrabPlan", value);
+                    this._vyrabPlan = value;
+                    this.RaiseDataMemberChanged("VyrabPlan");
+                    this.OnVyrabPlanChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Класс "GraphVyrabTableRow".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.PBR")]
+    public sealed partial class GraphVyrabTableRow : ComplexObject
+    {
+        
+        private double _ges;
+        
+        private string _gesStr;
+        
+        private double _gtp1;
+        
+        private string _gtp1Str;
+        
+        private double _gtp2;
+        
+        private string _gtp2Str;
+        
+        private string _title;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnGESChanging(double value);
+        partial void OnGESChanged();
+        partial void OnGESStrChanging(string value);
+        partial void OnGESStrChanged();
+        partial void OnGTP1Changing(double value);
+        partial void OnGTP1Changed();
+        partial void OnGTP1StrChanging(string value);
+        partial void OnGTP1StrChanged();
+        partial void OnGTP2Changing(double value);
+        partial void OnGTP2Changed();
+        partial void OnGTP2StrChanging(string value);
+        partial void OnGTP2StrChanged();
+        partial void OnTitleChanging(string value);
+        partial void OnTitleChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="GraphVyrabTableRow"/>.
+        /// </summary>
+        public GraphVyrabTableRow()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GES".
+        /// </summary>
+        [DataMember()]
+        public double GES
+        {
+            get
+            {
+                return this._ges;
+            }
+            set
+            {
+                if ((this._ges != value))
+                {
+                    this.OnGESChanging(value);
+                    this.RaiseDataMemberChanging("GES");
+                    this.ValidateProperty("GES", value);
+                    this._ges = value;
+                    this.RaiseDataMemberChanged("GES");
+                    this.OnGESChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GESStr".
+        /// </summary>
+        [DataMember()]
+        public string GESStr
+        {
+            get
+            {
+                return this._gesStr;
+            }
+            set
+            {
+                if ((this._gesStr != value))
+                {
+                    this.OnGESStrChanging(value);
+                    this.RaiseDataMemberChanging("GESStr");
+                    this.ValidateProperty("GESStr", value);
+                    this._gesStr = value;
+                    this.RaiseDataMemberChanged("GESStr");
+                    this.OnGESStrChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GTP1".
+        /// </summary>
+        [DataMember()]
+        public double GTP1
+        {
+            get
+            {
+                return this._gtp1;
+            }
+            set
+            {
+                if ((this._gtp1 != value))
+                {
+                    this.OnGTP1Changing(value);
+                    this.RaiseDataMemberChanging("GTP1");
+                    this.ValidateProperty("GTP1", value);
+                    this._gtp1 = value;
+                    this.RaiseDataMemberChanged("GTP1");
+                    this.OnGTP1Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GTP1Str".
+        /// </summary>
+        [DataMember()]
+        public string GTP1Str
+        {
+            get
+            {
+                return this._gtp1Str;
+            }
+            set
+            {
+                if ((this._gtp1Str != value))
+                {
+                    this.OnGTP1StrChanging(value);
+                    this.RaiseDataMemberChanging("GTP1Str");
+                    this.ValidateProperty("GTP1Str", value);
+                    this._gtp1Str = value;
+                    this.RaiseDataMemberChanged("GTP1Str");
+                    this.OnGTP1StrChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GTP2".
+        /// </summary>
+        [DataMember()]
+        public double GTP2
+        {
+            get
+            {
+                return this._gtp2;
+            }
+            set
+            {
+                if ((this._gtp2 != value))
+                {
+                    this.OnGTP2Changing(value);
+                    this.RaiseDataMemberChanging("GTP2");
+                    this.ValidateProperty("GTP2", value);
+                    this._gtp2 = value;
+                    this.RaiseDataMemberChanged("GTP2");
+                    this.OnGTP2Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GTP2Str".
+        /// </summary>
+        [DataMember()]
+        public string GTP2Str
+        {
+            get
+            {
+                return this._gtp2Str;
+            }
+            set
+            {
+                if ((this._gtp2Str != value))
+                {
+                    this.OnGTP2StrChanging(value);
+                    this.RaiseDataMemberChanging("GTP2Str");
+                    this.ValidateProperty("GTP2Str", value);
+                    this._gtp2Str = value;
+                    this.RaiseDataMemberChanged("GTP2Str");
+                    this.OnGTP2StrChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Title".
+        /// </summary>
+        [DataMember()]
+        public string Title
+        {
+            get
+            {
+                return this._title;
+            }
+            set
+            {
+                if ((this._title != value))
+                {
+                    this.OnTitleChanging(value);
+                    this.RaiseDataMemberChanging("Title");
+                    this.ValidateProperty("Title", value);
+                    this._title = value;
+                    this.RaiseDataMemberChanged("Title");
+                    this.OnTitleChanged();
                 }
             }
         }

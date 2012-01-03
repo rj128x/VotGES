@@ -40,7 +40,7 @@
 				<StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
 					<Rectangle x:Name="Divider6" Style="{StaticResource DividerStyle}"/>
 					<HyperlinkButton x:Name="Link6" Style="{StaticResource LinkStyle}" 
-                                     NavigateUri="/GraphVyrabPAge" TargetName="ContentFrame" Content="График нагрузки"/>
+                                     NavigateUri="/GraphVyrabPage" TargetName="ContentFrame" Content="График нагрузки"/>
 					
 					<Rectangle x:Name="Divider5" Style="{StaticResource DividerStyle}"/>
 					<HyperlinkButton x:Name="Link5" Style="{StaticResource LinkStyle}" 

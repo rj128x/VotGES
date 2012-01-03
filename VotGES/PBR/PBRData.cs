@@ -160,6 +160,70 @@ namespace VotGES.PBR
 			}
 		}
 
+		public double getDiff(DateTime date) {
+			return MinutesPBR[date] - RealP[date];
+		}
+
+		public static double getDiffProc(double fakt, double plan) {
+			if (plan > 0) {
+				return (plan - fakt) / plan * 100;
+			} else {
+				if (fakt == 0)
+					return 0;
+				else 
+					return 100;
+			}
+		}
+
+		public double getDiffProc(DateTime date) {
+			return getDiffProc(MinutesPBR[date], RealP[date]);
+		}
+
+		public static double getAvgHour(DateTime date, SortedList<DateTime,double> data) {
+			date = date.AddMinutes(-1);
+			DateTime ds=date.Date.AddHours(date.Hour);
+			DateTime de=date.Date.AddHours(date.Hour + 1);
+			DateTime dt=ds.AddMinutes(1);
+
+			de=de>date?date:de;
+
+			double sum=0;
+			double count=0;
+			while (dt <= de) {
+				sum += data[dt];
+				count++;
+				dt = dt.AddMinutes(1);
+			}
+			return sum / count;
+		}
+
+		public SortedList<string, double> getHourVals(DateTime date) {
+			SortedList<string,double> result=new SortedList<string, double>();
+			double fakt=getAvgHour(date, RealP);
+			double plan=getAvgHour(date, MinutesPBR);
+			double diff=plan - fakt;
+			double diffProc=getDiffProc(fakt, plan);
+
+			DateTime dt=date.AddMinutes(1);
+			double sum=0;
+			int count=0;
+			while (dt.Hour == date.Hour) {
+				sum += MinutesPBR[dt];
+				count++;
+				dt = dt.AddMinutes(1);
+			}
+
+			double recP=(sum + diff * date.Minute) / count;
+
+			result.Add("fakt", fakt);
+			result.Add("plan", plan);
+			result.Add("diff", diff);
+			result.Add("diffProc", diffProc);
+			result.Add("recP", recP);
+			return result;
+
+		}
+
 		public void InitData() {
 			readData();
 			checkData();

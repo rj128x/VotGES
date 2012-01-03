@@ -13,16 +13,20 @@ using System.Windows.Navigation;
 using VotGES.Web.Services;
 using System.ServiceModel.DomainServices.Client;
 using VotGES.Chart;
+using VotGES.PBR;
 
 namespace MainSL.Views
 {
 	public partial class GraphVyrabPage : Page
 	{
+		public GraphVyrabAnswer CurrentAnswer { get; set; }
 		public GraphVyrabDomainContext context;
 
 		public GraphVyrabPage() {
 			InitializeComponent();
+			CurrentAnswer = new GraphVyrabAnswer();
 			context = new GraphVyrabDomainContext();
+			pnlSettings.DataContext = CurrentAnswer;
 		}
 
 		// Выполняется, когда пользователь переходит на эту страницу.
@@ -50,6 +54,7 @@ namespace MainSL.Views
 					try {
 						ChartAnswer answer=oper.Value.Chart;
 						txtActualDate.Text = oper.Value.ActualDate.ToString("HH:mm");
+						pnlSettings.DataContext = oper.Value;
 						chartControl.Create(answer);
 					} catch (Exception ex) {
 						Logging.Logger.info(ex.ToString());

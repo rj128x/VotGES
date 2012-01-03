@@ -1,4 +1,4 @@
-﻿<navigation:Page x:Class="MainSL.Views.GraphVyrabPage" 
+﻿<navigation:Page xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"  x:Class="MainSL.Views.GraphVyrabPage" 
            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -22,7 +22,92 @@
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }"/>
 			<Grid x:Name="pnlSettings" Grid.Column="1">
 				<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
-					
+					<TextBlock Text="Мгновенные значения" Style="{StaticResource Label}" FontSize="12"/>
+					<sdk:DataGrid ItemsSource="{Binding TableCurrent}"
+						AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False">
+						<sdk:DataGrid.Columns>
+							<sdk:DataGridTemplateColumn Header="Параметр">
+								<sdk:DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Title}" FontWeight="Bold" HorizontalAlignment="Right"/>
+									</DataTemplate>
+								</sdk:DataGridTemplateColumn.CellTemplate>
+							</sdk:DataGridTemplateColumn>
+							<sdk:DataGridTemplateColumn Header="ГТП-1">
+								<sdk:DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding GTP1Str}" HorizontalAlignment="Right"/>
+									</DataTemplate>
+								</sdk:DataGridTemplateColumn.CellTemplate>
+							</sdk:DataGridTemplateColumn>
+							<sdk:DataGridTemplateColumn Header="ГТП-2">
+								<sdk:DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding GTP2Str}" HorizontalAlignment="Right"/>
+									</DataTemplate>
+								</sdk:DataGridTemplateColumn.CellTemplate>
+							</sdk:DataGridTemplateColumn>
+							<sdk:DataGridTemplateColumn Header="ГЭС">
+								<sdk:DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding GESStr}" HorizontalAlignment="Right"/>
+									</DataTemplate>
+								</sdk:DataGridTemplateColumn.CellTemplate>
+							</sdk:DataGridTemplateColumn>
+						</sdk:DataGrid.Columns>
+					</sdk:DataGrid>
+
+					<TextBlock Text="Значения за текущий час" Style="{StaticResource Label}" FontSize="12"/>
+					<sdk:DataGrid ItemsSource="{Binding TableHour}"
+						AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False">
+						<sdk:DataGrid.Columns>
+							<sdk:DataGridTemplateColumn Header="Параметр">
+								<sdk:DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Title}" FontWeight="Bold" HorizontalAlignment="Right"/>
+									</DataTemplate>
+								</sdk:DataGridTemplateColumn.CellTemplate>
+							</sdk:DataGridTemplateColumn>
+							<sdk:DataGridTemplateColumn Header="ГТП-1">
+								<sdk:DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding GTP1Str}" HorizontalAlignment="Right"/>
+									</DataTemplate>
+								</sdk:DataGridTemplateColumn.CellTemplate>
+							</sdk:DataGridTemplateColumn>
+							<sdk:DataGridTemplateColumn Header="ГТП-2">
+								<sdk:DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding GTP2Str}" HorizontalAlignment="Right"/>
+									</DataTemplate>
+								</sdk:DataGridTemplateColumn.CellTemplate>
+							</sdk:DataGridTemplateColumn>
+							<sdk:DataGridTemplateColumn Header="ГЭС">
+								<sdk:DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding GESStr}" HorizontalAlignment="Right"/>
+									</DataTemplate>
+								</sdk:DataGridTemplateColumn.CellTemplate>
+							</sdk:DataGridTemplateColumn>
+						</sdk:DataGrid.Columns>
+					</sdk:DataGrid>
+
+					<Border Style="{StaticResource borderGray}" Margin="0,10,0,0">
+						<StackPanel>
+							<TextBlock Text="ВЫРАБОТКА" Style="{StaticResource Label}" HorizontalAlignment="Center"/>
+							<TextBlock Text="План (МВт*ч):" Style="{StaticResource Label}"/>
+							<TextBlock Text="{Binding VyrabPlan, StringFormat='##0'}" Style="{StaticResource Value}"/>
+							<TextBlock Text="Факт (МВт*ч):" Style="{StaticResource Label}"/>
+							<TextBlock Text="{Binding VyrabFakt, StringFormat='##0'}" Style="{StaticResource Value}"/>
+							<TextBlock Text="Отклонение:" Style="{StaticResource Label}"/>
+							<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+								<TextBlock Text="{Binding VyrabDiff, StringFormat='##0'}" Style="{StaticResource Value}"/>
+								<TextBlock Text="МВт*ч " Style="{StaticResource Label}"/>
+								<TextBlock Text="{Binding VyrabDiffProc, StringFormat='##0.##'}" Style="{StaticResource Value}"/>
+								<TextBlock Text="%" Style="{StaticResource Label}"/>
+							</StackPanel>
+						</StackPanel>
+					</Border>
 				</StackPanel>
 			</Grid>
 		</Grid>
