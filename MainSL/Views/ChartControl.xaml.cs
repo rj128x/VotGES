@@ -182,7 +182,7 @@ namespace MainSL.Views
 			if (isMovingPanel) {
 				isMovingPanel = false;
 				borderMove.Background = new SolidColorBrush(Colors.LightGray);
-			}
+			}			
 		}
 
 		private void chartPanel_MouseMove(object sender, MouseEventArgs e) {
@@ -193,7 +193,7 @@ namespace MainSL.Views
 			}
 		}
 
-		private void borderMove_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+		private void borderMove_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {			
 			isMovingPanel = false;
 			borderMove.Background = new SolidColorBrush(Colors.LightGray);
 			LegendGrid.Visibility = LegendGrid.Visibility == System.Windows.Visibility.Collapsed ?
@@ -203,6 +203,26 @@ namespace MainSL.Views
 		private void borderMove_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
 			isMovingPanel = true;
 			borderMove.Background = new SolidColorBrush(Colors.Blue);
+		}
+
+		private void LegendGrid_SelectionChanged(object sender, SelectionChangedEventArgs e) {			
+			try {
+				foreach (object s in e.RemovedItems) {
+					try {
+						VisibloxChartSerie serie=s as VisibloxChartSerie;
+						(serie.Serie as ISelectableChartSeries).IsHighlighted = false;
+					}catch{}
+				}
+				foreach (object s in e.AddedItems) {
+					try {						
+						VisibloxChartSerie serie=s as VisibloxChartSerie;
+						if (serie.Enabled) {
+							(serie.Serie as ISelectableChartSeries).IsHighlighted = true;
+						}
+					} catch { }
+				}
+				
+			}catch{}
 		}
 
 

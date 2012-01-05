@@ -84,20 +84,50 @@ namespace VotGES.Piramida.PiramidaReport
 	{
 		public DateTime Date { get; set; }
 		public String DateStr { get; set; }
-		public Dictionary<String,double> Data;
-		public Dictionary<String, String> DataStr;
+		public Dictionary<String,double> Data{get;set;}
+		public Dictionary<String, String> DataStr { get; set; }		
 	}
 
 	public class ReportAnswer
 	{
 		public ChartAnswer Chart { get; set; }
 		public List<ReportAnswerRecord> Data{get;set;}
+		public Dictionary<string, string> Columns { get; set; }
+	}
+
+	public class DateTimeStartEnd
+	{
+		public DateTime DateStart{get;set;}
+		public DateTime DateEnd { get; set; }
+
+		public static DateTimeStartEnd getFullDay(DateTime date) {
+			DateTimeStartEnd result=new DateTimeStartEnd();
+			result.DateStart = date.Date;
+			result.DateEnd = date.Date.AddDays(1);
+			return result;
+		}
+
+		public static DateTimeStartEnd getFullMonth(int year, int month) {
+			DateTimeStartEnd result=new DateTimeStartEnd();
+			result.DateStart = new DateTime(year,month,1);
+			result.DateEnd = result.DateStart.AddMonths(1);
+			return result;
+		}
+
+		public static DateTimeStartEnd getFullYear(int year) {
+			DateTimeStartEnd result=new DateTimeStartEnd();
+			result.DateStart = new DateTime(year, 1, 1);
+			result.DateEnd = result.DateStart.AddYears(1);
+			return result;
+		}
+
 	}
 
 	public class Report
 	{
 		public DateTime DateStart { get; set; }
 		public DateTime DateEnd { get; set; }
+		public DateTime RealDateEnd { get; set; }
 		public IntervalReportEnum Interval { get; set; }
 		public Dictionary<string, RecordTypeBase> RecordTypes { get; set; }
 		public SortedList<DateTime, Dictionary<string, double>> Data { get; set; }
@@ -128,6 +158,7 @@ namespace VotGES.Piramida.PiramidaReport
 		public Report(DateTime dateStart, DateTime dateEnd, IntervalReportEnum interval) {
 			DateStart = dateStart;
 			DateEnd = dateEnd;
+			RealDateEnd = dateEnd;
 			Interval = interval;
 			RecordTypes = new Dictionary<string, RecordTypeBase>();
 			Data = new SortedList<DateTime, Dictionary<string, double>>();
@@ -170,11 +201,16 @@ namespace VotGES.Piramida.PiramidaReport
 
 		protected void checkDBData() {
 			foreach (DateTime date in Dates) {
-				foreach (RecordTypeBase recordType in RecordTypes.Values) {
-					if (recordType is RecordTypeDB) {
-						RecordTypeDB rdb=recordType as RecordTypeDB;
-						if (!Data[date].Keys.Contains(rdb.ID)) {
-							Data[date].Add(rdb.ID, rdb.DefaultValue);
+				if (date > RealDateEnd) {
+					Dates.Remove(date);
+					Data.Remove(date);
+				} else {
+					foreach (RecordTypeBase recordType in RecordTypes.Values) {
+						if (recordType is RecordTypeDB) {
+							RecordTypeDB rdb=recordType as RecordTypeDB;
+							if (!Data[date].Keys.Contains(rdb.ID)) {
+								Data[date].Add(rdb.ID, rdb.DefaultValue);
+							}
 						}
 					}
 				}
@@ -221,7 +257,6 @@ namespace VotGES.Piramida.PiramidaReport
 						String.Format(
 						"datepart(year,{0}), datepart(month,{0}), datepart(day,{0}), datepart(hour,{0})",
 						dt30);
-					dateParam = "dateadd(minute,(60-datepart(minute,DATA_DATE))%60,DATA_DATE)";
 					commandText = String.Format("SELECT {0}, {1} from DATA  WHERE {2} GROUP BY {0}",
 						dateParam, valueOper, valueParams, valueParams);
 					break;
@@ -317,6 +352,7 @@ namespace VotGES.Piramida.PiramidaReport
 						break;
 				}
 				if (ok) {
+					RealDateEnd = date < RealDateEnd ? date : RealDateEnd;
 					if (Data.Keys.Contains(date)) {
 						if (!Data[date].Keys.Contains(recordType.ID)) {
 							Data[date].Add(recordType.ID, -1);
@@ -330,6 +366,7 @@ namespace VotGES.Piramida.PiramidaReport
 
 		public virtual void CreateAnswerData() {
 			Answer.Data = new List<ReportAnswerRecord>();
+			Answer.Columns = new Dictionary<string, string>();
 			foreach (DateTime date in Dates) {
 				ReportAnswerRecord record=new ReportAnswerRecord();
 				record.Date = date;
@@ -338,8 +375,11 @@ namespace VotGES.Piramida.PiramidaReport
 				record.DataStr = new Dictionary<string, string>();
 				foreach (RecordTypeBase recordType in RecordTypes.Values) {
 					if (recordType.Visible) {
-						record.Data.Add(recordType.Title, Data[date][recordType.ID]);
-						record.DataStr.Add(recordType.Title, Data[date][recordType.ID].ToString("### ### ##0.##"));
+						if (!Answer.Columns.Keys.Contains(recordType.ID)) {
+							Answer.Columns.Add(recordType.ID, recordType.Title);
+						}
+						record.Data.Add(recordType.ID, Data[date][recordType.ID]);
+						record.DataStr.Add(recordType.ID, Data[date][recordType.ID].ToString("### ### ##0.##"));
 					}
 				}
 				Answer.Data.Add(record);

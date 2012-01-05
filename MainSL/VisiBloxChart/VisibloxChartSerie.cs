@@ -138,8 +138,8 @@ namespace MainSL
 		public bool Selected {
 			get { return selected; }
 			set {
-				selected = value;
-				NotifyChanged("Selected");
+					selected = value;
+					NotifyChanged("Selected");
 			}
 		}
 
@@ -204,8 +204,10 @@ namespace MainSL
 		}
 
 		void Serie_PropertyChanged(object sender, PropertyChangedEventArgs e) {
-			if (e.PropertyName == "IsHighlighted") {				
-				Selected = !Selected;
+			if (e.PropertyName == "IsHighlighted") {
+				try {
+					Selected = (Serie as ISelectableChartSeries).IsHighlighted;
+				}catch{}
 			}
 		}
 		

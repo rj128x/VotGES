@@ -44,7 +44,7 @@ namespace MainSL.Views
 					}
 					GlobalStatus.Current.StartProcess();
 					try {
-						reportControl.chartControl.Create(oper.Value.Chart);
+						reportControl.Create(oper.Value);
 					} catch (Exception ex) {
 						Logging.Logger.info(ex.ToString());
 						MessageBox.Show("Ошибка при обработке ответа от сервера");

@@ -92,6 +92,7 @@
     <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="Converters\VisibilityNotConverter.cs" />
     <Compile Include="Converters\GASostavConverter.cs" />
+    <Compile Include="Converters\ReportDataConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="GlobalStatus.cs" />
     <Compile Include="Logging\Logger.cs" />

@@ -2110,6 +2110,8 @@ namespace VotGES.Piramida.PiramidaReport
         
         private ChartAnswer _chart;
         
+        private Dictionary<string, string> _columns;
+        
         private List<ReportAnswerRecord> _data;
         
         #region Определение методов расширяемости
@@ -2121,6 +2123,8 @@ namespace VotGES.Piramida.PiramidaReport
         partial void OnCreated();
         partial void OnChartChanging(ChartAnswer value);
         partial void OnChartChanged();
+        partial void OnColumnsChanging(Dictionary<string, string> value);
+        partial void OnColumnsChanged();
         partial void OnDataChanging(List<ReportAnswerRecord> value);
         partial void OnDataChanged();
 
@@ -2161,6 +2165,30 @@ namespace VotGES.Piramida.PiramidaReport
         }
         
         /// <summary>
+        /// Возвращает или задает значение параметра "Columns".
+        /// </summary>
+        [DataMember()]
+        public Dictionary<string, string> Columns
+        {
+            get
+            {
+                return this._columns;
+            }
+            set
+            {
+                if ((this._columns != value))
+                {
+                    this.OnColumnsChanging(value);
+                    this.RaiseDataMemberChanging("Columns");
+                    this.ValidateProperty("Columns", value);
+                    this._columns = value;
+                    this.RaiseDataMemberChanged("Columns");
+                    this.OnColumnsChanged();
+                }
+            }
+        }
+        
+        /// <summary>
         /// Возвращает или задает значение параметра "Data".
         /// </summary>
         [DataMember()]
@@ -2193,6 +2221,10 @@ namespace VotGES.Piramida.PiramidaReport
     public sealed partial class ReportAnswerRecord : ComplexObject
     {
         
+        private Dictionary<string, double> _data;
+        
+        private Dictionary<string, string> _dataStr;
+        
         private DateTime _date;
         
         private string _dateStr;
@@ -2204,6 +2236,10 @@ namespace VotGES.Piramida.PiramidaReport
         /// не может быть использован для последующей настройки объекта.
         /// </summary>
         partial void OnCreated();
+        partial void OnDataChanging(Dictionary<string, double> value);
+        partial void OnDataChanged();
+        partial void OnDataStrChanging(Dictionary<string, string> value);
+        partial void OnDataStrChanged();
         partial void OnDateChanging(DateTime value);
         partial void OnDateChanged();
         partial void OnDateStrChanging(string value);
@@ -2218,6 +2254,54 @@ namespace VotGES.Piramida.PiramidaReport
         public ReportAnswerRecord()
         {
             this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Data".
+        /// </summary>
+        [DataMember()]
+        public Dictionary<string, double> Data
+        {
+            get
+            {
+                return this._data;
+            }
+            set
+            {
+                if ((this._data != value))
+                {
+                    this.OnDataChanging(value);
+                    this.RaiseDataMemberChanging("Data");
+                    this.ValidateProperty("Data", value);
+                    this._data = value;
+                    this.RaiseDataMemberChanged("Data");
+                    this.OnDataChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "DataStr".
+        /// </summary>
+        [DataMember()]
+        public Dictionary<string, string> DataStr
+        {
+            get
+            {
+                return this._dataStr;
+            }
+            set
+            {
+                if ((this._dataStr != value))
+                {
+                    this.OnDataStrChanging(value);
+                    this.RaiseDataMemberChanging("DataStr");
+                    this.ValidateProperty("DataStr", value);
+                    this._dataStr = value;
+                    this.RaiseDataMemberChanged("DataStr");
+                    this.OnDataStrChanged();
+                }
+            }
         }
         
         /// <summary>
