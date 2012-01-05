@@ -110,7 +110,7 @@
     <Compile Include="Services\GraphVyrabDomainService.cs" />
     <Compile Include="Services\PrognozNBService.cs" />
     <Compile Include="Services\LoggerService.cs" />
-    <Compile Include="Services\RezhimSKDomainService.cs" />
+    <Compile Include="Services\ReportBaseDomainService.cs" />
     <Compile Include="Services\RUSADomainService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +120,7 @@
     <Content Include="MainSLTestPage.html" />
     <Content Include="Silverlight.js" />
     <Content Include="Views\Home\MainSL.aspx" />
+    <Content Include="Views\Home\Test.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

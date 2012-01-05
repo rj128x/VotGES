@@ -75,6 +75,7 @@
     <Compile Include="Piramida\PiramidaRecord.cs" />
     <Compile Include="Piramida\PiramidaRecords.cs" />
     <Compile Include="Piramida\PiramidaReport\PiramidaReport.cs" />
+    <Compile Include="Piramida\PiramidaReport\RezhimSKReport.cs" />
     <Compile Include="PrognozNB\CheckPrognozNB.cs" />
     <Compile Include="PrognozNB\PrognozNB.cs" />
     <Compile Include="PrognozNB\PrognozNBByPBR.cs" />

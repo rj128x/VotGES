@@ -1,0 +1,30 @@
+﻿<navigation:Page xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"  x:Class="MainSL.Views.RezhimSKReportPage" 
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			  xmlns:usr="clr-namespace:MainSL.Views"
+           mc:Ignorable="d"
+           xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation"
+           d:DesignWidth="640" d:DesignHeight="480"
+           Title="RezhimSKReportPage Page">
+    <Grid x:Name="LayoutRoot">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>			
+			<usr:ReportBaseControl x:Name="reportControl"/>
+			<Grid Name="pnlSettings" Grid.Column="1">
+				<StackPanel>
+					<sdk:Calendar  
+						IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"
+						SelectedDate="{Binding Date, Mode=TwoWay}"/>
+					<Button Content="Получить отчет" Name="btnGetReport"
+							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"
+							  Click="btnGetReport_Click"/>
+				</StackPanel>
+			</Grid>
+		</Grid>
+    </Grid>
+</navigation:Page>

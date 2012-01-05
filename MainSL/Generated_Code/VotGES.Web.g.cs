@@ -2087,6 +2087,188 @@ namespace VotGES.PBR
         }
     }
 }
+namespace VotGES.Piramida.PiramidaReport
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Runtime.Serialization;
+    using System.ServiceModel.DomainServices;
+    using System.ServiceModel.DomainServices.Client;
+    using System.ServiceModel.DomainServices.Client.ApplicationServices;
+    using VotGES.Chart;
+    
+    
+    /// <summary>
+    /// Класс "ReportAnswer".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Piramida.PiramidaReport")]
+    public sealed partial class ReportAnswer : ComplexObject
+    {
+        
+        private ChartAnswer _chart;
+        
+        private List<ReportAnswerRecord> _data;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnChartChanging(ChartAnswer value);
+        partial void OnChartChanged();
+        partial void OnDataChanging(List<ReportAnswerRecord> value);
+        partial void OnDataChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="ReportAnswer"/>.
+        /// </summary>
+        public ReportAnswer()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Chart".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public ChartAnswer Chart
+        {
+            get
+            {
+                return this._chart;
+            }
+            set
+            {
+                if ((this._chart != value))
+                {
+                    this.OnChartChanging(value);
+                    this.RaiseDataMemberChanging("Chart");
+                    this.ValidateProperty("Chart", value);
+                    this._chart = value;
+                    this.RaiseDataMemberChanged("Chart");
+                    this.OnChartChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Data".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<ReportAnswerRecord> Data
+        {
+            get
+            {
+                return this._data;
+            }
+            set
+            {
+                if ((this._data != value))
+                {
+                    this.OnDataChanging(value);
+                    this.RaiseDataMemberChanging("Data");
+                    this.ValidateProperty("Data", value);
+                    this._data = value;
+                    this.RaiseDataMemberChanged("Data");
+                    this.OnDataChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Класс "ReportAnswerRecord".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Piramida.PiramidaReport")]
+    public sealed partial class ReportAnswerRecord : ComplexObject
+    {
+        
+        private DateTime _date;
+        
+        private string _dateStr;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnDateChanging(DateTime value);
+        partial void OnDateChanged();
+        partial void OnDateStrChanging(string value);
+        partial void OnDateStrChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="ReportAnswerRecord"/>.
+        /// </summary>
+        public ReportAnswerRecord()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Date".
+        /// </summary>
+        [DataMember()]
+        public DateTime Date
+        {
+            get
+            {
+                return this._date;
+            }
+            set
+            {
+                if ((this._date != value))
+                {
+                    this.OnDateChanging(value);
+                    this.RaiseDataMemberChanging("Date");
+                    this.ValidateProperty("Date", value);
+                    this._date = value;
+                    this.RaiseDataMemberChanged("Date");
+                    this.OnDateChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "DateStr".
+        /// </summary>
+        [DataMember()]
+        public string DateStr
+        {
+            get
+            {
+                return this._dateStr;
+            }
+            set
+            {
+                if ((this._dateStr != value))
+                {
+                    this.OnDateStrChanging(value);
+                    this.RaiseDataMemberChanging("DateStr");
+                    this.ValidateProperty("DateStr", value);
+                    this._dateStr = value;
+                    this.RaiseDataMemberChanged("DateStr");
+                    this.OnDateStrChanged();
+                }
+            }
+        }
+    }
+}
 namespace VotGES.PrognozNB
 {
     using System;
@@ -2970,6 +3152,7 @@ namespace VotGES.Web.Services
     using System.ServiceModel.Web;
     using VotGES.Chart;
     using VotGES.PBR;
+    using VotGES.Piramida.PiramidaReport;
     using VotGES.PrognozNB;
     using VotGES.Web.Models;
     
@@ -3763,9 +3946,9 @@ namespace VotGES.Web.Services
     }
     
     /// <summary>
-    /// Контекст DomainContext, соответствующий службе "RezhimSKDomainService" DomainService.
+    /// Контекст DomainContext, соответствующий службе "ReportBaseDomainService" DomainService.
     /// </summary>
-    public sealed partial class RezhimSKDomainContext : DomainContext
+    public sealed partial class ReportBaseDomainContext : DomainContext
     {
         
         #region Определение методов расширяемости
@@ -3780,58 +3963,58 @@ namespace VotGES.Web.Services
         
         
         /// <summary>
-        /// Инициализация нового экземпляра класса <see cref="RezhimSKDomainContext"/>.
+        /// Инициализация нового экземпляра класса <see cref="ReportBaseDomainContext"/>.
         /// </summary>
-        public RezhimSKDomainContext() : 
-                this(new WebDomainClient<IRezhimSKDomainServiceContract>(new Uri("VotGES-Web-Services-RezhimSKDomainService.svc", UriKind.Relative)))
+        public ReportBaseDomainContext() : 
+                this(new WebDomainClient<IReportBaseDomainServiceContract>(new Uri("VotGES-Web-Services-ReportBaseDomainService.svc", UriKind.Relative)))
         {
         }
         
         /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="RezhimSKDomainContext"/> с указанным URI службы.
+        /// Инициализирует новый экземпляр класса <see cref="ReportBaseDomainContext"/> с указанным URI службы.
         /// </summary>
-        /// <param name="serviceUri">Идентификатор URI службы RezhimSKDomainService.</param>
-        public RezhimSKDomainContext(Uri serviceUri) : 
-                this(new WebDomainClient<IRezhimSKDomainServiceContract>(serviceUri))
+        /// <param name="serviceUri">Идентификатор URI службы ReportBaseDomainService.</param>
+        public ReportBaseDomainContext(Uri serviceUri) : 
+                this(new WebDomainClient<IReportBaseDomainServiceContract>(serviceUri))
         {
         }
         
         /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="RezhimSKDomainContext"/> с указанным параметром <paramref name="domainClient"/>.
+        /// Инициализирует новый экземпляр класса <see cref="ReportBaseDomainContext"/> с указанным параметром <paramref name="domainClient"/>.
         /// </summary>
         /// <param name="domainClient">Экземпляр DomainClient для использования в этом контексте DomainContext.</param>
-        public RezhimSKDomainContext(DomainClient domainClient) : 
+        public ReportBaseDomainContext(DomainClient domainClient) : 
                 base(domainClient)
         {
             this.OnCreated();
         }
         
         /// <summary>
-        /// Асинхронно вызывает метод "loadRezhimSK" службы DomainService.
+        /// Асинхронно вызывает метод "GetRezhimSKReport" службы DomainService.
         /// </summary>
         /// <param name="date">Значение параметра "date" для данного действия.</param>
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
         /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation loadRezhimSK(DateTime date, Action<InvokeOperation> callback, object userState)
+        public InvokeOperation<ReportAnswer> GetRezhimSKReport(DateTime date, Action<InvokeOperation<ReportAnswer>> callback, object userState)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("date", date);
-            this.ValidateMethod("loadRezhimSK", parameters);
-            return this.InvokeOperation("loadRezhimSK", typeof(void), parameters, true, callback, userState);
+            this.ValidateMethod("GetRezhimSKReport", parameters);
+            return ((InvokeOperation<ReportAnswer>)(this.InvokeOperation("GetRezhimSKReport", typeof(ReportAnswer), parameters, true, callback, userState)));
         }
         
         /// <summary>
-        /// Асинхронно вызывает метод "loadRezhimSK" службы DomainService.
+        /// Асинхронно вызывает метод "GetRezhimSKReport" службы DomainService.
         /// </summary>
         /// <param name="date">Значение параметра "date" для данного действия.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation loadRezhimSK(DateTime date)
+        public InvokeOperation<ReportAnswer> GetRezhimSKReport(DateTime date)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("date", date);
-            this.ValidateMethod("loadRezhimSK", parameters);
-            return this.InvokeOperation("loadRezhimSK", typeof(void), parameters, true, null, null);
+            this.ValidateMethod("GetRezhimSKReport", parameters);
+            return ((InvokeOperation<ReportAnswer>)(this.InvokeOperation("GetRezhimSKReport", typeof(ReportAnswer), parameters, true, null, null)));
         }
         
         /// <summary>
@@ -3840,38 +4023,39 @@ namespace VotGES.Web.Services
         /// <returns>Новый экземпляр контейнера.</returns>
         protected override EntityContainer CreateEntityContainer()
         {
-            return new RezhimSKDomainContextEntityContainer();
+            return new ReportBaseDomainContextEntityContainer();
         }
         
         /// <summary>
-        /// Контракт службы (Service) "RezhimSKDomainService" DomainService.
+        /// Контракт службы (Service) "ReportBaseDomainService" DomainService.
         /// </summary>
         [ServiceContract()]
-        public interface IRezhimSKDomainServiceContract
+        public interface IReportBaseDomainServiceContract
         {
             
             /// <summary>
-            /// Асинхронно вызывает операцию "loadRezhimSK".
+            /// Асинхронно вызывает операцию "GetRezhimSKReport".
             /// </summary>
             /// <param name="date">Значение параметра "date" для данного действия.</param>
             /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
             /// <param name="asyncState">Необязательный объект состояния.</param>
             /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
-            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/RezhimSKDomainService/loadRezhimSKDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/RezhimSKDomainService/loadRezhimSK", ReplyAction="http://tempuri.org/RezhimSKDomainService/loadRezhimSKResponse")]
-            IAsyncResult BeginloadRezhimSK(DateTime date, AsyncCallback callback, object asyncState);
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/ReportBaseDomainService/GetRezhimSKReportDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ReportBaseDomainService/GetRezhimSKReport", ReplyAction="http://tempuri.org/ReportBaseDomainService/GetRezhimSKReportResponse")]
+            IAsyncResult BeginGetRezhimSKReport(DateTime date, AsyncCallback callback, object asyncState);
             
             /// <summary>
-            /// Завершает асинхронную операцию, начатую "BeginloadRezhimSK".
+            /// Завершает асинхронную операцию, начатую "BeginGetRezhimSKReport".
             /// </summary>
-            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginloadRezhimSK".</param>
-            void EndloadRezhimSK(IAsyncResult result);
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginGetRezhimSKReport".</param>
+            /// <returns>Объект "ReportAnswer", возвращенный из операции "GetRezhimSKReport".</returns>
+            ReportAnswer EndGetRezhimSKReport(IAsyncResult result);
         }
         
-        internal sealed class RezhimSKDomainContextEntityContainer : EntityContainer
+        internal sealed class ReportBaseDomainContextEntityContainer : EntityContainer
         {
             
-            public RezhimSKDomainContextEntityContainer()
+            public ReportBaseDomainContextEntityContainer()
             {
             }
         }

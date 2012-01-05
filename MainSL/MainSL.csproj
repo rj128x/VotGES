@@ -117,11 +117,14 @@
     <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GeneratePBRPage.xaml.cs">
-      <DependentUpon>GeneratePBRPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\GraphVyrabPage.xaml.cs">
       <DependentUpon>GraphVyrabPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReportBaseControl.xaml.cs">
+      <DependentUpon>ReportBaseControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RezhimSKReportPage.xaml.cs">
+      <DependentUpon>RezhimSKReportPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TestPage.xaml.cs">
       <DependentUpon>TestPage.xaml</DependentUpon>
@@ -169,6 +172,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ReportBaseControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RezhimSKReportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RUSAPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -194,10 +205,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\About.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\GeneratePBRPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
