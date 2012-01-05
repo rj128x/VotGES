@@ -114,7 +114,9 @@ namespace VotGES.PrognozNB
 													 d.PARNUMBER == 212 && d.DATA_DATE >= DateStart && d.DATA_DATE <= dateEnd &&
 													 d.OBJTYPE == 2 && d.OBJECT == 0 && d.ITEM == 1 select d;
 			foreach (DATA data in dataArr) {
-				pbr.Add(data.DATA_DATE, data.VALUE0.Value/1000);
+				if (!pbr.Keys.Contains(data.DATA_DATE)) {
+					pbr.Add(data.DATA_DATE, data.VALUE0.Value / 1000);
+				}
 			}
 		}
 
@@ -124,7 +126,9 @@ namespace VotGES.PrognozNB
 													 d.PARNUMBER == 12 && d.DATA_DATE > DateStart && d.DATA_DATE <= dateEnd &&
 													 d.OBJTYPE == 2 && d.OBJECT == 0 && d.ITEM == 1 select d;
 			foreach (DATA data in dataArr) {
-				pFakt.Add(data.DATA_DATE, data.VALUE0.Value/1000);
+				if (!pFakt.Keys.Contains(data.DATA_DATE)) {
+					pFakt.Add(data.DATA_DATE, data.VALUE0.Value / 1000);
+				}
 			}
 		}
 
@@ -139,21 +143,31 @@ namespace VotGES.PrognozNB
 			foreach (DATA data in dataArr) {
 				switch (data.ITEM) {
 					case 354:
-						qFakt.Add(data.DATA_DATE, data.VALUE0.Value);
+						if (!qFakt.Keys.Contains(data.DATA_DATE)) {
+							qFakt.Add(data.DATA_DATE, data.VALUE0.Value);
+						}
 						break;
 					case 276:
-						naporFakt.Add(data.DATA_DATE, data.VALUE0.Value);
+						if (!naporFakt.Keys.Contains(data.DATA_DATE)) {
+							naporFakt.Add(data.DATA_DATE, data.VALUE0.Value);
+						}
 						break;
 					case 275:
-						nbFakt.Add(data.DATA_DATE, data.VALUE0.Value);
+						if (!nbFakt.Keys.Contains(data.DATA_DATE)) {
+							nbFakt.Add(data.DATA_DATE, data.VALUE0.Value);
+						}
 						break;
 					case 274:
-						vbFakt.Add(data.DATA_DATE, data.VALUE0.Value);
+						if (!vbFakt.Keys.Contains(data.DATA_DATE)) {
+							vbFakt.Add(data.DATA_DATE, data.VALUE0.Value);
+						}
 						break;
 					case 373:
-						tFakt.Add(data.DATA_DATE, data.VALUE0.Value);
-						TSum += data.VALUE0.Value;
-						TCount++;
+						if (!tFakt.Keys.Contains(data.DATA_DATE)) {
+							tFakt.Add(data.DATA_DATE, data.VALUE0.Value);						
+							TSum += data.VALUE0.Value;
+							TCount++;
+						}
 						break;
 				}
 			}
@@ -225,7 +239,7 @@ namespace VotGES.PrognozNB
 				}
 
 				switch (data.ITEM) {
-					case 1:
+					case 1:						
 						firstData[data.DATA_DATE].P = data.VALUE0.Value/1000;
 						break;
 					case 354:

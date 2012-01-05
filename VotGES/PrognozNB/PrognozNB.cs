@@ -256,8 +256,11 @@ namespace VotGES.PrognozNB
 			naporAx.Index = 4;
 
 			ChartAxisProperties tAx=new ChartAxisProperties();
-			tAx.Auto = true;
+			tAx.Auto = false;
+			tAx.Min = -40;
+			tAx.Max = 40;
 			tAx.Index = 5;
+
 
 			ChartSerieProperties pSerie=new ChartSerieProperties();
 			pSerie.Color = "0-0-255";

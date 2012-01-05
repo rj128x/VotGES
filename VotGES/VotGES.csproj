@@ -74,6 +74,7 @@
     <Compile Include="Piramida\PiramidaAccess.cs" />
     <Compile Include="Piramida\PiramidaRecord.cs" />
     <Compile Include="Piramida\PiramidaRecords.cs" />
+    <Compile Include="Piramida\PiramidaReport\PiramidaReport.cs" />
     <Compile Include="PrognozNB\CheckPrognozNB.cs" />
     <Compile Include="PrognozNB\PrognozNB.cs" />
     <Compile Include="PrognozNB\PrognozNBByPBR.cs" />
@@ -88,8 +89,6 @@
     <Compile Include="Rashod\RashodTable.cs" />
     <Compile Include="Rashod\RUSA.cs" />
     <Compile Include="Rashod\RUSADiffPower.cs" />
-    <Compile Include="Reports\Report.cs" />
-    <Compile Include="Reports\RezhimSKReport.cs" />
     <Compile Include="XMLSer\XMLSer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +127,9 @@
     <Content Include="Data\nnet\vges_nb.txt" />
     <Content Include="Piramida\full.xml" />
     <Content Include="Piramida\sensors.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reports\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

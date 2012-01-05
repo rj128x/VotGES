@@ -123,9 +123,6 @@
     <Compile Include="Views\GraphVyrabPage.xaml.cs">
       <DependentUpon>GraphVyrabPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Reports\RezhimSKReportPage.xaml.cs">
-      <DependentUpon>RezhimSKReportPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\TestPage.xaml.cs">
       <DependentUpon>TestPage.xaml</DependentUpon>
     </Compile>
@@ -169,10 +166,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GraphVyrabPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Reports\RezhimSKReportPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -222,6 +215,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contexts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\2.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

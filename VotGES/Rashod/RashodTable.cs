@@ -17,7 +17,7 @@ namespace VotGES
 		protected double[] napors;
 		protected double[] powers;
 		protected double[][] rashods;
-		protected SortedList<double,SortedList<double,double>> rashodsByNapor, rashodsByPower;
+		protected SortedList<double,SortedList<double,double>> rashodsByNapor;
 		protected double minPower;
 		protected double maxPower;
 		protected double minNapor;
@@ -108,11 +108,11 @@ namespace VotGES
 			stepNapor = napors[1] - napors[0];
 
 			rashodsByNapor = new SortedList<double, SortedList<double, double>>();
-			rashodsByPower = new SortedList<double, SortedList<double, double>>();
 
 			for (int naporIndex=0; naporIndex < napors.Length; naporIndex++) {
 				double napor=napors[naporIndex];
 				rashodsByNapor.Add(napor, new SortedList<double, double>());
+				rashodsByNapor[napor].Add(0, 0);
 				for (int powerIndex=0; powerIndex < powers.Length; powerIndex++) {
 					try {
 						double rashod=rashods[powerIndex][naporIndex];
@@ -122,19 +122,6 @@ namespace VotGES
 				}
 			}
 
-			for (int powerIndex=0; powerIndex < powers.Length; powerIndex++) {
-				double power=powers[powerIndex];
-				try {
-					rashodsByPower.Add(power, new SortedList<double, double>());
-					for (int naporIndex=0; naporIndex < napors.Length; naporIndex++) {
-						try {
-							double rashod=rashods[powerIndex][naporIndex];
-							double napor=napors[powerIndex];
-							rashodsByPower[power].Add(napor, rashod);
-						} catch { }
-					}
-				} catch { };
-			}
 		}
 
 		public static RashodTable getRashodTable(int ga) {
@@ -145,7 +132,7 @@ namespace VotGES
 		}
 
 		protected double getRashod(double power, double napor) {
-			try {
+			try {				
 				KeyValuePair<double,SortedList<double,double>> naporRashod1=rashodsByNapor.Last(de => de.Key <= napor);
 				KeyValuePair<double,SortedList<double,double>> naporRashod2=rashodsByNapor.First(de => de.Key >= napor);
 				KeyValuePair<double,double>powerRashod11=naporRashod1.Value.Last(de => de.Key <= power);
@@ -242,6 +229,8 @@ namespace VotGES
 		public static double getStationRashod(double power, double napor, RashodCalcMode mode) {
 			/*if (napor < 16)
 				mode = RashodCalcMode.min;*/
+			if (power == 0)
+				return 0;
 			switch (mode) {
 				case RashodCalcMode.avg:
 					return getRashodTable(11).getRashod(power, napor);

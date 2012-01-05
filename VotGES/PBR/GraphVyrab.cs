@@ -96,7 +96,8 @@ namespace VotGES.PBR
 			PBRData gtp1=new PBRData(dateStart, dateEnd, date, 1);
 			PBRData gtp2=new PBRData(dateStart, dateEnd, date, 2);
 
-			answer.ActualDate = ges.Date;
+			answer.ActualDate = gtp1.Date < gtp2.Date ? gtp1.Date : gtp2.Date;
+			answer.ActualDate = ges.Date < answer.ActualDate ? ges.Date : answer.ActualDate;
 			answer.Chart = new ChartAnswer();
 			answer.Chart.Properties = getChartProperties();
 			answer.Chart.Data = new ChartData();

@@ -53,7 +53,8 @@ namespace MainSL.Views
 			AxesVisible = new Dictionary<int, Dictionary<string, bool>>();
 			foreach (ChartAxisProperties ax in chartAnswer.Properties.Axes) {
 				LinearAxis axis=new LinearAxis();
-				axis.AutoScaleToVisibleData = true;
+				axis.AutoScaleToVisibleData = ax.Auto;
+								
 
 				axis.LabelFormatString = "### ### ##0.##";
 				axis.ShowGridlines = ax.Index == 0;
@@ -71,6 +72,9 @@ namespace MainSL.Views
 				Axes.Add(ax.Index, axis);
 				AxesVisible.Add(ax.Index, new Dictionary<string,bool>());
 			}
+			
+
+
 			CurrentChart.YAxis = Axes[0];
 			CurrentChart.SecondaryYAxis = Axes[1];
 
@@ -82,10 +86,23 @@ namespace MainSL.Views
 					VisibloxChartSerie chartSerie=new VisibloxChartSerie(this);
 					chartSerie.init(serieData, serieProp);
 					ChartSeries.Add(chartSerie);
+					chartSerie.Enabled = true;
 				} catch {
 				}
 			}
+
+			this.InvalidateArrange();
 			LegendGrid.ItemsSource = ChartSeries;
+
+			foreach (VisibloxChartSerie serie in ChartSeries) {
+				try {
+					ChartSerieProperties props=chartAnswer.Properties.Series[chartAnswer.Properties.SeriesNames[serie.TagName]];
+					serie.Enabled = props.Enabled;
+				} catch {
+				}
+			}
+
+			
 
 		}
 
@@ -94,7 +111,8 @@ namespace MainSL.Views
 			foreach (bool vis in AxesVisible[YAxisIndex].Values) {
 				visible = visible || vis;
 			}
-			Axes[YAxisIndex].Visibility = visible ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+			//Axes[YAxisIndex].Visibility = visible ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+			Axes[YAxisIndex].ShowAxis = visible;
 		}
 
 		private void CreateChart() {

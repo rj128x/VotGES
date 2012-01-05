@@ -60,7 +60,7 @@ namespace MainSL.Views
 			timer = new DispatcherTimer();
 			timer.Tick += new EventHandler(timer_Tick);
 			timer.Interval = new TimeSpan(0, 0, 1);
-			timer.Start();
+			
 		}
 
 		void timer_Tick(object sender, EventArgs e) {
@@ -75,12 +75,13 @@ namespace MainSL.Views
 
 		// Выполняется, когда пользователь переходит на эту страницу.
 		protected override void OnNavigatedTo(NavigationEventArgs e) {
+			timer.Start();
 			refresh();			
 		}
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e) {
 			GlobalStatus.Current.StopLoad();
-			
+			timer.Stop();
 		}
 
 		private void btnRefresh_Click(object sender, RoutedEventArgs e) {

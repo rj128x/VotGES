@@ -2521,298 +2521,6 @@ namespace VotGES.PrognozNB
         }
     }
 }
-namespace VotGES.Reports
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Runtime.Serialization;
-    using System.ServiceModel.DomainServices;
-    using System.ServiceModel.DomainServices.Client;
-    using System.ServiceModel.DomainServices.Client.ApplicationServices;
-    
-    
-    /// <summary>
-    /// Класс "RezhimSKReportRecord".
-    /// </summary>
-    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Reports")]
-    public sealed partial class RezhimSKReportRecord : ComplexObject
-    {
-        
-        private DateTime _date;
-        
-        private double _ga10p;
-        
-        private double _ga10q;
-        
-        private double _ga1p;
-        
-        private double _ga1q;
-        
-        private double _ga2p;
-        
-        private double _ga2q;
-        
-        private double _ga9p;
-        
-        private double _ga9q;
-        
-        #region Определение методов расширяемости
-
-        /// <summary>
-        /// Этот метод вызывается из конструктора по завершении инициализации и
-        /// не может быть использован для последующей настройки объекта.
-        /// </summary>
-        partial void OnCreated();
-        partial void OnDateChanging(DateTime value);
-        partial void OnDateChanged();
-        partial void OnGA10PChanging(double value);
-        partial void OnGA10PChanged();
-        partial void OnGA10QChanging(double value);
-        partial void OnGA10QChanged();
-        partial void OnGA1PChanging(double value);
-        partial void OnGA1PChanged();
-        partial void OnGA1QChanging(double value);
-        partial void OnGA1QChanged();
-        partial void OnGA2PChanging(double value);
-        partial void OnGA2PChanged();
-        partial void OnGA2QChanging(double value);
-        partial void OnGA2QChanged();
-        partial void OnGA9PChanging(double value);
-        partial void OnGA9PChanged();
-        partial void OnGA9QChanging(double value);
-        partial void OnGA9QChanged();
-
-        #endregion
-        
-        
-        /// <summary>
-        /// Инициализация нового экземпляра класса <see cref="RezhimSKReportRecord"/>.
-        /// </summary>
-        public RezhimSKReportRecord()
-        {
-            this.OnCreated();
-        }
-        
-        /// <summary>
-        /// Возвращает или задает значение параметра "Date".
-        /// </summary>
-        [DataMember()]
-        public DateTime Date
-        {
-            get
-            {
-                return this._date;
-            }
-            set
-            {
-                if ((this._date != value))
-                {
-                    this.OnDateChanging(value);
-                    this.RaiseDataMemberChanging("Date");
-                    this.ValidateProperty("Date", value);
-                    this._date = value;
-                    this.RaiseDataMemberChanged("Date");
-                    this.OnDateChanged();
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Возвращает или задает значение параметра "GA10P".
-        /// </summary>
-        [DataMember()]
-        public double GA10P
-        {
-            get
-            {
-                return this._ga10p;
-            }
-            set
-            {
-                if ((this._ga10p != value))
-                {
-                    this.OnGA10PChanging(value);
-                    this.RaiseDataMemberChanging("GA10P");
-                    this.ValidateProperty("GA10P", value);
-                    this._ga10p = value;
-                    this.RaiseDataMemberChanged("GA10P");
-                    this.OnGA10PChanged();
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Возвращает или задает значение параметра "GA10Q".
-        /// </summary>
-        [DataMember()]
-        public double GA10Q
-        {
-            get
-            {
-                return this._ga10q;
-            }
-            set
-            {
-                if ((this._ga10q != value))
-                {
-                    this.OnGA10QChanging(value);
-                    this.RaiseDataMemberChanging("GA10Q");
-                    this.ValidateProperty("GA10Q", value);
-                    this._ga10q = value;
-                    this.RaiseDataMemberChanged("GA10Q");
-                    this.OnGA10QChanged();
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Возвращает или задает значение параметра "GA1P".
-        /// </summary>
-        [DataMember()]
-        public double GA1P
-        {
-            get
-            {
-                return this._ga1p;
-            }
-            set
-            {
-                if ((this._ga1p != value))
-                {
-                    this.OnGA1PChanging(value);
-                    this.RaiseDataMemberChanging("GA1P");
-                    this.ValidateProperty("GA1P", value);
-                    this._ga1p = value;
-                    this.RaiseDataMemberChanged("GA1P");
-                    this.OnGA1PChanged();
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Возвращает или задает значение параметра "GA1Q".
-        /// </summary>
-        [DataMember()]
-        public double GA1Q
-        {
-            get
-            {
-                return this._ga1q;
-            }
-            set
-            {
-                if ((this._ga1q != value))
-                {
-                    this.OnGA1QChanging(value);
-                    this.RaiseDataMemberChanging("GA1Q");
-                    this.ValidateProperty("GA1Q", value);
-                    this._ga1q = value;
-                    this.RaiseDataMemberChanged("GA1Q");
-                    this.OnGA1QChanged();
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Возвращает или задает значение параметра "GA2P".
-        /// </summary>
-        [DataMember()]
-        public double GA2P
-        {
-            get
-            {
-                return this._ga2p;
-            }
-            set
-            {
-                if ((this._ga2p != value))
-                {
-                    this.OnGA2PChanging(value);
-                    this.RaiseDataMemberChanging("GA2P");
-                    this.ValidateProperty("GA2P", value);
-                    this._ga2p = value;
-                    this.RaiseDataMemberChanged("GA2P");
-                    this.OnGA2PChanged();
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Возвращает или задает значение параметра "GA2Q".
-        /// </summary>
-        [DataMember()]
-        public double GA2Q
-        {
-            get
-            {
-                return this._ga2q;
-            }
-            set
-            {
-                if ((this._ga2q != value))
-                {
-                    this.OnGA2QChanging(value);
-                    this.RaiseDataMemberChanging("GA2Q");
-                    this.ValidateProperty("GA2Q", value);
-                    this._ga2q = value;
-                    this.RaiseDataMemberChanged("GA2Q");
-                    this.OnGA2QChanged();
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Возвращает или задает значение параметра "GA9P".
-        /// </summary>
-        [DataMember()]
-        public double GA9P
-        {
-            get
-            {
-                return this._ga9p;
-            }
-            set
-            {
-                if ((this._ga9p != value))
-                {
-                    this.OnGA9PChanging(value);
-                    this.RaiseDataMemberChanging("GA9P");
-                    this.ValidateProperty("GA9P", value);
-                    this._ga9p = value;
-                    this.RaiseDataMemberChanged("GA9P");
-                    this.OnGA9PChanged();
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Возвращает или задает значение параметра "GA9Q".
-        /// </summary>
-        [DataMember()]
-        public double GA9Q
-        {
-            get
-            {
-                return this._ga9q;
-            }
-            set
-            {
-                if ((this._ga9q != value))
-                {
-                    this.OnGA9QChanging(value);
-                    this.RaiseDataMemberChanging("GA9Q");
-                    this.ValidateProperty("GA9Q", value);
-                    this._ga9q = value;
-                    this.RaiseDataMemberChanged("GA9Q");
-                    this.OnGA9QChanged();
-                }
-            }
-        }
-    }
-}
 namespace VotGES.Web.Models
 {
     using System;
@@ -3263,7 +2971,6 @@ namespace VotGES.Web.Services
     using VotGES.Chart;
     using VotGES.PBR;
     using VotGES.PrognozNB;
-    using VotGES.Reports;
     using VotGES.Web.Models;
     
     
@@ -4106,12 +3813,12 @@ namespace VotGES.Web.Services
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
         /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<List<RezhimSKReportRecord>> loadRezhimSK(DateTime date, Action<InvokeOperation<List<RezhimSKReportRecord>>> callback, object userState)
+        public InvokeOperation loadRezhimSK(DateTime date, Action<InvokeOperation> callback, object userState)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("date", date);
             this.ValidateMethod("loadRezhimSK", parameters);
-            return ((InvokeOperation<List<RezhimSKReportRecord>>)(this.InvokeOperation("loadRezhimSK", typeof(List<RezhimSKReportRecord>), parameters, true, callback, userState)));
+            return this.InvokeOperation("loadRezhimSK", typeof(void), parameters, true, callback, userState);
         }
         
         /// <summary>
@@ -4119,12 +3826,12 @@ namespace VotGES.Web.Services
         /// </summary>
         /// <param name="date">Значение параметра "date" для данного действия.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<List<RezhimSKReportRecord>> loadRezhimSK(DateTime date)
+        public InvokeOperation loadRezhimSK(DateTime date)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("date", date);
             this.ValidateMethod("loadRezhimSK", parameters);
-            return ((InvokeOperation<List<RezhimSKReportRecord>>)(this.InvokeOperation("loadRezhimSK", typeof(List<RezhimSKReportRecord>), parameters, true, null, null)));
+            return this.InvokeOperation("loadRezhimSK", typeof(void), parameters, true, null, null);
         }
         
         /// <summary>
@@ -4158,8 +3865,7 @@ namespace VotGES.Web.Services
             /// Завершает асинхронную операцию, начатую "BeginloadRezhimSK".
             /// </summary>
             /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginloadRezhimSK".</param>
-            /// <returns>Объект "List`1", возвращенный из операции "loadRezhimSK".</returns>
-            List<RezhimSKReportRecord> EndloadRezhimSK(IAsyncResult result);
+            void EndloadRezhimSK(IAsyncResult result);
         }
         
         internal sealed class RezhimSKDomainContextEntityContainer : EntityContainer

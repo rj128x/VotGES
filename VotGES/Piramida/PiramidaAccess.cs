@@ -14,6 +14,9 @@ namespace VotGES.Piramida
 
 
 		}
+
+
+
 		public static Piramida3000Entities getModel() {
 			return new Piramida3000Entities(conString);
 		}

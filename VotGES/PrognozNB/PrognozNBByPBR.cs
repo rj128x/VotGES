@@ -98,7 +98,9 @@ namespace VotGES.PrognozNB
 													 d.PARNUMBER == 212 && d.DATA_DATE > DateStart && d.DATA_DATE <= dateEnd &&
 													 d.OBJTYPE == 2 && d.OBJECT == 53500 && d.ITEM == 3 select d;
 			foreach (DATA data in dataArr) {
-				m53500.Add(data.DATA_DATE, data.VALUE0.Value);
+				if (!m53500.Keys.Contains(data.DATA_DATE)) {
+					m53500.Add(data.DATA_DATE, data.VALUE0.Value);
+				}
 			}
 		}
 
@@ -111,7 +113,9 @@ namespace VotGES.PrognozNB
 													 d.PARNUMBER == 212 && d.DATA_DATE > DateStart && d.DATA_DATE <= dateEnd &&
 													 d.OBJTYPE == 2 && d.OBJECT == 0 && d.ITEM == 1 select d;
 			foreach (DATA data in dataArr) {
-				pbrPrevSutki.Add(data.DATA_DATE, data.VALUE0.Value / 1000);
+				if (!pbrPrevSutki.Keys.Contains(data.DATA_DATE)) {
+					pbrPrevSutki.Add(data.DATA_DATE, data.VALUE0.Value / 1000);
+				}
 			}
 		}
 
