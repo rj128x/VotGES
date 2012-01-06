@@ -23,34 +23,10 @@
 					<sdk:DataGrid ItemsSource="{Binding TableCurrent}"
 						AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False">
 						<sdk:DataGrid.Columns>
-							<sdk:DataGridTemplateColumn Header="Параметр">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding Title}" FontWeight="Bold" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГТП-1">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding GTP1Str}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГТП-2">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding GTP2Str}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГЭС">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding GESStr}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
+							<sdk:DataGridTextColumn Header="Параметр" Binding="{Binding Title}" FontWeight="Bold" IsReadOnly="True"/>
+							<sdk:DataGridTextColumn Header="ГТП-1" Binding="{Binding GTP1Str}" IsReadOnly="True"/>
+							<sdk:DataGridTextColumn Header="ГТП-2" Binding="{Binding GTP2Str}" IsReadOnly="True"/>
+							<sdk:DataGridTextColumn Header="ГЭС" Binding="{Binding GESStr}" IsReadOnly="True"/>
 						</sdk:DataGrid.Columns>
 					</sdk:DataGrid>
 
@@ -58,34 +34,10 @@
 					<sdk:DataGrid ItemsSource="{Binding TableHour}"
 						AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False">
 						<sdk:DataGrid.Columns>
-							<sdk:DataGridTemplateColumn Header="Параметр">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding Title}" FontWeight="Bold" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГТП-1">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding GTP1Str}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГТП-2">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding GTP2Str}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГЭС">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding GESStr}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
+							<sdk:DataGridTextColumn Header="Параметр" Binding="{Binding Title}" FontWeight="Bold" IsReadOnly="True"/>
+							<sdk:DataGridTextColumn Header="ГТП-1" Binding="{Binding GTP1Str}" IsReadOnly="True"/>
+							<sdk:DataGridTextColumn Header="ГТП-2" Binding="{Binding GTP2Str}" IsReadOnly="True"/>
+							<sdk:DataGridTextColumn Header="ГЭС" Binding="{Binding GESStr}" IsReadOnly="True"/>
 						</sdk:DataGrid.Columns>
 					</sdk:DataGrid>
 

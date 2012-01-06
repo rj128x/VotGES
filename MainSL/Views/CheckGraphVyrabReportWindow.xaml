@@ -13,100 +13,21 @@
 			<sdk:DataGrid AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
 							  Name="grdReport" >
 				<sdk:DataGrid.Columns>
-					<sdk:DataGridTemplateColumn Header="Дата">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding Title}" FontWeight="Bold" HorizontalAlignment="Right"/>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
-					<sdk:DataGridTemplateColumn Header="ГТП-1 Факт">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding GTP1Fakt, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
-					<sdk:DataGridTemplateColumn Header="ГТП-1 План">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding GTP1Plan, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
-					<sdk:DataGridTemplateColumn Header="ГТП-1 Откл">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding GTP1Diff, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
-					<sdk:DataGridTemplateColumn Header="ГТП-1 Откл %">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding GTP1DiffProc, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
+					<sdk:DataGridTextColumn Header="Дата" Binding="{Binding Title}" FontWeight="Bold" IsReadOnly="True"/>
+					<sdk:DataGridTextColumn Header="ГТП-1 Факт" Binding="{Binding GTP1Fakt, StringFormat='### ##0.00'}" IsReadOnly="True"/>
+					<sdk:DataGridTextColumn Header="ГТП-1 План" Binding="{Binding GTP1Plan, StringFormat='### ##0.00'}" IsReadOnly="True"/>
+					<sdk:DataGridTextColumn Header="ГТП-1 Откл" Binding="{Binding GTP1Diff, StringFormat='### ##0.00'}" IsReadOnly="True"/>
+					<sdk:DataGridTextColumn Header="ГТП-1 Откл %" Binding="{Binding GTP1DiffProc, StringFormat='### ##0.00'}" IsReadOnly="True"/>
 
-					<sdk:DataGridTemplateColumn Header="ГТП-2 Факт">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding GTP2Fakt, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
-					<sdk:DataGridTemplateColumn Header="ГТП-2 План">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding GTP2Plan, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
-					<sdk:DataGridTemplateColumn Header="ГТП-2 Откл">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding GTP2Diff, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
-					<sdk:DataGridTemplateColumn Header="ГТП-2 Откл %">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding GTP2DiffProc, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
+					<sdk:DataGridTextColumn Header="ГТП-2 Факт" Binding="{Binding GTP2Fakt, StringFormat='### ##0.00'}" IsReadOnly="True"/>
+					<sdk:DataGridTextColumn Header="ГТП-2 План" Binding="{Binding GTP2Plan, StringFormat='### ##0.00'}" IsReadOnly="True"/>
+					<sdk:DataGridTextColumn Header="ГТП-2 Откл" Binding="{Binding GTP2Diff, StringFormat='### ##0.00'}" IsReadOnly="True"/>
+					<sdk:DataGridTextColumn Header="ГТП-2 Откл %" Binding="{Binding GTP2DiffProc, StringFormat='### ##0.00'}" IsReadOnly="True"/>
 
-
-					<sdk:DataGridTemplateColumn Header="ГЭС Факт">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding GESFakt, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
-					<sdk:DataGridTemplateColumn Header="ГЭС План">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding GESPlan, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
-					<sdk:DataGridTemplateColumn Header="ГЭС Откл">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding GESDiff, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
-					<sdk:DataGridTemplateColumn Header="ГЭС Откл %">
-						<sdk:DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding GESDiffProc, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-							</DataTemplate>
-						</sdk:DataGridTemplateColumn.CellTemplate>
-					</sdk:DataGridTemplateColumn>
+					<sdk:DataGridTextColumn Header="ГЭС Факт" Binding="{Binding GESFakt, StringFormat='### ##0.00'}" IsReadOnly="True"/>
+					<sdk:DataGridTextColumn Header="ГЭС План" Binding="{Binding GESPlan, StringFormat='### ##0.00'}" IsReadOnly="True"/>
+					<sdk:DataGridTextColumn Header="ГЭС Откл" Binding="{Binding GESDiff, StringFormat='### ##0.00'}" IsReadOnly="True"/>
+					<sdk:DataGridTextColumn Header="ГЭС Откл %" Binding="{Binding GESDiffProc, StringFormat='### ##0.00'}" IsReadOnly="True"/>
 
 				</sdk:DataGrid.Columns>
 			</sdk:DataGrid>

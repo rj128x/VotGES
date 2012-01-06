@@ -32,15 +32,15 @@ namespace MainSL.Views
 			dataReport.CanUserReorderColumns = false;
 			dataReport.Columns.Clear();
 
-			DataGridTextColumn columnDate=new DataGridTextColumn();
-			columnDate.Header = "Дата";
-			columnDate.IsReadOnly = true;
-			columnDate.Binding = new System.Windows.Data.Binding();
-			columnDate.Binding.Mode = System.Windows.Data.BindingMode.OneTime;
-			columnDate.Binding.Path = new PropertyPath("DateStr");
+			DataGridTextColumn columnHeader=new DataGridTextColumn();
+			columnHeader.Header = "Параметр";
+			columnHeader.IsReadOnly = true;
+			columnHeader.Binding = new System.Windows.Data.Binding();
+			columnHeader.Binding.Mode = System.Windows.Data.BindingMode.OneTime;
+			columnHeader.Binding.Path = new PropertyPath("Header");
+			dataReport.Columns.Add(columnHeader);
 
 
-			dataReport.Columns.Add(columnDate);
 			foreach (KeyValuePair<string,string> de in answer.Columns){
 				DataGridTextColumn column=new DataGridTextColumn();
 				column.Header = de.Value;

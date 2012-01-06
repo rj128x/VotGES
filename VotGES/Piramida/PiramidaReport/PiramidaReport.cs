@@ -82,9 +82,7 @@ namespace VotGES.Piramida.PiramidaReport
 
 	public class ReportAnswerRecord
 	{
-		public DateTime Date { get; set; }
-		public String DateStr { get; set; }
-		public Dictionary<String,double> Data{get;set;}
+		public String Header { get; set; }
 		public Dictionary<String, String> DataStr { get; set; }		
 	}
 
@@ -131,6 +129,8 @@ namespace VotGES.Piramida.PiramidaReport
 		public IntervalReportEnum Interval { get; set; }
 		public Dictionary<string, RecordTypeBase> RecordTypes { get; set; }
 		public SortedList<DateTime, Dictionary<string, double>> Data { get; set; }
+		public Dictionary<string, double> ResultData { get; set; }
+		public SortedList<ResultTypeEnum, Dictionary<string, double>> ResultDataFull { get; set; }
 		public List<DateTime> Dates { get; set; }
 		public ReportAnswer Answer { get; set; }
 		protected SqlConnection connection;
@@ -162,7 +162,14 @@ namespace VotGES.Piramida.PiramidaReport
 			Interval = interval;
 			RecordTypes = new Dictionary<string, RecordTypeBase>();
 			Data = new SortedList<DateTime, Dictionary<string, double>>();
+			ResultData = new Dictionary<string, double>();
+			ResultDataFull = new SortedList<ResultTypeEnum, Dictionary<string, double>>();
+			ResultDataFull.Add(ResultTypeEnum.avg, new Dictionary<string, double>());
+			ResultDataFull.Add(ResultTypeEnum.max, new Dictionary<string, double>());
+			ResultDataFull.Add(ResultTypeEnum.min, new Dictionary<string, double>());
+			ResultDataFull.Add(ResultTypeEnum.sum, new Dictionary<string, double>());
 			Dates = new List<DateTime>();
+
 
 			DateTime date=NextDate(DateStart);
 			while (date <= DateEnd) {
@@ -196,14 +203,37 @@ namespace VotGES.Piramida.PiramidaReport
 					}
 				}
 			}
+			calcResult();
+		}
+
+		protected virtual void calcResult() {
+			foreach (RecordTypeBase recordType in RecordTypes.Values) {
+				double min=10e100;
+				double max=-10e100;
+				double sum=0;
+				double count=0;
+				foreach (DateTime date in Dates) {
+					double val=Data[date][recordType.ID];
+					min = min < val ? min : val;
+					max = max > val ? max : val;
+					sum += val;
+					count++;
+				}
+				double avg=count > 0 ? sum / count : 0;
+				ResultDataFull[ResultTypeEnum.avg].Add(recordType.ID, avg);
+				ResultDataFull[ResultTypeEnum.max].Add(recordType.ID, max);
+				ResultDataFull[ResultTypeEnum.min].Add(recordType.ID, min);
+				ResultDataFull[ResultTypeEnum.sum].Add(recordType.ID, sum);
+				ResultData.Add(recordType.ID, ResultDataFull[recordType.ResultType][recordType.ID]);
+			}
 		}
 
 
 		protected void checkDBData() {
+			List<DateTime> forRemove=new List<DateTime>();
 			foreach (DateTime date in Dates) {
 				if (date > RealDateEnd) {
-					Dates.Remove(date);
-					Data.Remove(date);
+					forRemove.Add(date);
 				} else {
 					foreach (RecordTypeBase recordType in RecordTypes.Values) {
 						if (recordType is RecordTypeDB) {
@@ -214,6 +244,10 @@ namespace VotGES.Piramida.PiramidaReport
 						}
 					}
 				}
+			}
+			foreach (DateTime date in forRemove) {
+				Dates.Remove(date);
+				Data.Remove(date);
 			}
 		}
 
@@ -289,6 +323,7 @@ namespace VotGES.Piramida.PiramidaReport
 			Logger.Info(commandText);
 			command.CommandText = commandText;
 			SqlDataReader reader=command.ExecuteReader();
+			DateTime lastDate=DateEnd;
 
 			while (reader.Read()) {
 				int year=-1;
@@ -352,7 +387,8 @@ namespace VotGES.Piramida.PiramidaReport
 						break;
 				}
 				if (ok) {
-					RealDateEnd = date < RealDateEnd ? date : RealDateEnd;
+					lastDate = date;
+					
 					if (Data.Keys.Contains(date)) {
 						if (!Data[date].Keys.Contains(recordType.ID)) {
 							Data[date].Add(recordType.ID, -1);
@@ -361,31 +397,84 @@ namespace VotGES.Piramida.PiramidaReport
 					}
 				}
 			}
+			RealDateEnd = lastDate < RealDateEnd ? lastDate : RealDateEnd;
 			reader.Close();
 		}
 
-		public virtual void CreateAnswerData() {
+		public virtual void CreateAnswerData(bool createResult=true) {
 			Answer.Data = new List<ReportAnswerRecord>();
 			Answer.Columns = new Dictionary<string, string>();
-			foreach (DateTime date in Dates) {
-				ReportAnswerRecord record=new ReportAnswerRecord();
-				record.Date = date;
-				record.DateStr = GetCorrectedDate(date).ToString(getDateFormat());
-				record.Data = new Dictionary<string, double>();
-				record.DataStr = new Dictionary<string, string>();
+
+			if (createResult) {
+				ReportAnswerRecord recordResult=new ReportAnswerRecord();
+				recordResult.Header = "Итог";
+				recordResult.DataStr = new Dictionary<string, string>();
 				foreach (RecordTypeBase recordType in RecordTypes.Values) {
 					if (recordType.Visible) {
-						if (!Answer.Columns.Keys.Contains(recordType.ID)) {
-							Answer.Columns.Add(recordType.ID, recordType.Title);
-						}
-						record.Data.Add(recordType.ID, Data[date][recordType.ID]);
+						recordResult.DataStr.Add(recordType.ID, ResultData[recordType.ID].ToString("### ### ##0.##"));
+					}
+				}
+				Answer.Data.Add(recordResult);
+			}
+
+			foreach (RecordTypeBase recordType in RecordTypes.Values) {
+				if (recordType.Visible) {
+					if (!Answer.Columns.Keys.Contains(recordType.ID)) {
+						Answer.Columns.Add(recordType.ID, recordType.Title);
+					}
+				}
+			}
+
+			foreach (DateTime date in Dates) {
+				ReportAnswerRecord record=new ReportAnswerRecord();
+				record.Header = GetCorrectedDate(date).ToString(getDateFormat());
+				record.DataStr = new Dictionary<string, string>();				
+				foreach (RecordTypeBase recordType in RecordTypes.Values) {
+					if (recordType.Visible) {
 						record.DataStr.Add(recordType.ID, Data[date][recordType.ID].ToString("### ### ##0.##"));
 					}
 				}
 				Answer.Data.Add(record);
-			}
-			
+			}			
 		}
+
+		public virtual void CreateAnswerDataHorizontal(bool createResult = true) {
+			Answer.Data = new List<ReportAnswerRecord>();
+			Answer.Columns = new Dictionary<string, string>();
+			
+			
+
+			if (createResult) {
+				Answer.Columns.Add("result", "Итог");				
+			}
+
+			foreach (DateTime date in Dates) {
+				string dStr=GetCorrectedDate(date).ToString(getDateFormat());
+				if (!Answer.Columns.Keys.Contains(dStr)) {
+					Answer.Columns.Add(dStr, dStr);
+				}
+			}
+
+
+			foreach (RecordTypeBase recordType in RecordTypes.Values) {
+				if (recordType.Visible) {
+					
+					ReportAnswerRecord record=new ReportAnswerRecord();
+					record.Header = recordType.Title;
+					record.DataStr = new Dictionary<string, string>();
+
+					if (createResult) {
+						record.DataStr.Add("result", ResultData[recordType.ID].ToString("### ### ##0.##"));
+					}
+					foreach (DateTime date in Dates) {
+						string dStr=GetCorrectedDate(date).ToString(getDateFormat());
+						record.DataStr.Add(dStr, Data[date][recordType.ID].ToString("### ### ##0.##"));
+					}
+					Answer.Data.Add(record);
+				}
+			}
+		}
+
 
 		public virtual void CreateChart() {
 			Answer.Chart = new ChartAnswer();

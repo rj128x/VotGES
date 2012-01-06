@@ -2221,13 +2221,9 @@ namespace VotGES.Piramida.PiramidaReport
     public sealed partial class ReportAnswerRecord : ComplexObject
     {
         
-        private Dictionary<string, double> _data;
-        
         private Dictionary<string, string> _dataStr;
         
-        private DateTime _date;
-        
-        private string _dateStr;
+        private string _header;
         
         #region Определение методов расширяемости
 
@@ -2236,14 +2232,10 @@ namespace VotGES.Piramida.PiramidaReport
         /// не может быть использован для последующей настройки объекта.
         /// </summary>
         partial void OnCreated();
-        partial void OnDataChanging(Dictionary<string, double> value);
-        partial void OnDataChanged();
         partial void OnDataStrChanging(Dictionary<string, string> value);
         partial void OnDataStrChanged();
-        partial void OnDateChanging(DateTime value);
-        partial void OnDateChanged();
-        partial void OnDateStrChanging(string value);
-        partial void OnDateStrChanged();
+        partial void OnHeaderChanging(string value);
+        partial void OnHeaderChanged();
 
         #endregion
         
@@ -2254,30 +2246,6 @@ namespace VotGES.Piramida.PiramidaReport
         public ReportAnswerRecord()
         {
             this.OnCreated();
-        }
-        
-        /// <summary>
-        /// Возвращает или задает значение параметра "Data".
-        /// </summary>
-        [DataMember()]
-        public Dictionary<string, double> Data
-        {
-            get
-            {
-                return this._data;
-            }
-            set
-            {
-                if ((this._data != value))
-                {
-                    this.OnDataChanging(value);
-                    this.RaiseDataMemberChanging("Data");
-                    this.ValidateProperty("Data", value);
-                    this._data = value;
-                    this.RaiseDataMemberChanged("Data");
-                    this.OnDataChanged();
-                }
-            }
         }
         
         /// <summary>
@@ -2305,49 +2273,25 @@ namespace VotGES.Piramida.PiramidaReport
         }
         
         /// <summary>
-        /// Возвращает или задает значение параметра "Date".
+        /// Возвращает или задает значение параметра "Header".
         /// </summary>
         [DataMember()]
-        public DateTime Date
+        public string Header
         {
             get
             {
-                return this._date;
+                return this._header;
             }
             set
             {
-                if ((this._date != value))
+                if ((this._header != value))
                 {
-                    this.OnDateChanging(value);
-                    this.RaiseDataMemberChanging("Date");
-                    this.ValidateProperty("Date", value);
-                    this._date = value;
-                    this.RaiseDataMemberChanged("Date");
-                    this.OnDateChanged();
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Возвращает или задает значение параметра "DateStr".
-        /// </summary>
-        [DataMember()]
-        public string DateStr
-        {
-            get
-            {
-                return this._dateStr;
-            }
-            set
-            {
-                if ((this._dateStr != value))
-                {
-                    this.OnDateStrChanging(value);
-                    this.RaiseDataMemberChanging("DateStr");
-                    this.ValidateProperty("DateStr", value);
-                    this._dateStr = value;
-                    this.RaiseDataMemberChanged("DateStr");
-                    this.OnDateStrChanged();
+                    this.OnHeaderChanging(value);
+                    this.RaiseDataMemberChanging("Header");
+                    this.ValidateProperty("Header", value);
+                    this._header = value;
+                    this.RaiseDataMemberChanged("Header");
+                    this.OnHeaderChanged();
                 }
             }
         }

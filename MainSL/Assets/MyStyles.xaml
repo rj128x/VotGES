@@ -48,6 +48,11 @@
 		<Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
 	</Style>
 
+	<Style TargetType="sdk:DataGridCell">
+		<Setter Property="Margin" Value="0,0,0,0"/>
+		<Setter Property="Padding" Value="0,0,0,0"/>
+	</Style>
+
 	<sdk:HierarchicalDataTemplate ItemsSource="{Binding ChildObjects}" x:Key="treeTemplate" >
 		<StackPanel>
 			<TextBlock Text="{Binding ObjectName}" FontWeight="Normal" FontFamily="Courier New"/>
