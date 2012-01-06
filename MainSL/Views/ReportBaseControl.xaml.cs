@@ -49,6 +49,8 @@ namespace MainSL.Views
 				column.Binding.Path = new PropertyPath("DataStr");
 				column.Binding.Converter = converter;
 				column.Binding.ConverterParameter = de.Key;
+				column.Width = new DataGridLength(1, DataGridLengthUnitType.SizeToCells);
+				column.MinWidth = 40;
 			}
 
 			dataReport.ItemsSource = answer.Data;
