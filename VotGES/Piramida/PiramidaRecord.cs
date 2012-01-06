@@ -17,9 +17,9 @@ namespace VotGES.Piramida
 			Obj = obj;
 			Item = item;
 			Title = title;
-			Key = String.Format("{0}-{1}-{2}", ObjType, Obj, Item);
+			Key = String.Format("{0}-{1}-{2}", ObjType, Obj, Item);			
 		}
-		public static string GetKey(DATA data) {
+		public static string GetKey(DATA data) {			
 			string Key = String.Format("{0}-{1}-{2}", data.OBJTYPE,data.OBJECT,data.ITEM);
 			return Key;
 		}

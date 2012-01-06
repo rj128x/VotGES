@@ -52,7 +52,7 @@ namespace MainSL.Views
 				column.Binding.Converter = converter;
 				column.Binding.ConverterParameter = de.Key;
 				column.Width = new DataGridLength(1, DataGridLengthUnitType.SizeToCells);
-				column.MinWidth = 40;
+				column.MinWidth = 50;
 			}
 
 			dataReport.ItemsSource = answer.Data;

@@ -2,8 +2,10 @@
 
     <Grid x:Name="LayoutRoot">
 		<Image Source="/MainSL;component/Images/2.jpg" Stretch="Uniform"/>
-		<HyperlinkButton NavigateUri="/RezhimSKReportPage" TargetName="ContentFrame" Content="Режим СК" 
-							  Margin="0,50,0,0" Foreground="Red" FontWeight="Bold"/>
+		<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="0,50,0,0">
+			<HyperlinkButton NavigateUri="/RezhimSKReportPage" TargetName="ContentFrame" Content="Режим СК" 
+								  Foreground="Red" FontWeight="Bold"/>
+		</StackPanel>
 	</Grid>
 
 </navigation:Page>

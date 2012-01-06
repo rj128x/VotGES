@@ -17,10 +17,11 @@ namespace VotGES.Piramida.PiramidaReport
 	{
 		public string ID { get; set; }
 		public ResultTypeEnum ResultType { get; set; }
-		public Report Report { get; set; }
+		public Report Parent { get; set; }
 		public String Title { get; set; }
 		public bool Visible { get; set; }
 		public bool ToChart { get; set; }
+		public string FormatDouble { get; set; }
 	}
 
 
@@ -39,8 +40,8 @@ namespace VotGES.Piramida.PiramidaReport
 		public RecordTypeDB
 			(PiramidaRecord dbRecord, int parNumber, 
 			double minValue = -10e100, double maxValue = 10e100, double divParam = 1, double multParam = 1,
-			string id = null, string title = null, ResultTypeEnum resultType = ResultTypeEnum.avg, DBOperEnum dbOper = DBOperEnum.avg,
-			bool toChart=false, bool visible=false) {
+			string id = null, string title = null, ResultTypeEnum resultType = ResultTypeEnum.sum, DBOperEnum dbOper = DBOperEnum.sum,
+			bool toChart=false, bool visible=false, string formatDouble="### ### ### ##0.##") {
 			DBRecord = dbRecord;
 			ParNumber = parNumber;
 			MinValue = minValue;
@@ -53,10 +54,11 @@ namespace VotGES.Piramida.PiramidaReport
 			Title = title == null ? dbRecord.Title : title;
 			ResultType = resultType;
 			DBOper = dbOper;
+			FormatDouble = formatDouble;
 		}
 	}
 
-	public delegate double RecordCalcDelegate(DateTime date);
+	public delegate double RecordCalcDelegate(Report report, DateTime date);
 
 
 	public class RecordTypeCalc : RecordTypeBase
@@ -64,12 +66,13 @@ namespace VotGES.Piramida.PiramidaReport
 		public RecordCalcDelegate CalcFunction { get; set; }
 
 		public RecordTypeCalc(string id, string title, RecordCalcDelegate calcFunction,
-			bool toChart = false, bool visible = false) {
+			bool toChart = false, bool visible = false, string formatDouble = "### ### ### ##0.##") {
 			ID = id;
 			Title = title;
 			CalcFunction = calcFunction;
 			Visible = visible;
 			ToChart = toChart;
+			FormatDouble = formatDouble;
 		}
 	}
 
@@ -169,7 +172,7 @@ namespace VotGES.Piramida.PiramidaReport
 				if (recordType is RecordTypeCalc) {
 					RecordTypeCalc rCalc=recordType as RecordTypeCalc;
 					foreach (DateTime date in Dates) {
-						double val=rCalc.CalcFunction(date);
+						double val=rCalc.CalcFunction(this,date);
 						if (!Data[date].Keys.Contains(rCalc.ID)) {
 							Data[date].Add(rCalc.ID, -1);
 						}
@@ -385,7 +388,7 @@ namespace VotGES.Piramida.PiramidaReport
 				recordResult.DataStr = new Dictionary<string, string>();
 				foreach (RecordTypeBase recordType in RecordTypes.Values) {
 					if (recordType.Visible) {
-						recordResult.DataStr.Add(recordType.ID, ResultData[recordType.ID].ToString("### ### ##0.##"));
+						recordResult.DataStr.Add(recordType.ID, ResultData[recordType.ID].ToString(recordType.FormatDouble));
 					}
 				}
 				Answer.Data.Add(recordResult);
@@ -405,7 +408,7 @@ namespace VotGES.Piramida.PiramidaReport
 				record.DataStr = new Dictionary<string, string>();				
 				foreach (RecordTypeBase recordType in RecordTypes.Values) {
 					if (recordType.Visible) {
-						record.DataStr.Add(recordType.ID, Data[date][recordType.ID].ToString("### ### ##0.##"));
+						record.DataStr.Add(recordType.ID, Data[date][recordType.ID].ToString(recordType.FormatDouble));
 					}
 				}
 				Answer.Data.Add(record);
@@ -438,11 +441,11 @@ namespace VotGES.Piramida.PiramidaReport
 					record.DataStr = new Dictionary<string, string>();
 
 					if (createResult) {
-						record.DataStr.Add("result", ResultData[recordType.ID].ToString("### ### ##0.##"));
+						record.DataStr.Add("result", ResultData[recordType.ID].ToString(recordType.FormatDouble));
 					}
 					foreach (DateTime date in Dates) {
 						string dStr=GetCorrectedDate(date).ToString(getDateFormat());
-						record.DataStr.Add(dStr, Data[date][recordType.ID].ToString("### ### ##0.##"));
+						record.DataStr.Add(dStr, Data[date][recordType.ID].ToString(recordType.FormatDouble));
 					}
 					Answer.Data.Add(record);
 				}
@@ -537,7 +540,9 @@ namespace VotGES.Piramida.PiramidaReport
 		}
 
 		public void AddRecordType(RecordTypeBase type) {
-			RecordTypes.Add(type.ID, type);
+			if (!RecordTypes.Keys.Contains(type.ID)) {
+				RecordTypes.Add(type.ID, type);
+			}
 		}		
 	}
 }
