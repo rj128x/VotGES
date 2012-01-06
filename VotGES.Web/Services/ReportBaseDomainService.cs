@@ -21,7 +21,6 @@ using VotGES.Piramida.PiramidaReport;
 				report.ReadData();
 				report.CreateAnswerData();
 				report.CreateChart();
-				Logger.Info(String.Join("-", report.Data));
 				return report.Answer;
 			} catch (Exception e) {
 				Logger.Error("Ошибка при получении режима СК " + e.ToString());

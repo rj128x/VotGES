@@ -21,41 +21,41 @@ namespace VotGES.Piramida
 		public static PiramidaRecord Q_2AT_500_Priem=new PiramidaRecord(0, 8739, 7, "2АТ 500 кВ Прием (Q)");
 		public static PiramidaRecord Q_2AT_500_Otd=new PiramidaRecord(0, 8739, 8, "2АТ 500 кВ Отдача (Q)");
 
-		public static PiramidaRecord P_20NDS1_Priem=new PiramidaRecord(0, 8739, 9, "20НДС-1 прием (P)");
-		public static PiramidaRecord Q_20NDS1_Priem=new PiramidaRecord(0, 8739, 10, "20НДС-1 прием (Q)");
+		public static PiramidaRecord P_SN_20NDS1_Priem=new PiramidaRecord(0, 8739, 9, "СН 20НДС-1 прием (P)");
+		public static PiramidaRecord Q_SN_20NDS1_Priem=new PiramidaRecord(0, 8739, 10, "СН 20НДС-1 прием (Q)");
 		public static PiramidaRecord P_1KU_K2_Priem=new PiramidaRecord(0, 8739, 11, "Компрессор-2 1КУ прием (P)");
 		public static PiramidaRecord Q_1KU_K2_Priem=new PiramidaRecord(0, 8739, 12, "Компрессор-2 1КУ прием (Q)");
 		public static PiramidaRecord P_1KU_31T_Priem=new PiramidaRecord(0, 8739, 13, "31Т 1КУ прием (P)");
 		public static PiramidaRecord Q_1KU_31T_Priem=new PiramidaRecord(0, 8739, 14, "31Т 1КУ прием (Q)");
 
 
-		public static PiramidaRecord P_29T_Priem=new PiramidaRecord(0, 8739, 15, "29Т прием (P)");
-		public static PiramidaRecord P_27T_Priem=new PiramidaRecord(0, 8739, 17, "27Т прием (P)");
-		public static PiramidaRecord P_22T_Priem=new PiramidaRecord(0, 8739, 18, "22Т прием (P)");
-		public static PiramidaRecord P_30T_Priem=new PiramidaRecord(0, 8739, 19, "30Т прием (P)");
-		public static PiramidaRecord P_25T_Priem=new PiramidaRecord(0, 8739, 20, "25Т прием (P)");
-		public static PiramidaRecord P_33T_Priem=new PiramidaRecord(0, 8739, 21, "33Т прием (P)");
-		public static PiramidaRecord P_21T_Priem=new PiramidaRecord(0, 8739, 22, "21Т прием (P)");
-		public static PiramidaRecord P_34T_Priem=new PiramidaRecord(0, 8739, 23, "34Т прием (P)");
+		public static PiramidaRecord P_SN_29T_Priem=new PiramidaRecord(0, 8739, 15, "СН 29Т прием (P)");
+		public static PiramidaRecord P_SN_27T_Priem=new PiramidaRecord(0, 8739, 17, "СН 27Т прием (P)");
+		public static PiramidaRecord P_SN_22T_Priem=new PiramidaRecord(0, 8739, 18, "СН 22Т прием (P)");
+		public static PiramidaRecord P_SN_30T_31T_Priem=new PiramidaRecord(0, 8739, 19, "СН 30Т 31Т прием (P)");
+		public static PiramidaRecord P_SN_25T_37T_Priem=new PiramidaRecord(0, 8739, 20, "СН 25Т 37Т прием (P)");
+		public static PiramidaRecord P_SN_33T_Priem=new PiramidaRecord(0, 8739, 21, "СН 33Т прием (P)");
+		public static PiramidaRecord P_SN_21T_Priem=new PiramidaRecord(0, 8739, 22, "СН 21Т прием (P)");
+		public static PiramidaRecord P_SN_34T_Priem=new PiramidaRecord(0, 8739, 23, "СН 34Т прием (P)");
 
 		public static PiramidaRecord P_1KU_K5_Priem=new PiramidaRecord(0, 8739, 25, "Компрессор-5 1КУ прием (P)");
 		public static PiramidaRecord Q_1KU_K5_Priem=new PiramidaRecord(0, 8739, 26, "Компрессор-5 1КУ прием (Q)");
 
-		public static PiramidaRecord P_32T_Priem=new PiramidaRecord(0, 8739, 27, "32Т прием (P)");
+		public static PiramidaRecord P_SN_32T_Priem=new PiramidaRecord(0, 8739, 27, "СН 32Т прием (P)");
 
-		public static PiramidaRecord P_20NDS2_Priem=new PiramidaRecord(0, 8739, 28, "20НДС-2 прием (P)");
-		public static PiramidaRecord Q_20NDS2_Priem=new PiramidaRecord(0, 8739, 29, "20НДС-2 прием (Q)");
+		public static PiramidaRecord P_SN_20NDS2_Priem=new PiramidaRecord(0, 8739, 28, "СН 20НДС-2 прием (P)");
+		public static PiramidaRecord Q_SN_20NDS2_Priem=new PiramidaRecord(0, 8739, 29, "СН 20НДС-2 прием (Q)");
 
-		public static PiramidaRecord P_23T_Priem=new PiramidaRecord(0, 8739, 30, "23Т прием (P)");
-		public static PiramidaRecord P_28T_Priem=new PiramidaRecord(0, 8739, 31, "28Т прием (P)");
-		public static PiramidaRecord P_35T_Priem=new PiramidaRecord(0, 8739, 32, "35Т прием (P)");
-		public static PiramidaRecord P_36T_Priem=new PiramidaRecord(0, 8739, 33, "36Т прием (P)");
-		public static PiramidaRecord P_26T_Priem=new PiramidaRecord(0, 8739, 34, "26Т прием (P)");
+		public static PiramidaRecord P_SN_23T_Priem=new PiramidaRecord(0, 8739, 30, "СН 23Т прием (P)");
+		public static PiramidaRecord P_SN_28T_Priem=new PiramidaRecord(0, 8739, 31, "СН 28Т прием (P)");
+		public static PiramidaRecord P_SN_35T_Priem=new PiramidaRecord(0, 8739, 32, "СН 35Т прием (P)");
+		public static PiramidaRecord P_SN_36T_Priem=new PiramidaRecord(0, 8739, 33, "СН 36Т прием (P)");
+		public static PiramidaRecord P_SN_38T_Priem=new PiramidaRecord(0, 8739, 34, "СН 38Т прием (P)");
 
-		public static PiramidaRecord P_TVI_Priem=new PiramidaRecord(0, 8739, 35, "ТВИ прием (P)");
-		public static PiramidaRecord Q_TVI_Priem=new PiramidaRecord(0, 8739, 36, "ТВИ прием (Q)");
+		public static PiramidaRecord P_SN_TVI_Priem=new PiramidaRecord(0, 8739, 35, "СН ТВИ прием (P)");
+		public static PiramidaRecord Q_SN_TVI_Priem=new PiramidaRecord(0, 8739, 36, "СН ТВИ прием (Q)");
 
-		public static PiramidaRecord P_24T_Priem=new PiramidaRecord(0, 8739, 37, "24Т прием (P)");
+		public static PiramidaRecord P_SN_24T_Priem=new PiramidaRecord(0, 8739, 37, "СН 24Т прием (P)");
 
 		public static PiramidaRecord P_Vozb_GA9_Priem=new PiramidaRecord(0, 8740, 1, "Возбуждение Г/А 9 прием (P)");
 		public static PiramidaRecord P_Vozb_GA10_Priem=new PiramidaRecord(0, 8740, 2, "Возбуждение Г/А 10 прием (P)");

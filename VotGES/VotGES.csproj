@@ -76,6 +76,7 @@
     <Compile Include="Piramida\PiramidaRecords.cs" />
     <Compile Include="Piramida\PiramidaReport\PiramidaReport.cs" />
     <Compile Include="Piramida\PiramidaReport\ReportAdd\ReportLinesRecords.cs" />
+    <Compile Include="Piramida\PiramidaReport\ReportAdd\ReportSNRecords.cs" />
     <Compile Include="Piramida\PiramidaReport\ReportSettings.shared.cs" />
     <Compile Include="Piramida\PiramidaReport\RezhimSKReport.cs" />
     <Compile Include="Piramida\PiramidaReport\SNReport.cs" />

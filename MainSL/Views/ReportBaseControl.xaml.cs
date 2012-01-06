@@ -45,14 +45,14 @@ namespace MainSL.Views
 
 			foreach (KeyValuePair<string,string> de in answer.Columns){
 				DataGridTextColumn column=new DataGridTextColumn();
-				column.Header = de.Value;
-				dataReport.Columns.Add(column);
+				column.Header = de.Value;				
 				column.Binding = new System.Windows.Data.Binding();
 				column.Binding.Path = new PropertyPath("DataStr");
 				column.Binding.Converter = converter;
 				column.Binding.ConverterParameter = de.Key;
 				column.Width = new DataGridLength(1, DataGridLengthUnitType.SizeToCells);
 				column.MinWidth = 50;
+				dataReport.Columns.Add(column);
 			}
 
 			dataReport.ItemsSource = answer.Data;

@@ -58,7 +58,7 @@ namespace VotGES.Piramida.PiramidaReport
 		}
 	}
 
-	public delegate double RecordCalcDelegate(Report report, DateTime date);
+	public delegate double RecordCalcDelegate(Report report, DateTime? date);
 
 
 	public class RecordTypeCalc : RecordTypeBase
@@ -70,6 +70,15 @@ namespace VotGES.Piramida.PiramidaReport
 			ID = id;
 			Title = title;
 			CalcFunction = calcFunction;
+			Visible = visible;
+			ToChart = toChart;
+			FormatDouble = formatDouble;
+		}
+
+		public RecordTypeCalc(RecordTypeCalc baseRecord, bool toChart = false, bool visible = false, string formatDouble = "### ### ### ##0.##") {
+			ID = baseRecord.ID;
+			Title = baseRecord.Title;
+			CalcFunction = baseRecord.CalcFunction;
 			Visible = visible;
 			ToChart = toChart;
 			FormatDouble = formatDouble;
@@ -105,9 +114,10 @@ namespace VotGES.Piramida.PiramidaReport
 		public DateTime RealDateEnd { get; set; }
 		public IntervalReportEnum Interval { get; set; }
 		public Dictionary<string, RecordTypeBase> RecordTypes { get; set; }
-		public SortedList<DateTime, Dictionary<string, double>> Data { get; set; }
+		protected SortedList<DateTime, Dictionary<string, double>> Data { get; set; }
 		public Dictionary<string, double> ResultData { get; set; }
 		public SortedList<ResultTypeEnum, Dictionary<string, double>> ResultDataFull { get; set; }
+		public List<string> NeedRecords { get; set; }
 		public List<DateTime> Dates { get; set; }
 		public ReportAnswer Answer { get; set; }
 		protected SqlConnection connection;
@@ -131,6 +141,18 @@ namespace VotGES.Piramida.PiramidaReport
 			return Date;
 		}
 
+		public double this[DateTime? date, string key] {
+			get {
+				if (date!=null && date.HasValue) {
+					return Data[date.Value][key];
+				} else {
+					if (!NeedRecords.Contains(key)) {
+						NeedRecords.Add(key);
+					}
+					return 0;
+				}
+			}
+		}
 
 		public Report(DateTime dateStart, DateTime dateEnd, IntervalReportEnum interval) {
 			DateStart = dateStart;
@@ -139,6 +161,7 @@ namespace VotGES.Piramida.PiramidaReport
 			Interval = interval;
 			RecordTypes = new Dictionary<string, RecordTypeBase>();
 			Data = new SortedList<DateTime, Dictionary<string, double>>();
+			NeedRecords = new List<string>();
 			ResultData = new Dictionary<string, double>();
 			ResultDataFull = new SortedList<ResultTypeEnum, Dictionary<string, double>>();
 			ResultDataFull.Add(ResultTypeEnum.avg, new Dictionary<string, double>());
@@ -146,7 +169,7 @@ namespace VotGES.Piramida.PiramidaReport
 			ResultDataFull.Add(ResultTypeEnum.min, new Dictionary<string, double>());
 			ResultDataFull.Add(ResultTypeEnum.sum, new Dictionary<string, double>());
 			Dates = new List<DateTime>();
-
+			
 
 			DateTime date=NextDate(DateStart);
 			while (date <= DateEnd) {
@@ -155,10 +178,20 @@ namespace VotGES.Piramida.PiramidaReport
 				date = NextDate(date);
 			}
 
+			
+
 			Answer = new ReportAnswer();
 		}
 
 		public virtual  void ReadData() {
+			foreach (RecordTypeBase recordType in RecordTypes.Values) {
+				if (recordType is RecordTypeCalc) {
+					RecordTypeCalc rtc=recordType as RecordTypeCalc;
+					double d=rtc.CalcFunction(this, null);
+				}
+			}
+
+
 			connection = PiramidaAccess.getConnection();
 			connection.Open();
 			foreach (RecordTypeBase recordType in RecordTypes.Values) {
@@ -228,8 +261,9 @@ namespace VotGES.Piramida.PiramidaReport
 			}
 		}
 
-		protected void ReadDBData(RecordTypeDB recordType) {			
-			
+		protected void ReadDBData(RecordTypeDB recordType) {
+			if (!(recordType.Visible || recordType.ToChart || NeedRecords.Contains(recordType.ID)))
+				return;
 			SqlCommand command= connection.CreateCommand();
 			command.Parameters.AddWithValue("@dateStart", DateStart);
 			command.Parameters.AddWithValue("@dateEnd", DateEnd);
@@ -297,7 +331,6 @@ namespace VotGES.Piramida.PiramidaReport
 					break;
 			}
 
-			Logger.Info(commandText);
 			command.CommandText = commandText;
 			SqlDataReader reader=command.ExecuteReader();
 			DateTime lastDate=DateEnd;
@@ -411,8 +444,8 @@ namespace VotGES.Piramida.PiramidaReport
 						record.DataStr.Add(recordType.ID, Data[date][recordType.ID].ToString(recordType.FormatDouble));
 					}
 				}
-				Answer.Data.Add(record);
-			}			
+				Answer.Data.Add(record);				
+			}
 		}
 
 		public virtual void CreateAnswerDataHorizontal(bool createResult = true) {
@@ -450,6 +483,7 @@ namespace VotGES.Piramida.PiramidaReport
 					Answer.Data.Add(record);
 				}
 			}
+			
 		}
 
 
@@ -543,6 +577,7 @@ namespace VotGES.Piramida.PiramidaReport
 			if (!RecordTypes.Keys.Contains(type.ID)) {
 				RecordTypes.Add(type.ID, type);
 			}
-		}		
+		}
+
 	}
 }
