@@ -124,6 +124,9 @@
     <Compile Include="Views\ReportBaseControl.xaml.cs">
       <DependentUpon>ReportBaseControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ReportSettingsControl.xaml.cs">
+      <DependentUpon>ReportSettingsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RezhimSKReportPage.xaml.cs">
       <DependentUpon>RezhimSKReportPage.xaml</DependentUpon>
     </Compile>
@@ -174,6 +177,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ReportBaseControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReportSettingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

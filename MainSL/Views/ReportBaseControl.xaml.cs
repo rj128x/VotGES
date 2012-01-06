@@ -21,6 +21,8 @@ namespace MainSL.Views
 		public ReportBaseControl() {
 			InitializeComponent();
 			converter = new ReportDataConverter();
+
+
 		}
 
 

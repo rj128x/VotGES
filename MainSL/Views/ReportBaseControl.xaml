@@ -11,14 +11,21 @@
 		<Grid x:Name="grdRepord">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="1*"/>
-				<ColumnDefinition Width="1*"/>
 			</Grid.ColumnDefinitions>
-			<Grid Grid.Column="0">
-				<sdk:DataGrid x:Name="dataReport"/>
-			</Grid>
-			<Grid Grid.Column="1">
-				<usr:ChartControl x:Name="chartControl"/>
-			</Grid>
+			
+			<sdk:TabControl >
+				<sdk:TabItem Header="Данные">
+					<Grid>
+						<sdk:DataGrid x:Name="dataReport"/>
+					</Grid>
+				</sdk:TabItem>
+				<sdk:TabItem Header="График">
+					<Grid>
+						<usr:ChartControl x:Name="chartControl"/>
+					</Grid>
+				</sdk:TabItem>
+			</sdk:TabControl>
+
 		</Grid>
 	</Grid>
 </UserControl>

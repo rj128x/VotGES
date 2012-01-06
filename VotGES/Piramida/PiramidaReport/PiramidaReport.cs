@@ -93,33 +93,7 @@ namespace VotGES.Piramida.PiramidaReport
 		public Dictionary<string, string> Columns { get; set; }
 	}
 
-	public class DateTimeStartEnd
-	{
-		public DateTime DateStart{get;set;}
-		public DateTime DateEnd { get; set; }
-
-		public static DateTimeStartEnd getFullDay(DateTime date) {
-			DateTimeStartEnd result=new DateTimeStartEnd();
-			result.DateStart = date.Date;
-			result.DateEnd = date.Date.AddDays(1);
-			return result;
-		}
-
-		public static DateTimeStartEnd getFullMonth(int year, int month) {
-			DateTimeStartEnd result=new DateTimeStartEnd();
-			result.DateStart = new DateTime(year,month,1);
-			result.DateEnd = result.DateStart.AddMonths(1);
-			return result;
-		}
-
-		public static DateTimeStartEnd getFullYear(int year) {
-			DateTimeStartEnd result=new DateTimeStartEnd();
-			result.DateStart = new DateTime(year, 1, 1);
-			result.DateEnd = result.DateStart.AddYears(1);
-			return result;
-		}
-
-	}
+	
 
 	public class Report
 	{

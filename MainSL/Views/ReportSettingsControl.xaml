@@ -1,0 +1,34 @@
+﻿<UserControl xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"  x:Class="MainSL.Views.ReportSettingsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+	<Grid x:Name="LayoutRoot" Background="White">
+		<Border Style="{StaticResource borderGray}">
+			<StackPanel>
+				<TextBlock Text="Тип отчета" Style="{StaticResource Label}"/>
+				<ComboBox ItemsSource="{Binding ReportTypeNames, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value"
+							 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<sdk:Calendar SelectedDate="{Binding Date, Mode=TwoWay}" 
+								  Visibility="{Binding IsVisibleDate, Converter={StaticResource visibilityConverter}}"
+								  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<StackPanel Orientation="Horizontal">
+					<StackPanel Orientation="Horizontal" Visibility="{Binding IsVisibleMonth, Converter={StaticResource visibilityConverter}}">
+						<TextBlock Text="Месяц: " Style="{StaticResource Label}"/>
+						<ComboBox ItemsSource="{Binding MonthNames, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value"
+									 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}" />
+					</StackPanel>
+					<StackPanel Visibility="{Binding IsVisibleYear, Converter={StaticResource visibilityConverter}}" Orientation="Horizontal">
+						<TextBlock Text="Год: " Style="{StaticResource Label}"/>
+						<TextBox Text="{Binding Year, Mode=TwoWay}"
+								IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+					</StackPanel>
+				</StackPanel>
+
+			</StackPanel>
+		</Border>
+
+	</Grid>
+</UserControl>

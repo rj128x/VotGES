@@ -28,6 +28,7 @@ using VotGES.Piramida.PiramidaReport;
 				return null;
 			}
 		}
+
 	}
 }
 
