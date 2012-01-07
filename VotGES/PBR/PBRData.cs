@@ -8,16 +8,16 @@ namespace VotGES.PBR
 {
 	class PBRData
 	{
-		public DateTime DateStart{get;protected set;}
-		public DateTime DateEnd{get;protected set;}
+		public DateTime DateStart { get; protected set; }
+		public DateTime DateEnd { get; protected set; }
 		public DateTime Date { get; protected set; }
 
 		public int GTPIndex { get; protected set; }
 
-		public SortedList<DateTime, double> RealPBR{get;protected set;}
-		public SortedList<DateTime, double> SteppedPBR{get;protected set;}
-		public SortedList<DateTime, double> MinutesPBR{get;protected set;}
-		public SortedList<DateTime,double> RealP{get;protected set;}
+		public SortedList<DateTime, double> RealPBR { get; protected set; }
+		public SortedList<DateTime, double> SteppedPBR { get; protected set; }
+		public SortedList<DateTime, double> MinutesPBR { get; protected set; }
+		public SortedList<DateTime, double> RealP { get; protected set; }
 
 		public SortedList<DateTime, double> IntegratedP { get; protected set; }
 		public SortedList<DateTime, double> IntegratedPBR { get; protected set; }
@@ -67,8 +67,8 @@ namespace VotGES.PBR
 				} catch (Exception e) {
 					Logger.Info("Ошибка при чтении ПБР " + e.ToString());
 				}
-			}						
-			
+			}
+
 		}
 
 
@@ -113,7 +113,7 @@ namespace VotGES.PBR
 				}
 				date = date.AddMinutes(60);
 			}
-			
+
 		}
 
 		public void createSteppedPBR() {
@@ -123,13 +123,13 @@ namespace VotGES.PBR
 				DateTime date=de.Key.AddMinutes(-15);
 				if (de.Key == FirstPBRDate)
 					date = DateStart;
-				
+
 				SteppedPBR.Add(date, de.Value);
-				if (de.Key==LastPBRDate){
-					SteppedPBR.Add(DateEnd,de.Value);
+				if (de.Key == LastPBRDate) {
+					SteppedPBR.Add(DateEnd, de.Value);
 				}
 			}
-			
+
 		}
 
 		public void createMinutesPBR() {
@@ -138,10 +138,10 @@ namespace VotGES.PBR
 			Random r=new Random();
 			while (date < DateEnd) {
 				if (SteppedPBR.Keys.Contains(date)) {
-					val = SteppedPBR[date];				
-				}				
+					val = SteppedPBR[date];
+				}
 				MinutesPBR.Add(date.AddMinutes(1), val);
-				RealP[date.AddMinutes(1)] = val + r.Next(-3, 3);
+				//RealP[date.AddMinutes(1)] = val + r.Next(-3, 3);
 				date = date.AddMinutes(1);
 			}
 		}
@@ -153,7 +153,7 @@ namespace VotGES.PBR
 				IntegratedPBR.Add(de.Key, sum / 60);
 			}
 
-			sum=0;
+			sum = 0;
 			foreach (KeyValuePair<DateTime,double> de in RealP) {
 				sum += de.Value;
 				IntegratedP.Add(de.Key, sum / 60);
@@ -161,16 +161,16 @@ namespace VotGES.PBR
 		}
 
 		public double getDiff(DateTime date) {
-			return MinutesPBR[date] - RealP[date];
+			return RealP[date] - MinutesPBR[date];
 		}
 
 		public static double getDiffProc(double fakt, double plan) {
 			if (plan > 0) {
-				return (plan - fakt) / plan * 100;
+				return (fakt - plan) / plan * 100;
 			} else {
 				if (fakt == 0)
 					return 0;
-				else 
+				else
 					return 100;
 			}
 		}
@@ -179,13 +179,13 @@ namespace VotGES.PBR
 			return getDiffProc(MinutesPBR[date], RealP[date]);
 		}
 
-		public static double getAvgHour(DateTime date, SortedList<DateTime,double> data) {
+		public static double getAvgHour(DateTime date, SortedList<DateTime, double> data) {
 			date = date.AddMinutes(-1);
 			DateTime ds=date.Date.AddHours(date.Hour);
 			DateTime de=date.Date.AddHours(date.Hour + 1);
 			DateTime dt=ds.AddMinutes(1);
 
-			de=de>date?date:de;
+			de = de > date ? date : de;
 
 			double sum=0;
 			double count=0;
@@ -201,7 +201,7 @@ namespace VotGES.PBR
 			SortedList<string,double> result=new SortedList<string, double>();
 			double fakt=getAvgHour(date, RealP);
 			double plan=getAvgHour(date, MinutesPBR);
-			double diff=plan - fakt;
+			double diff=fakt - plan;
 			double diffProc=getDiffProc(fakt, plan);
 
 			DateTime dt=date.AddMinutes(1);
@@ -231,7 +231,7 @@ namespace VotGES.PBR
 			createMinutesPBR();
 			createIntegratedValues();
 		}
-				
+
 	}
 }
 

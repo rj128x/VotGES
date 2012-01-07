@@ -17,6 +17,7 @@ namespace VotGES.Web.Services
 	{
 		public GraphVyrabAnswer getGraphVyrab() {
 			try {
+				Logger.Info("Получение графика нагрузки");
 				DateTime date=new DateTime(2010, 3, 15);
 				date = date.AddHours(DateTime.Now.Hour - 2).AddMinutes(DateTime.Now.Minute);
 				return GraphVyrab.getAnswer(date, true);
@@ -28,7 +29,8 @@ namespace VotGES.Web.Services
 
 		public GraphVyrabAnswer getGraphVyrabMin(DateTime date) {
 			try {
-				date = date.Date.AddHours(23).AddMinutes(59);
+				Logger.Info("Получение факта нагрузки по минутам"+date.ToString());
+				date = date.Date;
 				return GraphVyrab.getAnswer(date, false);
 			} catch (Exception e) {
 				Logger.Error("Ошибка при получении факта нагрузки " + e);
@@ -38,6 +40,7 @@ namespace VotGES.Web.Services
 
 		public CheckGraphVyrabAnswer getGraphVyrabHH(DateTime date) {
 			try {
+				Logger.Info("Получение факта нагрузки по получасовкам" + date.ToString());
 				date = date.Date;
 				return GraphVyrab.getAnswerHH(date);
 			} catch (Exception e) {
