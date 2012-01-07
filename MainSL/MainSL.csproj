@@ -109,8 +109,8 @@
     <Compile Include="Views\CheckGraphVyrabPage.xaml.cs">
       <DependentUpon>CheckGraphVyrabPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CheckGraphVyrabReportWindow.xaml.cs">
-      <DependentUpon>CheckGraphVyrabReportWindow.xaml</DependentUpon>
+    <Compile Include="Views\CheckGraphVyrabReportControl.xaml.cs">
+      <DependentUpon>CheckGraphVyrabReportControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CheckPrognozNBPage.xaml.cs">
       <DependentUpon>CheckPrognozNBPage.xaml</DependentUpon>
@@ -167,7 +167,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CheckGraphVyrabReportWindow.xaml">
+    <Page Include="Views\CheckGraphVyrabReportControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -21,7 +21,6 @@ namespace MainSL.Views
 	{
 		public SettingsBase settings;
 		public GraphVyrabDomainContext context;
-		public CheckGraphVyrabReportWindow report;
 		public CheckGraphVyrabAnswer currentAnswer;
 
 		public CheckGraphVyrabPage() {
@@ -29,10 +28,7 @@ namespace MainSL.Views
 			settings = new SettingsBase();
 			settings.Date = DateTime.Now.Date.AddHours(-24);
 			pnlSettings.DataContext = settings;
-			context = new GraphVyrabDomainContext();
-			btnHHReport.Visibility = System.Windows.Visibility.Collapsed;
-			btnHReport.Visibility = System.Windows.Visibility.Collapsed;
-			report = new CheckGraphVyrabReportWindow();
+			context = new GraphVyrabDomainContext();			
 		}
 
 
@@ -55,10 +51,11 @@ namespace MainSL.Views
 					}
 					GlobalStatus.Current.StartProcess();
 					try {
+						tabChart.IsSelected = true;
 						ChartAnswer answer=oper.Value.Chart;
 						chartControl.Create(answer);
-						btnHHReport.Visibility = System.Windows.Visibility.Collapsed;
-						btnHReport.Visibility = System.Windows.Visibility.Collapsed;
+						tabHHReport.Visibility = System.Windows.Visibility.Collapsed;
+						tabHReport.Visibility = System.Windows.Visibility.Collapsed;
 					} catch (Exception ex) {
 						Logging.Logger.info(ex.ToString());
 						MessageBox.Show("Ошибка при обработке ответа от сервера");
@@ -69,19 +66,23 @@ namespace MainSL.Views
 			GlobalStatus.Current.StartLoad(currentOper);
 		}
 
-		private void btnHH_Click(object sender, RoutedEventArgs e) {
+		private void btnHH_Click(object sender, RoutedEventArgs e) {			
 			InvokeOperation currentOper=context.getGraphVyrabHH(settings.Date,
 				oper => {
 					if (oper.IsCanceled) {
 						return;
 					}
 					GlobalStatus.Current.StartProcess();
+					
 					try {
 						ChartAnswer answer=oper.Value.Chart;
 						chartControl.Create(answer);
 						currentAnswer = oper.Value;
-						btnHHReport.Visibility = System.Windows.Visibility.Visible;
-						btnHReport.Visibility = System.Windows.Visibility.Visible;
+						
+						tabHHReport.Visibility = System.Windows.Visibility.Visible;
+						tabHReport.Visibility = System.Windows.Visibility.Visible;
+						cntrlHHReport.grdReport.ItemsSource = currentAnswer.TableHH;
+						cntrlHReport.grdReport.ItemsSource = currentAnswer.TableH;
 					} catch (Exception ex) {
 						Logging.Logger.info(ex.ToString());
 						MessageBox.Show("Ошибка при обработке ответа от сервера");
@@ -92,15 +93,6 @@ namespace MainSL.Views
 			GlobalStatus.Current.StartLoad(currentOper);
 		}
 
-		private void btnHHReport_Click(object sender, RoutedEventArgs e) {
-			report.grdReport.ItemsSource = currentAnswer.TableHH;
-			report.Show();
-		}
-
-		private void btnHReport_Click(object sender, RoutedEventArgs e) {
-			report.grdReport.ItemsSource = currentAnswer.TableH;
-			report.Show();
-		}
 
 	}
 }

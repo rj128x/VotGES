@@ -12,19 +12,10 @@ using System.Windows.Shapes;
 
 namespace MainSL.Views
 {
-	public partial class CheckGraphVyrabReportWindow : ChildWindow
+	public partial class CheckGraphVyrabReportControl : UserControl
 	{
-		public CheckGraphVyrabReportWindow() {
+		public CheckGraphVyrabReportControl() {
 			InitializeComponent();
-		}
-
-		private void OKButton_Click(object sender, RoutedEventArgs e) {
-			this.DialogResult = true;
-		}
-
-		private void CancelButton_Click(object sender, RoutedEventArgs e) {
-			this.DialogResult = false;
 		}
 	}
 }
-

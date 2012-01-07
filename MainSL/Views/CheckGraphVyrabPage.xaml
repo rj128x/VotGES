@@ -14,7 +14,18 @@
 				<ColumnDefinition Width="*"/>
 				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
-			<usr:ChartControl x:Name="chartControl" VerticalAlignment="Stretch"/>
+			<sdk:TabControl >
+				<sdk:TabItem Name="tabChart" Header="График">
+					<usr:ChartControl x:Name="chartControl" VerticalAlignment="Stretch"/>
+				</sdk:TabItem>
+				<sdk:TabItem Name="tabHHReport" Header="Данные по 30 минут">
+					<usr:CheckGraphVyrabReportControl x:Name="cntrlHHReport"/>						
+				</sdk:TabItem>
+				<sdk:TabItem Name="tabHReport" Header="Данные по часам" >
+					<usr:CheckGraphVyrabReportControl x:Name="cntrlHReport"/>
+				</sdk:TabItem>
+			</sdk:TabControl>
+			
 			<Grid Name="pnlSettings" Grid.Column="1">
 				<StackPanel>
 					<sdk:Calendar Name="clnDate" SelectedDate="{Binding Date, Mode=TwoWay}"
@@ -22,11 +33,6 @@
 					<Button Name="btnMin" Content="По минутам" Click="btnMin_Click"
 							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }"/>
 					<Button Name="btnHH" Content="По получасовкам" Click="btnHH_Click"
-							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }"/>
-
-					<Button Name="btnHReport" Content="Отчет по часам" Click="btnHReport_Click" Margin="0,10,0,0"
-							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }"/>
-					<Button Name="btnHHReport" Content="Отчет по пол часа" Click="btnHHReport_Click" Margin="0,0,0,0"
 							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }"/>
 				</StackPanel>
 			</Grid>
