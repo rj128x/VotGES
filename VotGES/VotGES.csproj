@@ -42,6 +42,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization">
       <Private>True</Private>
     </Reference>
@@ -54,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chart\ChartAnswer.cs" />
+    <Compile Include="Chart\ChartColor.cs" />
     <Compile Include="Chart\ChartData.cs" />
     <Compile Include="Chart\ChartProperties.cs" />
     <Compile Include="Logger.cs" />
@@ -79,7 +81,6 @@
     <Compile Include="Piramida\PiramidaReport\ReportAdd\ReportSNRecords.cs" />
     <Compile Include="Piramida\PiramidaReport\ReportSettings.shared.cs" />
     <Compile Include="Piramida\PiramidaReport\RezhimSKReport.cs" />
-    <Compile Include="Piramida\PiramidaReport\SNReport.cs" />
     <Compile Include="Piramida\PiramidaReport\ReportAdd\ReportGlTransformRecords.cs" />
     <Compile Include="Piramida\PiramidaReport\ReportAdd\ReportGARecords.cs" />
     <Compile Include="PrognozNB\CheckPrognozNB.cs" />

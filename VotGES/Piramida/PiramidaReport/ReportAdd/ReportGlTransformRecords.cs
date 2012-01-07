@@ -141,50 +141,15 @@ namespace VotGES.Piramida.PiramidaReport
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_4T_220_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_1T_110_Otd, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_1T_110_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
+						
+		}
 
+		public static void AddPRecordsForNebalans(Report report, int parNumber, double scaleMult, double scaleDiv, bool visible, bool toChart) {
+			ReportGARecords.AddPRecordsGAAdd(report, parNumber, scaleMult, scaleDiv, visible, toChart);
+			ReportGARecords.AddPRecordsGAP(report, parNumber, scaleMult, scaleDiv, visible, toChart);
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_SN_7T_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_SN_8T_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));		
 			
 		}
-
-		public static void AddPRecordsForNebalans(Report report, int parNumber, double scaleMult, double scaleDiv, bool visible, bool toChart) {
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_Vozb_GA1_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_Vozb_GA2_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_Vozb_GA3_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_Vozb_GA4_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_Vozb_GA5_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_Vozb_GA6_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_Vozb_GA7_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_Vozb_GA8_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_Vozb_GA9_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_Vozb_GA10_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-
-
-
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA1_Otd, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA2_Otd, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA3_Otd, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA4_Otd, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA5_Otd, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA6_Otd, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA7_Otd, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA8_Otd, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA9_Otd, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA10_Otd, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-
-
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA1_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA2_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA3_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA4_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA5_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA6_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA7_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA8_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA9_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GA10_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult));		
-		}
-
-
 	}
 }

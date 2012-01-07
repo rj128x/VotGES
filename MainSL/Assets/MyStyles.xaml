@@ -17,12 +17,13 @@
 	<conv:ForegroundColorConverter x:Key="foregroundColorConverter"/>
 	<conv:BackgroundColorConverter x:Key="backgroundColorConverter"/>
 	<conv:GASostavConverter x:Key="gaSostavConverter"/>
+	<conv:ReportDataConverter x:Key="reportDataConverter"/>
 	<gl:GlobalStatus x:Key="globalStatus"/>
 
 
 	<Style TargetType="prim:DataGridColumnHeader">
 		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-		<Setter Property="VerticalContentAlignment" Value="Stretch"/>
+		<Setter Property="VerticalContentAlignment" Value="Stretch"/>		
 		<Setter Property="ContentTemplate">
 			<Setter.Value>
 				<DataTemplate>

@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using VotGES.Piramida.PiramidaReport;
 using MainSL.Converters;
+using System.Windows.Markup;
 
 namespace MainSL.Views
 {
@@ -18,10 +19,23 @@ namespace MainSL.Views
 	{
 		public ReportAnswer Answer;
 		public ReportDataConverter converter;
+		public DataTemplate headerTemplate;
+		public string columnTemplateStr;
 		public ReportBaseControl() {
 			InitializeComponent();
 			converter = new ReportDataConverter();
+			string str= @"<DataTemplate  
+				xmlns=""http://schemas.microsoft.com/client/2007"">         
+				<TextBlock Text=""{Binding Header}"" FontWeight=""Bold"" /> 
+            </DataTemplate>";
+			headerTemplate = XamlReader.Load(str) as DataTemplate;
 
+			str= @"<DataTemplate  
+				xmlns=""http://schemas.microsoft.com/client/2007"">         
+				<TextBlock Text=""{Binding DataStr, Converter={StaticResource reportDataConverter}, ConverterParameter='~param~'}"" /> 
+            </DataTemplate>";
+
+			columnTemplateStr = str;
 
 		}
 
@@ -34,7 +48,33 @@ namespace MainSL.Views
 			dataReport.CanUserReorderColumns = false;
 			dataReport.Columns.Clear();
 
-			DataGridTextColumn columnHeader=new DataGridTextColumn();
+
+			DataGridTemplateColumn columnHeader=new DataGridTemplateColumn();
+			columnHeader.Header = "Параметр";
+			DataTemplate temlate=headerTemplate;
+			columnHeader.CellTemplate = temlate;
+			columnHeader.ClipboardContentBinding = new System.Windows.Data.Binding();
+			columnHeader.ClipboardContentBinding.Mode = System.Windows.Data.BindingMode.OneTime;
+			columnHeader.ClipboardContentBinding.Path = new PropertyPath("Header");
+
+			dataReport.Columns.Add(columnHeader);
+
+			foreach (KeyValuePair<string,string> de in answer.Columns) {
+				DataGridTemplateColumn column=new DataGridTemplateColumn();
+				column.Header = de.Value;
+				column.CellTemplate = XamlReader.Load(columnTemplateStr.Replace("~param~",de.Key)) as DataTemplate;
+				column.Width = new DataGridLength(1, DataGridLengthUnitType.SizeToCells);
+				column.ClipboardContentBinding = new System.Windows.Data.Binding();
+				column.ClipboardContentBinding.Path = new PropertyPath("DataStr");
+				column.ClipboardContentBinding.Converter = converter;
+				column.ClipboardContentBinding.ConverterParameter = de.Key;
+				column.MinWidth = 50;
+				dataReport.Columns.Add(column);
+			}
+
+
+
+			/*DataGridTextColumn columnHeader=new DataGridTextColumn();
 			columnHeader.Header = "Параметр";
 			columnHeader.IsReadOnly = true;
 			columnHeader.Binding = new System.Windows.Data.Binding();
@@ -53,7 +93,7 @@ namespace MainSL.Views
 				column.Width = new DataGridLength(1, DataGridLengthUnitType.SizeToCells);
 				column.MinWidth = 50;
 				dataReport.Columns.Add(column);
-			}
+			}*/
 
 			dataReport.ItemsSource = answer.Data;
 

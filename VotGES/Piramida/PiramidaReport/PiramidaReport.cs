@@ -515,7 +515,7 @@ namespace VotGES.Piramida.PiramidaReport
 					props.Title = recordType.Title;
 					props.TagName = recordType.ID;
 					props.LineWidth = 2;
-					props.Color = String.Format("{0}-{1}-{2}", r.Next(255), r.Next(255), r.Next(255));
+					props.Color = ChartColor.NextColor();
 					props.SerieType=ChartSerieType.stepLine;
 					props.YAxisIndex = 0;
 					Answer.Chart.Properties.addSerie(props);
