@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VotGES.Piramida.PiramidaReport
+namespace VotGES.Piramida.Report
 {
 	public class RezhimSKReport : Report
 	{
 		public RezhimSKReport(DateTime dateStart, DateTime dateEnd, IntervalReportEnum interval) :
 			base(dateStart, dateEnd, interval) {
 			int pn=12;
-			ReportGARecords.AddPRecordsGAP(this, pn, 1, 1, false, false);
-			ReportGARecords.AddPRecordsGAQ(this, pn, 1, 1, false, false);
+			ReportGARecords.AddPRecordsGAP(this, pn, 1, 1, false, false,DBOperEnum.avg, ResultTypeEnum.sum);
+			ReportGARecords.AddPRecordsGAQ(this, pn, 1, 1, false, false, DBOperEnum.avg, ResultTypeEnum.sum);
 			ReportGARecords.CreateGAP();
 			ReportGARecords.CreateGAQ();
 			AddRecordType(new RecordTypeCalc(ReportGARecords.P_GA1, toChart: true, visible: true));

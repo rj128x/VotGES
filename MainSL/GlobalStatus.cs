@@ -78,9 +78,33 @@ namespace MainSL
 				isBusy = value;
 				NotifyChanged("IsBusy");
 			}
-		}				
+		}
+
+		protected bool isError;
+		public bool IsError {
+			get {
+				return isError;
+			}
+			set {
+				isError = value;
+				NotifyChanged("IsError");
+			}
+		}
+
+		protected string errorMessage;
+		public string ErrorMessage {
+			get {
+				return errorMessage;
+			}
+			set {
+				errorMessage = value;
+				NotifyChanged("ErrorMessage");
+			}
+		}
+
 
 		public void StartLoad(InvokeOperation oper, string message = "Загрузка") {
+			IsError = false;
 			CurrentOper = oper;
 			Status = message;
 			IsBusy = true;
@@ -98,6 +122,12 @@ namespace MainSL
 			CurrentOper = null;
 			Status = message;
 			IsBusy = false;
+		}
+
+		public void ErrorLoad(string message = "Ошибка") {
+			CurrentOper = null;
+			ErrorMessage = message;
+			IsError = true;
 		}
 
 		public static GlobalStatus Current {

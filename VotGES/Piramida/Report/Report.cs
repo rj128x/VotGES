@@ -7,8 +7,9 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using VotGES.Chart;
 
-namespace VotGES.Piramida.PiramidaReport
+namespace VotGES.Piramida.Report
 {
+	public enum ReportTypeEnum { dayByMinutes, dayByHalfHours, dayByHours, monthByDays, yearByDays, yearByMonths }
 	public enum IntervalReportEnum { minute, halfHour, hour, day, month, year }
 	public enum ResultTypeEnum { min, max, avg, sum }
 	public enum DBOperEnum { min, max, avg, sum }
@@ -66,22 +67,24 @@ namespace VotGES.Piramida.PiramidaReport
 		public RecordCalcDelegate CalcFunction { get; set; }
 
 		public RecordTypeCalc(string id, string title, RecordCalcDelegate calcFunction,
-			bool toChart = false, bool visible = false, string formatDouble = "### ### ### ##0.##") {
+			bool toChart = false, bool visible = false, ResultTypeEnum resultType = ResultTypeEnum.sum, string formatDouble = "### ### ### ##0.##") {
 			ID = id;
 			Title = title;
 			CalcFunction = calcFunction;
 			Visible = visible;
 			ToChart = toChart;
 			FormatDouble = formatDouble;
+			ResultType = resultType;
 		}
 
-		public RecordTypeCalc(RecordTypeCalc baseRecord, bool toChart = false, bool visible = false, string formatDouble = "### ### ### ##0.##") {
+		public RecordTypeCalc(RecordTypeCalc baseRecord, bool toChart = false, bool visible = false, ResultTypeEnum resultType = ResultTypeEnum.sum, string formatDouble = "### ### ### ##0.##") {
 			ID = baseRecord.ID;
 			Title = baseRecord.Title;
 			CalcFunction = baseRecord.CalcFunction;
 			Visible = visible;
 			ToChart = toChart;
 			FormatDouble = formatDouble;
+			ResultType = resultType;
 		}
 	}
 
@@ -121,6 +124,24 @@ namespace VotGES.Piramida.PiramidaReport
 		public List<DateTime> Dates { get; set; }
 		public ReportAnswer Answer { get; set; }
 		protected SqlConnection connection;
+
+		public static IntervalReportEnum GetInterval(ReportTypeEnum ReportType) {
+			switch (ReportType) {
+				case ReportTypeEnum.dayByMinutes:
+					return IntervalReportEnum.minute;
+				case ReportTypeEnum.dayByHalfHours:
+					return IntervalReportEnum.halfHour;
+				case ReportTypeEnum.dayByHours:
+					return IntervalReportEnum.hour;
+				case ReportTypeEnum.monthByDays:
+					return IntervalReportEnum.day;
+				case ReportTypeEnum.yearByDays:
+					return IntervalReportEnum.day;
+				case ReportTypeEnum.yearByMonths:
+					return IntervalReportEnum.month;
+			}
+			return IntervalReportEnum.halfHour;
+		}
 
 
 		public DateTime NextDate(DateTime Date) {
@@ -184,10 +205,12 @@ namespace VotGES.Piramida.PiramidaReport
 		}
 
 		public virtual  void ReadData() {
-			foreach (RecordTypeBase recordType in RecordTypes.Values) {
-				if (recordType is RecordTypeCalc) {
-					RecordTypeCalc rtc=recordType as RecordTypeCalc;
-					double d=rtc.CalcFunction(this, null);
+			if (NeedRecords.Count == 0) {
+				foreach (RecordTypeBase recordType in RecordTypes.Values) {
+					if (recordType is RecordTypeCalc) {
+						RecordTypeCalc rtc=recordType as RecordTypeCalc;
+						double d=rtc.CalcFunction(this, null);
+					}
 				}
 			}
 
@@ -264,6 +287,7 @@ namespace VotGES.Piramida.PiramidaReport
 		protected void ReadDBData(RecordTypeDB recordType) {
 			if (!(recordType.Visible || recordType.ToChart || NeedRecords.Contains(recordType.ID)))
 				return;
+
 			SqlCommand command= connection.CreateCommand();
 			command.Parameters.AddWithValue("@dateStart", DateStart);
 			command.Parameters.AddWithValue("@dateEnd", DateEnd);

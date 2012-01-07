@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 
-namespace VotGES.Piramida.PiramidaReport
+namespace VotGES.Piramida.Report
 {
-	public enum ReportTypeEnum { dayByMinutes, dayByHalfHours, dayByHours, monthByDays, yearByDays, yearByMonths }
+	
 
 	public class ReportSettings: INotifyPropertyChanged
 	{
@@ -41,6 +41,21 @@ namespace VotGES.Piramida.PiramidaReport
 				result.DateEnd = result.DateStart.AddYears(1);
 				return result;
 			}
+
+			public static DateTimeStartEnd getBySettings(ReportSettings settings) {
+				switch (settings.reportType) {
+					case ReportTypeEnum.dayByHalfHours:
+					case ReportTypeEnum.dayByHours:
+					case ReportTypeEnum.dayByMinutes:
+						return getFullDay(settings.Date);
+					case ReportTypeEnum.monthByDays:
+						return getFullMonth(settings.Year, settings.Month);
+					case ReportTypeEnum.yearByDays:
+					case ReportTypeEnum.yearByMonths:
+						return getFullYear(settings.Year);
+				}
+				return null;
+			}
 		}
 
 
@@ -56,7 +71,8 @@ namespace VotGES.Piramida.PiramidaReport
 			get { return monthNames; }
 			set { monthNames = value; }
 		}
-
+		
+		
 
 		private ReportTypeEnum reportType;
 		public ReportTypeEnum ReportType {
@@ -142,6 +158,9 @@ namespace VotGES.Piramida.PiramidaReport
 		}
 
 		public ReportSettings() {
+			ReportTypeNames = new Dictionary<ReportTypeEnum, string>();
+			MonthNames = new Dictionary<int, string>();
+
 			ReportTypeNames.Add(ReportTypeEnum.dayByMinutes, "За сутки по минутам");
 			ReportTypeNames.Add(ReportTypeEnum.dayByHalfHours, "За сутки по 30 минут");
 			ReportTypeNames.Add(ReportTypeEnum.dayByHours, "За сутки по часам");

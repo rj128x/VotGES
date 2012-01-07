@@ -7,7 +7,7 @@
            xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation"
 			  xmlns:usr="clr-namespace:MainSL.Views" 
            d:DesignWidth="640" d:DesignHeight="480"
-           Title="CheckGraphVyrabPage Page">
+           Title="Факт нагрузка">
     <Grid x:Name="LayoutRoot">
 		<Grid>
 			<Grid.ColumnDefinitions>

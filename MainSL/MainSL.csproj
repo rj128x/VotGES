@@ -103,6 +103,7 @@
     <Compile Include="PBR\PBREditorWindow.xaml.cs">
       <DependentUpon>PBREditorWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ReportSettings.cs" />
     <Compile Include="Views\ChartControl.xaml.cs">
       <DependentUpon>ChartControl.xaml</DependentUpon>
     </Compile>
@@ -120,6 +121,9 @@
     </Compile>
     <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FullReportPage.xaml.cs">
+      <DependentUpon>FullReportPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GraphVyrabPage.xaml.cs">
       <DependentUpon>GraphVyrabPage.xaml</DependentUpon>
@@ -172,6 +176,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CheckPrognozNBPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FullReportPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -242,6 +250,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\votges.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

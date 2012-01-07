@@ -7,9 +7,9 @@
 
 	<Grid x:Name="LayoutRoot" Background="White">
 		<Border Style="{StaticResource borderGray}">
-			<StackPanel>
+			<StackPanel Name="pnlSettings">
 				<TextBlock Text="Тип отчета" Style="{StaticResource Label}"/>
-				<ComboBox ItemsSource="{Binding ReportTypeNames, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value"
+				<ComboBox ItemsSource="{Binding ReportTypeNames}" SelectedValuePath="Key" DisplayMemberPath="Value" SelectedValue="{Binding ReportType, Mode=TwoWay}" 
 							 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 				<sdk:Calendar SelectedDate="{Binding Date, Mode=TwoWay}" 
 								  Visibility="{Binding IsVisibleDate, Converter={StaticResource visibilityConverter}}"
@@ -17,7 +17,7 @@
 				<StackPanel Orientation="Horizontal">
 					<StackPanel Orientation="Horizontal" Visibility="{Binding IsVisibleMonth, Converter={StaticResource visibilityConverter}}">
 						<TextBlock Text="Месяц: " Style="{StaticResource Label}"/>
-						<ComboBox ItemsSource="{Binding MonthNames, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value"
+						<ComboBox ItemsSource="{Binding MonthNames}" SelectedValuePath="Key" DisplayMemberPath="Value" SelectedValue="{Binding Month, Mode=TwoWay}"
 									 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}" />
 					</StackPanel>
 					<StackPanel Visibility="{Binding IsVisibleYear, Converter={StaticResource visibilityConverter}}" Orientation="Horizontal">

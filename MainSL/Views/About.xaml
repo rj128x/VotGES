@@ -1,10 +1,18 @@
-<navigation:Page x:Class="MainSL.About" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480" Title="Сведения" Style="{StaticResource PageStyle}">
+<navigation:Page x:Class="MainSL.About" 
+					  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+					  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+					  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+					  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+					  xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" 
+					  mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480" Title="Воткинская ГЭС" Style="{StaticResource PageStyle}">
 
-    <Grid x:Name="LayoutRoot">
+	<Grid x:Name="LayoutRoot">
 		<Image Source="/MainSL;component/Images/2.jpg" Stretch="Uniform"/>
 		<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="0,50,0,0">
 			<HyperlinkButton NavigateUri="/RezhimSKReportPage" TargetName="ContentFrame" Content="Режим СК" 
-								  Foreground="Red" FontWeight="Bold"/>
+								  Foreground="Blue" FontWeight="Bold"/>
+			<HyperlinkButton NavigateUri="/FullReportPage" TargetName="ContentFrame" Content="Отчет (тест)" 
+								  Foreground="Blue" FontWeight="Bold"/>
 		</StackPanel>
 	</Grid>
 

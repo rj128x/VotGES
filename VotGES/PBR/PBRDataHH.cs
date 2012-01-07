@@ -77,7 +77,7 @@ namespace VotGES.PBR
 						HalfHoursP.Add(date, HalfHoursP[date.AddMinutes(-30)]);
 					} else {
 						HalfHoursP.Add(date, -1);
-						Logger.Info("Не записана мощность " + date.ToString());
+						//Logger.Info("Не записана мощность " + date.ToString());
 						//RealP.Add(date, GTPIndex * 100 + 100 + r.Next(-10, 10));
 					}
 				}
@@ -91,7 +91,7 @@ namespace VotGES.PBR
 						RealPBR.Add(date, RealPBR[date.AddMinutes(-60)]);
 					} else {
 						RealPBR.Add(date, -1);
-						Logger.Info("Не записан ПБР " + date.ToString());
+						//Logger.Info("Не записан ПБР " + date.ToString());
 					}
 				}
 				date = date.AddMinutes(60);

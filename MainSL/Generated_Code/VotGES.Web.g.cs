@@ -2087,7 +2087,7 @@ namespace VotGES.PBR
         }
     }
 }
-namespace VotGES.Piramida.PiramidaReport
+namespace VotGES.Piramida.Report
 {
     using System;
     using System.Collections.Generic;
@@ -2102,9 +2102,205 @@ namespace VotGES.Piramida.PiramidaReport
     
     
     /// <summary>
+    /// Класс "FullReportRecord".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Piramida.Report")]
+    public sealed partial class FullReportRecord : ComplexObject
+    {
+        
+        private List<FullReportRecord> _children;
+        
+        private bool _isGroup;
+        
+        private string _key;
+        
+        private bool _selectable;
+        
+        private bool _selected;
+        
+        private string _title;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnChildrenChanging(List<FullReportRecord> value);
+        partial void OnChildrenChanged();
+        partial void OnIsGroupChanging(bool value);
+        partial void OnIsGroupChanged();
+        partial void OnKeyChanging(string value);
+        partial void OnKeyChanged();
+        partial void OnSelectableChanging(bool value);
+        partial void OnSelectableChanged();
+        partial void OnSelectedChanging(bool value);
+        partial void OnSelectedChanged();
+        partial void OnTitleChanging(string value);
+        partial void OnTitleChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="FullReportRecord"/>.
+        /// </summary>
+        public FullReportRecord()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Children".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<FullReportRecord> Children
+        {
+            get
+            {
+                return this._children;
+            }
+            set
+            {
+                if ((this._children != value))
+                {
+                    this.OnChildrenChanging(value);
+                    this.RaiseDataMemberChanging("Children");
+                    this.ValidateProperty("Children", value);
+                    this._children = value;
+                    this.RaiseDataMemberChanged("Children");
+                    this.OnChildrenChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "IsGroup".
+        /// </summary>
+        [DataMember()]
+        public bool IsGroup
+        {
+            get
+            {
+                return this._isGroup;
+            }
+            set
+            {
+                if ((this._isGroup != value))
+                {
+                    this.OnIsGroupChanging(value);
+                    this.RaiseDataMemberChanging("IsGroup");
+                    this.ValidateProperty("IsGroup", value);
+                    this._isGroup = value;
+                    this.RaiseDataMemberChanged("IsGroup");
+                    this.OnIsGroupChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Key".
+        /// </summary>
+        [DataMember()]
+        public string Key
+        {
+            get
+            {
+                return this._key;
+            }
+            set
+            {
+                if ((this._key != value))
+                {
+                    this.OnKeyChanging(value);
+                    this.RaiseDataMemberChanging("Key");
+                    this.ValidateProperty("Key", value);
+                    this._key = value;
+                    this.RaiseDataMemberChanged("Key");
+                    this.OnKeyChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Selectable".
+        /// </summary>
+        [DataMember()]
+        public bool Selectable
+        {
+            get
+            {
+                return this._selectable;
+            }
+            set
+            {
+                if ((this._selectable != value))
+                {
+                    this.OnSelectableChanging(value);
+                    this.RaiseDataMemberChanging("Selectable");
+                    this.ValidateProperty("Selectable", value);
+                    this._selectable = value;
+                    this.RaiseDataMemberChanged("Selectable");
+                    this.OnSelectableChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Selected".
+        /// </summary>
+        [DataMember()]
+        public bool Selected
+        {
+            get
+            {
+                return this._selected;
+            }
+            set
+            {
+                if ((this._selected != value))
+                {
+                    this.OnSelectedChanging(value);
+                    this.RaiseDataMemberChanging("Selected");
+                    this.ValidateProperty("Selected", value);
+                    this._selected = value;
+                    this.RaiseDataMemberChanged("Selected");
+                    this.OnSelectedChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Title".
+        /// </summary>
+        [DataMember()]
+        public string Title
+        {
+            get
+            {
+                return this._title;
+            }
+            set
+            {
+                if ((this._title != value))
+                {
+                    this.OnTitleChanging(value);
+                    this.RaiseDataMemberChanging("Title");
+                    this.ValidateProperty("Title", value);
+                    this._title = value;
+                    this.RaiseDataMemberChanged("Title");
+                    this.OnTitleChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
     /// Класс "ReportAnswer".
     /// </summary>
-    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Piramida.PiramidaReport")]
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Piramida.Report")]
     public sealed partial class ReportAnswer : ComplexObject
     {
         
@@ -2217,7 +2413,7 @@ namespace VotGES.Piramida.PiramidaReport
     /// <summary>
     /// Класс "ReportAnswerRecord".
     /// </summary>
-    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Piramida.PiramidaReport")]
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Piramida.Report")]
     public sealed partial class ReportAnswerRecord : ComplexObject
     {
         
@@ -2295,6 +2491,22 @@ namespace VotGES.Piramida.PiramidaReport
                 }
             }
         }
+    }
+    
+    public enum ReportTypeEnum
+    {
+        
+        dayByMinutes = 0,
+        
+        dayByHalfHours = 1,
+        
+        dayByHours = 2,
+        
+        monthByDays = 3,
+        
+        yearByDays = 4,
+        
+        yearByMonths = 5,
     }
 }
 namespace VotGES.PrognozNB
@@ -3180,7 +3392,7 @@ namespace VotGES.Web.Services
     using System.ServiceModel.Web;
     using VotGES.Chart;
     using VotGES.PBR;
-    using VotGES.Piramida.PiramidaReport;
+    using VotGES.Piramida.Report;
     using VotGES.PrognozNB;
     using VotGES.Web.Models;
     
@@ -4018,6 +4230,68 @@ namespace VotGES.Web.Services
         }
         
         /// <summary>
+        /// Асинхронно вызывает метод "GetFullReport" службы DomainService.
+        /// </summary>
+        /// <param name="selectedData">Значение параметра "selectedData" для данного действия.</param>
+        /// <param name="dateStart">Значение параметра "dateStart" для данного действия.</param>
+        /// <param name="dateEnd">Значение параметра "dateEnd" для данного действия.</param>
+        /// <param name="ReportType">Значение параметра "ReportType" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<ReportAnswer> GetFullReport(IEnumerable<string> selectedData, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType, Action<InvokeOperation<ReportAnswer>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("selectedData", selectedData);
+            parameters.Add("dateStart", dateStart);
+            parameters.Add("dateEnd", dateEnd);
+            parameters.Add("ReportType", ReportType);
+            this.ValidateMethod("GetFullReport", parameters);
+            return ((InvokeOperation<ReportAnswer>)(this.InvokeOperation("GetFullReport", typeof(ReportAnswer), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "GetFullReport" службы DomainService.
+        /// </summary>
+        /// <param name="selectedData">Значение параметра "selectedData" для данного действия.</param>
+        /// <param name="dateStart">Значение параметра "dateStart" для данного действия.</param>
+        /// <param name="dateEnd">Значение параметра "dateEnd" для данного действия.</param>
+        /// <param name="ReportType">Значение параметра "ReportType" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<ReportAnswer> GetFullReport(IEnumerable<string> selectedData, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("selectedData", selectedData);
+            parameters.Add("dateStart", dateStart);
+            parameters.Add("dateEnd", dateEnd);
+            parameters.Add("ReportType", ReportType);
+            this.ValidateMethod("GetFullReport", parameters);
+            return ((InvokeOperation<ReportAnswer>)(this.InvokeOperation("GetFullReport", typeof(ReportAnswer), parameters, true, null, null)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "GetFullReportRoot" службы DomainService.
+        /// </summary>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<FullReportRecord> GetFullReportRoot(Action<InvokeOperation<FullReportRecord>> callback, object userState)
+        {
+            this.ValidateMethod("GetFullReportRoot", null);
+            return ((InvokeOperation<FullReportRecord>)(this.InvokeOperation("GetFullReportRoot", typeof(FullReportRecord), null, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "GetFullReportRoot" службы DomainService.
+        /// </summary>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<FullReportRecord> GetFullReportRoot()
+        {
+            this.ValidateMethod("GetFullReportRoot", null);
+            return ((InvokeOperation<FullReportRecord>)(this.InvokeOperation("GetFullReportRoot", typeof(FullReportRecord), null, true, null, null)));
+        }
+        
+        /// <summary>
         /// Асинхронно вызывает метод "GetRezhimSKReport" службы DomainService.
         /// </summary>
         /// <param name="date">Значение параметра "date" для данного действия.</param>
@@ -4060,6 +4334,44 @@ namespace VotGES.Web.Services
         [ServiceContract()]
         public interface IReportBaseDomainServiceContract
         {
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "GetFullReport".
+            /// </summary>
+            /// <param name="selectedData">Значение параметра "selectedData" для данного действия.</param>
+            /// <param name="dateStart">Значение параметра "dateStart" для данного действия.</param>
+            /// <param name="dateEnd">Значение параметра "dateEnd" для данного действия.</param>
+            /// <param name="ReportType">Значение параметра "ReportType" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/ReportBaseDomainService/GetFullReportDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ReportBaseDomainService/GetFullReport", ReplyAction="http://tempuri.org/ReportBaseDomainService/GetFullReportResponse")]
+            IAsyncResult BeginGetFullReport(IEnumerable<string> selectedData, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BeginGetFullReport".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginGetFullReport".</param>
+            /// <returns>Объект "ReportAnswer", возвращенный из операции "GetFullReport".</returns>
+            ReportAnswer EndGetFullReport(IAsyncResult result);
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "GetFullReportRoot".
+            /// </summary>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/ReportBaseDomainService/GetFullReportRootDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ReportBaseDomainService/GetFullReportRoot", ReplyAction="http://tempuri.org/ReportBaseDomainService/GetFullReportRootResponse")]
+            IAsyncResult BeginGetFullReportRoot(AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BeginGetFullReportRoot".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginGetFullReportRoot".</param>
+            /// <returns>Объект "FullReportRecord", возвращенный из операции "GetFullReportRoot".</returns>
+            FullReportRecord EndGetFullReportRoot(IAsyncResult result);
             
             /// <summary>
             /// Асинхронно вызывает операцию "GetRezhimSKReport".

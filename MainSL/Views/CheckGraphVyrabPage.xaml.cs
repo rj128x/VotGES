@@ -58,7 +58,7 @@ namespace MainSL.Views
 						tabHReport.Visibility = System.Windows.Visibility.Collapsed;
 					} catch (Exception ex) {
 						Logging.Logger.info(ex.ToString());
-						MessageBox.Show("Ошибка при обработке ответа от сервера");
+						GlobalStatus.Current.ErrorLoad("Ошибка");
 					} finally {
 						GlobalStatus.Current.StopLoad();
 					}
@@ -85,7 +85,7 @@ namespace MainSL.Views
 						cntrlHReport.grdReport.ItemsSource = currentAnswer.TableH;
 					} catch (Exception ex) {
 						Logging.Logger.info(ex.ToString());
-						MessageBox.Show("Ошибка при обработке ответа от сервера");
+						GlobalStatus.Current.ErrorLoad("Ошибка");
 					} finally {
 						GlobalStatus.Current.StopLoad();
 					}

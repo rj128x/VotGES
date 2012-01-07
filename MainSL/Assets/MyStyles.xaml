@@ -50,9 +50,11 @@
 	</Style>
 		
 
-	<sdk:HierarchicalDataTemplate ItemsSource="{Binding ChildObjects}" x:Key="treeTemplate" >
-		<StackPanel>
-			<TextBlock Text="{Binding ObjectName}" FontWeight="Normal" FontFamily="Courier New"/>
+	<sdk:HierarchicalDataTemplate ItemsSource="{Binding Children}" x:Key="treeTemplate" >
+		<StackPanel Orientation="Horizontal">
+			<CheckBox IsChecked="{Binding Selected, Mode=TwoWay}" Content="" 
+						 Visibility="{Binding Selectable, Converter={StaticResource visibilityConverter}}"/>
+			<TextBlock Text="{Binding Title}"/>
 		</StackPanel>
 	</sdk:HierarchicalDataTemplate>
 	

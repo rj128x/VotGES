@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
-using VotGES.Piramida.PiramidaReport;
+using VotGES.Piramida.Report;
 
 namespace MainSL.Views
 {
@@ -22,9 +22,15 @@ namespace MainSL.Views
 		public ReportSettings Settings { get; set; }
 		public ReportSettingsControl() {
 			InitializeComponent();
-			Settings = new ReportSettings();
-			this.DataContext = Settings;
+			Init();
 		}
+
+		public void Init() {
+			Settings = new ReportSettings();			
+			pnlSettings.DataContext = Settings;
+		}
+
+		
 
 	}
 }
