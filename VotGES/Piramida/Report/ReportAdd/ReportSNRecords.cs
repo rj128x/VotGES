@@ -16,7 +16,7 @@ namespace VotGES.Piramida.Report
 		public static RecordTypeCalc P_SN_10N=new RecordTypeCalc("P_SN_10N", "СН 10Н", null);
 		public static RecordTypeCalc P_SN_36N=new RecordTypeCalc("P_SN_36N", "СН 36Н", null);
 		public static RecordTypeCalc P_SN_Nasos=new RecordTypeCalc("P_SN_Nasos", "СН Насосы", null);
-		public static RecordTypeCalc P_SN=new RecordTypeCalc("P_SN", "СН", null);
+		public static RecordTypeCalc P_SN=new RecordTypeCalc("P_SN", "Собственные нужды", null);
 
 		static ReportSNRecords() {
 			CreateSNP();
@@ -70,7 +70,8 @@ namespace VotGES.Piramida.Report
 					report[date, ReportSNRecords.P_SN_7N.ID] +
 					report[date, ReportSNRecords.P_SN_8N.ID] +
 					report[date, ReportSNRecords.P_SN_9N.ID] +
-					report[date, ReportSNRecords.P_SN_Nasos.ID];
+					report[date, ReportSNRecords.P_SN_Nasos.ID]+
+					report[date,PiramidaRecords.P_SN_TVI_Priem.Key];
 			});
 
 			
@@ -114,6 +115,7 @@ namespace VotGES.Piramida.Report
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_SN_36T_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType:result, dbOper:oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_SN_38T_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType:result, dbOper:oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_SN_TVI_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType:result, dbOper:oper));
+			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_1KU_31T_Priem, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
 		}
 
 

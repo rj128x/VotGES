@@ -196,24 +196,24 @@ namespace VotGES.Piramida.Report
 
 			P_VL110_Nebalans.CalcFunction=new RecordCalcDelegate((report, date) => {
 				return
-					report[date,ReportLinesRecords.P_VL110_Saldo.ID] - 
-					report[date,ReportGlTransformRecords.P_56AT_110.ID]-
+					report[date,ReportLinesRecords.P_VL110_Saldo.ID] + 
+					report[date,ReportGlTransformRecords.P_56AT_110.ID]+
 					report[date,ReportGlTransformRecords.P_1T_110.ID];
 			});
 
 			P_VL220_Nebalans.CalcFunction=new RecordCalcDelegate((report, date) => {
 				return
-					report[date,ReportLinesRecords.P_VL220_Saldo.ID] -
-					report[date,ReportGlTransformRecords.P_56AT_220.ID] -
-					report[date,ReportGlTransformRecords.P_4T_220.ID] -
-					report[date,ReportGlTransformRecords.P_2AT_220.ID] -
+					report[date,ReportLinesRecords.P_VL220_Saldo.ID] +
+					report[date,ReportGlTransformRecords.P_56AT_220.ID] +
+					report[date,ReportGlTransformRecords.P_4T_220.ID] +
+					report[date,ReportGlTransformRecords.P_2AT_220.ID] +
 					report[date,ReportGlTransformRecords.P_3AT_220.ID];
 			});
 
 			P_VL500_Nebalans.CalcFunction=new RecordCalcDelegate((report, date) => {
 				return
-					report[date,ReportLinesRecords.P_VL500_Saldo.ID] -
-					report[date,ReportGlTransformRecords.P_3AT_500.ID] -
+					report[date,ReportLinesRecords.P_VL500_Saldo.ID] +
+					report[date,ReportGlTransformRecords.P_2AT_500.ID] +
 					report[date,ReportGlTransformRecords.P_3AT_500.ID];
 			});
 

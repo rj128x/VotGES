@@ -33,7 +33,7 @@ namespace VotGES.Piramida.Report
 					return
 						(report[date,PiramidaRecords.P_GA1_Otd.Key] + report[date,PiramidaRecords.P_GA2_Otd.Key])
 						- (report[date,PiramidaRecords.P_GA1_Priem.Key] + report[date,PiramidaRecords.P_GA2_Priem.Key])
-						- (report[date,PiramidaRecords.P_Vozb_GA1_Priem.Key] + report[date,PiramidaRecords.P_Vozb_GA1_Priem.Key])
+						- (report[date,PiramidaRecords.P_Vozb_GA1_Priem.Key] + report[date,PiramidaRecords.P_Vozb_GA2_Priem.Key])
 						- (report[date,PiramidaRecords.P_SN_11T_Priem.Key] + report[date,PiramidaRecords.P_SN_12T_Priem.Key])
 						- (report[date,PiramidaRecords.P_1T_110_Priem.Key] - report[date,PiramidaRecords.P_1T_110_Otd.Key]);
 				});
