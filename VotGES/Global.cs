@@ -15,6 +15,7 @@ namespace VotGES
 		public static NumberFormatInfo NFIPoint;
 		public static void setCulture() {
 			System.Globalization.CultureInfo ci = new	System.Globalization.CultureInfo("ru-RU");
+			ci.NumberFormat.NumberDecimalSeparator = ".";
 			System.Threading.Thread.CurrentThread.CurrentCulture = ci;
 			System.Threading.Thread.CurrentThread.CurrentUICulture = ci;			
 		}

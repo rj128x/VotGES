@@ -213,7 +213,7 @@ namespace VotGES.PBR
 				dt = dt.AddMinutes(1);
 			}
 
-			double recP=(sum + diff * date.Minute) / count;
+			double recP=(sum - diff * date.Minute) / count;
 
 			result.Add("fakt", fakt);
 			result.Add("plan", plan);

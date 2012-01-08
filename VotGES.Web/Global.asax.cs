@@ -34,8 +34,6 @@ namespace VotGES.Web
 			AreaRegistration.RegisterAllAreas();
 
 			RegisterRoutes(RouteTable.Routes);
-			Logger.Info(DateTime.Now.ToString());
-			Logger.Info((12.35).ToString());
 		}
 	}
 }
