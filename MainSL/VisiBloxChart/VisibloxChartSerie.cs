@@ -13,11 +13,24 @@ using System.Collections.Generic;
 using Visiblox.Charts;
 using VotGES.Chart;
 using MainSL.Views;
+using System.Windows.Markup;
 
 namespace MainSL
 {
 	public class VisibloxChartSerie : INotifyPropertyChanged
 	{
+		protected static string TemplateStr=@"<ControlTemplate  
+				xmlns=""http://schemas.microsoft.com/client/2007"">         
+				<Border Style=""{StaticResource borderGray}"" Background=""LightGray"" Opacity=""0.7"">
+					<StackPanel Orientation=""Horizontal"">
+						<TextBlock Text=""~serieName~: ["" FontWeight=""Bold"" /> 
+						<TextBlock Text=""{Binding X, StringFormat='~xFormat~'}"" FontWeight=""Bold"" /> 
+						<TextBlock Text=""]-["" FontWeight=""Bold"" /> 
+						<TextBlock Text=""{Binding Y, StringFormat='~yFormat~'}"" FontWeight=""Bold"" />
+						<TextBlock Text=""]"" FontWeight=""Bold"" /> 
+					</StackPanel>
+				</Border>
+            </ControlTemplate>";
 		public ChartControl silverChartControl { get; protected set; }
 		public event PropertyChangedEventHandler PropertyChanged;
 		public string TagName { get; protected set; }
@@ -143,6 +156,26 @@ namespace MainSL
 			}
 		}
 
+		protected bool showToolTip;
+		public bool ShowToolTip {
+			get { return showToolTip; }
+			set {
+				showToolTip = value;
+				switch (SerieType) {
+					case ChartSerieType.line:
+						LineSeries line=Serie as LineSeries;
+						line.ShowPoints = value;
+						line.ToolTipEnabled = value;
+						break;
+					case ChartSerieType.stepLine:
+					   StaircaseSeries stair=Serie as StaircaseSeries;
+						stair.ShowPoints = value;
+						stair.ToolTipEnabled = value;
+						break;
+				}
+			}
+		}
+
 		public VisibloxChartSerie(ChartControl silverChartControl) {
 			this.silverChartControl = silverChartControl;
 		}
@@ -157,7 +190,7 @@ namespace MainSL
 			SerieIndex = silverChartControl.ChartSeries.Count;
 			TagName = serieData.Name;
 			Name = serieProp.Title;
-			
+			Brush tr=new SolidColorBrush(Colors.Transparent);
 	
 			Serie=null;
 			Brush br=new SolidColorBrush(Color.FromArgb(255,0,0,0));
@@ -167,6 +200,7 @@ namespace MainSL
 				byte g=Byte.Parse(colors[1]);
 				byte b=Byte.Parse(colors[2]);
 				br = new SolidColorBrush(Color.FromArgb(255, r, g, b));
+
 			} else {
 				//br = ChartActions.Actions().getNextColor();
 			}
@@ -174,24 +208,39 @@ namespace MainSL
 				case ChartSerieType.line:
 					LineSeries lineSerie=new LineSeries();
 					lineSerie.LineStrokeThickness=serieProp.LineWidth+1;
-					lineSerie.ToolTipEnabled = true;
 					lineSerie.LineStroke = br;
 					LineStroke = lineSerie.LineStroke;
 					lineSerie.HighlightingEnabled=true;
-					//GraphVyrabToolkit.logMessage(lineSerie.LineStroke.ToString());
+					lineSerie.PointSize = 10;
+					lineSerie.PointFill = tr;
+					lineSerie.PointStroke = tr;					
 					Serie = lineSerie;
-					
 					break;
 				case ChartSerieType.stepLine:
 					StaircaseSeries stairSerie=new StaircaseSeries();
 					stairSerie.LineStrokeThickness=serieProp.LineWidth+1;
-					stairSerie.ToolTipEnabled = true;
 					stairSerie.LineStroke = br;
 					stairSerie.HighlightingEnabled = true;					
 					LineStroke = stairSerie.LineStroke;
 					Serie = stairSerie;
-					break;			
+					stairSerie.PointSize = 10;
+					stairSerie.PointFill = tr;
+					stairSerie.PointStroke = tr;					
+					break;		
+				case ChartSerieType.column:
+					ColumnSeries columnSerie=new ColumnSeries();
+					columnSerie.HighlightingEnabled = true;
+					columnSerie.PointFill = br;
+					columnSerie.PointStroke = br;
+					LineStroke = br;
+					Serie = columnSerie;
+					columnSerie.ToolTipEnabled = true;
+					break;
 			}
+			Serie.ToolTipTemplate = XamlReader.Load
+				(TemplateStr.Replace("~serieName~", this.Name).
+					Replace("~xFormat~",silverChartControl.XAxesForamtString).
+					Replace("~yFormat~", "#,0.##")) as ControlTemplate;
 
 			Serie.PropertyChanged += new PropertyChangedEventHandler(Serie_PropertyChanged);
 			silverChartControl.CurrentChart.Series.Add(Serie);
@@ -227,11 +276,13 @@ namespace MainSL
 		}
 
 		public void refresh(ChartDataSerie serieData) {
+			int count=0;
 			switch (silverChartControl.XAxesType) {
 				case XAxisTypeEnum.numeric:
 					DataSeries<double,double> dataSeries=new DataSeries<double, double> { Title = Name };
 					foreach (ChartDataPoint point in serieData.Points) {				
 						dataSeries.Add(new DataPoint<double, double>(point.XValDouble, point.YVal));
+						count++;
 					}
 					if (Enabled) {
 						Serie.DataSeries = dataSeries;
@@ -242,14 +293,16 @@ namespace MainSL
 					DataSeries<DateTime,double> dataSeriesDate=new DataSeries<DateTime, double> { Title = Name };
 					foreach (ChartDataPoint point in serieData.Points) {
 						dataSeriesDate.Add(new DataPoint<DateTime, double>(point.XVal, point.YVal));
+						count++;
 					}
 					if (Enabled) {
 						Serie.DataSeries = dataSeriesDate;
 					}
 					SeriesData = dataSeriesDate;
 					break;
-			}			
-
+			}
+			ShowToolTip=count<100;
+			
 		}
 		
 	}

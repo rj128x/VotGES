@@ -595,7 +595,7 @@ namespace VotGES.Piramida.Report
 
 			foreach (DateTime date in Dates) {
 				ReportAnswerRecord record=new ReportAnswerRecord();
-				record.Header = GetCorrectedDate(date).ToString(getDateFormat());
+				record.Header = GetCorrectedDateForTable(date).ToString(getDateFormat());
 				record.DataStr = new Dictionary<string, string>();
 				foreach (RecordTypeBase recordType in RecordTypes.Values) {
 					if (recordType.Visible) {
@@ -617,7 +617,7 @@ namespace VotGES.Piramida.Report
 			}
 
 			foreach (DateTime date in Dates) {
-				string dStr=GetCorrectedDate(date).ToString(getDateFormat());
+				string dStr=GetCorrectedDateForTable(date).ToString(getDateFormat());
 				if (!Answer.Columns.Keys.Contains(dStr)) {
 					Answer.Columns.Add(dStr, dStr);
 				}
@@ -635,7 +635,7 @@ namespace VotGES.Piramida.Report
 						record.DataStr.Add("result", ResultData[recordType.ID].ToString(recordType.FormatDouble));
 					}
 					foreach (DateTime date in Dates) {
-						string dStr=GetCorrectedDate(date).ToString(getDateFormat());
+						string dStr=GetCorrectedDateForTable(date).ToString(getDateFormat());
 						record.DataStr.Add(dStr, Data[date][recordType.ID].ToString(recordType.FormatDouble));
 					}
 					Answer.Data.Add(record);
@@ -661,6 +661,11 @@ namespace VotGES.Piramida.Report
 			Answer.Chart.Properties.addAxis(ax);
 			Answer.Chart.Properties.addAxis(ax1);
 
+			ChartSerieType type=ChartSerieType.stepLine;
+			if (Interval == IntervalReportEnum.quarter || Interval == IntervalReportEnum.month) {
+				type = ChartSerieType.column;
+			}
+
 			Answer.Chart.Properties.XAxisType = XAxisTypeEnum.datetime;
 
 			Answer.Chart.Properties.XValueFormatString = getDateFormat();
@@ -674,14 +679,14 @@ namespace VotGES.Piramida.Report
 					props.TagName = recordType.ID;
 					props.LineWidth = 2;
 					props.Color = ChartColor.NextColor();
-					props.SerieType = ChartSerieType.stepLine;
+					props.SerieType = type;
 					props.YAxisIndex = 0;
 					Answer.Chart.Properties.addSerie(props);
 
 					ChartDataSerie data=new ChartDataSerie();
 					data.Name = recordType.ID;
 					foreach (DateTime date in Dates) {
-						DateTime dt=GetCorrectedDate(date);
+						DateTime dt=GetCorrectedDateForChart(date);
 						data.Points.Add(new ChartDataPoint(dt, Data[date][recordType.ID]));
 					}
 					Answer.Chart.Data.addSerie(data);
@@ -707,7 +712,35 @@ namespace VotGES.Piramida.Report
 			return "dd.MM.yy HH:mm";
 		}
 
-		protected DateTime GetCorrectedDate(DateTime date) {
+		protected DateTime GetCorrectedDateForTable(DateTime date) {
+			DateTime dt=date;
+			switch (Interval) {
+				case IntervalReportEnum.minute:
+					dt = date.AddMinutes(0);
+					break;
+				case IntervalReportEnum.halfHour:
+					dt = date.AddMinutes(0);
+					break;
+				case IntervalReportEnum.hour:
+					dt = date.AddHours(0);
+					break;
+				case IntervalReportEnum.day:
+					dt = date.AddDays(-1);
+					break;
+				case IntervalReportEnum.month:
+					dt = date.AddMonths(-1);
+					break;
+				case IntervalReportEnum.quarter:
+					dt = date.AddMonths(-3);
+					break;
+				case IntervalReportEnum.year:
+					dt = date.AddYears(-1);
+					break;
+			}
+			return dt;
+		}
+
+		protected DateTime GetCorrectedDateForChart(DateTime date) {
 			DateTime dt=date;
 			switch (Interval) {
 				case IntervalReportEnum.minute:
@@ -734,6 +767,7 @@ namespace VotGES.Piramida.Report
 			}
 			return dt;
 		}
+
 
 		public void AddRecordType(RecordTypeBase type) {
 			if (!RecordTypes.Keys.Contains(type.ID)) {
