@@ -24,47 +24,30 @@ namespace VotGES.Piramida.Report
 			ReportGARecords.AddPRecordsGAP(this, parNumber, 1, scaleDiv, false, false,oper,result);
 			ReportGARecords.AddPRecordsGAQ(this, parNumber, 1, scaleDiv, false, false,oper,result);
 			ReportGARecords.AddPRecordsGAAdd(this, parNumber, 1, scaleDiv, false, false, oper,result);
-			ReportGARecords.CreateGAP();
-			ReportGARecords.CreateGAQ();
 			ReportGARecords.AddCalcRecords(this, false, false, result);
 
 			ReportLinesRecords.AddLineRecordsP(this, parNumber, 1, scaleDiv, false, false, oper, result);
-			ReportLinesRecords.CreateLinesP();
 			ReportLinesRecords.AddCalcRecords(this, false, false, result);
 
 			ReportGlTransformRecords.AddGLTransformRecordsP(this, parNumber, 1, scaleDiv, false, false, oper, result);
 			ReportGlTransformRecords.AddPRecordsForNebalans(this, parNumber, 1, scaleDiv, false, false, oper, result);
-			ReportGlTransformRecords.CreateGlTransformP();
 			ReportGlTransformRecords.AddCalcRecords(this, false, false, result);
 
 			ReportSNRecords.AddPRecordsSN(this, parNumber, 1, scaleDiv, false, false, oper, result);
-			ReportSNRecords.CreateSNP();
 			ReportSNRecords.AddCalcRecords(this, false, false, result);
+
+			ReportWaterRecords.AddPRecordsWater(this, parNumber, 1, 1, false, false, DBOperEnum.avg, ResultTypeEnum.avg);
+
+			ReportMainRecords.AddPRecords(this, parNumber, 1, scaleDiv, false, false, oper, result);
+			ReportMainRecords.AddCalcRecords(this, false, false, result);
+
 		}
 
 		public void InitNeedData(List<String> selected) {
-			NeedRecords.Clear();
+			
 			foreach (String key in selected) {
-				NeedRecords.Add(key);
-			}
-
-			foreach (RecordTypeBase recordType in RecordTypes.Values) {
-				if (recordType is RecordTypeCalc && NeedRecords.Contains(recordType.ID)) {
-					RecordTypeCalc rtc=recordType as RecordTypeCalc;					
-					double d=rtc.CalcFunction(this, null);
-				}
-			}
-
-			List<String> keys=RecordTypes.Keys.ToList<string>();
-			foreach (string key in keys) {
-				if (!NeedRecords.Contains(key)) {
-					RecordTypes.Remove(key);
-				} else {
-					if (selected.Contains(key)){
-						RecordTypes[key].Visible = true;
-						RecordTypes[key].ToChart = true;
-					}
-				}
+				RecordTypes[key].Visible = true;
+				RecordTypes[key].ToChart = true;
 			}
 		}
 

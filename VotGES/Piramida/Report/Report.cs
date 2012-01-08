@@ -36,13 +36,13 @@ namespace VotGES.Piramida.Report
 		public PiramidaRecord DBRecord { get; set; }
 		public DBOperEnum DBOper { get; set; }
 		public int ParNumber { get; set; }
-		
+
 
 		public RecordTypeDB
-			(PiramidaRecord dbRecord, int parNumber, 
+			(PiramidaRecord dbRecord, int parNumber,
 			double minValue = -10e100, double maxValue = 10e100, double divParam = 1, double multParam = 1,
 			string id = null, string title = null, ResultTypeEnum resultType = ResultTypeEnum.sum, DBOperEnum dbOper = DBOperEnum.sum,
-			bool toChart=false, bool visible=false, string formatDouble="### ### ### ##0.##") {
+			bool toChart = false, bool visible = false, string formatDouble = "### ### ### ##0.##") {
 			DBRecord = dbRecord;
 			ParNumber = parNumber;
 			MinValue = minValue;
@@ -98,17 +98,17 @@ namespace VotGES.Piramida.Report
 	public class ReportAnswerRecord
 	{
 		public String Header { get; set; }
-		public Dictionary<String, String> DataStr { get; set; }		
+		public Dictionary<String, String> DataStr { get; set; }
 	}
 
 	public class ReportAnswer
 	{
 		public ChartAnswer Chart { get; set; }
-		public List<ReportAnswerRecord> Data{get;set;}
+		public List<ReportAnswerRecord> Data { get; set; }
 		public Dictionary<string, string> Columns { get; set; }
 	}
 
-	
+
 
 	public class Report
 	{
@@ -121,6 +121,7 @@ namespace VotGES.Piramida.Report
 		public Dictionary<string, double> ResultData { get; set; }
 		public SortedList<ResultTypeEnum, Dictionary<string, double>> ResultDataFull { get; set; }
 		public List<string> NeedRecords { get; set; }
+		public List<string> CurrentNeedRecords { get; set; }
 		public List<DateTime> Dates { get; set; }
 		public ReportAnswer Answer { get; set; }
 		protected SqlConnection connection;
@@ -164,11 +165,17 @@ namespace VotGES.Piramida.Report
 
 		public double this[DateTime? date, string key] {
 			get {
-				if (date!=null && date.HasValue) {
-					return Data[date.Value][key];
+				if (date != null && date.HasValue) {
+					if (RecordTypes.Keys.Contains(key)) {
+						return Data[date.Value][key];
+					} else {
+						Logger.Info("Ошибка в отчете. Ключ не найден " + key);
+						return 0;
+					}
+
 				} else {
-					if (!NeedRecords.Contains(key)) {
-						NeedRecords.Add(key);
+					if (!CurrentNeedRecords.Contains(key)) {
+						CurrentNeedRecords.Add(key);
 					}
 					return 0;
 				}
@@ -183,6 +190,7 @@ namespace VotGES.Piramida.Report
 			RecordTypes = new Dictionary<string, RecordTypeBase>();
 			Data = new SortedList<DateTime, Dictionary<string, double>>();
 			NeedRecords = new List<string>();
+
 			ResultData = new Dictionary<string, double>();
 			ResultDataFull = new SortedList<ResultTypeEnum, Dictionary<string, double>>();
 			ResultDataFull.Add(ResultTypeEnum.avg, new Dictionary<string, double>());
@@ -190,7 +198,7 @@ namespace VotGES.Piramida.Report
 			ResultDataFull.Add(ResultTypeEnum.min, new Dictionary<string, double>());
 			ResultDataFull.Add(ResultTypeEnum.sum, new Dictionary<string, double>());
 			Dates = new List<DateTime>();
-			
+
 
 			DateTime date=NextDate(DateStart);
 			while (date <= DateEnd) {
@@ -199,13 +207,30 @@ namespace VotGES.Piramida.Report
 				date = NextDate(date);
 			}
 
-			
+
 
 			Answer = new ReportAnswer();
 		}
 
+		protected void processNeedData(RecordTypeCalc rCalc) {
+			CurrentNeedRecords = new List<string>();
+			double d=rCalc.CalcFunction(this,null);
+			List<string> current=CurrentNeedRecords.ToList();
+			foreach (String key in current) {
+				if (!NeedRecords.Contains(key)) {
+					NeedRecords.Add(key);
+				}
+				RecordTypeBase recordType=RecordTypes[key];
+				if (recordType is RecordTypeCalc) {
+					RecordTypeCalc child=recordType as RecordTypeCalc;
+					processNeedData(child);
+				}
+			}
+		}
+
 		public void InitNeedData() {
 			NeedRecords.Clear();
+			CurrentNeedRecords = new List<string>();
 			foreach (RecordTypeBase recordType in RecordTypes.Values) {
 				if (recordType.Visible || recordType.ToChart) {
 					NeedRecords.Add(recordType.ID);
@@ -215,7 +240,7 @@ namespace VotGES.Piramida.Report
 			foreach (RecordTypeBase recordType in RecordTypes.Values) {
 				if (recordType is RecordTypeCalc && NeedRecords.Contains(recordType.ID)) {
 					RecordTypeCalc rtc=recordType as RecordTypeCalc;
-					double d=rtc.CalcFunction(this, null);
+					processNeedData(rtc);
 				}
 			}
 
@@ -223,31 +248,28 @@ namespace VotGES.Piramida.Report
 			foreach (string key in keys) {
 				if (!NeedRecords.Contains(key)) {
 					RecordTypes.Remove(key);
-				} 
+				}
 			}
 		}
 
-		public Dictionary<string, Dictionary<string,RecordTypeDB>> processDBData() {
-			Dictionary<string, Dictionary<string,RecordTypeDB>> result=new Dictionary<string,Dictionary<string,RecordTypeDB>>();
+		public Dictionary<string, Dictionary<string, RecordTypeDB>> processDBData() {
+			Dictionary<string, Dictionary<string,RecordTypeDB>> result=new Dictionary<string, Dictionary<string, RecordTypeDB>>();
 			foreach (RecordTypeBase recordType in RecordTypes.Values) {
 				if (recordType is RecordTypeDB) {
 					RecordTypeDB rdb=recordType as RecordTypeDB;
-					string key=String.Format("{0}-{1}-{2}-{3}",rdb.DBOper.ToString(),rdb.ParNumber,rdb.DBRecord.ObjType,rdb.DBRecord.Obj);
+					string key=String.Format("{0}-{1}-{2}-{3}", rdb.DBOper.ToString(), rdb.ParNumber, rdb.DBRecord.ObjType, rdb.DBRecord.Obj);
 					if (!result.Keys.Contains(key)) {
-						result.Add(key, new Dictionary<string,RecordTypeDB>());						
+						result.Add(key, new Dictionary<string, RecordTypeDB>());
 					}
-					result[key].Add(rdb.ID,rdb);
+					result[key].Add(rdb.ID, rdb);
 				}
 			}
 			return result;
 		}
 
 
-		public virtual  void ReadData() {
-			if (NeedRecords.Count == 0) {
-				InitNeedData();
-			}
-
+		public virtual void ReadData() {
+			InitNeedData();
 
 			connection = PiramidaAccess.getConnection();
 			connection.Open();
@@ -255,24 +277,61 @@ namespace VotGES.Piramida.Report
 			Dictionary<string, Dictionary<string,RecordTypeDB>> DBRecords=processDBData();
 
 			foreach (KeyValuePair<string,Dictionary<string,RecordTypeDB>> de in DBRecords) {
-				ReadDBData(de.Key,de.Value);
+				ReadDBData(de.Key, de.Value);
 			}
 			connection.Close();
 			checkDBData();
-			foreach (RecordTypeBase recordType in RecordTypes.Values) {
-				if (recordType is RecordTypeCalc) {
-					RecordTypeCalc rCalc=recordType as RecordTypeCalc;
-					foreach (DateTime date in Dates) {
-						double val=rCalc.CalcFunction(this,date);
-						if (!Data[date].Keys.Contains(rCalc.ID)) {
-							Data[date].Add(rCalc.ID, -1);
-						}
-						Data[date][rCalc.ID] = val;
-					}
-				}
-			}
+			calculateData();
 			calcResult();
 		}
+
+
+		protected void calculateData() {
+			Dictionary<string,List<string>> NeedDataForRecords=new Dictionary<string, List<string>>();
+			Dictionary<string,bool> calculatedData=new Dictionary<string, bool>();
+			foreach (RecordTypeBase recordType in RecordTypes.Values) {
+				calculatedData.Add(recordType.ID, false);
+				if (recordType is RecordTypeCalc) {
+					CurrentNeedRecords = new List<string>();
+					RecordTypeCalc rCalc=recordType as RecordTypeCalc;
+					double d=rCalc.CalcFunction(this, null);
+					NeedDataForRecords.Add(rCalc.ID, CurrentNeedRecords);									
+				}
+				if (recordType is RecordTypeDB) {
+					calculatedData[recordType.ID] = true;
+				}
+			}
+
+			bool finish=true;
+			do {
+				finish = true;
+				foreach (RecordTypeBase recordType in RecordTypes.Values) {
+					if (calculatedData[recordType.ID])
+						continue;
+					if (recordType is RecordTypeCalc) {
+						RecordTypeCalc rCalc=recordType as RecordTypeCalc;
+						bool allReady=true;
+						foreach (string key in NeedDataForRecords[rCalc.ID]) {							
+							allReady = allReady && calculatedData[key];
+						}
+						if (allReady) {
+							foreach (DateTime date in Dates) {
+								double val=rCalc.CalcFunction(this, date);
+								if (!Data[date].Keys.Contains(rCalc.ID)) {
+									Data[date].Add(rCalc.ID, -1);
+								}
+								Data[date][rCalc.ID] = val;
+							}
+							calculatedData[rCalc.ID] = true;
+						} else {
+							finish = false;
+						}
+					}
+				}
+			} while (!finish);
+
+		}
+
 
 		protected virtual void calcResult() {
 			foreach (RecordTypeBase recordType in RecordTypes.Values) {
@@ -319,7 +378,7 @@ namespace VotGES.Piramida.Report
 			}
 		}
 
-		protected void ReadDBData(string paramsKey, Dictionary<string,RecordTypeDB> records) {
+		protected void ReadDBData(string paramsKey, Dictionary<string, RecordTypeDB> records) {
 			string[]paramsArr=paramsKey.Split('-');
 			string dbOper=paramsArr[0];
 			string parNumber=paramsArr[1];
@@ -327,7 +386,7 @@ namespace VotGES.Piramida.Report
 			string obj=paramsArr[3];
 
 			List<int> items=new List<int>();
-			Dictionary<int,RecordTypeDB> recordsDict=new Dictionary<int,RecordTypeDB>();
+			Dictionary<int,RecordTypeDB> recordsDict=new Dictionary<int, RecordTypeDB>();
 			foreach (RecordTypeDB rdb in records.Values) {
 				items.Add(rdb.DBRecord.Item);
 				recordsDict.Add(rdb.DBRecord.Item, rdb);
@@ -419,7 +478,7 @@ namespace VotGES.Piramida.Report
 				int item=(int)reader[0];
 				RecordTypeDB record=recordsDict[item];
 
-				switch (Interval) {					
+				switch (Interval) {
 					case IntervalReportEnum.minute:
 						year = (int)reader[1];
 						month = (int)reader[2];
@@ -485,9 +544,9 @@ namespace VotGES.Piramida.Report
 			}
 			reader.Close();
 		}
-		
 
-		public virtual void CreateAnswerData(bool createResult=true) {
+
+		public virtual void CreateAnswerData(bool createResult = true) {
 			Answer.Data = new List<ReportAnswerRecord>();
 			Answer.Columns = new Dictionary<string, string>();
 
@@ -514,24 +573,24 @@ namespace VotGES.Piramida.Report
 			foreach (DateTime date in Dates) {
 				ReportAnswerRecord record=new ReportAnswerRecord();
 				record.Header = GetCorrectedDate(date).ToString(getDateFormat());
-				record.DataStr = new Dictionary<string, string>();				
+				record.DataStr = new Dictionary<string, string>();
 				foreach (RecordTypeBase recordType in RecordTypes.Values) {
 					if (recordType.Visible) {
 						record.DataStr.Add(recordType.ID, Data[date][recordType.ID].ToString(recordType.FormatDouble));
 					}
 				}
-				Answer.Data.Add(record);				
+				Answer.Data.Add(record);
 			}
 		}
 
 		public virtual void CreateAnswerDataHorizontal(bool createResult = true) {
 			Answer.Data = new List<ReportAnswerRecord>();
 			Answer.Columns = new Dictionary<string, string>();
-			
-			
+
+
 
 			if (createResult) {
-				Answer.Columns.Add("result", "Итог");				
+				Answer.Columns.Add("result", "Итог");
 			}
 
 			foreach (DateTime date in Dates) {
@@ -544,7 +603,7 @@ namespace VotGES.Piramida.Report
 
 			foreach (RecordTypeBase recordType in RecordTypes.Values) {
 				if (recordType.Visible) {
-					
+
 					ReportAnswerRecord record=new ReportAnswerRecord();
 					record.Header = recordType.Title;
 					record.DataStr = new Dictionary<string, string>();
@@ -559,7 +618,7 @@ namespace VotGES.Piramida.Report
 					Answer.Data.Add(record);
 				}
 			}
-			
+
 		}
 
 
@@ -592,7 +651,7 @@ namespace VotGES.Piramida.Report
 					props.TagName = recordType.ID;
 					props.LineWidth = 2;
 					props.Color = ChartColor.NextColor();
-					props.SerieType=ChartSerieType.stepLine;
+					props.SerieType = ChartSerieType.stepLine;
 					props.YAxisIndex = 0;
 					Answer.Chart.Properties.addSerie(props);
 
@@ -600,7 +659,7 @@ namespace VotGES.Piramida.Report
 					data.Name = recordType.ID;
 					foreach (DateTime date in Dates) {
 						DateTime dt=GetCorrectedDate(date);
-						data.Points.Add(new ChartDataPoint(dt,Data[date][recordType.ID]));
+						data.Points.Add(new ChartDataPoint(dt, Data[date][recordType.ID]));
 					}
 					Answer.Chart.Data.addSerie(data);
 				}

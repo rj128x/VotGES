@@ -81,6 +81,8 @@
     <Compile Include="Piramida\Report\Report.cs" />
     <Compile Include="Piramida\Report\ReportAdd\ReportLinesRecords.cs" />
     <Compile Include="Piramida\Report\ReportAdd\ReportSNRecords.cs" />
+    <Compile Include="Piramida\Report\ReportAdd\ReportWaterRecords.cs" />
+    <Compile Include="Piramida\Report\ReportAdd\ReportMainRecords.cs" />
     <Compile Include="Piramida\Report\RezhimSKReport.cs" />
     <Compile Include="Piramida\Report\ReportAdd\ReportGlTransformRecords.cs" />
     <Compile Include="Piramida\Report\ReportAdd\ReportGARecords.cs" />
