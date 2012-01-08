@@ -20,6 +20,11 @@
 						<ComboBox ItemsSource="{Binding MonthNames}" SelectedValuePath="Key" DisplayMemberPath="Value" SelectedValue="{Binding Month, Mode=TwoWay}"
 									 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}" />
 					</StackPanel>
+					<StackPanel Orientation="Horizontal" Visibility="{Binding IsVisibleQuarter, Converter={StaticResource visibilityConverter}}">
+						<TextBlock Text="Квартал: " Style="{StaticResource Label}"/>
+						<ComboBox ItemsSource="{Binding QuarterNames}" SelectedValuePath="Key" DisplayMemberPath="Value" SelectedValue="{Binding Quarter, Mode=TwoWay}"
+									 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}" />
+					</StackPanel>
 					<StackPanel Visibility="{Binding IsVisibleYear, Converter={StaticResource visibilityConverter}}" Orientation="Horizontal">
 						<TextBlock Text="Год: " Style="{StaticResource Label}"/>
 						<TextBox Text="{Binding Year, Mode=TwoWay}"

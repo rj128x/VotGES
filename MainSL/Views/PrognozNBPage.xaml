@@ -32,9 +32,9 @@
 					<StackPanel>
 						<TextBlock Text="С начала суток" Style="{StaticResource Label}" HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"/>
 						<TextBlock Text="Выработка (МВт):" Style="{StaticResource Label}"/>
-						<TextBlock Text="{Binding VyrabFakt, StringFormat='### ##0'}" Style="{StaticResource Value}" HorizontalAlignment="Center"/>
+						<TextBlock Text="{Binding VyrabFakt, StringFormat='#,0'}" Style="{StaticResource Value}" HorizontalAlignment="Center"/>
 						<TextBlock Text="Расход (куб.м/с):" Style="{StaticResource Label}"/>
-						<TextBlock Text="{Binding QFakt, StringFormat='### ##0'}" Style="{StaticResource Value}" HorizontalAlignment="Center"/>
+						<TextBlock Text="{Binding QFakt, StringFormat='#,0'}" Style="{StaticResource Value}" HorizontalAlignment="Center"/>
 						<TextBlock Text="Нижний бьеф (среднее)" Style="{StaticResource Label}"/>
 						<TextBlock Text="{Binding NBAvg, StringFormat='00.00'}" Style="{StaticResource Value}"/>
 						<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -60,17 +60,17 @@
 										</DataTemplate>
 									</sdk:DataGridTemplateColumn.CellTemplate>
 								</sdk:DataGridTemplateColumn>
-								<sdk:DataGridTemplateColumn Header="P" ClipboardContentBinding="{Binding Vyrab, StringFormat='### ##0'}">
+								<sdk:DataGridTemplateColumn Header="P" ClipboardContentBinding="{Binding Vyrab, StringFormat='#,0'}">
 									<sdk:DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding Vyrab, StringFormat='### ##0'}"/>
+											<TextBlock Text="{Binding Vyrab, StringFormat='#,0'}"/>
 										</DataTemplate>
 									</sdk:DataGridTemplateColumn.CellTemplate>
 								</sdk:DataGridTemplateColumn>
-								<sdk:DataGridTemplateColumn Header="Q" ClipboardContentBinding="{Binding QAvg, StringFormat='### ##0'}">
+								<sdk:DataGridTemplateColumn Header="Q" ClipboardContentBinding="{Binding QAvg, StringFormat='#,0'}">
 									<sdk:DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding QAvg, StringFormat='### ##0'}"/>
+											<TextBlock Text="{Binding QAvg, StringFormat='#,0'}"/>
 										</DataTemplate>
 									</sdk:DataGridTemplateColumn.CellTemplate>
 								</sdk:DataGridTemplateColumn>

@@ -54,9 +54,9 @@ namespace MainSL.Views
 			foreach (ChartAxisProperties ax in chartAnswer.Properties.Axes) {
 				LinearAxis axis=new LinearAxis();
 				axis.AutoScaleToVisibleData = ax.Auto;
-								
 
-				axis.LabelFormatString = "### ### ##0.##";
+
+				axis.LabelFormatString = "#,0.##";
 				axis.ShowGridlines = ax.Index == 0;
 
 				if (ax.Interval != 0) {

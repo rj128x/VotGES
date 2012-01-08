@@ -9,8 +9,8 @@ using VotGES.Chart;
 
 namespace VotGES.Piramida.Report
 {
-	public enum ReportTypeEnum { dayByMinutes, dayByHalfHours, dayByHours, monthByDays, yearByDays, yearByMonths }
-	public enum IntervalReportEnum { minute, halfHour, hour, day, month, year }
+	public enum ReportTypeEnum { dayByMinutes, dayByHalfHours, dayByHours, monthByDays, quarterByDays, yearByDays, yearByMonths, yearByQarters }
+	public enum IntervalReportEnum { minute, halfHour, hour, day, month, quarter, year }
 	public enum ResultTypeEnum { min, max, avg, sum }
 	public enum DBOperEnum { min, max, avg, sum }
 
@@ -42,7 +42,7 @@ namespace VotGES.Piramida.Report
 			(PiramidaRecord dbRecord, int parNumber,
 			double minValue = -10e100, double maxValue = 10e100, double divParam = 1, double multParam = 1,
 			string id = null, string title = null, ResultTypeEnum resultType = ResultTypeEnum.sum, DBOperEnum dbOper = DBOperEnum.sum,
-			bool toChart = false, bool visible = false, string formatDouble = "### ### ### ##0.##") {
+			bool toChart = false, bool visible = false, string formatDouble = "#,0.##") {
 			DBRecord = dbRecord;
 			ParNumber = parNumber;
 			MinValue = minValue;
@@ -67,7 +67,7 @@ namespace VotGES.Piramida.Report
 		public RecordCalcDelegate CalcFunction { get; set; }
 
 		public RecordTypeCalc(string id, string title, RecordCalcDelegate calcFunction,
-			bool toChart = false, bool visible = false, ResultTypeEnum resultType = ResultTypeEnum.sum, string formatDouble = "### ### ### ##0.##") {
+			bool toChart = false, bool visible = false, ResultTypeEnum resultType = ResultTypeEnum.sum, string formatDouble = "#,0.##") {
 			ID = id;
 			Title = title;
 			CalcFunction = calcFunction;
@@ -77,7 +77,7 @@ namespace VotGES.Piramida.Report
 			ResultType = resultType;
 		}
 
-		public RecordTypeCalc(RecordTypeCalc baseRecord, bool toChart = false, bool visible = false, ResultTypeEnum resultType = ResultTypeEnum.sum, string formatDouble = "### ### ### ##0.##") {
+		public RecordTypeCalc(RecordTypeCalc baseRecord, bool toChart = false, bool visible = false, ResultTypeEnum resultType = ResultTypeEnum.sum, string formatDouble = "#,0.##") {
 			ID = baseRecord.ID;
 			Title = baseRecord.Title;
 			CalcFunction = baseRecord.CalcFunction;
@@ -136,10 +136,14 @@ namespace VotGES.Piramida.Report
 					return IntervalReportEnum.hour;
 				case ReportTypeEnum.monthByDays:
 					return IntervalReportEnum.day;
+				case ReportTypeEnum.quarterByDays:
+					return IntervalReportEnum.day;
 				case ReportTypeEnum.yearByDays:
 					return IntervalReportEnum.day;
 				case ReportTypeEnum.yearByMonths:
 					return IntervalReportEnum.month;
+				case ReportTypeEnum.yearByQarters:
+					return IntervalReportEnum.quarter;
 			}
 			return IntervalReportEnum.halfHour;
 		}
@@ -157,6 +161,8 @@ namespace VotGES.Piramida.Report
 					return Date.AddDays(1);
 				case IntervalReportEnum.month:
 					return Date.AddMonths(1);
+				case IntervalReportEnum.quarter:
+					return Date.AddMonths(3);
 				case IntervalReportEnum.year:
 					return Date.AddYears(1);
 			}
@@ -443,6 +449,14 @@ namespace VotGES.Piramida.Report
 					commandText = String.Format("SELECT  {0}, {1} from DATA  WHERE {2} GROUP BY {0}",
 						dateParam, valueOper, valueParams, valueParams);
 					break;
+				case IntervalReportEnum.quarter:
+					dateParam =
+						String.Format(
+						"ITEM, datepart(year,{0}), datepart(quarter,{0})",
+						dt30);
+					commandText = String.Format("SELECT {0}, {1} from DATA d WHERE {2} GROUP BY {0}",
+						dateParam, valueOper, valueParams, valueParams);
+					break;
 				case IntervalReportEnum.month:
 					dateParam =
 						String.Format(
@@ -472,6 +486,7 @@ namespace VotGES.Piramida.Report
 				int day=-1;
 				int hour=-1;
 				int min=-1;
+				int quarter=-1;
 				double val=-1;
 				DateTime date=DateTime.Now;
 				bool ok=false;
@@ -523,12 +538,20 @@ namespace VotGES.Piramida.Report
 						date = new DateTime(year, month, 1, 0, 0, 0).AddMonths(1);
 						ok = true;
 						break;
+					case IntervalReportEnum.quarter:
+						year = (int)reader[1];
+						quarter = (int)reader[2];						
+						val = (double)reader[3];
+						date = new DateTime(year, 3*(quarter-1)+1, 1, 0, 0, 0).AddMonths(3);
+						ok = true;
+						break;
 					case IntervalReportEnum.year:
 						year = (int)reader[1];
 						val = (double)reader[2];
 						date = new DateTime(year, 1, 1, 0, 0, 0).AddYears(1);
 						ok = true;
 						break;
+
 				}
 				if (ok) {
 					lastDate = date;
@@ -676,6 +699,7 @@ namespace VotGES.Piramida.Report
 				case IntervalReportEnum.day:
 					return "dd.MM";
 				case IntervalReportEnum.month:
+				case IntervalReportEnum.quarter:
 					return "MMMM yy";
 				case IntervalReportEnum.year:
 					return "yyyy";
@@ -700,6 +724,9 @@ namespace VotGES.Piramida.Report
 					break;
 				case IntervalReportEnum.month:
 					dt = date.AddMonths(-1);
+					break;
+				case IntervalReportEnum.quarter:
+					dt = date.AddMonths(-3);
 					break;
 				case IntervalReportEnum.year:
 					dt = date.AddYears(-1);

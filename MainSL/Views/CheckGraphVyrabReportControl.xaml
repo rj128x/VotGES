@@ -17,90 +17,90 @@
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="ГТП-1 Факт" ClipboardContentBinding="{Binding GTP1Fakt, StringFormat='### ##0.00'}">
+				<sdk:DataGridTemplateColumn Header="ГТП-1 Факт" ClipboardContentBinding="{Binding GTP1Fakt, StringFormat='#,0.00'}">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding GTP1Fakt, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
+							<TextBlock Text="{Binding GTP1Fakt, StringFormat='#,0.00'}" HorizontalAlignment="Right"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="ГТП-1 План" ClipboardContentBinding="{Binding GTP1Plan, StringFormat='### ##0.00'}">
+				<sdk:DataGridTemplateColumn Header="ГТП-1 План" ClipboardContentBinding="{Binding GTP1Plan, StringFormat='#,0.00'}">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding GTP1Plan, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
+							<TextBlock Text="{Binding GTP1Plan, StringFormat='#,0.00'}" HorizontalAlignment="Right"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="ГТП-1 Откл" ClipboardContentBinding="{Binding GTP1Diff, StringFormat='### ##0.00'}">
+				<sdk:DataGridTemplateColumn Header="ГТП-1 Откл" ClipboardContentBinding="{Binding GTP1Diff, StringFormat='#,0.00'}">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding GTP1Diff, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
+							<TextBlock Text="{Binding GTP1Diff, StringFormat='#,0.00'}" HorizontalAlignment="Right"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="ГТП-1 Откл %" ClipboardContentBinding="{Binding GTP1DiffProc, StringFormat='### ##0.00'}">
+				<sdk:DataGridTemplateColumn Header="ГТП-1 Откл %" ClipboardContentBinding="{Binding GTP1DiffProc, StringFormat='#,0.00'}">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding GTP1DiffProc, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-						</DataTemplate>
-					</sdk:DataGridTemplateColumn.CellTemplate>
-				</sdk:DataGridTemplateColumn>
-
-				<sdk:DataGridTemplateColumn Header="ГТП-2 Факт" ClipboardContentBinding="{Binding GTP2Fakt, StringFormat='### ##0.00'}">
-					<sdk:DataGridTemplateColumn.CellTemplate>
-						<DataTemplate>
-							<TextBlock Text="{Binding GTP2Fakt, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-						</DataTemplate>
-					</sdk:DataGridTemplateColumn.CellTemplate>
-				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="ГТП-2 План" ClipboardContentBinding="{Binding GTP2Plan, StringFormat='### ##0.00'}">
-					<sdk:DataGridTemplateColumn.CellTemplate>
-						<DataTemplate>
-							<TextBlock Text="{Binding GTP2Plan, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-						</DataTemplate>
-					</sdk:DataGridTemplateColumn.CellTemplate>
-				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="ГТП-2 Откл" ClipboardContentBinding="{Binding GTP2Diff, StringFormat='### ##0.00'}">
-					<sdk:DataGridTemplateColumn.CellTemplate>
-						<DataTemplate>
-							<TextBlock Text="{Binding GTP2Diff, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
-						</DataTemplate>
-					</sdk:DataGridTemplateColumn.CellTemplate>
-				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="ГТП-2 Откл %" ClipboardContentBinding="{Binding GTP2DiffProc, StringFormat='### ##0.00'}">
-					<sdk:DataGridTemplateColumn.CellTemplate>
-						<DataTemplate>
-							<TextBlock Text="{Binding GTP2DiffProc, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
+							<TextBlock Text="{Binding GTP1DiffProc, StringFormat='#,0.00'}" HorizontalAlignment="Right"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
 
+				<sdk:DataGridTemplateColumn Header="ГТП-2 Факт" ClipboardContentBinding="{Binding GTP2Fakt, StringFormat='#,0.00'}">
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding GTP2Fakt, StringFormat='#,0.00'}" HorizontalAlignment="Right"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
+				<sdk:DataGridTemplateColumn Header="ГТП-2 План" ClipboardContentBinding="{Binding GTP2Plan, StringFormat='#,0.00'}">
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding GTP2Plan, StringFormat='#,0.00'}" HorizontalAlignment="Right"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
+				<sdk:DataGridTemplateColumn Header="ГТП-2 Откл" ClipboardContentBinding="{Binding GTP2Diff, StringFormat='#,0.00'}">
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding GTP2Diff, StringFormat='#,0.00'}" HorizontalAlignment="Right"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
+				<sdk:DataGridTemplateColumn Header="ГТП-2 Откл %" ClipboardContentBinding="{Binding GTP2DiffProc, StringFormat='#,0.00'}">
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding GTP2DiffProc, StringFormat='#,0.00'}" HorizontalAlignment="Right"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
 
-				<sdk:DataGridTemplateColumn Header="ГЭС Факт" ClipboardContentBinding="{Binding GESFakt, StringFormat='### ##0.00'}">
+
+				<sdk:DataGridTemplateColumn Header="ГЭС Факт" ClipboardContentBinding="{Binding GESFakt, StringFormat='#,0.00'}">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding GESFakt, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
+							<TextBlock Text="{Binding GESFakt, StringFormat='#,0.00'}" HorizontalAlignment="Right"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="ГЭС План" ClipboardContentBinding="{Binding GESPlan, StringFormat='### ##0.00'}">
+				<sdk:DataGridTemplateColumn Header="ГЭС План" ClipboardContentBinding="{Binding GESPlan, StringFormat='#,0.00'}">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding GESPlan, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
+							<TextBlock Text="{Binding GESPlan, StringFormat='#,0.00'}" HorizontalAlignment="Right"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="ГЭС Откл" ClipboardContentBinding="{Binding GESDiff, StringFormat='### ##0.00'}">
+				<sdk:DataGridTemplateColumn Header="ГЭС Откл" ClipboardContentBinding="{Binding GESDiff, StringFormat='#,0.00'}">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding GESDiff, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
+							<TextBlock Text="{Binding GESDiff, StringFormat='#,0.00'}" HorizontalAlignment="Right"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="ГЭС Откл %" ClipboardContentBinding="{Binding GESDiffProc, StringFormat='### ##0.00'}">
+				<sdk:DataGridTemplateColumn Header="ГЭС Откл %" ClipboardContentBinding="{Binding GESDiffProc, StringFormat='#,0.00'}">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding GESDiffProc, StringFormat='### ##0.00'}" HorizontalAlignment="Right"/>
+							<TextBlock Text="{Binding GESDiffProc, StringFormat='#,0.#,0.##'}" HorizontalAlignment="Right"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>

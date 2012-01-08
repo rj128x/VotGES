@@ -26,13 +26,13 @@ namespace MainSL.Views
 			converter = new ReportDataConverter();
 			string str= @"<DataTemplate  
 				xmlns=""http://schemas.microsoft.com/client/2007"">         
-				<TextBlock Text=""{Binding Header}"" FontWeight=""Bold"" /> 
+				<TextBlock Text=""{Binding Header}"" FontWeight=""Bold"" HorizontalAlignment=""Center"" /> 
             </DataTemplate>";
 			headerTemplate = XamlReader.Load(str) as DataTemplate;
 
 			str= @"<DataTemplate  
 				xmlns=""http://schemas.microsoft.com/client/2007"">         
-				<TextBlock Text=""{Binding DataStr, Converter={StaticResource reportDataConverter}, ConverterParameter='~param~'}"" /> 
+				<TextBlock Text=""{Binding DataStr, Converter={StaticResource reportDataConverter}, ConverterParameter='~param~'}"" HorizontalAlignment=""Right"" /> 
             </DataTemplate>";
 
 			columnTemplateStr = str;
@@ -52,7 +52,7 @@ namespace MainSL.Views
 			DataGridTemplateColumn columnHeader=new DataGridTemplateColumn();
 			columnHeader.Header = "Параметр";
 			DataTemplate temlate=headerTemplate;
-			columnHeader.CellTemplate = temlate;
+			columnHeader.CellTemplate = temlate;			
 			columnHeader.ClipboardContentBinding = new System.Windows.Data.Binding();
 			columnHeader.ClipboardContentBinding.Mode = System.Windows.Data.BindingMode.OneTime;
 			columnHeader.ClipboardContentBinding.Path = new PropertyPath("Header");

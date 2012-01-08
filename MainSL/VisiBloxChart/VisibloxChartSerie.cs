@@ -73,7 +73,7 @@ namespace MainSL
 			set {
 				currentPoint = value;
 				CurrentPointX = String.Format("{0:" + silverChartControl.XAxesForamtString + "}", currentPoint.X);
-				CurrentPointY = String.Format("{0:### ### ##0.##}", currentPoint.Y);
+				CurrentPointY = String.Format("{0:#,0.##}", currentPoint.Y);
 				NotifyChanged("CurrentPoint"); 
 			}
 		}
