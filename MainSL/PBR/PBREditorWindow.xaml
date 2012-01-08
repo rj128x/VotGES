@@ -22,10 +22,11 @@
 			<sdk:DataGrid Name="gridBPR" Grid.Column="0" Grid.Row="0" 
 							  ItemsSource="{Binding Path=PBR}" AutoGenerateColumns="False" SelectionMode="Extended" >
 				<sdk:DataGrid.Columns>
-					<sdk:DataGridTemplateColumn Header="Дата" >
-						<sdk:DataGridTemplateColumn.CellTemplate>
+					<sdk:DataGridTemplateColumn Header="Дата" ClipboardContentBinding="{Binding Date, StringFormat='dd.MM HH:mm'}">
+						<sdk:DataGridTemplateColumn.CellTemplate >
 							<DataTemplate>
-								<TextBlock Text="{Binding Date, StringFormat='dd.MM.yy HH:mm'}"></TextBlock>
+								<TextBlock Text="{Binding Date, StringFormat='dd.MM HH:mm'}" 
+											  VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Right"></TextBlock>
 							</DataTemplate>
 						</sdk:DataGridTemplateColumn.CellTemplate>
 					</sdk:DataGridTemplateColumn>
@@ -33,14 +34,14 @@
 						<sdk:DataGridTemplateColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal">
-									<Button Name="btnPrev" Content="Пред" Command="{Binding doPrev}"/>
-									<Button Name="btnNext" Content="След" Command="{Binding doNext}"/>
+									<Button Name="btnPrev" Content="&#9668;" Command="{Binding doPrev}"/>
+									<Button Name="btnNext" Content="&#9658;" Command="{Binding doNext}"/>
 								</StackPanel>
 							</DataTemplate>
 						</sdk:DataGridTemplateColumn.CellTemplate>
 					</sdk:DataGridTemplateColumn>
 
-					<sdk:DataGridTemplateColumn Header="Значение">
+					<sdk:DataGridTemplateColumn Header="Значение" ClipboardContentBinding="{Binding Val}">
 						<sdk:DataGridTemplateColumn.CellTemplate>
 							<DataTemplate>
 								<TextBox Text="{Binding Val, Mode=TwoWay}" GotFocus="TextBox_GotFocus"></TextBox>
@@ -51,8 +52,8 @@
 						<sdk:DataGridTemplateColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal">
-									<Button Name="btnDown" Content="Вниз" Command="{Binding doDown}"/>
-									<Button Name="btnUp" Content="Вверх" Command="{Binding doUp}"/>
+									<Button Name="btnDown" Content="&#9660;" Command="{Binding doDown}"/>
+									<Button Name="btnUp" Content="&#9650;" Command="{Binding doUp}"/>
 								</StackPanel>
 							</DataTemplate>
 						</sdk:DataGridTemplateColumn.CellTemplate>

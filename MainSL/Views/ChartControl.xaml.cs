@@ -13,6 +13,7 @@ using Visiblox.Charts.Primitives;
 using Visiblox.Charts;
 using System.ComponentModel;
 using VotGES.Chart;
+using System.Windows.Markup;
 
 namespace MainSL.Views
 {

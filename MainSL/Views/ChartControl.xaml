@@ -43,9 +43,8 @@
 						<sdk:DataGridTemplateColumn Header="X">
 							<sdk:DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
-									<StackPanel Orientation="Horizontal"
-													Background="{Binding Selected, Converter={StaticResource backgroundColorConverter}, ConverterParameter=SerieSelected}">
-										<TextBlock Text="{Binding CurrentPointX}"/>
+									<StackPanel Background="{Binding Selected, Converter={StaticResource backgroundColorConverter}, ConverterParameter=SerieSelected}">
+										<TextBlock Text="{Binding CurrentPointX}" HorizontalAlignment="Right"  TextAlignment="Right" />
 									</StackPanel>
 								</DataTemplate>
 							</sdk:DataGridTemplateColumn.CellTemplate>
@@ -53,9 +52,8 @@
 						<sdk:DataGridTemplateColumn Header="Y">
 							<sdk:DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
-									<StackPanel Orientation="Horizontal"
-													Background="{Binding Selected, Converter={StaticResource backgroundColorConverter}, ConverterParameter=SerieSelected}">
-										<TextBlock Text="{Binding CurrentPointY}"/>
+									<StackPanel Background="{Binding Selected, Converter={StaticResource backgroundColorConverter}, ConverterParameter=SerieSelected}">
+										<TextBlock Text="{Binding CurrentPointY}" HorizontalAlignment="Right"  TextAlignment="Right"/>
 									</StackPanel>
 								</DataTemplate>
 							</sdk:DataGridTemplateColumn.CellTemplate>

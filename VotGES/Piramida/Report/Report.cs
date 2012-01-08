@@ -98,7 +98,7 @@ namespace VotGES.Piramida.Report
 	public class ReportAnswerRecord
 	{
 		public String Header { get; set; }
-		public Dictionary<String, String> DataStr { get; set; }
+		public Dictionary<String, double> DataStr { get; set; }
 	}
 
 	public class ReportAnswer
@@ -106,6 +106,7 @@ namespace VotGES.Piramida.Report
 		public ChartAnswer Chart { get; set; }
 		public List<ReportAnswerRecord> Data { get; set; }
 		public Dictionary<string, string> Columns { get; set; }
+		public Dictionary<string, string> Formats { get; set; }
 	}
 
 
@@ -572,14 +573,15 @@ namespace VotGES.Piramida.Report
 		public virtual void CreateAnswerData(bool createResult = true) {
 			Answer.Data = new List<ReportAnswerRecord>();
 			Answer.Columns = new Dictionary<string, string>();
+			Answer.Formats = new Dictionary<string, string>();
 
 			if (createResult) {
 				ReportAnswerRecord recordResult=new ReportAnswerRecord();
 				recordResult.Header = "Итог";
-				recordResult.DataStr = new Dictionary<string, string>();
+				recordResult.DataStr = new Dictionary<string, double>();
 				foreach (RecordTypeBase recordType in RecordTypes.Values) {
 					if (recordType.Visible) {
-						recordResult.DataStr.Add(recordType.ID, ResultData[recordType.ID].ToString(recordType.FormatDouble));
+						recordResult.DataStr.Add(recordType.ID, ResultData[recordType.ID]);
 					}
 				}
 				Answer.Data.Add(recordResult);
@@ -589,6 +591,7 @@ namespace VotGES.Piramida.Report
 				if (recordType.Visible) {
 					if (!Answer.Columns.Keys.Contains(recordType.ID)) {
 						Answer.Columns.Add(recordType.ID, recordType.Title);
+						Answer.Formats.Add(recordType.ID, recordType.FormatDouble);
 					}
 				}
 			}
@@ -596,54 +599,16 @@ namespace VotGES.Piramida.Report
 			foreach (DateTime date in Dates) {
 				ReportAnswerRecord record=new ReportAnswerRecord();
 				record.Header = GetCorrectedDateForTable(date).ToString(getDateFormat());
-				record.DataStr = new Dictionary<string, string>();
+				record.DataStr = new Dictionary<string, double>();
 				foreach (RecordTypeBase recordType in RecordTypes.Values) {
 					if (recordType.Visible) {
-						record.DataStr.Add(recordType.ID, Data[date][recordType.ID].ToString(recordType.FormatDouble));
+						record.DataStr.Add(recordType.ID, Data[date][recordType.ID]);
 					}
 				}
 				Answer.Data.Add(record);
 			}
 		}
-
-		public virtual void CreateAnswerDataHorizontal(bool createResult = true) {
-			Answer.Data = new List<ReportAnswerRecord>();
-			Answer.Columns = new Dictionary<string, string>();
-
-
-
-			if (createResult) {
-				Answer.Columns.Add("result", "Итог");
-			}
-
-			foreach (DateTime date in Dates) {
-				string dStr=GetCorrectedDateForTable(date).ToString(getDateFormat());
-				if (!Answer.Columns.Keys.Contains(dStr)) {
-					Answer.Columns.Add(dStr, dStr);
-				}
-			}
-
-
-			foreach (RecordTypeBase recordType in RecordTypes.Values) {
-				if (recordType.Visible) {
-
-					ReportAnswerRecord record=new ReportAnswerRecord();
-					record.Header = recordType.Title;
-					record.DataStr = new Dictionary<string, string>();
-
-					if (createResult) {
-						record.DataStr.Add("result", ResultData[recordType.ID].ToString(recordType.FormatDouble));
-					}
-					foreach (DateTime date in Dates) {
-						string dStr=GetCorrectedDateForTable(date).ToString(getDateFormat());
-						record.DataStr.Add(dStr, Data[date][recordType.ID].ToString(recordType.FormatDouble));
-					}
-					Answer.Data.Add(record);
-				}
-			}
-
-		}
-
+		
 
 		public virtual void CreateChart() {
 			Answer.Chart = new ChartAnswer();

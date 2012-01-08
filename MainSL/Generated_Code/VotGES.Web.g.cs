@@ -1871,17 +1871,13 @@ namespace VotGES.PBR
     public sealed partial class GraphVyrabTableRow : ComplexObject
     {
         
-        private double _ges;
+        private string _format;
         
-        private string _gesStr;
+        private double _ges;
         
         private double _gtp1;
         
-        private string _gtp1Str;
-        
         private double _gtp2;
-        
-        private string _gtp2Str;
         
         private string _title;
         
@@ -1892,18 +1888,14 @@ namespace VotGES.PBR
         /// не может быть использован для последующей настройки объекта.
         /// </summary>
         partial void OnCreated();
+        partial void OnFormatChanging(string value);
+        partial void OnFormatChanged();
         partial void OnGESChanging(double value);
         partial void OnGESChanged();
-        partial void OnGESStrChanging(string value);
-        partial void OnGESStrChanged();
         partial void OnGTP1Changing(double value);
         partial void OnGTP1Changed();
-        partial void OnGTP1StrChanging(string value);
-        partial void OnGTP1StrChanged();
         partial void OnGTP2Changing(double value);
         partial void OnGTP2Changed();
-        partial void OnGTP2StrChanging(string value);
-        partial void OnGTP2StrChanged();
         partial void OnTitleChanging(string value);
         partial void OnTitleChanged();
 
@@ -1916,6 +1908,30 @@ namespace VotGES.PBR
         public GraphVyrabTableRow()
         {
             this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Format".
+        /// </summary>
+        [DataMember()]
+        public string Format
+        {
+            get
+            {
+                return this._format;
+            }
+            set
+            {
+                if ((this._format != value))
+                {
+                    this.OnFormatChanging(value);
+                    this.RaiseDataMemberChanging("Format");
+                    this.ValidateProperty("Format", value);
+                    this._format = value;
+                    this.RaiseDataMemberChanged("Format");
+                    this.OnFormatChanged();
+                }
+            }
         }
         
         /// <summary>
@@ -1938,30 +1954,6 @@ namespace VotGES.PBR
                     this._ges = value;
                     this.RaiseDataMemberChanged("GES");
                     this.OnGESChanged();
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Возвращает или задает значение параметра "GESStr".
-        /// </summary>
-        [DataMember()]
-        public string GESStr
-        {
-            get
-            {
-                return this._gesStr;
-            }
-            set
-            {
-                if ((this._gesStr != value))
-                {
-                    this.OnGESStrChanging(value);
-                    this.RaiseDataMemberChanging("GESStr");
-                    this.ValidateProperty("GESStr", value);
-                    this._gesStr = value;
-                    this.RaiseDataMemberChanged("GESStr");
-                    this.OnGESStrChanged();
                 }
             }
         }
@@ -1991,30 +1983,6 @@ namespace VotGES.PBR
         }
         
         /// <summary>
-        /// Возвращает или задает значение параметра "GTP1Str".
-        /// </summary>
-        [DataMember()]
-        public string GTP1Str
-        {
-            get
-            {
-                return this._gtp1Str;
-            }
-            set
-            {
-                if ((this._gtp1Str != value))
-                {
-                    this.OnGTP1StrChanging(value);
-                    this.RaiseDataMemberChanging("GTP1Str");
-                    this.ValidateProperty("GTP1Str", value);
-                    this._gtp1Str = value;
-                    this.RaiseDataMemberChanged("GTP1Str");
-                    this.OnGTP1StrChanged();
-                }
-            }
-        }
-        
-        /// <summary>
         /// Возвращает или задает значение параметра "GTP2".
         /// </summary>
         [DataMember()]
@@ -2034,30 +2002,6 @@ namespace VotGES.PBR
                     this._gtp2 = value;
                     this.RaiseDataMemberChanged("GTP2");
                     this.OnGTP2Changed();
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Возвращает или задает значение параметра "GTP2Str".
-        /// </summary>
-        [DataMember()]
-        public string GTP2Str
-        {
-            get
-            {
-                return this._gtp2Str;
-            }
-            set
-            {
-                if ((this._gtp2Str != value))
-                {
-                    this.OnGTP2StrChanging(value);
-                    this.RaiseDataMemberChanging("GTP2Str");
-                    this.ValidateProperty("GTP2Str", value);
-                    this._gtp2Str = value;
-                    this.RaiseDataMemberChanged("GTP2Str");
-                    this.OnGTP2StrChanged();
                 }
             }
         }
@@ -2424,6 +2368,8 @@ namespace VotGES.Piramida.Report
         
         private List<ReportAnswerRecord> _data;
         
+        private Dictionary<string, string> _formats;
+        
         #region Определение методов расширяемости
 
         /// <summary>
@@ -2437,6 +2383,8 @@ namespace VotGES.Piramida.Report
         partial void OnColumnsChanged();
         partial void OnDataChanging(List<ReportAnswerRecord> value);
         partial void OnDataChanged();
+        partial void OnFormatsChanging(Dictionary<string, string> value);
+        partial void OnFormatsChanged();
 
         #endregion
         
@@ -2522,6 +2470,30 @@ namespace VotGES.Piramida.Report
                 }
             }
         }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Formats".
+        /// </summary>
+        [DataMember()]
+        public Dictionary<string, string> Formats
+        {
+            get
+            {
+                return this._formats;
+            }
+            set
+            {
+                if ((this._formats != value))
+                {
+                    this.OnFormatsChanging(value);
+                    this.RaiseDataMemberChanging("Formats");
+                    this.ValidateProperty("Formats", value);
+                    this._formats = value;
+                    this.RaiseDataMemberChanged("Formats");
+                    this.OnFormatsChanged();
+                }
+            }
+        }
     }
     
     /// <summary>
@@ -2531,7 +2503,7 @@ namespace VotGES.Piramida.Report
     public sealed partial class ReportAnswerRecord : ComplexObject
     {
         
-        private Dictionary<string, string> _dataStr;
+        private Dictionary<string, double> _dataStr;
         
         private string _header;
         
@@ -2542,7 +2514,7 @@ namespace VotGES.Piramida.Report
         /// не может быть использован для последующей настройки объекта.
         /// </summary>
         partial void OnCreated();
-        partial void OnDataStrChanging(Dictionary<string, string> value);
+        partial void OnDataStrChanging(Dictionary<string, double> value);
         partial void OnDataStrChanged();
         partial void OnHeaderChanging(string value);
         partial void OnHeaderChanged();
@@ -2562,7 +2534,7 @@ namespace VotGES.Piramida.Report
         /// Возвращает или задает значение параметра "DataStr".
         /// </summary>
         [DataMember()]
-        public Dictionary<string, string> DataStr
+        public Dictionary<string, double> DataStr
         {
             get
             {

@@ -32,7 +32,7 @@ namespace MainSL.Views
 
 			str= @"<DataTemplate  
 				xmlns=""http://schemas.microsoft.com/client/2007"">         
-				<TextBlock Text=""{Binding DataStr, Converter={StaticResource reportDataConverter}, ConverterParameter='~param~'}"" HorizontalAlignment=""Right"" /> 
+				<TextBlock Text=""{Binding DataStr, Converter={StaticResource reportDataConverter}, ConverterParameter='~param~', StringFormat='~format~'}"" HorizontalAlignment=""Right"" /> 
             </DataTemplate>";
 
 			columnTemplateStr = str;
@@ -62,7 +62,7 @@ namespace MainSL.Views
 			foreach (KeyValuePair<string,string> de in answer.Columns) {
 				DataGridTemplateColumn column=new DataGridTemplateColumn();
 				column.Header = de.Value;
-				column.CellTemplate = XamlReader.Load(columnTemplateStr.Replace("~param~",de.Key)) as DataTemplate;
+				column.CellTemplate = XamlReader.Load(columnTemplateStr.Replace("~param~",de.Key).Replace("~format~",answer.Formats[de.Key])) as DataTemplate;
 				column.Width = new DataGridLength(1, DataGridLengthUnitType.SizeToCells);
 				column.ClipboardContentBinding = new System.Windows.Data.Binding();
 				column.ClipboardContentBinding.Path = new PropertyPath("DataStr");

@@ -11,19 +11,14 @@ namespace VotGES.PBR
 		public double GTP1 { get; set; }
 		public double GTP2 { get; set; }
 		public double GES { get; set; }
-		public string GTP1Str { get; set; }
-		public string GTP2Str { get; set; }
-		public string GESStr { get; set; }
 		public string Title { get; set; }
+		public string Format { get; set; }
 
-		public GraphVyrabTableRow(String title, double gtp1, double gtp2, double ges, string format) {
+		public GraphVyrabTableRow(String title, double gtp1, double gtp2, double ges) {
 			GTP1 = gtp1;
 			GTP2 = gtp2;
 			GES = ges;
 			Title = title;
-			GTP1Str = GTP1.ToString(format);
-			GTP2Str = GTP2.ToString(format);
-			GESStr = GES.ToString(format);
 		}
 
 		public GraphVyrabTableRow() {
@@ -115,21 +110,21 @@ namespace VotGES.PBR
 
 
 			if (calcTables) {
-				answer.TableCurrent.Add(new GraphVyrabTableRow("P план", gtp1.MinutesPBR[lastDate], gtp2.MinutesPBR[lastDate], ges.MinutesPBR[lastDate], "##0"));
-				answer.TableCurrent.Add(new GraphVyrabTableRow("P факт", gtp1.RealP[lastDate], gtp2.RealP[lastDate], ges.RealP[lastDate], "##0"));
-				answer.TableCurrent.Add(new GraphVyrabTableRow("P откл", gtp1.getDiff(date), gtp1.getDiff(date), gtp2.getDiff(date), "##0"));
-				answer.TableCurrent.Add(new GraphVyrabTableRow("P откл %", gtp1.getDiffProc(date), gtp1.getDiffProc(date), gtp2.getDiffProc(date), "#0.##"));
+				answer.TableCurrent.Add(new GraphVyrabTableRow("P план", Math.Round(gtp1.MinutesPBR[lastDate]), Math.Round(gtp2.MinutesPBR[lastDate]), Math.Round(ges.MinutesPBR[lastDate])));
+				answer.TableCurrent.Add(new GraphVyrabTableRow("P факт", Math.Round(gtp1.RealP[lastDate]), Math.Round(gtp2.RealP[lastDate]), Math.Round(ges.RealP[lastDate])));
+				answer.TableCurrent.Add(new GraphVyrabTableRow("P откл", gtp1.getDiff(date), gtp1.getDiff(date), gtp2.getDiff(date)));
+				answer.TableCurrent.Add(new GraphVyrabTableRow("P откл %", gtp1.getDiffProc(date), gtp1.getDiffProc(date), gtp2.getDiffProc(date)));
 
 
 				SortedList<string,double> gtp1Hour=gtp1.getHourVals(lastDate);
 				SortedList<string,double> gtp2Hour=gtp2.getHourVals(lastDate);
 				SortedList<string,double> gesHour=ges.getHourVals(lastDate);
 
-				answer.TableHour.Add(new GraphVyrabTableRow("P план", gtp1Hour["plan"], gtp2Hour["plan"], gesHour["plan"], "##0"));
-				answer.TableHour.Add(new GraphVyrabTableRow("P факт", gtp1Hour["fakt"], gtp2Hour["fakt"], gesHour["fakt"], "##0"));
-				answer.TableHour.Add(new GraphVyrabTableRow("P откл", gtp1Hour["diff"], gtp2Hour["diff"], gesHour["diff"], "##0"));
-				answer.TableHour.Add(new GraphVyrabTableRow("P откл %", gtp1Hour["diffProc"], gtp2Hour["diffProc"], gesHour["diffProc"], "##0.##"));
-				answer.TableHour.Add(new GraphVyrabTableRow("P рек", gtp1Hour["recP"], gtp2Hour["recP"], gesHour["recP"], "##0"));
+				answer.TableHour.Add(new GraphVyrabTableRow("P план", Math.Round(gtp1Hour["plan"]), Math.Round(gtp2Hour["plan"]), Math.Round(gesHour["plan"])));
+				answer.TableHour.Add(new GraphVyrabTableRow("P факт", Math.Round(gtp1Hour["fakt"]), Math.Round(gtp2Hour["fakt"]), Math.Round(gesHour["fakt"])));
+				answer.TableHour.Add(new GraphVyrabTableRow("P откл", gtp1Hour["diff"], gtp2Hour["diff"], gesHour["diff"]));
+				answer.TableHour.Add(new GraphVyrabTableRow("P откл %", gtp1Hour["diffProc"], gtp2Hour["diffProc"], gesHour["diffProc"]));
+				answer.TableHour.Add(new GraphVyrabTableRow("P рек", Math.Round(gtp1Hour["recP"]), Math.Round(gtp2Hour["recP"]), Math.Round(gesHour["recP"])));
 			}
 
 

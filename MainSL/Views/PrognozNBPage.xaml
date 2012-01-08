@@ -32,9 +32,9 @@
 					<StackPanel>
 						<TextBlock Text="С начала суток" Style="{StaticResource Label}" HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"/>
 						<TextBlock Text="Выработка (МВт):" Style="{StaticResource Label}"/>
-						<TextBlock Text="{Binding VyrabFakt, StringFormat='#,0'}" Style="{StaticResource Value}" HorizontalAlignment="Center"/>
+						<TextBlock Text="{Binding VyrabFakt, StringFormat='#,#0'}" Style="{StaticResource Value}" HorizontalAlignment="Center"/>
 						<TextBlock Text="Расход (куб.м/с):" Style="{StaticResource Label}"/>
-						<TextBlock Text="{Binding QFakt, StringFormat='#,0'}" Style="{StaticResource Value}" HorizontalAlignment="Center"/>
+						<TextBlock Text="{Binding QFakt, StringFormat='#,#0'}" Style="{StaticResource Value}" HorizontalAlignment="Center"/>
 						<TextBlock Text="Нижний бьеф (среднее)" Style="{StaticResource Label}"/>
 						<TextBlock Text="{Binding NBAvg, StringFormat='00.00'}" Style="{StaticResource Value}"/>
 						<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -50,8 +50,7 @@
 					<StackPanel>
 						<TextBlock Text="Прогноз"  Style="{StaticResource Label}" HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"/>
 						<sdk:DataGrid Name="LegendGrid" AutoGenerateColumns="False" 
-							   ItemsSource="{Binding PrognozValues}" 
-								CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" >
+							   ItemsSource="{Binding PrognozValues}">
 							<sdk:DataGrid.Columns>
 								<sdk:DataGridTemplateColumn Header="Дата" ClipboardContentBinding="{Binding Date, StringFormat='dd.MM.yy'}">
 									<sdk:DataGridTemplateColumn.CellTemplate>
@@ -60,38 +59,38 @@
 										</DataTemplate>
 									</sdk:DataGridTemplateColumn.CellTemplate>
 								</sdk:DataGridTemplateColumn>
-								<sdk:DataGridTemplateColumn Header="P" ClipboardContentBinding="{Binding Vyrab, StringFormat='#,0'}">
+								<sdk:DataGridTemplateColumn Header="P" ClipboardContentBinding="{Binding Vyrab}">
 									<sdk:DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding Vyrab, StringFormat='#,0'}"/>
+											<TextBlock Text="{Binding Vyrab, StringFormat='#,#0'}"/>
 										</DataTemplate>
 									</sdk:DataGridTemplateColumn.CellTemplate>
 								</sdk:DataGridTemplateColumn>
-								<sdk:DataGridTemplateColumn Header="Q" ClipboardContentBinding="{Binding QAvg, StringFormat='#,0'}">
+								<sdk:DataGridTemplateColumn Header="Q" ClipboardContentBinding="{Binding QAvg}">
 									<sdk:DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding QAvg, StringFormat='#,0'}"/>
+											<TextBlock Text="{Binding QAvg, StringFormat='#,#0'}"/>
 										</DataTemplate>
 									</sdk:DataGridTemplateColumn.CellTemplate>
 								</sdk:DataGridTemplateColumn>
-								<sdk:DataGridTemplateColumn Header="НБ ср" Width="40" ClipboardContentBinding="{Binding NBAvg, StringFormat='00.00'}">
+								<sdk:DataGridTemplateColumn Header="НБ ср" Width="40" ClipboardContentBinding="{Binding NBAvg}">
 									<sdk:DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding NBAvg, StringFormat='00.00'}"/>
+											<TextBlock Text="{Binding NBAvg, StringFormat='#,#0.00'}"/>
 										</DataTemplate>
 									</sdk:DataGridTemplateColumn.CellTemplate>
 								</sdk:DataGridTemplateColumn>
-								<sdk:DataGridTemplateColumn Header="НБ мин" Width="40" ClipboardContentBinding="{Binding NBMin, StringFormat='00.00'}">
+								<sdk:DataGridTemplateColumn Header="НБ мин" Width="40" ClipboardContentBinding="{Binding NBMin}">
 									<sdk:DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding NBMin, StringFormat='00.00'}"/>
+											<TextBlock Text="{Binding NBMin, StringFormat='#,#0.00'}"/>
 										</DataTemplate>
 									</sdk:DataGridTemplateColumn.CellTemplate>
 								</sdk:DataGridTemplateColumn>
-								<sdk:DataGridTemplateColumn Header="НБ макс" Width="40" ClipboardContentBinding="{Binding NBMax, StringFormat='00.00'}">
+								<sdk:DataGridTemplateColumn Header="НБ макс" Width="40" ClipboardContentBinding="{Binding NBMax}">
 									<sdk:DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding NBMax, StringFormat='00.00'}"/>
+											<TextBlock Text="{Binding NBMax, StringFormat='#,#0.00'}"/>
 										</DataTemplate>
 									</sdk:DataGridTemplateColumn.CellTemplate>
 								</sdk:DataGridTemplateColumn>

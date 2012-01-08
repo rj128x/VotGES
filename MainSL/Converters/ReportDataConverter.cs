@@ -26,7 +26,7 @@ namespace MainSL.Converters
 		/// <returns>System.Object</returns>
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
 			try {
-				Dictionary<string,string> sostav=value as Dictionary<string, string>;
+				Dictionary<string,double> sostav=value as Dictionary<string, double>;
 				string key=parameter.ToString();
 				return sostav[key];
 			} catch {

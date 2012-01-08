@@ -17,11 +17,12 @@ namespace MainSL
 {
 	public partial class App : Application
 	{
-		public App() {
-			System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("ru-RU");
-			ci.NumberFormat.NumberDecimalSeparator = ".";
+		public App() {			
+			System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("ru-RU");	
 			System.Threading.Thread.CurrentThread.CurrentCulture = ci;
-			System.Threading.Thread.CurrentThread.CurrentUICulture = ci;	
+			System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+
+			
 
 			this.Startup += this.Application_Startup;
 			this.UnhandledException += this.Application_UnhandledException;
@@ -39,6 +40,7 @@ namespace MainSL
 
 		private void OnLoadUser_Completed(LoadUserOperation operation) {
 			Logger.info("Пользователь авторизовался в клиенте");
+			
 			this.RootVisual = new MainPage();
 
 		}

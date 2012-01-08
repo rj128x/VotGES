@@ -12,12 +12,15 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ServiceModel.DomainServices.Client.ApplicationServices;
 using MainSL.Logging;
+using System.Windows.Markup;
 
 namespace MainSL
 {
 	public partial class MainPage : UserControl
 	{
 		public MainPage() {
+			this.Language = XmlLanguage.GetLanguage(System.Threading.Thread.CurrentThread.CurrentCulture.Name);
+			
 			Logger.info("Старт главной страницы");
 			InitializeComponent();
 			LoginName.DataContext = WebContext.Current.User;

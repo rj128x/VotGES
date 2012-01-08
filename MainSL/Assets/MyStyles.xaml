@@ -48,7 +48,13 @@
 		<Setter Property="Padding" Value="0,0,0,0"/>
 		<Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
 	</Style>
-		
+
+	<Style TargetType="sdk:DataGrid">
+		<Setter Property="CanUserReorderColumns" Value="True"/>
+		<Setter Property="CanUserResizeColumns" Value="False"/>
+		<Setter Property="CanUserSortColumns" Value="False"/>
+		<Setter Property="ClipboardCopyMode" Value="IncludeHeader"/>				  
+	</Style>
 
 	<sdk:HierarchicalDataTemplate ItemsSource="{Binding Children}" x:Key="treeTemplate" >
 		<StackPanel Orientation="Horizontal">

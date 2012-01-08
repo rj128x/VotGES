@@ -21,33 +21,33 @@
 				<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
 					<TextBlock Text="Мгновенные значения" Style="{StaticResource Label}" FontSize="12"/>
 					<sdk:DataGrid ItemsSource="{Binding TableCurrent}"
-						AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False">
+						AutoGenerateColumns="False" >
 						<sdk:DataGrid.Columns>
-							<sdk:DataGridTemplateColumn Header="Параметр">
+							<sdk:DataGridTemplateColumn Header="Параметр" ClipboardContentBinding="{Binding Title}">
 								<sdk:DataGridTemplateColumn.CellTemplate>
 									<DataTemplate>
 										<TextBlock Text="{Binding Title}" FontWeight="Bold" HorizontalAlignment="Right"/>
 									</DataTemplate>
 								</sdk:DataGridTemplateColumn.CellTemplate>
 							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГТП-1">
+							<sdk:DataGridTemplateColumn Header="ГТП-1" ClipboardContentBinding="{Binding GTP1}">
 								<sdk:DataGridTemplateColumn.CellTemplate>
 									<DataTemplate>
-										<TextBlock Text="{Binding GTP1Str}" HorizontalAlignment="Right"/>
+										<TextBlock Text="{Binding GTP1, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
 									</DataTemplate>
 								</sdk:DataGridTemplateColumn.CellTemplate>
 							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГТП-2">
+							<sdk:DataGridTemplateColumn Header="ГТП-2" ClipboardContentBinding="{Binding GTP2}">
 								<sdk:DataGridTemplateColumn.CellTemplate>
 									<DataTemplate>
-										<TextBlock Text="{Binding GTP2Str}" HorizontalAlignment="Right"/>
+										<TextBlock Text="{Binding GTP2, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
 									</DataTemplate>
 								</sdk:DataGridTemplateColumn.CellTemplate>
 							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГЭС">
+							<sdk:DataGridTemplateColumn Header="ГЭС" ClipboardContentBinding="{Binding GES}">
 								<sdk:DataGridTemplateColumn.CellTemplate>
 									<DataTemplate>
-										<TextBlock Text="{Binding GESStr}" HorizontalAlignment="Right"/>
+										<TextBlock Text="{Binding GES, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
 									</DataTemplate>
 								</sdk:DataGridTemplateColumn.CellTemplate>
 							</sdk:DataGridTemplateColumn>
@@ -56,33 +56,33 @@
 
 					<TextBlock Text="Значения за текущий час" Style="{StaticResource Label}" FontSize="12"/>
 					<sdk:DataGrid ItemsSource="{Binding TableHour}"
-						AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False">
+						AutoGenerateColumns="False" >
 						<sdk:DataGrid.Columns>
-							<sdk:DataGridTemplateColumn Header="Параметр">
+							<sdk:DataGridTemplateColumn Header="Параметр" ClipboardContentBinding="{Binding Title}">
 								<sdk:DataGridTemplateColumn.CellTemplate>
 									<DataTemplate>
 										<TextBlock Text="{Binding Title}" FontWeight="Bold" HorizontalAlignment="Right"/>
 									</DataTemplate>
 								</sdk:DataGridTemplateColumn.CellTemplate>
 							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГТП-1">
+							<sdk:DataGridTemplateColumn Header="ГТП-1" ClipboardContentBinding="{Binding GTP1}">
 								<sdk:DataGridTemplateColumn.CellTemplate>
 									<DataTemplate>
-										<TextBlock Text="{Binding GTP1Str}" HorizontalAlignment="Right"/>
+										<TextBlock Text="{Binding GTP1, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
 									</DataTemplate>
 								</sdk:DataGridTemplateColumn.CellTemplate>
 							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГТП-2">
+							<sdk:DataGridTemplateColumn Header="ГТП-2" ClipboardContentBinding="{Binding GTP2}">
 								<sdk:DataGridTemplateColumn.CellTemplate>
 									<DataTemplate>
-										<TextBlock Text="{Binding GTP2Str}" HorizontalAlignment="Right"/>
+										<TextBlock Text="{Binding GTP2, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
 									</DataTemplate>
 								</sdk:DataGridTemplateColumn.CellTemplate>
 							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГЭС">
+							<sdk:DataGridTemplateColumn Header="ГЭС" ClipboardContentBinding="{Binding GES}">
 								<sdk:DataGridTemplateColumn.CellTemplate>
 									<DataTemplate>
-										<TextBlock Text="{Binding GESStr}" HorizontalAlignment="Right"/>
+										<TextBlock Text="{Binding GES, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
 									</DataTemplate>
 								</sdk:DataGridTemplateColumn.CellTemplate>
 							</sdk:DataGridTemplateColumn>
@@ -93,14 +93,14 @@
 						<StackPanel>
 							<TextBlock Text="ВЫРАБОТКА" Style="{StaticResource Label}" HorizontalAlignment="Center"/>
 							<TextBlock Text="План (МВт*ч):" Style="{StaticResource Label}"/>
-							<TextBlock Text="{Binding VyrabPlan, StringFormat='##0'}" Style="{StaticResource Value}"/>
+							<TextBlock Text="{Binding VyrabPlan, StringFormat='#,#0'}" Style="{StaticResource Value}"/>
 							<TextBlock Text="Факт (МВт*ч):" Style="{StaticResource Label}"/>
-							<TextBlock Text="{Binding VyrabFakt, StringFormat='##0'}" Style="{StaticResource Value}"/>
+							<TextBlock Text="{Binding VyrabFakt, StringFormat='#,#0'}" Style="{StaticResource Value}"/>
 							<TextBlock Text="Отклонение:" Style="{StaticResource Label}"/>
 							<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-								<TextBlock Text="{Binding VyrabDiff, StringFormat='##0'}" Style="{StaticResource Value}"/>
+								<TextBlock Text="{Binding VyrabDiff, StringFormat='#,#0'}" Style="{StaticResource Value}"/>
 								<TextBlock Text="МВт*ч " Style="{StaticResource Label}"/>
-								<TextBlock Text="{Binding VyrabDiffProc, StringFormat='##0.##'}" Style="{StaticResource Value}"/>
+								<TextBlock Text="{Binding VyrabDiffProc, StringFormat='#,#0.##'}" Style="{StaticResource Value}"/>
 								<TextBlock Text="%" Style="{StaticResource Label}"/>
 							</StackPanel>
 						</StackPanel>
