@@ -29,7 +29,7 @@ namespace VotGES.Web.Services
 
 		public ReportAnswer GetFullReport(List<string> selectedData, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType) {
 			try {
-				Logger.Info("Получение отчета");
+				Logger.Info(String.Format("Получение отчета {0} - {1} [{2}]",dateStart,dateEnd,ReportType));
 				FullReport report=new FullReport(dateStart, dateEnd, Report.GetInterval(ReportType));
 				report.InitNeedData(selectedData);
 				report.ReadData();
@@ -37,14 +37,14 @@ namespace VotGES.Web.Services
 				report.CreateChart();
 				return report.Answer;
 			} catch (Exception e) {
-				Logger.Error("Ошибка при получении режима СК " + e.ToString());
+				Logger.Error("Ошибка при получении отчета " + e.ToString());
 				return null;
 			}
 		}
 
 		public ReportAnswer GetRezhimSKReport(DateTime date) {
 			try {
-				Logger.Info("Получение отчета режим СК");
+				Logger.Info("Получение отчета режим СК "+date);
 				RezhimSKReport report=new RezhimSKReport(date.Date, date.Date.AddDays(1), IntervalReportEnum.halfHour);
 				report.ReadData();
 				report.CreateAnswerData();

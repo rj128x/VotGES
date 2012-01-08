@@ -178,7 +178,7 @@ namespace VotGES.Piramida.Report
 		public Report(DateTime dateStart, DateTime dateEnd, IntervalReportEnum interval) {
 			DateStart = dateStart;
 			DateEnd = dateEnd;
-			RealDateEnd = dateEnd;
+			RealDateEnd = dateStart;
 			Interval = interval;
 			RecordTypes = new Dictionary<string, RecordTypeBase>();
 			Data = new SortedList<DateTime, Dictionary<string, double>>();
@@ -297,7 +297,7 @@ namespace VotGES.Piramida.Report
 
 			string commandText="";
 			string valueOper=String.Format("{0}(Value0)", recordType.DBOper.ToString());
-			string dt30="dateadd(minute,30,DATA_DATE)";
+			string dt30="dateadd(minute,-30,DATA_DATE)";
 			string dateParam=
 				String.Format(
 				"datepart(year,{0}), datepart(month,{0}), datepart(day,{0}), datepart(hour,{0}), datepart(minute,{0})",
@@ -356,6 +356,7 @@ namespace VotGES.Piramida.Report
 			}
 
 			command.CommandText = commandText;
+			Logger.Info(commandText.Replace("@dateStart", String.Format("'{0}'", DateStart)).Replace("@dateEnd", String.Format("'{0}'", DateEnd)));
 			SqlDataReader reader=command.ExecuteReader();
 			DateTime lastDate=DateEnd;
 
@@ -395,7 +396,7 @@ namespace VotGES.Piramida.Report
 						day = (int)reader[2];
 						hour = (int)reader[3];
 						val = (double)reader[4];
-						date = new DateTime(year, month, day, hour, 0, 0);
+						date = new DateTime(year, month, day, hour, 0, 0).AddHours(1);;
 						ok = true;
 						break;
 					case IntervalReportEnum.day:
@@ -403,20 +404,20 @@ namespace VotGES.Piramida.Report
 						month = (int)reader[1];
 						day = (int)reader[2];
 						val = (double)reader[3];
-						date = new DateTime(year, month, day, 0, 0, 0);
+						date = new DateTime(year, month, day, 0, 0, 0).AddDays(1);
 						ok = true;
 						break;
 					case IntervalReportEnum.month:
 						year = (int)reader[0];
 						month = (int)reader[1];
 						val = (double)reader[2];
-						date = new DateTime(year, month, 1, 0, 0, 0);
+						date = new DateTime(year, month, 1, 0, 0, 0).AddMonths(1);
 						ok = true;
 						break;
 					case IntervalReportEnum.year:
 						year = (int)reader[0];
 						val = (double)reader[1];
-						date = new DateTime(year, 1, 1, 0, 0, 0);
+						date = new DateTime(year, 1, 1, 0, 0, 0).AddYears(1);
 						ok = true;
 						break;
 				}
@@ -431,7 +432,7 @@ namespace VotGES.Piramida.Report
 					}
 				}
 			}
-			RealDateEnd = lastDate < RealDateEnd ? lastDate : RealDateEnd;
+			RealDateEnd = lastDate > RealDateEnd ? lastDate : RealDateEnd;
 			reader.Close();
 		}
 
