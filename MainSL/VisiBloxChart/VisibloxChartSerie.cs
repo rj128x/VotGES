@@ -190,6 +190,7 @@ namespace MainSL
 			SerieIndex = silverChartControl.ChartSeries.Count;
 			TagName = serieData.Name;
 			Name = serieProp.Title;
+			SerieType = serieProp.SerieType;
 			Brush tr=new SolidColorBrush(Colors.Transparent);
 	
 			Serie=null;

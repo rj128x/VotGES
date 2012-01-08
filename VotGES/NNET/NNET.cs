@@ -9,9 +9,7 @@ namespace VotGES.NNET
 {
 	public enum NNETMODEL { vges_nb }
 	public class NNET
-	{
-		static NumberFormatInfo nfi = new CultureInfo("ru-RU", false).NumberFormat;
-			
+	{		
 
 		protected static SortedList<NNETMODEL,NNET>nnets;
 		protected object nnetObj;
@@ -25,7 +23,6 @@ namespace VotGES.NNET
 		}
 
 		static NNET() {
-			nfi.NumberDecimalSeparator = ".";
 			nnets = new SortedList<NNETMODEL, NNET>();
 		}
 
@@ -61,7 +58,7 @@ namespace VotGES.NNET
 			int index=-1;
 			foreach (object elem in arrObj) {
 				index++;
-				double val=Double.Parse(elem.ToString().Replace(",","."),nfi);
+				double val=Double.Parse(elem.ToString().Replace(",", "."), GlobalVotGES.NFIPoint);
 				result.Add(index,val);
 			}
 			return result;

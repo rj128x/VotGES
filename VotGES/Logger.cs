@@ -23,7 +23,7 @@ namespace VotGES
 
 
 		public static  Logger  createFileLogger(string path, string name, Logger newLogger) {
-			string fileName=String.Format("{0}/{1}_{2}.txt", path, name, DateTime.Now.ToShortDateString().Replace(":", "_").Replace("/", "_").Replace(".", "_"));
+			string fileName=String.Format("{0}/{1}_{2}.txt", path, name, DateTime.Now.ToString("dd_MM_yyyy"));
 			PatternLayout layout = new PatternLayout(@"[%d] %-10p %m%n");
 			FileAppender appender=new FileAppender();
 			appender.Layout = layout;

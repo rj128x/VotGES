@@ -33,8 +33,7 @@ namespace VotGES
 		}
 
 		protected RashodTable(int ga) {
-			NumberFormatInfo nfi = new CultureInfo("ru-RU", false).NumberFormat;
-			nfi.NumberDecimalSeparator = ".";
+			
 			string str=null;
 			int len=111;
 			switch (ga) {
@@ -88,13 +87,13 @@ namespace VotGES
 						rashods = new double[len][];
 						powers = new double[len];
 						for (int column=1; column < Line.Length; column++) {
-							napors[column - 1] = Double.Parse(Line[column], nfi);
+							napors[column - 1] = Double.Parse(Line[column], GlobalVotGES.NFIPoint);
 						}
 					} else {
 						rashods[Row-1]=new double[Line.Length - 1];
-						powers[Row - 1] = Double.Parse(Line[0], nfi);
+						powers[Row - 1] = Double.Parse(Line[0], GlobalVotGES.NFIPoint);
 						for (int column=1; column < Line.Length; column++) {
-							rashods[Row - 1][column - 1] = Double.Parse(Line[column], nfi);
+							rashods[Row - 1][column - 1] = Double.Parse(Line[column], GlobalVotGES.NFIPoint);
 						}
 					}
 					Row++;

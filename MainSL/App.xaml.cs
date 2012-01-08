@@ -18,6 +18,11 @@ namespace MainSL
 	public partial class App : Application
 	{
 		public App() {
+			System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("ru-RU");
+			ci.NumberFormat.NumberDecimalSeparator = ".";
+			System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+			System.Threading.Thread.CurrentThread.CurrentUICulture = ci;	
+
 			this.Startup += this.Application_Startup;
 			this.UnhandledException += this.Application_UnhandledException;
 			WebContext webcontext = new WebContext();

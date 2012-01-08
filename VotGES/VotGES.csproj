@@ -58,6 +58,7 @@
     <Compile Include="Chart\ChartColor.cs" />
     <Compile Include="Chart\ChartData.cs" />
     <Compile Include="Chart\ChartProperties.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="nnet.Designer.cs">
       <AutoGen>True</AutoGen>

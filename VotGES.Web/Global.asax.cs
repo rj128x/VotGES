@@ -23,14 +23,19 @@ namespace VotGES.Web
 			);
 
 		}
+			
 
 		protected void Application_Start() {
+			VotGES.GlobalVotGES.setCulture();
+			
 			Logger logger=new WebLogger();
 			Logger.init(Logger.createFileLogger(Server.MapPath("/logs/"), "orders", logger));
 			Logger.Info("Старт приложения");
 			AreaRegistration.RegisterAllAreas();
 
 			RegisterRoutes(RouteTable.Routes);
+			Logger.Info(DateTime.Now.ToString());
+			Logger.Info((12.35).ToString());
 		}
 	}
 }
