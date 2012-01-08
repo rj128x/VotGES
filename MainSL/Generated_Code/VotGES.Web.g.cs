@@ -2298,6 +2298,120 @@ namespace VotGES.Piramida.Report
     }
     
     /// <summary>
+    /// Класс "FullReportRoot".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Piramida.Report")]
+    public sealed partial class FullReportRoot : ComplexObject
+    {
+        
+        private FullReportRecord _rootLines;
+        
+        private FullReportRecord _rootMain;
+        
+        private FullReportRecord _rootSN;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnRootLinesChanging(FullReportRecord value);
+        partial void OnRootLinesChanged();
+        partial void OnRootMainChanging(FullReportRecord value);
+        partial void OnRootMainChanged();
+        partial void OnRootSNChanging(FullReportRecord value);
+        partial void OnRootSNChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="FullReportRoot"/>.
+        /// </summary>
+        public FullReportRoot()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RootLines".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public FullReportRecord RootLines
+        {
+            get
+            {
+                return this._rootLines;
+            }
+            set
+            {
+                if ((this._rootLines != value))
+                {
+                    this.OnRootLinesChanging(value);
+                    this.RaiseDataMemberChanging("RootLines");
+                    this.ValidateProperty("RootLines", value);
+                    this._rootLines = value;
+                    this.RaiseDataMemberChanged("RootLines");
+                    this.OnRootLinesChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RootMain".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public FullReportRecord RootMain
+        {
+            get
+            {
+                return this._rootMain;
+            }
+            set
+            {
+                if ((this._rootMain != value))
+                {
+                    this.OnRootMainChanging(value);
+                    this.RaiseDataMemberChanging("RootMain");
+                    this.ValidateProperty("RootMain", value);
+                    this._rootMain = value;
+                    this.RaiseDataMemberChanged("RootMain");
+                    this.OnRootMainChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RootSN".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public FullReportRecord RootSN
+        {
+            get
+            {
+                return this._rootSN;
+            }
+            set
+            {
+                if ((this._rootSN != value))
+                {
+                    this.OnRootSNChanging(value);
+                    this.RaiseDataMemberChanging("RootSN");
+                    this.ValidateProperty("RootSN", value);
+                    this._rootSN = value;
+                    this.RaiseDataMemberChanged("RootSN");
+                    this.OnRootSNChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
     /// Класс "ReportAnswer".
     /// </summary>
     [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Piramida.Report")]
@@ -4275,20 +4389,20 @@ namespace VotGES.Web.Services
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
         /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<FullReportRecord> GetFullReportRoot(Action<InvokeOperation<FullReportRecord>> callback, object userState)
+        public InvokeOperation<FullReportRoot> GetFullReportRoot(Action<InvokeOperation<FullReportRoot>> callback, object userState)
         {
             this.ValidateMethod("GetFullReportRoot", null);
-            return ((InvokeOperation<FullReportRecord>)(this.InvokeOperation("GetFullReportRoot", typeof(FullReportRecord), null, true, callback, userState)));
+            return ((InvokeOperation<FullReportRoot>)(this.InvokeOperation("GetFullReportRoot", typeof(FullReportRoot), null, true, callback, userState)));
         }
         
         /// <summary>
         /// Асинхронно вызывает метод "GetFullReportRoot" службы DomainService.
         /// </summary>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<FullReportRecord> GetFullReportRoot()
+        public InvokeOperation<FullReportRoot> GetFullReportRoot()
         {
             this.ValidateMethod("GetFullReportRoot", null);
-            return ((InvokeOperation<FullReportRecord>)(this.InvokeOperation("GetFullReportRoot", typeof(FullReportRecord), null, true, null, null)));
+            return ((InvokeOperation<FullReportRoot>)(this.InvokeOperation("GetFullReportRoot", typeof(FullReportRoot), null, true, null, null)));
         }
         
         /// <summary>
@@ -4370,8 +4484,8 @@ namespace VotGES.Web.Services
             /// Завершает асинхронную операцию, начатую "BeginGetFullReportRoot".
             /// </summary>
             /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginGetFullReportRoot".</param>
-            /// <returns>Объект "FullReportRecord", возвращенный из операции "GetFullReportRoot".</returns>
-            FullReportRecord EndGetFullReportRoot(IAsyncResult result);
+            /// <returns>Объект "FullReportRoot", возвращенный из операции "GetFullReportRoot".</returns>
+            FullReportRoot EndGetFullReportRoot(IAsyncResult result);
             
             /// <summary>
             /// Асинхронно вызывает операцию "GetRezhimSKReport".

@@ -18,9 +18,22 @@
 			
 			<sdk:TabControl >
 				<sdk:TabItem Header="Выбор параметров">
-					<sdk:TreeView ItemTemplate="{StaticResource treeTemplate}" Name="TreeRecords" />
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="1*"/>
+						</Grid.ColumnDefinitions>
+						<sdk:TreeView ItemTemplate="{StaticResource treeTemplate}" Name="TreeMainRecords" Grid.Column="0"
+										  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+						<sdk:TreeView ItemTemplate="{StaticResource treeTemplate}" Name="TreeLinesRecords" Grid.Column="1"
+										  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+						<sdk:TreeView ItemTemplate="{StaticResource treeTemplate}" Name="TreeSNRecords" Grid.Column="2"
+										  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+					</Grid>
+					
 				</sdk:TabItem>
-				<sdk:TabItem Header="Результат">
+				<sdk:TabItem Header="Результат" Name="tabResult">
 					<usr:ReportBaseControl x:Name="ResultControl"/>
 				</sdk:TabItem>
 			</sdk:TabControl>
@@ -30,7 +43,7 @@
 					<usr:ReportSettingsControl x:Name="SettingsControl" 
 														IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 					<Button Name="btnGetReport" Content="Получить отчет" Click="btnGetReport_Click"
-							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>					
 				</StackPanel>
 			</Grid>
 		</Grid>

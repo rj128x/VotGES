@@ -198,7 +198,7 @@ namespace VotGES.Piramida
 		public static PiramidaRecord Q_VL500_Karmanovo_Priem=new PiramidaRecord(0, 8737, 67, "ВЛ 500 Карманово прием (Q)");
 		public static PiramidaRecord Q_VL500_Karmanovo_Otd=new PiramidaRecord(0, 8737, 68, "ВЛ 500 Карманово отдача (Q)");
 
-		public static PiramidaRecord P_VL500_Vytka_Priem=new PiramidaRecord(0, 8737, 69, "ВЛ 500 Вятка прием (P)");
+		public static PiramidaRecord P_VL500_Vyatka_Priem=new PiramidaRecord(0, 8737, 69, "ВЛ 500 Вятка прием (P)");
 		public static PiramidaRecord P_VL500_Vyatka_Otd=new PiramidaRecord(0, 8737, 70, "ВЛ 500 Вятка отдача (P)");
 		public static PiramidaRecord Q_VL500_Vyatka_Priem=new PiramidaRecord(0, 8737, 71, "ВЛ 500 Вятка прием (Q)");
 		public static PiramidaRecord Q_VL500_Vyatka_Otd=new PiramidaRecord(0, 8737, 72, "ВЛ 500 Вятка отдача (Q)");

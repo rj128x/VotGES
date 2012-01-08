@@ -14,6 +14,7 @@ namespace VotGES.Piramida.Report
 			ReportGARecords.AddPRecordsGAQ(this, pn, 1, 1, false, false, DBOperEnum.avg, ResultTypeEnum.sum);
 			ReportGARecords.CreateGAP();
 			ReportGARecords.CreateGAQ();
+
 			AddRecordType(new RecordTypeCalc(ReportGARecords.P_GA1, toChart: true, visible: true));
 			AddRecordType(new RecordTypeCalc(ReportGARecords.P_GA2, toChart: true, visible: true));
 			AddRecordType(new RecordTypeCalc(ReportGARecords.P_GA9, toChart: true, visible: true));

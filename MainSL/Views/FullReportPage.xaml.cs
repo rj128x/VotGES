@@ -18,7 +18,7 @@ namespace MainSL.Views
 {
 	public partial class FullReportPage : Page
 	{
-		FullReportRecord RootRecord { get; set; }
+		FullReportRoot Root { get; set; }
 		ReportBaseDomainContext Context { get; set; }
 		List<String> SelectedValues { get; set; }
 
@@ -30,7 +30,7 @@ namespace MainSL.Views
 
 		// Выполняется, когда пользователь переходит на эту страницу.
 		protected override void OnNavigatedTo(NavigationEventArgs e) {
-			if (RootRecord == null) {
+			if (Root == null) {
 				loadRoot();
 			}			
 		}
@@ -46,8 +46,11 @@ namespace MainSL.Views
 				}
 				try {
 					GlobalStatus.Current.StartProcess();
-					RootRecord = oper.Value;
-					TreeRecords.ItemsSource = RootRecord.Children;
+					Root = oper.Value;
+					TreeMainRecords.ItemsSource = Root.RootMain.Children;
+					TreeLinesRecords.ItemsSource = Root.RootLines.Children;
+					TreeSNRecords.ItemsSource = Root.RootSN.Children;
+					
 				} catch (Exception ex) {
 					Logging.Logger.info(ex.ToString());
 					GlobalStatus.Current.ErrorLoad("Ошибка при получении дерева");
@@ -61,7 +64,9 @@ namespace MainSL.Views
 
 		protected void RefreshSelectedValues() {
 			SelectedValues.Clear();
-			createSelectedList(RootRecord);
+			createSelectedList(Root.RootMain);
+			createSelectedList(Root.RootLines);
+			createSelectedList(Root.RootSN);
 		}
 
 		protected void createSelectedList(FullReportRecord record) {			
@@ -86,6 +91,7 @@ namespace MainSL.Views
 				try {
 					GlobalStatus.Current.StartProcess();
 					ResultControl.Create(oper.Value);
+					tabResult.IsSelected = true;
 				} catch (Exception ex) {
 					Logging.Logger.info(ex.ToString());
 					GlobalStatus.Current.ErrorLoad("Ошибка при получении данных");
@@ -95,6 +101,10 @@ namespace MainSL.Views
 
 			}, null);
 			GlobalStatus.Current.StartLoad(currentOper);
+		}
+
+		private void btnGetChart_Click(object sender, RoutedEventArgs e) {
+
 		}
 	}
 }

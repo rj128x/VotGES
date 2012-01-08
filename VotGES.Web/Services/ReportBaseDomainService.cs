@@ -15,11 +15,15 @@ namespace VotGES.Web.Services
 	[EnableClientAccess()]
 	public class ReportBaseDomainService : DomainService
 	{
-		public FullReportRecord GetFullReportRoot() {
+		public FullReportRoot GetFullReportRoot() {
 			try {
+				FullReportRoot root=new FullReportRoot();
 				Logger.Info("Получение данных для полного отчета");
 				FullReportInitData report=new FullReportInitData();
-				return report.Root;
+				root.RootMain = report.RootMain;
+				root.RootLines = report.RootLines;
+				root.RootSN = report.RootSN;
+				return root;
 			} catch (Exception e) {
 				Logger.Error("Ошибка при получении данных для полного отчета "+e.ToString());
 				return null;
