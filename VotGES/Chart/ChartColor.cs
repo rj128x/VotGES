@@ -32,6 +32,13 @@ namespace VotGES.Chart
 			return String.Format("{0}-{1}-{2}", color.R, color.G, color.B);
 		}
 
+		public static string GetColorStr(int index) {
+			if (index > Colors.Last().Key) {
+				index = Colors.First().Key;
+			}
+			return Colors[index];
+		}
+
 		public static string NextColor() {
 			current++;
 			if (current > Colors.Last().Key) {

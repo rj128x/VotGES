@@ -49,7 +49,7 @@ namespace VotGES.Web.Services
 		public ReportAnswer GetRezhimSKReport(DateTime date) {
 			try {
 				Logger.Info("Получение отчета режим СК "+date);
-				RezhimSKReport report=new RezhimSKReport(date.Date, date.Date.AddDays(1), IntervalReportEnum.halfHour);
+				RezhimSKReport report=new RezhimSKReport(date.Date, date.Date.AddDays(1), IntervalReportEnum.minute);
 				report.ReadData();
 				report.CreateAnswerData();
 				report.CreateChart();

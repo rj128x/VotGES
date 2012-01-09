@@ -9,7 +9,7 @@ using VotGES.Chart;
 
 namespace VotGES.Piramida.Report
 {
-	public enum ReportTypeEnum { dayByMinutes, dayByHalfHours, dayByHours, monthByDays, quarterByDays, yearByDays, yearByMonths, yearByQarters }
+	public enum ReportTypeEnum { dayByMinutes, dayByHalfHours, dayByHours, monthByDays, monthByHalfHours, monthByHours, quarterByDays, yearByDays, yearByMonths, yearByQarters }
 	public enum IntervalReportEnum { minute, halfHour, hour, day, month, quarter, year }
 	public enum ResultTypeEnum { min, max, avg, sum }
 	public enum DBOperEnum { min, max, avg, sum }
@@ -137,6 +137,10 @@ namespace VotGES.Piramida.Report
 					return IntervalReportEnum.hour;
 				case ReportTypeEnum.monthByDays:
 					return IntervalReportEnum.day;
+				case ReportTypeEnum.monthByHalfHours:
+					return IntervalReportEnum.halfHour;
+				case ReportTypeEnum.monthByHours:
+					return IntervalReportEnum.hour;
 				case ReportTypeEnum.quarterByDays:
 					return IntervalReportEnum.day;
 				case ReportTypeEnum.yearByDays:
@@ -636,14 +640,14 @@ namespace VotGES.Piramida.Report
 			Answer.Chart.Properties.XValueFormatString = getDateFormat();
 
 			Random r=new Random();
-
+			int indexColor=0;
 			foreach (RecordTypeBase recordType in RecordTypes.Values) {
 				if (recordType.ToChart) {
 					ChartSerieProperties props=new ChartSerieProperties();
 					props.Title = recordType.Title;
 					props.TagName = recordType.ID;
 					props.LineWidth = 2;
-					props.Color = ChartColor.NextColor();
+					props.Color = ChartColor.GetColorStr(indexColor++);
 					props.SerieType = type;
 					props.YAxisIndex = 0;
 					Answer.Chart.Properties.addSerie(props);

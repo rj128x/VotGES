@@ -18,8 +18,9 @@ namespace VotGES.Web.Services
 		public GraphVyrabAnswer getGraphVyrab() {
 			try {
 				Logger.Info("Получение графика нагрузки");
-				DateTime date=new DateTime(2010, 3, 15);
-				date = date.AddHours(DateTime.Now.Hour - 2).AddMinutes(DateTime.Now.Minute);
+				//DateTime date=new DateTime(2010, 3, 15);
+				//date = date.AddHours(DateTime.Now.Hour - 2).AddMinutes(DateTime.Now.Minute);
+				DateTime date=DateTime.Now.AddHours(-2);
 				return GraphVyrab.getAnswer(date, true);
 			} catch (Exception e) {
 				Logger.Error("Ошибка при получении графика нагрузки " + e);

@@ -9,7 +9,7 @@ namespace VotGES.Piramida.Report
 	{
 		public RezhimSKReport(DateTime dateStart, DateTime dateEnd, IntervalReportEnum interval) :
 			base(dateStart, dateEnd, interval) {
-			int pn=12;
+			int pn=4;
 			ReportGARecords.AddPRecordsGAP(this, pn, 1, 1, false, false,DBOperEnum.avg, ResultTypeEnum.sum);
 			ReportGARecords.AddPRecordsGAQ(this, pn, 1, 1, false, false, DBOperEnum.avg, ResultTypeEnum.sum);
 			ReportGARecords.CreateGAP();

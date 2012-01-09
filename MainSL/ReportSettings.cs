@@ -56,6 +56,8 @@ namespace VotGES.Piramida.Report
 					case ReportTypeEnum.dayByMinutes:
 						return getFullDay(settings.Date);
 					case ReportTypeEnum.monthByDays:
+					case ReportTypeEnum.monthByHours:
+					case ReportTypeEnum.monthByHalfHours:
 						return getFullMonth(settings.Year, settings.Month);
 					case ReportTypeEnum.quarterByDays:
 						return getFullQuarter(settings.Year, settings.Quarter);
@@ -105,6 +107,8 @@ namespace VotGES.Piramida.Report
 						IsVisibleYear = false;
 						break;
 					case ReportTypeEnum.monthByDays:
+					case ReportTypeEnum.monthByHalfHours:
+					case ReportTypeEnum.monthByHours:
 						IsVisibleDate = false;
 						IsVisibleYear = true;
 						IsVisibleMonth = true;
@@ -134,6 +138,9 @@ namespace VotGES.Piramida.Report
 			get { return year; }
 			set { 
 				year = value;
+				year=year<1960?DateTime.Now.Year:year;
+				year = year > DateTime.Now.Year ? DateTime.Now.Year : year;
+
 				NotifyChanged("Year");
 			}
 		}
@@ -161,6 +168,8 @@ namespace VotGES.Piramida.Report
 			get { return date; }
 			set { 
 				date = value;
+				Year = Date.Year;
+				Month = Date.Month;
 				NotifyChanged("Date");
 			}
 		}
@@ -209,7 +218,9 @@ namespace VotGES.Piramida.Report
 			ReportTypeNames.Add(ReportTypeEnum.dayByMinutes, "За сутки по минутам");
 			ReportTypeNames.Add(ReportTypeEnum.dayByHalfHours, "За сутки по 30 минут");
 			ReportTypeNames.Add(ReportTypeEnum.dayByHours, "За сутки по часам");
-			ReportTypeNames.Add(ReportTypeEnum.monthByDays, "За месяц по дням");
+			ReportTypeNames.Add(ReportTypeEnum.monthByHalfHours, "За месяц по 30 минут");
+			ReportTypeNames.Add(ReportTypeEnum.monthByHours, "За месяц по часам");
+			ReportTypeNames.Add(ReportTypeEnum.monthByDays, "За месяц по дням");			
 			ReportTypeNames.Add(ReportTypeEnum.quarterByDays, "За квартал по дням");
 			ReportTypeNames.Add(ReportTypeEnum.yearByDays, "За год по дням");
 			ReportTypeNames.Add(ReportTypeEnum.yearByMonths, "За год по месяцам");

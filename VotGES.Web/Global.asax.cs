@@ -26,8 +26,6 @@ namespace VotGES.Web
 			
 
 		protected void Application_Start() {
-			this.BeginRequest += new EventHandler(MvcApplication_BeginRequest);
-			this.PreRequestHandlerExecute += new EventHandler(MvcApplication_PreRequestHandlerExecute);
 			VotGES.GlobalVotGES.setCulture();
 			
 			Logger logger=new WebLogger();
@@ -37,16 +35,7 @@ namespace VotGES.Web
 			Logger.Info((123456789).ToString("#,#0"));
 
 			RegisterRoutes(RouteTable.Routes);
-		}
-
-		void MvcApplication_PreRequestHandlerExecute(object sender, EventArgs e) {
-			VotGES.GlobalVotGES.setCulture();
-		}
-
-		void MvcApplication_BeginRequest(object sender, EventArgs e) {
-			VotGES.GlobalVotGES.setCulture();
-		}
-
+		}	
 		
 	}
 }
