@@ -93,28 +93,27 @@ namespace VotGES.PrognozNB
 		}
 
 		public void readM53500() {
-			Piramida3000Entities model=PiramidaAccess.getModel();
-			IQueryable<DATA> dataArr=from DATA d in model.DATA where
-													 d.PARNUMBER == 212 && d.DATA_DATE > DateStart && d.DATA_DATE <= dateEnd &&
-													 d.OBJTYPE == 2 && d.OBJECT == 53500 && d.ITEM == 3 select d;
-			foreach (DATA data in dataArr) {
-				if (!m53500.Keys.Contains(data.DATA_DATE)) {
-					m53500.Add(data.DATA_DATE, data.VALUE0.Value);
+
+			List<PiramidaEnrty> dataArr=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 53500, 2, 212, (new int[] { 3 }).ToList<int>(), false, true);
+
+			foreach (PiramidaEnrty data in dataArr) {
+				if (!m53500.Keys.Contains(data.Date)) {
+					m53500.Add(data.Date, data.Value0);
 				}
 			}
 		}
 
 
 		public void readPBRPrevSutki() {
-			Piramida3000Entities model=PiramidaAccess.getModel();
 			DateTime ds=DatePrognozStart;
 			DateTime de=DatePrognozStart.AddDays(-1);
-			IQueryable<DATA> dataArr=from DATA d in model.DATA where
+			/*IQueryable<DATA> dataArr=from DATA d in model.DATA where
 													 d.PARNUMBER == 212 && d.DATA_DATE > DateStart && d.DATA_DATE <= dateEnd &&
-													 d.OBJTYPE == 2 && d.OBJECT == 0 && d.ITEM == 1 select d;
-			foreach (DATA data in dataArr) {
-				if (!pbrPrevSutki.Keys.Contains(data.DATA_DATE)) {
-					pbrPrevSutki.Add(data.DATA_DATE, data.VALUE0.Value / 1000);
+													 d.OBJTYPE == 2 && d.OBJECT == 0 && d.ITEM == 1 select d;*/
+			List<PiramidaEnrty> dataArr=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 212, (new int[] { 1 }).ToList<int>(), false, true);
+			foreach (PiramidaEnrty data in dataArr) {
+				if (!pbrPrevSutki.Keys.Contains(data.Date)) {
+					pbrPrevSutki.Add(data.Date, data.Value0 / 1000);
 				}
 			}
 		}
@@ -146,18 +145,28 @@ namespace VotGES.PrognozNB
 		public override SortedList<DateTime, PrognozNBFirstData> readFirstData(DateTime date) {
 			date = DatePrognozStart.AddMinutes(0);
 			int[] items=new int[] { 354, 276, 373, 275, 274 };
-			Piramida3000Entities model=PiramidaAccess.getModel();
-			IQueryable<DATA> dataArr=null;
+			List<PiramidaEnrty> dataArr=null;
+			List<PiramidaEnrty> dataArrP,dataArrW=null;
 			List<int> il=items.ToList();
 			double cnt=0;
 			int index=0;
 			while (cnt < 30 && index <= 10) {
 				DateTime ds=date.AddHours(-2);
 				DateTime de=date.AddHours(0);
-				dataArr = from DATA d in model.DATA where
+				dataArrW=PiramidaAccess.GetDataFromDB(ds, de, 1, 2, 12, il, true, true);
+				dataArrP = PiramidaAccess.GetDataFromDB(ds, de, 0, 2, 12, (new int[] { 1 }).ToList<int>(), true, true);
+				dataArr = new List<PiramidaEnrty>();
+				foreach (PiramidaEnrty entry in dataArrW) {
+					dataArr.Add(entry);
+				}
+				foreach (PiramidaEnrty entry in dataArrP) {
+					dataArr.Add(entry);
+				}
+				/*dataArr = from DATA d in model.DATA where
 															d.PARNUMBER == 12 && d.DATA_DATE >= ds && d.DATA_DATE <= de &&
-															d.OBJTYPE == 2 && (d.OBJECT == 1 && il.Contains(d.ITEM) || d.OBJECT == 0 && d.ITEM == 1) select d;
+															d.OBJTYPE == 2 && (d.OBJECT == 1 && il.Contains(d.ITEM) || d.OBJECT == 0 && d.ITEM == 1) select d;*/
 				cnt = dataArr.Count();
+				Logger.Info(cnt.ToString());
 				date = date.AddMinutes(-30);
 				index++;
 			}

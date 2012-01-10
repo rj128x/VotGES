@@ -109,63 +109,63 @@ namespace VotGES.PrognozNB
 
 
 		public void readPBR() {
-			Piramida3000Entities model=PiramidaAccess.getModel();
-			IQueryable<DATA> dataArr=from DATA d in model.DATA where
+			/*IQueryable<DATA> dataArr=from DATA d in model.DATA where
 													 d.PARNUMBER == 212 && d.DATA_DATE >= DateStart && d.DATA_DATE <= dateEnd &&
-													 d.OBJTYPE == 2 && d.OBJECT == 0 && d.ITEM == 1 select d;
-			foreach (DATA data in dataArr) {
-				if (!pbr.Keys.Contains(data.DATA_DATE)) {
-					pbr.Add(data.DATA_DATE, data.VALUE0.Value / 1000);
+													 d.OBJTYPE == 2 && d.OBJECT == 0 && d.ITEM == 1 select d;*/
+			List<PiramidaEnrty> dataArr=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 212, (new int[] { 1 }).ToList<int>(), false, true);
+			foreach (PiramidaEnrty data in dataArr) {
+				if (!pbr.Keys.Contains(data.Date)) {
+					pbr.Add(data.Date, data.Value0 / 1000);
 				}
 			}
 		}
 
 		public void readP() {
-			Piramida3000Entities model=PiramidaAccess.getModel();
-			IQueryable<DATA> dataArr=from DATA d in model.DATA where
+			/*IQueryable<DATA> dataArr=from DATA d in model.DATA where
 													 d.PARNUMBER == 12 && d.DATA_DATE > DateStart && d.DATA_DATE <= dateEnd &&
-													 d.OBJTYPE == 2 && d.OBJECT == 0 && d.ITEM == 1 select d;
-			foreach (DATA data in dataArr) {
-				if (!pFakt.Keys.Contains(data.DATA_DATE)) {
-					pFakt.Add(data.DATA_DATE, data.VALUE0.Value / 1000);
+													 d.OBJTYPE == 2 && d.OBJECT == 0 && d.ITEM == 1 select d;*/
+			List<PiramidaEnrty> dataArr=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 12, (new int[] { 1 }).ToList<int>(), false, true);
+			foreach (PiramidaEnrty data in dataArr) {
+				if (!pFakt.Keys.Contains(data.Date)) {
+					pFakt.Add(data.Date, data.Value0/ 1000);
 				}
 			}
 		}
 
 		public void readWater() {
-			Piramida3000Entities model=PiramidaAccess.getModel();
 			int[] items=new int[] { 354, 276,373,275,274 };
 			List<int> il=items.ToList();			
-			IQueryable<DATA> dataArr=from DATA d in model.DATA where
+			/*IQueryable<DATA> dataArr=from DATA d in model.DATA where
 													 d.PARNUMBER == 12 && d.DATA_DATE > DateStart && d.DATA_DATE <= dateEnd &&
-													 d.OBJTYPE == 2 && d.OBJECT == 1 && il.Contains(d.ITEM) select d;
-			
-			foreach (DATA data in dataArr) {
-				switch (data.ITEM) {
+													 d.OBJTYPE == 2 && d.OBJECT == 1 && il.Contains(d.ITEM) select d;*/
+			List<PiramidaEnrty> dataArr=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 1, 2, 12, il, false, true);
+
+			foreach (PiramidaEnrty data in dataArr) {
+				switch (data.Item) {
 					case 354:
-						if (!qFakt.Keys.Contains(data.DATA_DATE)) {
-							qFakt.Add(data.DATA_DATE, data.VALUE0.Value);
+						if (!qFakt.Keys.Contains(data.Date)) {
+							qFakt.Add(data.Date, data.Value0);
 						}
 						break;
 					case 276:
-						if (!naporFakt.Keys.Contains(data.DATA_DATE)) {
-							naporFakt.Add(data.DATA_DATE, data.VALUE0.Value);
+						if (!naporFakt.Keys.Contains(data.Date)) {
+							naporFakt.Add(data.Date, data.Value0);
 						}
 						break;
 					case 275:
-						if (!nbFakt.Keys.Contains(data.DATA_DATE)) {
-							nbFakt.Add(data.DATA_DATE, data.VALUE0.Value);
+						if (!nbFakt.Keys.Contains(data.Date)) {
+							nbFakt.Add(data.Date, data.Value0);
 						}
 						break;
 					case 274:
-						if (!vbFakt.Keys.Contains(data.DATA_DATE)) {
-							vbFakt.Add(data.DATA_DATE, data.VALUE0.Value);
+						if (!vbFakt.Keys.Contains(data.Date)) {
+							vbFakt.Add(data.Date, data.Value0);
 						}
 						break;
 					case 373:
-						if (!tFakt.Keys.Contains(data.DATA_DATE)) {
-							tFakt.Add(data.DATA_DATE, data.VALUE0.Value);						
-							TSum += data.VALUE0.Value;
+						if (!tFakt.Keys.Contains(data.Date)) {
+							tFakt.Add(data.Date, data.Value0);
+							TSum += data.Value0;
 							TCount++;
 						}
 						break;
@@ -218,43 +218,51 @@ namespace VotGES.PrognozNB
 
 		public virtual  SortedList<DateTime,PrognozNBFirstData> readFirstData(DateTime date) {
 			
-			Piramida3000Entities model=PiramidaAccess.getModel();
 			int[] items=new int[] { 354, 276, 373, 275, 274 };
 			List<int> il=items.ToList();
 			DateTime ds=date.AddHours(-2);
 			DateTime de=date.AddHours(0);
-			IQueryable<DATA> dataArr=from DATA d in model.DATA where
+			/*IQueryable<DATA> dataArr=from DATA d in model.DATA where
 													 d.PARNUMBER == 12 && d.DATA_DATE >= ds && d.DATA_DATE <= de &&
-													 d.OBJTYPE == 2 && (d.OBJECT == 1 && il.Contains(d.ITEM)|| d.OBJECT==0 && d.ITEM==1) select d;
+													 d.OBJTYPE == 2 && (d.OBJECT == 1 && il.Contains(d.ITEM)|| d.OBJECT==0 && d.ITEM==1) select d;*/
+			List<PiramidaEnrty> dataArrW = PiramidaAccess.GetDataFromDB(ds, de, 1, 2, 12, il, true, true);
+			List<PiramidaEnrty> dataArrP = PiramidaAccess.GetDataFromDB(ds, de, 0, 2, 12, (new int[] { 1 }).ToList<int>(), true, true);
+			List<PiramidaEnrty> dataArr = new List<PiramidaEnrty>();
+			foreach (PiramidaEnrty entry in dataArrW) {
+				dataArr.Add(entry);
+			}
+			foreach (PiramidaEnrty entry in dataArrP) {
+				dataArr.Add(entry);
+			}
 			return processFirstData(dataArr);
 		}
-		
-		protected SortedList<DateTime, PrognozNBFirstData> processFirstData(IQueryable<DATA> dataArr) {
+
+		protected SortedList<DateTime, PrognozNBFirstData> processFirstData(List<PiramidaEnrty> dataArr) {
 			SortedList<DateTime,PrognozNBFirstData> firstData=new SortedList<DateTime, PrognozNBFirstData>();
-			foreach (DATA data in dataArr) {
-				if (!firstData.Keys.Contains(data.DATA_DATE)) {
+			foreach (PiramidaEnrty data in dataArr) {
+				if (!firstData.Keys.Contains(data.Date)) {
 					PrognozNBFirstData newData=new PrognozNBFirstData();
-					newData.Date = data.DATA_DATE;
-					firstData.Add(data.DATA_DATE, newData);
+					newData.Date = data.Date;
+					firstData.Add(data.Date, newData);
 				}
 
-				switch (data.ITEM) {
+				switch (data.Item) {
 					case 1:						
-						firstData[data.DATA_DATE].P = data.VALUE0.Value/1000;
+						firstData[data.Date].P = data.Value0/1000;
 						break;
 					case 354:
-						firstData[data.DATA_DATE].Q = data.VALUE0.Value;
+						firstData[data.Date].Q = data.Value0;
 						break;
 					case 275:
-						firstData[data.DATA_DATE].NB = data.VALUE0.Value;
+						firstData[data.Date].NB = data.Value0;
 						break;
 					case 274:
-						firstData[data.DATA_DATE].VB = data.VALUE0.Value;
+						firstData[data.Date].VB = data.Value0;
 						break;
 					case 373:
-						firstData[data.DATA_DATE].T = data.VALUE0.Value;
-						if (data.DATA_DATE <= DateStart) {
-							TSum += data.VALUE0.Value;
+						firstData[data.Date].T = data.Value0;
+						if (data.Date <= DateStart) {
+							TSum += data.Value0;
 							TCount++;
 						}
 						break;

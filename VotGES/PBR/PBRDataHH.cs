@@ -37,34 +37,35 @@ namespace VotGES.PBR
 
 		public void readData() {
 			int item=GTPIndex + 1;
-			Piramida3000Entities model=PiramidaAccess.getModel();
 
-
-			IQueryable<DATA> dataArr=from DATA d in model.DATA
-											 where
-												d.DATA_DATE >= DateStart && d.DATA_DATE <= DateEnd &&
-												d.ITEM == item && d.OBJECT == 0 && d.OBJTYPE == 2 &&
-												(d.PARNUMBER == 12 || d.PARNUMBER == 212) select d;
-			foreach (DATA data in dataArr) {
+			List<int> items=(new int[] { item }).ToList<int>();
+			List<PiramidaEnrty> dataPBR=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 212, items, true, true);
+			foreach (PiramidaEnrty data in dataPBR) {
 				try {
-					DateTime date=data.DATA_DATE;
-					double val=data.VALUE0.Value / 1000;
-					switch (data.PARNUMBER) {
-						case 12:
-							if (date > DateStart) {
-								HalfHoursP.Add(date, val);
-							}
-							break;
-						case 212:
-							if (date.Minute == 0) {
-								RealPBR.Add(date, val);
-							}
-							break;
+					DateTime date=data.Date;
+					double val=data.Value0 / 1000;
+					if (date.Minute == 0) {
+						RealPBR.Add(date, val);
 					}
 				} catch (Exception e) {
 					Logger.Info("Ошибка при чтении ПБР " + e.ToString());
 				}
-			}						
+			}
+
+
+
+			List<PiramidaEnrty> dataFakt=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 12, items, true, true);
+			foreach (PiramidaEnrty data in dataFakt) {
+				try {
+					DateTime date=data.Date;
+					double val=data.Value0 / 1000;
+					if (date > DateStart) {
+						HalfHoursP.Add(date, val);
+					}
+				} catch (Exception e) {
+					Logger.Info("Ошибка при чтении ПБР " + e.ToString());
+				}
+			}
 			
 		}
 

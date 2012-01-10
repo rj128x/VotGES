@@ -92,15 +92,18 @@ namespace VotGES.PBR
 			PBRData gtp1=new PBRData(dateStart, dateEnd, date, 1);
 			PBRData gtp2=new PBRData(dateStart, dateEnd, date, 2);
 
+			gtp1.InitData();
+			gtp2.InitData();
+			ges.InitData();
+
 			answer.ActualDate = gtp1.Date < gtp2.Date ? gtp1.Date : gtp2.Date;
 			answer.ActualDate = ges.Date < answer.ActualDate ? ges.Date : answer.ActualDate;
+			date = answer.ActualDate;
 			answer.Chart = new ChartAnswer();
 			answer.Chart.Properties = getChartProperties();
 			answer.Chart.Data = new ChartData();
 
-			gtp1.InitData();
-			gtp2.InitData();
-			ges.InitData();
+			
 
 			DateTime lastDate=ges.Date;
 			answer.VyrabPlan = ges.IntegratedPBR[lastDate];
