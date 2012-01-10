@@ -39,6 +39,7 @@ namespace VotGES.Web.Services
 				report.ReadData();
 				report.CreateAnswerData();
 				report.CreateChart();
+				Logger.Info("Отчет сформирован: "+report.Answer.Data.Count());
 				return report.Answer;
 			} catch (Exception e) {
 				Logger.Error("Ошибка при получении отчета " + e.ToString());
@@ -53,6 +54,7 @@ namespace VotGES.Web.Services
 				report.ReadData();
 				report.CreateAnswerData();
 				report.CreateChart();
+				Logger.Info("Отчет Режим СК сформирован " + report.Answer.Data.Count());
 				return report.Answer;
 			} catch (Exception e) {
 				Logger.Error("Ошибка при получении режима СК " + e.ToString());

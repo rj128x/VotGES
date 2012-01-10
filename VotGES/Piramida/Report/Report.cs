@@ -225,7 +225,7 @@ namespace VotGES.Piramida.Report
 
 		protected void processNeedData(RecordTypeCalc rCalc) {
 			CurrentNeedRecords = new List<string>();
-			double d=rCalc.CalcFunction(this,null);
+			double d=rCalc.CalcFunction(this, null);
 			List<string> current=CurrentNeedRecords.ToList();
 			foreach (String key in current) {
 				if (!NeedRecords.Contains(key)) {
@@ -282,15 +282,11 @@ namespace VotGES.Piramida.Report
 		public virtual void ReadData() {
 			InitNeedData();
 
-			connection = PiramidaAccess.getConnection();
-			connection.Open();
-
 			Dictionary<string, Dictionary<string,RecordTypeDB>> DBRecords=processDBData();
 
 			foreach (KeyValuePair<string,Dictionary<string,RecordTypeDB>> de in DBRecords) {
 				ReadDBData(de.Key, de.Value);
 			}
-			connection.Close();
 			checkDBData();
 			calculateData();
 			calcResult();
@@ -306,7 +302,7 @@ namespace VotGES.Piramida.Report
 					CurrentNeedRecords = new List<string>();
 					RecordTypeCalc rCalc=recordType as RecordTypeCalc;
 					double d=rCalc.CalcFunction(this, null);
-					NeedDataForRecords.Add(rCalc.ID, CurrentNeedRecords);									
+					NeedDataForRecords.Add(rCalc.ID, CurrentNeedRecords);
 				}
 				if (recordType is RecordTypeDB) {
 					calculatedData[recordType.ID] = true;
@@ -322,7 +318,7 @@ namespace VotGES.Piramida.Report
 					if (recordType is RecordTypeCalc) {
 						RecordTypeCalc rCalc=recordType as RecordTypeCalc;
 						bool allReady=true;
-						foreach (string key in NeedDataForRecords[rCalc.ID]) {							
+						foreach (string key in NeedDataForRecords[rCalc.ID]) {
 							allReady = allReady && calculatedData[key];
 						}
 						if (allReady) {
@@ -372,7 +368,7 @@ namespace VotGES.Piramida.Report
 			foreach (DateTime date in Dates) {
 				if (date > RealDateEnd) {
 					forRemove.Add(date);
-				} else {
+				}  else{
 					foreach (RecordTypeBase recordType in RecordTypes.Values) {
 						if (recordType is RecordTypeDB) {
 							RecordTypeDB rdb=recordType as RecordTypeDB;
@@ -396,181 +392,189 @@ namespace VotGES.Piramida.Report
 			string objType=paramsArr[2];
 			string obj=paramsArr[3];
 
-			List<int> items=new List<int>();
-			Dictionary<int,RecordTypeDB> recordsDict=new Dictionary<int, RecordTypeDB>();
-			foreach (RecordTypeDB rdb in records.Values) {
-				items.Add(rdb.DBRecord.Item);
-				recordsDict.Add(rdb.DBRecord.Item, rdb);
-			}
-			string itemsStr=String.Join(",", items);
+			connection = PiramidaAccess.getConnection();
+			connection.Open();
+			SqlDataReader reader=null; SqlCommand command=null;
+			try {
+				List<int> items=new List<int>();
+				Dictionary<int,RecordTypeDB> recordsDict=new Dictionary<int, RecordTypeDB>();
+				foreach (RecordTypeDB rdb in records.Values) {
+					items.Add(rdb.DBRecord.Item);
+					recordsDict.Add(rdb.DBRecord.Item, rdb);
+				}
+				string itemsStr=String.Join(",", items);
 
+				command = connection.CreateCommand();
+				command.Parameters.AddWithValue("@dateStart", DateStart);
+				command.Parameters.AddWithValue("@dateEnd", DateEnd);
 
-			SqlCommand command= connection.CreateCommand();
-			command.Parameters.AddWithValue("@dateStart", DateStart);
-			command.Parameters.AddWithValue("@dateEnd", DateEnd);
+				string valueParams=String.Format(" (DATA_DATE>@dateStart and DATA_DATE<=@dateEnd and PARNUMBER={3} and OBJTYPE={1} and OBJECT={2} and ITEM in ({0})) ",
+					itemsStr, objType, obj, parNumber);
 
-			string valueParams=String.Format(" (DATA_DATE>@dateStart and DATA_DATE<=@dateEnd and PARNUMBER={3} and OBJTYPE={1} and OBJECT={2} and ITEM in ({0})) ",
-				itemsStr, objType, obj, parNumber);
-
-			string commandText="";
-			string valueOper=String.Format("{0}(Value0)", dbOper);
-			string dt30="dateadd(minute,-30,DATA_DATE)";
-			string dateParam=
+				string commandText="";
+				string valueOper=String.Format("{0}(Value0)", dbOper);
+				string dt30="dateadd(minute,-30,DATA_DATE)";
+				string dateParam=
 				String.Format(
-				"ITEM, datepart(year,{0}), datepart(month,{0}), datepart(day,{0}), datepart(hour,{0}), datepart(minute,{0})",
-				dt30);
-
-			switch (Interval) {
-				case IntervalReportEnum.minute:
-					dateParam =
-						String.Format(
-						"ITEM, datepart(year,{0}), datepart(month,{0}), datepart(day,{0}), datepart(hour,{0}), datepart(minute,{0})",
-						"DATA_DATE");
-					commandText = String.Format("SELECT  {0}, {1} from DATA  WHERE {2} GROUP BY {0}",
-						dateParam, valueOper, valueParams);
-					command.CommandText = commandText;
-					break;
-				case IntervalReportEnum.halfHour:
-					dateParam =
-						String.Format(
-						"ITEM, datepart(year,{0}), datepart(month,{0}), datepart(day,{0}), datepart(hour,{0}), datepart(minute,{0})",
-						"DATA_DATE");
-					commandText = String.Format("SELECT {0}, {1} from [dbo].DATA  WHERE {2} GROUP BY {0}",
-						dateParam, valueOper, valueParams, valueParams);
-					break;
-				case IntervalReportEnum.hour:
-					dateParam =
-						String.Format(
-						"ITEM, datepart(year,{0}), datepart(month,{0}), datepart(day,{0}), datepart(hour,{0})",
-						dt30);
-					commandText = String.Format("SELECT {0}, {1} from DATA  WHERE {2} GROUP BY {0}",
-						dateParam, valueOper, valueParams, valueParams);
-					break;
-				case IntervalReportEnum.day:
-					dateParam =
-						String.Format(
-						"ITEM, datepart(year,{0}), datepart(month,{0}), datepart(day,{0})",
-						dt30);
-					commandText = String.Format("SELECT  {0}, {1} from DATA  WHERE {2} GROUP BY {0}",
-						dateParam, valueOper, valueParams, valueParams);
-					break;
-				case IntervalReportEnum.quarter:
-					dateParam =
-						String.Format(
-						"ITEM, datepart(year,{0}), datepart(quarter,{0})",
-						dt30);
-					commandText = String.Format("SELECT {0}, {1} from DATA d WHERE {2} GROUP BY {0}",
-						dateParam, valueOper, valueParams, valueParams);
-					break;
-				case IntervalReportEnum.month:
-					dateParam =
-						String.Format(
-						"ITEM, datepart(year,{0}), datepart(month,{0})",
-						dt30);
-					commandText = String.Format("SELECT {0}, {1} from DATA d WHERE {2} GROUP BY {0}",
-						dateParam, valueOper, valueParams, valueParams);
-					break;
-				case IntervalReportEnum.year:
-					dateParam =
-						String.Format(
-						"ITEM, datepart(year,{0})",
-						dt30);
-					commandText = String.Format("SELECT {0}, {1} from DATA  WHERE {2} GROUP BY {0}",
-						dateParam, valueOper, valueParams, valueParams);
-					break;
-			}
-
-			command.CommandText = commandText;
-			//Logger.Info(commandText.Replace("@dateStart", String.Format("'{0}'", DateStart)).Replace("@dateEnd", String.Format("'{0}'", DateEnd)));
-			SqlDataReader reader=command.ExecuteReader();
-			DateTime lastDate=DateEnd;
-
-			while (reader.Read()) {
-				int year=-1;
-				int month=-1;
-				int day=-1;
-				int hour=-1;
-				int min=-1;
-				int quarter=-1;
-				double val=-1;
-				DateTime date=DateTime.Now;
-				bool ok=false;
-				int item=(int)reader[0];
-				RecordTypeDB record=recordsDict[item];
+					"ITEM, datepart(year,{0}), datepart(month,{0}), datepart(day,{0}), datepart(hour,{0}), datepart(minute,{0})",
+					dt30);
 
 				switch (Interval) {
 					case IntervalReportEnum.minute:
-						year = (int)reader[1];
-						month = (int)reader[2];
-						day = (int)reader[3];
-						hour = (int)reader[4];
-						min = (int)reader[5];
-						val = (double)reader[6];
-						date = new DateTime(year, month, day, hour, min, 0);
-						ok = true;
+						dateParam =
+							String.Format(
+							"ITEM, datepart(year,{0}), datepart(month,{0}), datepart(day,{0}), datepart(hour,{0}), datepart(minute,{0})",
+							"DATA_DATE");
+						commandText = String.Format("SELECT  {0}, {1} from DATA  WHERE {2} GROUP BY {0}",
+							dateParam, valueOper, valueParams);
+						command.CommandText = commandText;
 						break;
 					case IntervalReportEnum.halfHour:
-						year = (int)reader[1];
-						month = (int)reader[2];
-						day = (int)reader[3];
-						hour = (int)reader[4];
-						min = (int)reader[5];
-						val = (double)reader[6];
-						date = new DateTime(year, month, day, hour, min, 0);
-						ok = true;
+						dateParam =
+							String.Format(
+							"ITEM, datepart(year,{0}), datepart(month,{0}), datepart(day,{0}), datepart(hour,{0}), datepart(minute,{0})",
+							"DATA_DATE");
+						commandText = String.Format("SELECT {0}, {1} from [dbo].DATA  WHERE {2} GROUP BY {0}",
+							dateParam, valueOper, valueParams, valueParams);
 						break;
 					case IntervalReportEnum.hour:
-						year = (int)reader[1];
-						month = (int)reader[2];
-						day = (int)reader[3];
-						hour = (int)reader[4];
-						val = (double)reader[5];
-						date = new DateTime(year, month, day, hour, 0, 0).AddHours(1); ;
-						ok = true;
+						dateParam =
+							String.Format(
+							"ITEM, datepart(year,{0}), datepart(month,{0}), datepart(day,{0}), datepart(hour,{0})",
+							dt30);
+						commandText = String.Format("SELECT {0}, {1} from DATA  WHERE {2} GROUP BY {0}",
+							dateParam, valueOper, valueParams, valueParams);
 						break;
 					case IntervalReportEnum.day:
-						year = (int)reader[1];
-						month = (int)reader[2];
-						day = (int)reader[3];
-						val = (double)reader[4];
-						date = new DateTime(year, month, day, 0, 0, 0).AddDays(1);
-						ok = true;
-						break;
-					case IntervalReportEnum.month:
-						year = (int)reader[1];
-						month = (int)reader[2];
-						val = (double)reader[3];
-						date = new DateTime(year, month, 1, 0, 0, 0).AddMonths(1);
-						ok = true;
+						dateParam =
+							String.Format(
+							"ITEM, datepart(year,{0}), datepart(month,{0}), datepart(day,{0})",
+							dt30);
+						commandText = String.Format("SELECT  {0}, {1} from DATA  WHERE {2} GROUP BY {0}",
+							dateParam, valueOper, valueParams, valueParams);
 						break;
 					case IntervalReportEnum.quarter:
-						year = (int)reader[1];
-						quarter = (int)reader[2];						
-						val = (double)reader[3];
-						date = new DateTime(year, 3*(quarter-1)+1, 1, 0, 0, 0).AddMonths(3);
-						ok = true;
+						dateParam =
+							String.Format(
+							"ITEM, datepart(year,{0}), datepart(quarter,{0})",
+							dt30);
+						commandText = String.Format("SELECT {0}, {1} from DATA d WHERE {2} GROUP BY {0}",
+							dateParam, valueOper, valueParams, valueParams);
+						break;
+					case IntervalReportEnum.month:
+						dateParam =
+							String.Format(
+							"ITEM, datepart(year,{0}), datepart(month,{0})",
+							dt30);
+						commandText = String.Format("SELECT {0}, {1} from DATA d WHERE {2} GROUP BY {0}",
+							dateParam, valueOper, valueParams, valueParams);
 						break;
 					case IntervalReportEnum.year:
-						year = (int)reader[1];
-						val = (double)reader[2];
-						date = new DateTime(year, 1, 1, 0, 0, 0).AddYears(1);
-						ok = true;
+						dateParam =
+							String.Format(
+							"ITEM, datepart(year,{0})",
+							dt30);
+						commandText = String.Format("SELECT {0}, {1} from DATA  WHERE {2} GROUP BY {0}",
+							dateParam, valueOper, valueParams, valueParams);
 						break;
-
 				}
-				if (ok) {
-					lastDate = date;
 
-					if (Data.Keys.Contains(date)) {
-						if (!Data[date].Keys.Contains(record.ID)) {
-							Data[date].Add(record.ID, -1);
-						}
-						Data[date][record.ID] = val * record.MultParam / record.DivParam;
+				command.CommandText = commandText;
+				//Logger.Info(commandText.Replace("@dateStart", String.Format("'{0}'", DateStart)).Replace("@dateEnd", String.Format("'{0}'", DateEnd)));
+
+				reader = command.ExecuteReader();
+				DateTime lastDate=DateEnd;
+
+				while (reader.Read()) {
+					int year=-1;
+					int month=-1;
+					int day=-1;
+					int hour=-1;
+					int min=-1;
+					int quarter=-1;
+					double val=-1;
+					DateTime date=DateTime.Now;
+					bool ok=false;
+					int item=(int)reader[0];
+					RecordTypeDB record=recordsDict[item];
+
+					switch (Interval) {
+						case IntervalReportEnum.minute:
+							year = (int)reader[1];
+							month = (int)reader[2];
+							day = (int)reader[3];
+							hour = (int)reader[4];
+							min = (int)reader[5];
+							val = (double)reader[6];
+							date = new DateTime(year, month, day, hour, min, 0);
+							ok = true;
+							break;
+						case IntervalReportEnum.halfHour:
+							year = (int)reader[1];
+							month = (int)reader[2];
+							day = (int)reader[3];
+							hour = (int)reader[4];
+							min = (int)reader[5];
+							val = (double)reader[6];
+							date = new DateTime(year, month, day, hour, min, 0);
+							ok = true;
+							break;
+						case IntervalReportEnum.hour:
+							year = (int)reader[1];
+							month = (int)reader[2];
+							day = (int)reader[3];
+							hour = (int)reader[4];
+							val = (double)reader[5];
+							date = new DateTime(year, month, day, hour, 0, 0).AddHours(1); ;
+							ok = true;
+							break;
+						case IntervalReportEnum.day:
+							year = (int)reader[1];
+							month = (int)reader[2];
+							day = (int)reader[3];
+							val = (double)reader[4];
+							date = new DateTime(year, month, day, 0, 0, 0).AddDays(1);
+							ok = true;
+							break;
+						case IntervalReportEnum.month:
+							year = (int)reader[1];
+							month = (int)reader[2];
+							val = (double)reader[3];
+							date = new DateTime(year, month, 1, 0, 0, 0).AddMonths(1);
+							ok = true;
+							break;
+						case IntervalReportEnum.quarter:
+							year = (int)reader[1];
+							quarter = (int)reader[2];
+							val = (double)reader[3];
+							date = new DateTime(year, 3 * (quarter - 1) + 1, 1, 0, 0, 0).AddMonths(3);
+							ok = true;
+							break;
+						case IntervalReportEnum.year:
+							year = (int)reader[1];
+							val = (double)reader[2];
+							date = new DateTime(year, 1, 1, 0, 0, 0).AddYears(1);
+							ok = true;
+							break;
+
 					}
-					RealDateEnd = lastDate > RealDateEnd ? lastDate : RealDateEnd;
+					if (ok) {
+						lastDate = date;
+
+						if (Data.Keys.Contains(date)) {
+							if (!Data[date].Keys.Contains(record.ID)) {
+								Data[date].Add(record.ID, -1);
+							}
+							Data[date][record.ID] = val * record.MultParam / record.DivParam;
+						}
+						RealDateEnd = lastDate > RealDateEnd ? lastDate : RealDateEnd;
+					}
 				}
+			} finally {
+				try { reader.Close(); } catch { }
+				try { command.Dispose(); } catch { }
+				try { connection.Close(); } catch { }
 			}
-			reader.Close();
 		}
 
 
@@ -612,7 +616,7 @@ namespace VotGES.Piramida.Report
 				Answer.Data.Add(record);
 			}
 		}
-		
+
 
 		public virtual void CreateChart() {
 			Answer.Chart = new ChartAnswer();

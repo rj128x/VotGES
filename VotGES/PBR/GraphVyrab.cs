@@ -98,14 +98,13 @@ namespace VotGES.PBR
 
 			answer.ActualDate = gtp1.Date < gtp2.Date ? gtp1.Date : gtp2.Date;
 			answer.ActualDate = ges.Date < answer.ActualDate ? ges.Date : answer.ActualDate;
-			date = answer.ActualDate;
 			answer.Chart = new ChartAnswer();
 			answer.Chart.Properties = getChartProperties();
 			answer.Chart.Data = new ChartData();
 
 			
 
-			DateTime lastDate=ges.Date;
+			DateTime lastDate=answer.ActualDate;
 			answer.VyrabPlan = ges.IntegratedPBR[lastDate];
 			answer.VyrabFakt = ges.IntegratedP[lastDate];
 			answer.VyrabDiff = ges.IntegratedPBR[lastDate] - ges.IntegratedP[lastDate];
@@ -115,8 +114,8 @@ namespace VotGES.PBR
 			if (calcTables) {
 				answer.TableCurrent.Add(new GraphVyrabTableRow("P план", Math.Round(gtp1.MinutesPBR[lastDate]), Math.Round(gtp2.MinutesPBR[lastDate]), Math.Round(ges.MinutesPBR[lastDate])));
 				answer.TableCurrent.Add(new GraphVyrabTableRow("P факт", Math.Round(gtp1.RealP[lastDate]), Math.Round(gtp2.RealP[lastDate]), Math.Round(ges.RealP[lastDate])));
-				answer.TableCurrent.Add(new GraphVyrabTableRow("P откл", gtp1.getDiff(date), gtp1.getDiff(date), gtp2.getDiff(date)));
-				answer.TableCurrent.Add(new GraphVyrabTableRow("P откл %", gtp1.getDiffProc(date), gtp1.getDiffProc(date), gtp2.getDiffProc(date)));
+				answer.TableCurrent.Add(new GraphVyrabTableRow("P откл", gtp1.getDiff(lastDate), gtp1.getDiff(lastDate), gtp2.getDiff(lastDate)));
+				answer.TableCurrent.Add(new GraphVyrabTableRow("P откл %", gtp1.getDiffProc(lastDate), gtp1.getDiffProc(lastDate), gtp2.getDiffProc(lastDate)));
 
 
 				SortedList<string,double> gtp1Hour=gtp1.getHourVals(lastDate);

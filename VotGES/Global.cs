@@ -14,7 +14,7 @@ namespace VotGES
 		}
 		public static NumberFormatInfo NFIPoint;
 		public static void setCulture() {
-			System.Globalization.CultureInfo ci = new	System.Globalization.CultureInfo("ru-RU");
+			System.Globalization.CultureInfo ci = new	System.Globalization.CultureInfo("en-GB");
 			/*ci.NumberFormat.NumberDecimalSeparator = ".";
 			ci.NumberFormat.NumberGroupSeparator = " ";
 			ci.NumberFormat.NaNSymbol = "-";

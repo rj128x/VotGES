@@ -9,9 +9,7 @@
 	<Grid x:Name="LayoutRoot">
 		<Image Source="/MainSL;component/Images/2.jpg" Stretch="Uniform"/>
 		<StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,0,0">
-			<HyperlinkButton NavigateUri="/RezhimSKReportPage" TargetName="ContentFrame" Content="Режим СК" 
-								  Foreground="DarkGray" FontWeight="Bold"/>
-			<HyperlinkButton NavigateUri="/FullReportPage" TargetName="ContentFrame" Content="Отчет (тест)" 
+			<HyperlinkButton NavigateUri="/RezhimSKReportPage" TargetName="ContentFrame" Content="Отчет (тест)" 
 								  Foreground="DarkGray" FontWeight="Bold"/>
 		</StackPanel>
 	</Grid>

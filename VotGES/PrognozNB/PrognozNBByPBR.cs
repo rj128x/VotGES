@@ -160,7 +160,6 @@ namespace VotGES.PrognozNB
 					dataArr.Add(entry);
 				}
 				cnt = dataArr.Count();
-				Logger.Info(cnt.ToString());
 				date = date.AddMinutes(-30);
 				index++;
 			}
