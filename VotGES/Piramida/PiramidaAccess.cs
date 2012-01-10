@@ -32,6 +32,7 @@ namespace VotGES.Piramida
 			
 			List<PiramidaEnrty> result=new List<PiramidaEnrty>();
 			SqlConnection connection=is2000?PiramidaAccess.getConnection():PiramidaAccess.getConnection2000();
+			connection.Open();
 			SqlCommand command= connection.CreateCommand();
 			command.Parameters.AddWithValue("@dateStart", dateStart);
 			command.Parameters.AddWithValue("@dateEnd", dateEnd);
@@ -43,19 +44,20 @@ namespace VotGES.Piramida
 			string valueParams=String.Format(" ( DATA_DATE{0}@dateStart and DATA_DATE{1}@dateEnd and PARNUMBER={2} and OBJTYPE={3} and OBJECT={4} and ITEM in ({5}) ) ",
 				dateStartCond,dateEndCond,parNumber,objType,obj,itemsStr);
 
-			connection.Open();
-			command.CommandText = String.Format("SELECT * from DATA  WHERE {0}",valueParams);
-			Logger.Info(command.CommandText.Replace("@dateStart", String.Format("'{0}'", dateStart)).Replace("@dateEnd", String.Format("'{0}'", dateEnd)));
+			
+			command.CommandText = String.Format("SELECT DATA_DATE, OBJECT, OBJTYPE, ITEM, PARNUMBER, VALUE0 from DATA  WHERE {0}",valueParams);
+			command.CommandText = command.CommandText.Replace("@dateStart", String.Format("'{0}'",dateStart.ToString("yyyy-MM-dd HH:mm:ss"))).Replace("@dateEnd", String.Format("'{0}'",dateEnd.ToString("yyyy-MM-dd HH:mm:ss")));
+			Logger.Info(command.CommandText);
 			SqlDataReader reader=command.ExecuteReader();
-			while (reader.Read()){
-				Logger.Info(reader["OBJECT"].ToString());
+						
+			while (reader.Read()){				
 				PiramidaEnrty entry=new PiramidaEnrty();
-				entry.Date=(DateTime)reader["DATA_DATE"];
-				entry.Object=(int)reader["OBJECT"];
-				entry.ObjType=((Int16)reader["OBJTYPE"]);
-				entry.Item = ((int)reader["ITEM"]);
-				entry.ParNumber=(int)reader["PARNUMBER"];
-				entry.Value0=(double)reader["VALUE0"];
+				entry.Date = reader.GetDateTime(0);
+				entry.Object=reader.GetInt32(1);
+				entry.ObjType=reader.GetInt16(2);
+				entry.Item = reader.GetInt32(3);
+				entry.ParNumber=reader.GetInt32(4);
+				entry.Value0=reader.GetDouble(5);
 				result.Add(entry);
 			}
 			reader.Close();
