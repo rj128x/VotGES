@@ -481,7 +481,7 @@ namespace VotGES.Piramida.Report
 			}
 
 			command.CommandText = commandText;
-			Logger.Info(commandText.Replace("@dateStart", String.Format("'{0}'", DateStart)).Replace("@dateEnd", String.Format("'{0}'", DateEnd)));
+			//Logger.Info(commandText.Replace("@dateStart", String.Format("'{0}'", DateStart)).Replace("@dateEnd", String.Format("'{0}'", DateEnd)));
 			SqlDataReader reader=command.ExecuteReader();
 			DateTime lastDate=DateEnd;
 

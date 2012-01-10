@@ -109,9 +109,6 @@ namespace VotGES.PrognozNB
 
 
 		public void readPBR() {
-			/*IQueryable<DATA> dataArr=from DATA d in model.DATA where
-													 d.PARNUMBER == 212 && d.DATA_DATE >= DateStart && d.DATA_DATE <= dateEnd &&
-													 d.OBJTYPE == 2 && d.OBJECT == 0 && d.ITEM == 1 select d;*/
 			List<PiramidaEnrty> dataArr=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 212, (new int[] { 1 }).ToList<int>(), false, true);
 			foreach (PiramidaEnrty data in dataArr) {
 				if (!pbr.Keys.Contains(data.Date)) {
@@ -121,9 +118,6 @@ namespace VotGES.PrognozNB
 		}
 
 		public void readP() {
-			/*IQueryable<DATA> dataArr=from DATA d in model.DATA where
-													 d.PARNUMBER == 12 && d.DATA_DATE > DateStart && d.DATA_DATE <= dateEnd &&
-													 d.OBJTYPE == 2 && d.OBJECT == 0 && d.ITEM == 1 select d;*/
 			List<PiramidaEnrty> dataArr=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 12, (new int[] { 1 }).ToList<int>(), false, true);
 			foreach (PiramidaEnrty data in dataArr) {
 				if (!pFakt.Keys.Contains(data.Date)) {
@@ -135,9 +129,6 @@ namespace VotGES.PrognozNB
 		public void readWater() {
 			int[] items=new int[] { 354, 276,373,275,274 };
 			List<int> il=items.ToList();			
-			/*IQueryable<DATA> dataArr=from DATA d in model.DATA where
-													 d.PARNUMBER == 12 && d.DATA_DATE > DateStart && d.DATA_DATE <= dateEnd &&
-													 d.OBJTYPE == 2 && d.OBJECT == 1 && il.Contains(d.ITEM) select d;*/
 			List<PiramidaEnrty> dataArr=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 1, 2, 12, il, false, true);
 
 			foreach (PiramidaEnrty data in dataArr) {
@@ -222,9 +213,6 @@ namespace VotGES.PrognozNB
 			List<int> il=items.ToList();
 			DateTime ds=date.AddHours(-2);
 			DateTime de=date.AddHours(0);
-			/*IQueryable<DATA> dataArr=from DATA d in model.DATA where
-													 d.PARNUMBER == 12 && d.DATA_DATE >= ds && d.DATA_DATE <= de &&
-													 d.OBJTYPE == 2 && (d.OBJECT == 1 && il.Contains(d.ITEM)|| d.OBJECT==0 && d.ITEM==1) select d;*/
 			List<PiramidaEnrty> dataArrW = PiramidaAccess.GetDataFromDB(ds, de, 1, 2, 12, il, true, true);
 			List<PiramidaEnrty> dataArrP = PiramidaAccess.GetDataFromDB(ds, de, 0, 2, 12, (new int[] { 1 }).ToList<int>(), true, true);
 			List<PiramidaEnrty> dataArr = new List<PiramidaEnrty>();

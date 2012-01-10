@@ -20,8 +20,8 @@ namespace VotGES.Piramida
 	public class PiramidaAccess
 	{
 		public static string conString=@"metadata=res://*/Piramida.Piramida3000.csdl|res://*/Piramida.Piramida3000.ssdl|res://*/Piramida.Piramida3000.msl;provider=System.Data.SqlClient;provider connection string='Data Source=sr-votges-int\sqlexpress;Initial Catalog=Piramida3000;Integrated Security=True;'";
-		public static string pureConString=@"Data Source=192.168.140.240;Initial Catalog=Piramida3000;Persist Security Info=True;User ID=sa;Password=pswd";
-		public static string pureConString2000=@"Data Source=192.168.140.240;Initial Catalog=Piramida2000;Persist Security Info=True;User ID=sa;Password=pswd";
+		public static string pureConString=@"Data Source=.\sqlexpress;Initial Catalog=Piramida3000;Persist Security Info=True;User ID=sa;Password=pswd";
+		public static string pureConString2000=@"Data Source=.\sqlexpress;Initial Catalog=Piramida2000;Persist Security Info=True;User ID=sa;Password=pswd";
 		static PiramidaAccess() {
 			
 
@@ -31,7 +31,7 @@ namespace VotGES.Piramida
 		public static List<PiramidaEnrty> GetDataFromDB(DateTime dateStart, DateTime dateEnd,int obj, int objType,int parNumber, List<int> items, bool includeFirst=false, bool includeLast=true, bool is2000=false){
 			
 			List<PiramidaEnrty> result=new List<PiramidaEnrty>();
-			SqlConnection connection=is2000?PiramidaAccess.getConnection():PiramidaAccess.getConnection2000();
+			SqlConnection connection=!is2000?PiramidaAccess.getConnection():PiramidaAccess.getConnection2000();
 			connection.Open();
 			SqlCommand command= connection.CreateCommand();
 			command.Parameters.AddWithValue("@dateStart", dateStart);
@@ -48,12 +48,9 @@ namespace VotGES.Piramida
 
 			
 			command.CommandText = String.Format("SELECT d.[DATA_DATE], d.[OBJECT], d.[OBJTYPE], d.[ITEM], d.[PARNUMBER], d.[VALUE0] from DATA as d  WHERE {0}",valueParams);
-			command.CommandText = command.CommandText.Replace("@dateStart", String.Format("'{0}'",dateStart.ToString("yyyy-MM-dd HH:mm:ss"))).Replace("@dateEnd", String.Format("'{0}'",dateEnd.ToString("yyyy-MM-dd HH:mm:ss")));
-			Logger.Info(command.CommandText);
 			SqlDataReader reader=command.ExecuteReader();
 						
 			while (reader.Read()){
-				Logger.Info("here");
 				PiramidaEnrty entry=new PiramidaEnrty();
 				entry.Date = reader.GetDateTime(0);
 				entry.Object=reader.GetInt32(1);

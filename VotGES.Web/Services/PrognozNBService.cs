@@ -44,9 +44,9 @@ namespace VotGES.Web.Services
 		public PrognozNBByPBRAnswer getPrognoz( int countDays, SortedList<DateTime,double> pbr) {
 			WebLogger.Info(String.Format("Получение прогноза (прогноз) {0} [{1}]", countDays, pbr == null ? "" : String.Join(" ", pbr)));
 			try {
-				DateTime date= DateTime.Now.AddHours(-2);
-				//DateTime date=new DateTime(2010, 03, 15);
-				//date = date.AddHours(13).AddMinutes(35);
+				//DateTime date= DateTime.Now.AddHours(-2);
+				DateTime date=new DateTime(2010, 03, 15);
+				date = date.AddHours(13).AddMinutes(35);
 				PrognozNBByPBR prognoz=new PrognozNBByPBR(date.Date,countDays,date,pbr);
 				prognoz.startPrognoz();
 				return prognoz.PrognozAnswer;

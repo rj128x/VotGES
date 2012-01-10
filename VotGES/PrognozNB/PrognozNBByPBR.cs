@@ -94,7 +94,7 @@ namespace VotGES.PrognozNB
 
 		public void readM53500() {
 
-			List<PiramidaEnrty> dataArr=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 53500, 2, 212, (new int[] { 3 }).ToList<int>(), false, true);
+			List<PiramidaEnrty> dataArr=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 53500, 2, 212, (new int[] { 3 }).ToList<int>(), true, true);
 
 			foreach (PiramidaEnrty data in dataArr) {
 				if (!m53500.Keys.Contains(data.Date)) {
@@ -107,10 +107,7 @@ namespace VotGES.PrognozNB
 		public void readPBRPrevSutki() {
 			DateTime ds=DatePrognozStart;
 			DateTime de=DatePrognozStart.AddDays(-1);
-			/*IQueryable<DATA> dataArr=from DATA d in model.DATA where
-													 d.PARNUMBER == 212 && d.DATA_DATE > DateStart && d.DATA_DATE <= dateEnd &&
-													 d.OBJTYPE == 2 && d.OBJECT == 0 && d.ITEM == 1 select d;*/
-			List<PiramidaEnrty> dataArr=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 212, (new int[] { 1 }).ToList<int>(), false, true);
+			List<PiramidaEnrty> dataArr=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 212, (new int[] { 1 }).ToList<int>(), true, true);
 			foreach (PiramidaEnrty data in dataArr) {
 				if (!pbrPrevSutki.Keys.Contains(data.Date)) {
 					pbrPrevSutki.Add(data.Date, data.Value0 / 1000);
@@ -162,9 +159,6 @@ namespace VotGES.PrognozNB
 				foreach (PiramidaEnrty entry in dataArrP) {
 					dataArr.Add(entry);
 				}
-				/*dataArr = from DATA d in model.DATA where
-															d.PARNUMBER == 12 && d.DATA_DATE >= ds && d.DATA_DATE <= de &&
-															d.OBJTYPE == 2 && (d.OBJECT == 1 && il.Contains(d.ITEM) || d.OBJECT == 0 && d.ITEM == 1) select d;*/
 				cnt = dataArr.Count();
 				Logger.Info(cnt.ToString());
 				date = date.AddMinutes(-30);
