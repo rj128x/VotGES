@@ -20,8 +20,7 @@ namespace VotGES.Piramida
 	public class PiramidaAccess
 	{
 		public static string conString=@"metadata=res://*/Piramida.Piramida3000.csdl|res://*/Piramida.Piramida3000.ssdl|res://*/Piramida.Piramida3000.msl;provider=System.Data.SqlClient;provider connection string='Data Source=sr-votges-int\sqlexpress;Initial Catalog=Piramida3000;Integrated Security=True;'";
-		public static string pureConString=@"Data Source=.\sqlexpress;Initial Catalog=Piramida3000;Persist Security Info=True;User ID=sa;Password=pswd";
-		public static string pureConString2000=@"Data Source=.\sqlexpress;Initial Catalog=Piramida2000;Persist Security Info=True;User ID=sa;Password=pswd";
+		public static string pureConString=@"Data Source=192.168.140.240;Initial Catalog=Piramida3000;Persist Security Info=True;User ID=sa;Password=pswd";
 		public static SqlConnection Connection { get; set; }
 		static PiramidaAccess() {
 			Connection = new SqlConnection(pureConString);
