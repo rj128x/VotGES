@@ -37,20 +37,23 @@ namespace VotGES.Piramida
 			command.Parameters.AddWithValue("@dateStart", dateStart);
 			command.Parameters.AddWithValue("@dateEnd", dateEnd);
 
+			items.Sort();
 			string itemsStr=String.Join(",",items);
+			
 			string dateStartCond=includeFirst?">=":">";
 			string dateEndCond=includeLast?"<=":"<";
 
-			string valueParams=String.Format(" ( DATA_DATE{0}@dateStart and DATA_DATE{1}@dateEnd and PARNUMBER={2} and OBJTYPE={3} and OBJECT={4} and ITEM in ({5}) ) ",
+			string valueParams=String.Format(" ( d.[DATA_DATE]{0}@dateStart and d.[DATA_DATE]{1}@dateEnd and d.[PARNUMBER]={2} and d.[OBJTYPE]={3} and d.[OBJECT]={4} and d.[ITEM] in ({5}) ) ",
 				dateStartCond,dateEndCond,parNumber,objType,obj,itemsStr);
 
 			
-			command.CommandText = String.Format("SELECT DATA_DATE, OBJECT, OBJTYPE, ITEM, PARNUMBER, VALUE0 from DATA  WHERE {0}",valueParams);
+			command.CommandText = String.Format("SELECT d.[DATA_DATE], d.[OBJECT], d.[OBJTYPE], d.[ITEM], d.[PARNUMBER], d.[VALUE0] from DATA as d  WHERE {0}",valueParams);
 			command.CommandText = command.CommandText.Replace("@dateStart", String.Format("'{0}'",dateStart.ToString("yyyy-MM-dd HH:mm:ss"))).Replace("@dateEnd", String.Format("'{0}'",dateEnd.ToString("yyyy-MM-dd HH:mm:ss")));
 			Logger.Info(command.CommandText);
 			SqlDataReader reader=command.ExecuteReader();
 						
-			while (reader.Read()){				
+			while (reader.Read()){
+				Logger.Info("here");
 				PiramidaEnrty entry=new PiramidaEnrty();
 				entry.Date = reader.GetDateTime(0);
 				entry.Object=reader.GetInt32(1);

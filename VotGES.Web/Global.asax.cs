@@ -32,7 +32,6 @@ namespace VotGES.Web
 			Logger.init(Logger.createFileLogger(Server.MapPath("/logs/"), "orders", logger));
 			Logger.Info("Старт приложения");
 			AreaRegistration.RegisterAllAreas();
-			Logger.Info((123456789).ToString("#,#0"));
 
 			RegisterRoutes(RouteTable.Routes);
 		}	
