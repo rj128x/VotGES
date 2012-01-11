@@ -18,16 +18,16 @@ namespace VotGES.Piramida.Report
 		public static RecordTypeCalc P_GA9=new RecordTypeCalc("P_GA9", "ГА-9 P", null);
 		public static RecordTypeCalc P_GA10=new RecordTypeCalc("P_GA10", "ГА-10 P", null);
 
-		public static RecordTypeCalc Q_GA1=new RecordTypeCalc("Q_GA1", "ГА-1 P", null);
-		public static RecordTypeCalc Q_GA2=new RecordTypeCalc("Q_GA2", "ГА-2 P", null);
-		public static RecordTypeCalc Q_GA3=new RecordTypeCalc("Q_GA3", "ГА-3 P", null);
-		public static RecordTypeCalc Q_GA4=new RecordTypeCalc("Q_GA4", "ГА-4 P", null);
-		public static RecordTypeCalc Q_GA5=new RecordTypeCalc("Q_GA5", "ГА-5 P", null);
-		public static RecordTypeCalc Q_GA6=new RecordTypeCalc("Q_GA6", "ГА-6 P", null);
-		public static RecordTypeCalc Q_GA7=new RecordTypeCalc("Q_GA7", "ГА-7 P", null);
-		public static RecordTypeCalc Q_GA8=new RecordTypeCalc("Q_GA8", "ГА-8 P", null);
-		public static RecordTypeCalc Q_GA9=new RecordTypeCalc("Q_GA9", "ГА-9 P", null);
-		public static RecordTypeCalc Q_GA10=new RecordTypeCalc("Q_GA10", "ГА-10 P", null);
+		public static RecordTypeCalc Q_GA1=new RecordTypeCalc("Q_GA1", "ГА-1 Q", null);
+		public static RecordTypeCalc Q_GA2=new RecordTypeCalc("Q_GA2", "ГА-2 Q", null);
+		public static RecordTypeCalc Q_GA3=new RecordTypeCalc("Q_GA3", "ГА-3 Q", null);
+		public static RecordTypeCalc Q_GA4=new RecordTypeCalc("Q_GA4", "ГА-4 Q", null);
+		public static RecordTypeCalc Q_GA5=new RecordTypeCalc("Q_GA5", "ГА-5 Q", null);
+		public static RecordTypeCalc Q_GA6=new RecordTypeCalc("Q_GA6", "ГА-6 Q", null);
+		public static RecordTypeCalc Q_GA7=new RecordTypeCalc("Q_GA7", "ГА-7 Q", null);
+		public static RecordTypeCalc Q_GA8=new RecordTypeCalc("Q_GA8", "ГА-8 Q", null);
+		public static RecordTypeCalc Q_GA9=new RecordTypeCalc("Q_GA9", "ГА-9 Q", null);
+		public static RecordTypeCalc Q_GA10=new RecordTypeCalc("Q_GA10", "ГА-10 Q", null);
 
 		public static RecordTypeCalc P_SN_GA=new RecordTypeCalc("P_SN_GA", "СН генераторов", null);
 		public static RecordTypeCalc P_Vozb=new RecordTypeCalc("P_Vozb", "Возбуждение", null);
