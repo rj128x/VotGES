@@ -21,16 +21,17 @@ namespace VotGES.Piramida
 	{
 		public static string conString=@"metadata=res://*/Piramida.Piramida3000.csdl|res://*/Piramida.Piramida3000.ssdl|res://*/Piramida.Piramida3000.msl;provider=System.Data.SqlClient;provider connection string='Data Source=sr-votges-int\sqlexpress;Initial Catalog=Piramida3000;Integrated Security=True;'";
 		public static string pureConString=@"Data Source=192.168.140.240;Initial Catalog=Piramida3000;Persist Security Info=True;User ID=sa;Password=pswd";
+		public static string pureConString2000=@"Data Source=192.168.140.240;Initial Catalog=Piramida2000;Persist Security Info=True;User ID=sa;Password=pswd";
 		public static SqlConnection Connection { get; set; }
 		static PiramidaAccess() {
 			Connection = new SqlConnection(pureConString);
 
 		}
 
-		public static List<PiramidaEnrty> GetDataFromDB(DateTime dateStart, DateTime dateEnd, int obj, int objType, int parNumber, List<int> items, bool includeFirst = false, bool includeLast = true) {
+		public static List<PiramidaEnrty> GetDataFromDB(DateTime dateStart, DateTime dateEnd, int obj, int objType, int parNumber, List<int> items, bool includeFirst = false, bool includeLast = true, bool isP2000=false) {
 			
 			List<PiramidaEnrty> result=new List<PiramidaEnrty>();
-			SqlConnection connection=PiramidaAccess.getConnection();
+			SqlConnection connection=!isP2000?PiramidaAccess.getConnection():PiramidaAccess.getConnection2000();
 			SqlDataReader reader=null;
 			SqlCommand command=null;
 			connection.Open();
@@ -50,6 +51,8 @@ namespace VotGES.Piramida
 
 				command.CommandText = String.Format("SELECT d.[DATA_DATE], d.[OBJECT], d.[OBJTYPE], d.[ITEM], d.[PARNUMBER], d.[VALUE0] from DATA as d  WHERE {0}", valueParams);
 
+
+
 				reader=command.ExecuteReader();
 				
 				while (reader.Read()) {
@@ -60,6 +63,7 @@ namespace VotGES.Piramida
 					entry.Item = reader.GetInt32(3);
 					entry.ParNumber = reader.GetInt32(4);
 					entry.Value0 = reader.GetDouble(5);
+					
 					result.Add(entry);
 				}		
 				
@@ -79,6 +83,11 @@ namespace VotGES.Piramida
 
 		public static SqlConnection getConnection() {
 			SqlConnection con=new SqlConnection(pureConString);			
+			return con;
+		}
+
+		public static SqlConnection getConnection2000() {
+			SqlConnection con=new SqlConnection(pureConString2000);
 			return con;
 		}
 

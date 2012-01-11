@@ -392,7 +392,7 @@ namespace VotGES.Piramida.Report
 			string objType=paramsArr[2];
 			string obj=paramsArr[3];
 
-			connection = PiramidaAccess.getConnection();
+			connection = Interval != IntervalReportEnum.minute ? PiramidaAccess.getConnection() : PiramidaAccess.getConnection2000();
 			connection.Open();
 			SqlDataReader reader=null; SqlCommand command=null;
 			try {

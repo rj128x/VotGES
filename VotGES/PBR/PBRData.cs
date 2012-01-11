@@ -56,7 +56,7 @@ namespace VotGES.PBR
 
 
 
-			List<PiramidaEnrty> dataFakt=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 4, items, true, true);
+			List<PiramidaEnrty> dataFakt=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 4, items, true, true,true);
 			foreach (PiramidaEnrty data in dataFakt) {
 				try {
 					DateTime date=data.Date;
