@@ -178,7 +178,7 @@ namespace VotGES.PrognozNB
 					if (vbFakt.Keys.Contains(date))
 						vbFakt.Remove(date);
 					if (vbFakt.Keys.Contains(date.AddMinutes(-30)))
-						vbFakt.Add(date, nbFakt[date.AddMinutes(-30)]);
+						vbFakt.Add(date, vbFakt[date.AddMinutes(-30)]);
 					else vbFakt.Add(date, 87);
 				}
 				if (!tFakt.Keys.Contains(date) || tFakt[date] == 0) {
